@@ -1,0 +1,78 @@
+/* global cal data2 describe expect it: true */
+
+'use strict';
+
+const chai = require ('chai');
+const cal = require ('../../build/Calendrical/calendar/MayanCountCalendar.js').MayanCountCalendar;
+
+require ('dirty-chai');
+require ('mocha');
+const Const = require ('../../build/Calendrical/Const.js');
+
+const expect = chai.expect;
+
+const data2 = [
+  { 'rataDie': -214193, 'mayanLong': { 'baktun': 6, 'katun': 8, 'tun': 3, 'uinal': 13, 'kin': 9 } },
+  { 'rataDie': -61387, 'mayanLong': { 'baktun': 7, 'katun': 9, 'tun': 8, 'uinal': 3, 'kin': 15 } },
+  { 'rataDie': 25469, 'mayanLong': { 'baktun': 8, 'katun': 1, 'tun': 9, 'uinal': 8, 'kin': 11 } },
+  { 'rataDie': 49217, 'mayanLong': { 'baktun': 8, 'katun': 4, 'tun': 15, 'uinal': 7, 'kin': 19 } },
+  { 'rataDie': 171307, 'mayanLong': { 'baktun': 9, 'katun': 1, 'tun': 14, 'uinal': 10, 'kin': 9 } },
+  { 'rataDie': 210155, 'mayanLong': { 'baktun': 9, 'katun': 7, 'tun': 2, 'uinal': 8, 'kin': 17 } },
+  { 'rataDie': 253427, 'mayanLong': { 'baktun': 9, 'katun': 13, 'tun': 2, 'uinal': 12, 'kin': 9 } },
+  { 'rataDie': 369740, 'mayanLong': { 'baktun': 10, 'katun': 9, 'tun': 5, 'uinal': 14, 'kin': 2 } },
+  { 'rataDie': 400085, 'mayanLong': { 'baktun': 10, 'katun': 13, 'tun': 10, 'uinal': 1, 'kin': 7 } },
+  { 'rataDie': 434355, 'mayanLong': { 'baktun': 10, 'katun': 18, 'tun': 5, 'uinal': 4, 'kin': 17 } },
+  { 'rataDie': 452605, 'mayanLong': { 'baktun': 11, 'katun': 0, 'tun': 15, 'uinal': 17, 'kin': 7 } },
+  { 'rataDie': 470160, 'mayanLong': { 'baktun': 11, 'katun': 3, 'tun': 4, 'uinal': 13, 'kin': 2 } },
+  { 'rataDie': 473837, 'mayanLong': { 'baktun': 11, 'katun': 3, 'tun': 14, 'uinal': 16, 'kin': 19 } },
+  { 'rataDie': 507850, 'mayanLong': { 'baktun': 11, 'katun': 8, 'tun': 9, 'uinal': 7, 'kin': 12 } },
+  { 'rataDie': 524156, 'mayanLong': { 'baktun': 11, 'katun': 10, 'tun': 14, 'uinal': 12, 'kin': 18 } },
+  { 'rataDie': 544676, 'mayanLong': { 'baktun': 11, 'katun': 13, 'tun': 11, 'uinal': 12, 'kin': 18 } },
+  { 'rataDie': 567118, 'mayanLong': { 'baktun': 11, 'katun': 16, 'tun': 14, 'uinal': 1, 'kin': 0 } },
+  { 'rataDie': 569477, 'mayanLong': { 'baktun': 11, 'katun': 17, 'tun': 0, 'uinal': 10, 'kin': 19 } },
+  { 'rataDie': 601716, 'mayanLong': { 'baktun': 12, 'katun': 1, 'tun': 10, 'uinal': 2, 'kin': 18 } },
+  { 'rataDie': 613424, 'mayanLong': { 'baktun': 12, 'katun': 3, 'tun': 2, 'uinal': 12, 'kin': 6 } },
+  { 'rataDie': 626596, 'mayanLong': { 'baktun': 12, 'katun': 4, 'tun': 19, 'uinal': 4, 'kin': 18 } },
+  { 'rataDie': 645554, 'mayanLong': { 'baktun': 12, 'katun': 7, 'tun': 11, 'uinal': 16, 'kin': 16 } },
+  { 'rataDie': 664224, 'mayanLong': { 'baktun': 12, 'katun': 10, 'tun': 3, 'uinal': 14, 'kin': 6 } },
+  { 'rataDie': 671401, 'mayanLong': { 'baktun': 12, 'katun': 11, 'tun': 3, 'uinal': 13, 'kin': 3 } },
+  { 'rataDie': 694799, 'mayanLong': { 'baktun': 12, 'katun': 14, 'tun': 8, 'uinal': 13, 'kin': 1 } },
+  { 'rataDie': 704424, 'mayanLong': { 'baktun': 12, 'katun': 15, 'tun': 15, 'uinal': 8, 'kin': 6 } },
+  { 'rataDie': 708842, 'mayanLong': { 'baktun': 12, 'katun': 16, 'tun': 7, 'uinal': 13, 'kin': 4 } },
+  { 'rataDie': 709409, 'mayanLong': { 'baktun': 12, 'katun': 16, 'tun': 9, 'uinal': 5, 'kin': 11 } },
+  { 'rataDie': 709580, 'mayanLong': { 'baktun': 12, 'katun': 16, 'tun': 9, 'uinal': 14, 'kin': 2 } },
+  { 'rataDie': 727274, 'mayanLong': { 'baktun': 12, 'katun': 18, 'tun': 18, 'uinal': 16, 'kin': 16 } },
+  { 'rataDie': 728714, 'mayanLong': { 'baktun': 12, 'katun': 19, 'tun': 2, 'uinal': 16, 'kin': 16 } },
+  { 'rataDie': 744313, 'mayanLong': { 'baktun': 13, 'katun': 1, 'tun': 6, 'uinal': 4, 'kin': 15 } },
+  { 'rataDie': 764652, 'mayanLong': { 'baktun': 13, 'katun': 4, 'tun': 2, 'uinal': 13, 'kin': 14 } },
+];
+
+describe ('Mayan Count calendar spec', function () {
+  let date, julian, expected, actual;
+
+  it ('should convert a Mayan Count to Julian day', function () {
+    data2.forEach (function (data) {
+      expected = data.rataDie + Const.J0000;
+      date     = data.mayanLong;
+      actual   = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
+
+      expect (expected).to.be.equal (actual);
+    });
+  });
+
+  it ('should convert a Julian day to a Mayan Count', function () {
+    data2.forEach (function (data) {
+      julian   = data.rataDie + Const.J0000;
+      date     = data.mayanLong;
+      expected = { baktun: date.baktun, katun: date.katun, tun: date.tun, uinal: date.uinal, kin: date.kin };
+      actual   = cal.fromJdn (julian);
+
+      // expect (expected).to.be.eql (actual);
+      expect (expected.baktun).to.be.equal (actual.baktun);
+      expect (expected.katun).to.be.equal (actual.katun);
+      expect (expected.tun).to.be.equal (actual.tun);
+      expect (expected.uinal).to.be.equal (actual.uinal);
+      expect (expected.kin).to.be.equal (actual.kin);
+    });
+  });
+});

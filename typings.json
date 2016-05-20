@@ -1,0 +1,15 @@
+{
+  "name": "calendrical",
+  "version": false,
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "require": "registry:dt/require#2.1.20+20160316155526"
+  },
+  "ambientDevDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
+    "require": "registry:dt/require#2.1.20+20160316155526"
+  }
+}

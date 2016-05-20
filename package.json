@@ -1,0 +1,24 @@
+{
+  "name": "calendrical",
+  "version": "0.0.1",
+  "description": "Calendrical calculations in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -fr build node_modules spec/build typings",
+    "test": "mocha spec/*/*.spec.ts"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "dirty-chai": "^1.2.2",
+    "eslint": "^2.9.0",
+    "eslint-config-google": "^0.5.0",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-mocha": "^2.2.0",
+    "mocha": "^2.4.5",
+    "requirejs": "^2.2.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
+  }
+}

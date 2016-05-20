@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "module": "CommonJS",
+        "target": "es6",
+        "removeComments": true,
+        "noLib": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "listFiles": true,
+        "outDir": "build/"
+    },
+    "exclude": [
+        "build",
+        "node_modules"
+    ],
+    "files": [
+        "astro/astro.spec.ts",
+        "calendar/bahai.spec.ts",
+        "calendar/french.spec.ts",
+        "calendar/gregorian.spec.ts",
+        "calendar/hebrew.spec.ts",
+        "calendar/hindu.lunar.astro.spec.ts",
+        "calendar/hindu.lunar.modern.spec.ts",
+        "calendar/hindu.lunar.old.spec.ts",
+        "calendar/hindu.solar.astro.spec.ts",
+        "calendar/hindu.solar.modern.spec.ts",
+        "calendar/hindu.solar.old.spec.ts",
+        "calendar/islamic.spec.ts",
+        "calendar/julian.spec.ts",
+        "calendar/mayan.count.spec.ts",
+        "calendar/mayan.haab.spec.ts",
+        "calendar/mayan.tzolkin.spec.ts",
+        "calendar/persian.arithmetic.spec.ts",
+        "calendar/persian.astronomical.spec.ts",
+        "calendar/tibetan.spec.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
