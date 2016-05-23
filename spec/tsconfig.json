@@ -19,6 +19,7 @@
         "astro/astro.spec.ts",
         "calendar/bahai.spec.ts",
         "calendar/french.spec.ts",
+        "calendar/egyptian.spec.ts",
         "calendar/gregorian.spec.ts",
         "calendar/hebrew.spec.ts",
         "calendar/hindu.lunar.astro.spec.ts",

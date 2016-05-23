@@ -63,51 +63,6 @@ enum Month {
   DECEMBER = 12
 }
 
-const gregorian = {
-  EPOCH: 1721425.5,
-  EPOCH_RD: 730120.5,
-  MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
-};
-
-const julian = {
-  EPOCH: 1721423.5,
-  MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
-};
-
-const hebrew = {
-  EPOCH: 347995.5,
-  MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
-  H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
-};
-
-const french = {
-  EPOCH: 2375839.5,
-  MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
-  DECADE: [ 'I', 'II', 'III' ],
-  JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
-    '------------', 'de la Vertu (1)', 'du Génie (2)', 'du Travail (3)', 'de l\'Opinion (4)', 'des Récompenses (5)', 'de la Révolution (6)' ]
-};
-
-const islamic = {
-  EPOCH: 1948439.5,
-  WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
-  MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ]
-};
-
-const persian = {
-  EPOCH: 1948320.5,
-  EPOCH_RD: 226896,
-  TEHRAN_LOCATION: [ 35.68, 51.42, 1100, 7 / 48 ],
-  WEEKDAYS: [ 'Yekshanbeh', 'Doshanbeh', 'Seshhanbeh', 'Chaharshanbeh', 'Panjshanbeh', 'Jomeh', 'Shanbeh' ],
-  MONTHS: [ 'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand' ]
-};
-
-const mayan = {
-  COUNT_EPOCH: 584282.5,
-  HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin', 'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
-  TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben', 'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
-};
-
 const bahai = {
   EPOCH: 2394646.5,
   EPOCH172: 2457102.5,
@@ -115,6 +70,31 @@ const bahai = {
   YEARS: [ 'Alif', 'Bá', 'Ab', 'Dál', 'Báb', 'Váv', 'Abad', 'Jád', 'Bahá', 'Hubb', 'Bahháj', 'Javáb', 'Ahad', 'Vahháb', 'Vidád', 'Badí', 'Bahí', 'Abhá', 'Vahíd' ],
   MONTHS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
   DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
+};
+
+const french = {
+  EPOCH: 2375839.5,
+  MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
+  DECADE: [ 'I', 'II', 'III' ],
+  JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
+  '------------', 'de la Vertu (1)', 'du Génie (2)', 'du Travail (3)', 'de l\'Opinion (4)', 'des Récompenses (5)', 'de la Révolution (6)' ]
+};
+
+const egyptian = {
+  EPOCH: 1448637.5,
+  EPOCH_RD: -272787
+};
+
+const gregorian = {
+  EPOCH: 1721425.5,
+  EPOCH_RD: 730120.5,
+  MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+};
+
+const hebrew = {
+  EPOCH: 347995.5,
+  MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
+  H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
 };
 
 const hindu = {
@@ -134,13 +114,66 @@ const hindu = {
   MONTHS: [ 'Caitra', 'Vaisakha', 'Jyaistha', 'Asadha', 'Sravana', 'Bhadra', 'Asvina', 'Kartika', 'Agrahayana', 'Pausa', 'Magha', 'Phalguna' ]
 };
 
+const islamic = {
+  EPOCH: 1948439.5,
+  WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
+  MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ]
+};
+
+const julian = {
+  EPOCH: 1721423.5,
+  MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
+};
+
+const mayan = {
+  COUNT_EPOCH: 584282.5,
+  HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin', 'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
+  TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben', 'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
+};
+
+const persian = {
+  EPOCH: 1948320.5,
+  EPOCH_RD: 226896,
+  TEHRAN_LOCATION: [ 35.68, 51.42, 1100, 7 / 48 ],
+  WEEKDAYS: [ 'Yekshanbeh', 'Doshanbeh', 'Seshhanbeh', 'Chaharshanbeh', 'Panjshanbeh', 'Jomeh', 'Shanbeh' ],
+  MONTHS: [ 'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand' ]
+};
+
 const tibetan = {
   EPOCH: -46410 + 1721424.5, // 172/12/07 BCE (Gregorian)
   EPOCH_RD: -46410 // 172/12/07 BCE (Gregorian)
 };
 
-export { J0000, J1970, JMJD, J1900, J1904, J2000,
-  ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_YEAR, ARYA_SOLAR_MONTH, JULIAN_CENTURY,
-  MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, TROPICAL_YEAR,
-  Month, Season, gregorian, julian, hebrew, french, islamic, persian, mayan, bahai, hindu, tibetan
+export {
+  ARYA_LUNAR_DAY,
+  ARYA_LUNAR_MONTH,
+  ARYA_SOLAR_MONTH,
+  ARYA_SOLAR_YEAR,
+  // ASTRONOMICAL_UNIT,
+  J0000,
+  J1900,
+  J1904,
+  J1970,
+  J2000,
+  // J2000_JDN,
+  JMJD,
+  JULIAN_CENTURY,
+  // JULIAN_MILLENIUM,
+  MEAN_SIDEREAL_YEAR,
+  MEAN_SYNODIC_MONTH,
+  MEAN_TROPICAL_YEAR,
+  Month,
+  Season,
+  TROPICAL_YEAR,
+  bahai,
+  egyptian,
+  french,
+  gregorian,
+  hebrew,
+  hindu,
+  islamic,
+  julian,
+  mayan,
+  persian,
+  tibetan
 }

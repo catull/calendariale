@@ -23,6 +23,7 @@
         "src/ts/Calendrical/HinduAlgorithms.ts",
         "src/ts/Calendrical/calendar/BahaiCalendar.ts",
         "src/ts/Calendrical/calendar/FrenchRevolutionaryCalendar.ts",
+        "src/ts/Calendrical/calendar/EgyptianCalendar.ts",
         "src/ts/Calendrical/calendar/GregorianCalendar.ts",
         "src/ts/Calendrical/calendar/HebrewCalendar.ts",
         "src/ts/Calendrical/calendar/HinduLunarAstroCalendar.ts",
@@ -39,7 +40,8 @@
         "src/ts/Calendrical/calendar/PersianArithmeticCalendar.ts",
         "src/ts/Calendrical/calendar/PersianAstronomicalCalendar.ts",
         "src/ts/Calendrical/calendar/TibetanCalendar.ts"
-    ],
+    ]
+    /*
     "formatCodeOptions": {
         "indentSize": 2,
         "tabSize": 2,
@@ -57,4 +59,5 @@
     "atom": {
         "rewriteTsconfig": true,
     }
+    */
 }
