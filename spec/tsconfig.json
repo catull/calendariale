@@ -17,6 +17,7 @@
     ],
     "files": [
         "astro/astro.spec.ts",
+        "calendar/armenian.spec.ts",
         "calendar/bahai.spec.ts",
         "calendar/french.spec.ts",
         "calendar/egyptian.spec.ts",

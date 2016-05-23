@@ -21,6 +21,7 @@
         "src/ts/Calendrical/Astro.ts",
         "src/ts/Calendrical/Calendar.ts",
         "src/ts/Calendrical/HinduAlgorithms.ts",
+        "src/ts/Calendrical/calendar/ArmenianCalendar.ts",
         "src/ts/Calendrical/calendar/BahaiCalendar.ts",
         "src/ts/Calendrical/calendar/FrenchRevolutionaryCalendar.ts",
         "src/ts/Calendrical/calendar/EgyptianCalendar.ts",

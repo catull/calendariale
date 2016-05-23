@@ -63,9 +63,14 @@ enum Month {
   DECEMBER = 12
 }
 
+const armenian = {
+  EPOCH: 1922867.5, // 522/07/11 Julian B.C.E.
+  EPOCH_RD: 201443
+};
+
 const bahai = {
-  EPOCH: 2394646.5,
-  EPOCH172: 2457102.5,
+  EPOCH: 2394646.5,    // 1844/03/21 Gregorian C.E.
+  EPOCH172: 2457102.5, // 2015/03/21 Gregorian C.E.
   WEEKDAYS: [ 'Jamál', 'Kamál', 'Fidál', 'Idál', 'Istijlál', 'Istiqlál', 'Jalál' ],
   YEARS: [ 'Alif', 'Bá', 'Ab', 'Dál', 'Báb', 'Váv', 'Abad', 'Jád', 'Bahá', 'Hubb', 'Bahháj', 'Javáb', 'Ahad', 'Vahháb', 'Vidád', 'Badí', 'Bahí', 'Abhá', 'Vahíd' ],
   MONTHS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
@@ -73,7 +78,7 @@ const bahai = {
 };
 
 const french = {
-  EPOCH: 2375839.5,
+  EPOCH: 2375839.5, // 1792/09/22 Gregorian C.E.
   MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
   DECADE: [ 'I', 'II', 'III' ],
   JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
@@ -81,25 +86,25 @@ const french = {
 };
 
 const egyptian = {
-  EPOCH: 1448637.5,
+  EPOCH: 1448637.5, // 747/02/26 Julian B.C.E.
   EPOCH_RD: -272787
 };
 
 const gregorian = {
-  EPOCH: 1721425.5,
+  EPOCH: 1721425.5, // 001/01/03 Julian C.E.
   EPOCH_RD: 730120.5,
   MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 };
 
 const hebrew = {
-  EPOCH: 347995.5,
+  EPOCH: 347995.5, // 3761/10/05 Julian B.C.E.
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
   H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
 };
 
 const hindu = {
-  EPOCH: 588465.5,
-  EPOCH_RD: -1132959, // Julian 3102/02/18 BCE
+  EPOCH: 588465.5, // 3102/02/18 Julian B.C.E.
+  EPOCH_RD: -1132959,
   SIDEREAL_YEAR: 365 + 279457 / 1080000,
   CREATION: -714403429586.0, // EPOCH - 1955880000 * SIDEREAL_YEAR
   SIDEREAL_MONTH: 27 + 4644439 / 14438334,
@@ -121,18 +126,18 @@ const islamic = {
 };
 
 const julian = {
-  EPOCH: 1721423.5,
+  EPOCH: 1721423.5, // 622/07/16 Julian C.E.
   MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 };
 
 const mayan = {
-  COUNT_EPOCH: 584282.5,
+  COUNT_EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
   HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin', 'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
   TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben', 'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
 };
 
 const persian = {
-  EPOCH: 1948320.5,
+  EPOCH: 1948320.5, // 622/03/19 Julian C.E.
   EPOCH_RD: 226896,
   TEHRAN_LOCATION: [ 35.68, 51.42, 1100, 7 / 48 ],
   WEEKDAYS: [ 'Yekshanbeh', 'Doshanbeh', 'Seshhanbeh', 'Chaharshanbeh', 'Panjshanbeh', 'Jomeh', 'Shanbeh' ],
@@ -140,8 +145,8 @@ const persian = {
 };
 
 const tibetan = {
-  EPOCH: -46410 + 1721424.5, // 172/12/07 BCE (Gregorian)
-  EPOCH_RD: -46410 // 172/12/07 BCE (Gregorian)
+  EPOCH: 1675014.5, // 128/12/10 Julian B.C.E.
+  EPOCH_RD: -46410
 };
 
 export {
@@ -165,6 +170,7 @@ export {
   Month,
   Season,
   TROPICAL_YEAR,
+  armenian,
   bahai,
   egyptian,
   french,
