@@ -77,6 +77,11 @@ const bahai = {
   DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
 };
 
+const coptic = {
+  EPOCH: 1825029.5, // 284/08/29 Julian C.E.
+  EPOCH_RD: 201443
+};
+
 const french = {
   EPOCH: 2375839.5, // 1792/09/22 Gregorian C.E.
   MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
@@ -172,6 +177,7 @@ export {
   TROPICAL_YEAR,
   armenian,
   bahai,
+  coptic,
   egyptian,
   french,
   gregorian,
