@@ -1,5 +1,5 @@
-import { amod, constants, deltaT, equationOfTime, equinox, mod } from '../Astro';
-import { french } from '../Const';
+import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
+import { french, TROPICAL_YEAR } from '../Const';
 import { Calendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
@@ -24,12 +24,12 @@ export class FrenchRevolutionaryCalendar extends Calendar {
   public static toJdn2 (an: number, mois: number, decadi: number, jour: number): number {
     let adr, equinoxe, guess, jdn;
 
-    guess = french.EPOCH + constants.TROPICAL_YEAR * (an - 2);
+    guess = french.EPOCH + TROPICAL_YEAR * (an - 2);
     adr = [ an - 1, 0 ];
 
     while (adr[0] < an) {
       adr = this.anneeDeLaRevolution (guess);
-      guess = adr[1] + constants.TROPICAL_YEAR + 2;
+      guess = adr[1] + TROPICAL_YEAR + 2;
     }
 
     equinoxe = adr[1];
@@ -110,7 +110,7 @@ export class FrenchRevolutionaryCalendar extends Calendar {
       nexteq = this.parisEquinoxeJd (guess);
     }
 
-    adr = Math.round ((lasteq - french.EPOCH) / constants.TROPICAL_YEAR) + 1;
+    adr = Math.round ((lasteq - french.EPOCH) / TROPICAL_YEAR) + 1;
 
     return [ adr, lasteq ];
   }

@@ -1,3 +1,13 @@
+
+// *Days in Julian century*
+const JULIAN_CENTURY = 36525;
+
+// *Days in Julian millennium*
+// const JULIAN_MILLENIUM = 365250;
+
+// *Astronomical unit in kilometres*
+// const ASTRONOMICAL_UNIT = 149597870.0;
+
 // *Julian date of Gregorian epoch: 0000-01-01*
 const J0000 = 1721424.5;
 
@@ -16,6 +26,9 @@ const J1904 = 2416480.5;
 // *Gregorian date: 02000-01-01
 const J2000 = 730120.5;
 
+// *Julian day of J2000 epoch*
+// const J2000_JDN = 2451545.0;
+
 const ARYA_LUNAR_MONTH = 1577917500 / 53433336; // 29.5305818076,
 const ARYA_LUNAR_DAY = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
 const ARYA_SOLAR_YEAR = 1577917500 / 4320000; // 365.258680556,
@@ -24,6 +37,9 @@ const ARYA_SOLAR_MONTH = ARYA_SOLAR_YEAR / 12; // 30.4382233796,
 const MEAN_SIDEREAL_YEAR = 365.25636;
 const MEAN_SYNODIC_MONTH = 29.530588861;
 const MEAN_TROPICAL_YEAR = 365.242189;
+
+// *Mean solar tropical year*
+const TROPICAL_YEAR = 365.24219878;
 
 enum Season {
   SPRING = 0,
@@ -124,7 +140,7 @@ const tibetan = {
 };
 
 export { J0000, J1970, JMJD, J1900, J1904, J2000,
-  ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_YEAR, ARYA_SOLAR_MONTH,
-  MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Month, Season,
-  gregorian, julian, hebrew, french, islamic, persian, mayan, bahai, hindu, tibetan
+  ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_YEAR, ARYA_SOLAR_MONTH, JULIAN_CENTURY,
+  MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, TROPICAL_YEAR,
+  Month, Season, gregorian, julian, hebrew, french, islamic, persian, mayan, bahai, hindu, tibetan
 }

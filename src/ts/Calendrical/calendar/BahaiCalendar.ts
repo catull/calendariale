@@ -1,5 +1,5 @@
-import { amod, constants, deltaT, equationOfTime, equinox, mod } from '../Astro';
-import { bahai, gregorian } from '../Const';
+import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
+import { bahai, gregorian, TROPICAL_YEAR } from '../Const';
 import { Calendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
@@ -186,7 +186,7 @@ export class BahaiCalendar extends Calendar {
         nexteq = this.tehranEquinoxJd (guess);
       }
 
-      adr = Math.round ((lasteq - epoch) / constants.TROPICAL_YEAR) + 1;
+      adr = Math.round ((lasteq - epoch) / TROPICAL_YEAR) + 1;
 
       return [ adr, lasteq ];
     }
