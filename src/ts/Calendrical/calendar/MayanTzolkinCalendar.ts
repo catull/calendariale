@@ -8,7 +8,7 @@ export class MayanTzolkinCalendar {
 
   // Calculate Mayan Tzolkin calendar date from Julian day
   public static fromJdn (jdn: number): MayanTzolkinCalendar {
-    const count = Math.floor (jdn) + 0.5 - mayan.COUNT_EPOCH;
+    const count = Math.floor (jdn) + 0.5 - mayan.EPOCH;
 
     return new MayanTzolkinCalendar (amod (count + 4, 13), amod (count, 20));
   }

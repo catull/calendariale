@@ -11,7 +11,7 @@ export class MayanCountCalendar {
 
   // Determine JUlian day number from Mayan Count calendar date
   public static toJdn (baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
-    return mayan.COUNT_EPOCH +
+    return mayan.EPOCH +
       baktun * 144000 +
       katun * 7200 +
       tun * 360 +
@@ -23,7 +23,7 @@ export class MayanCountCalendar {
   public static fromJdn (jdn: number): MayanCountCalendar {
     let d0, baktun, katun, tun, uinal, kin;
 
-    d0     = Math.floor (jdn) + 0.5 - mayan.COUNT_EPOCH;
+    d0     = Math.floor (jdn) + 0.5 - mayan.EPOCH;
     baktun = Math.floor (d0 / 144000);
     d0     = mod (d0, 144000);
     katun  = Math.floor (d0 / 7200);

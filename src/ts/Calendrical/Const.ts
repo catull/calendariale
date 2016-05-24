@@ -104,6 +104,7 @@ const ethiopic = {
 
 const french = {
   EPOCH: 2375839.5, // 1792/09/22 Gregorian C.E.
+  EPOCH_RD: 654416,
   MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
   DECADE: [ 'I', 'II', 'III' ],
   JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
@@ -118,6 +119,7 @@ const gregorian = {
 
 const hebrew = {
   EPOCH: 347995.5, // 3761/10/07 Julian B.C.E.
+  EPOCH_RD: -1373428,
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
   H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
 };
@@ -140,18 +142,21 @@ const hindu = {
 };
 
 const islamic = {
-  EPOCH: 1948439.5,
+  EPOCH: 1948439.5, // 622/07/16 Julian C.E.
+  EPOCH_RD: 227016,
   WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
   MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ]
 };
 
 const julian = {
-  EPOCH: 1721423.5, // 622/07/16 Julian C.E.
+  EPOCH: 1721423.5, // 0001/01/01 Julian C.E.
+  EPOCH_RD: 0,
   MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 };
 
 const mayan = {
-  COUNT_EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
+  EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
+  EPOCH_RD: -1137141,
   HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin', 'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
   TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben', 'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
 };
