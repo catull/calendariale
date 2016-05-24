@@ -1,4 +1,4 @@
-/* global describe expect it: true */
+/* global describe it: true */
 
 'use strict';
 
@@ -13,39 +13,39 @@ require ('mocha');
 const expect = chai.expect;
 
 const data3 = [
-    { 'rataDie': -214193, 'persianAstro': { 'year': -1208, 'month': 5, 'day': 1 } },
-    { 'rataDie': -61387, 'persianAstro': { 'year': -790, 'month': 9, 'day': 14 } },
-    { 'rataDie': 25469, 'persianAstro': { 'year': -552, 'month': 7, 'day': 2 } },
-    { 'rataDie': 49217, 'persianAstro': { 'year': -487, 'month': 7, 'day': 9 } },
-    { 'rataDie': 171307, 'persianAstro': { 'year': -153, 'month': 10, 'day': 19 } },
-    { 'rataDie': 210155, 'persianAstro': { 'year': -46, 'month': 2, 'day': 31 } },
-    { 'rataDie': 253427, 'persianAstro': { 'year': 73, 'month': 8, 'day': 19 } },
-    { 'rataDie': 369740, 'persianAstro': { 'year': 392, 'month': 2, 'day': 5 } },
-    { 'rataDie': 400085, 'persianAstro': { 'year': 475, 'month': 3, 'day': 4 } },
-    { 'rataDie': 434355, 'persianAstro': { 'year': 569, 'month': 1, 'day': 3 } },
-    { 'rataDie': 452605, 'persianAstro': { 'year': 618, 'month': 12, 'day': 20 } },
-    { 'rataDie': 470160, 'persianAstro': { 'year': 667, 'month': 1, 'day': 14 } },
-    { 'rataDie': 473837, 'persianAstro': { 'year': 677, 'month': 2, 'day': 8 } },
-    { 'rataDie': 507850, 'persianAstro': { 'year': 770, 'month': 3, 'day': 22 } },
-    { 'rataDie': 524156, 'persianAstro': { 'year': 814, 'month': 11, 'day': 13 } },
-    { 'rataDie': 544676, 'persianAstro': { 'year': 871, 'month': 1, 'day': 21 } },
-    { 'rataDie': 567118, 'persianAstro': { 'year': 932, 'month': 6, 'day': 28 } },
-    { 'rataDie': 569477, 'persianAstro': { 'year': 938, 'month': 12, 'day': 14 } },
-    { 'rataDie': 601716, 'persianAstro': { 'year': 1027, 'month': 3, 'day': 21 } },
-    { 'rataDie': 613424, 'persianAstro': { 'year': 1059, 'month': 4, 'day': 10 } },
-    { 'rataDie': 626596, 'persianAstro': { 'year': 1095, 'month': 5, 'day': 2 } },
-    { 'rataDie': 645554, 'persianAstro': { 'year': 1147, 'month': 3, 'day': 30 } },
-    { 'rataDie': 664224, 'persianAstro': { 'year': 1198, 'month': 5, 'day': 10 } },
-    { 'rataDie': 671401, 'persianAstro': { 'year': 1218, 'month': 1, 'day': 7 } },
-    { 'rataDie': 694799, 'persianAstro': { 'year': 1282, 'month': 1, 'day': 29 } },
-    { 'rataDie': 704424, 'persianAstro': { 'year': 1308, 'month': 6, 'day': 3 } },
-    { 'rataDie': 708842, 'persianAstro': { 'year': 1320, 'month': 7, 'day': 7 } },
-    { 'rataDie': 709409, 'persianAstro': { 'year': 1322, 'month': 1, 'day': 29 } },
-    { 'rataDie': 709580, 'persianAstro': { 'year': 1322, 'month': 7, 'day': 14 } },
-    { 'rataDie': 727274, 'persianAstro': { 'year': 1370, 'month': 12, 'day': 27 } },
-    { 'rataDie': 728714, 'persianAstro': { 'year': 1374, 'month': 12, 'day': 6 } },
-    { 'rataDie': 744313, 'persianAstro': { 'year': 1417, 'month': 8, 'day': 19 } },
-    { 'rataDie': 764652, 'persianAstro': { 'year': 1473, 'month': 4, 'day': 28 } }
+  { 'rataDie': -214193, 'persianAstro': { 'year': -1208, 'month':  5, 'day':  1 } },
+  { 'rataDie':  -61387, 'persianAstro': { 'year':  -790, 'month':  9, 'day': 14 } },
+  { 'rataDie':   25469, 'persianAstro': { 'year':  -552, 'month':  7, 'day':  2 } },
+  { 'rataDie':   49217, 'persianAstro': { 'year':  -487, 'month':  7, 'day':  9 } },
+  { 'rataDie':  171307, 'persianAstro': { 'year':  -153, 'month': 10, 'day': 19 } },
+  { 'rataDie':  210155, 'persianAstro': { 'year':   -46, 'month':  2, 'day': 31 } },
+  { 'rataDie':  253427, 'persianAstro': { 'year':    73, 'month':  8, 'day': 19 } },
+  { 'rataDie':  369740, 'persianAstro': { 'year':   392, 'month':  2, 'day':  5 } },
+  { 'rataDie':  400085, 'persianAstro': { 'year':   475, 'month':  3, 'day':  4 } },
+  { 'rataDie':  434355, 'persianAstro': { 'year':   569, 'month':  1, 'day':  3 } },
+  { 'rataDie':  452605, 'persianAstro': { 'year':   618, 'month': 12, 'day': 20 } },
+  { 'rataDie':  470160, 'persianAstro': { 'year':   667, 'month':  1, 'day': 14 } },
+  { 'rataDie':  473837, 'persianAstro': { 'year':   677, 'month':  2, 'day':  8 } },
+  { 'rataDie':  507850, 'persianAstro': { 'year':   770, 'month':  3, 'day': 22 } },
+  { 'rataDie':  524156, 'persianAstro': { 'year':   814, 'month': 11, 'day': 13 } },
+  { 'rataDie':  544676, 'persianAstro': { 'year':   871, 'month':  1, 'day': 21 } },
+  { 'rataDie':  567118, 'persianAstro': { 'year':   932, 'month':  6, 'day': 28 } },
+  { 'rataDie':  569477, 'persianAstro': { 'year':   938, 'month': 12, 'day': 14 } },
+  { 'rataDie':  601716, 'persianAstro': { 'year':  1027, 'month':  3, 'day': 21 } },
+  { 'rataDie':  613424, 'persianAstro': { 'year':  1059, 'month':  4, 'day': 10 } },
+  { 'rataDie':  626596, 'persianAstro': { 'year':  1095, 'month':  5, 'day':  2 } },
+  { 'rataDie':  645554, 'persianAstro': { 'year':  1147, 'month':  3, 'day': 30 } },
+  { 'rataDie':  664224, 'persianAstro': { 'year':  1198, 'month':  5, 'day': 10 } },
+  { 'rataDie':  671401, 'persianAstro': { 'year':  1218, 'month':  1, 'day':  7 } },
+  { 'rataDie':  694799, 'persianAstro': { 'year':  1282, 'month':  1, 'day': 29 } },
+  { 'rataDie':  704424, 'persianAstro': { 'year':  1308, 'month':  6, 'day':  3 } },
+  { 'rataDie':  708842, 'persianAstro': { 'year':  1320, 'month':  7, 'day':  7 } },
+  { 'rataDie':  709409, 'persianAstro': { 'year':  1322, 'month':  1, 'day': 29 } },
+  { 'rataDie':  709580, 'persianAstro': { 'year':  1322, 'month':  7, 'day': 14 } },
+  { 'rataDie':  727274, 'persianAstro': { 'year':  1370, 'month': 12, 'day': 27 } },
+  { 'rataDie':  728714, 'persianAstro': { 'year':  1374, 'month': 12, 'day':  6 } },
+  { 'rataDie':  744313, 'persianAstro': { 'year':  1417, 'month':  8, 'day': 19 } },
+  { 'rataDie':  764652, 'persianAstro': { 'year':  1473, 'month':  4, 'day': 28 } }
 ];
 
 describe ('Persian Astronmical calendar spec', function () {
