@@ -16,7 +16,7 @@
     "eslint-config-google": "^0.5.0",
     "eslint-plugin-import": "^1.8.0",
     "eslint-plugin-mocha": "^2.2.0",
-    "mocha": "^2.5.1",
+    "mocha": "^2.5.2",
     "requirejs": "^2.2.0",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
