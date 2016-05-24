@@ -32,6 +32,7 @@
         "calendar/hindu.solar.modern.spec.ts",
         "calendar/hindu.solar.old.spec.ts",
         "calendar/islamic.spec.ts",
+        "calendar/isoweek.spec.ts",
         "calendar/julian.spec.ts",
         "calendar/mayan.count.spec.ts",
         "calendar/mayan.haab.spec.ts",

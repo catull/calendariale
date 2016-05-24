@@ -41,6 +41,16 @@ const MEAN_TROPICAL_YEAR = 365.242189;
 // *Mean solar tropical year*
 const TROPICAL_YEAR = 365.24219878;
 
+enum WeekDay {
+  SUNDAY = 0,
+  MONDAY = 1,
+  TUESDAY = 2,
+  WEDNESDAY = 3,
+  THURSDAY = 4,
+  FRIDAY = 5,
+  SATURDAY = 6
+}
+
 enum Season {
   SPRING = 0,
   SUMMER = 90,
@@ -180,6 +190,7 @@ export {
   Month,
   Season,
   TROPICAL_YEAR,
+  WeekDay,
   armenian,
   bahai,
   coptic,

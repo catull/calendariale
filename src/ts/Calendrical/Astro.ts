@@ -1,8 +1,104 @@
 /* eslint 'max-params': [ 'error', 5 ] */
 
 import { GregorianCalendar } from './calendar/GregorianCalendar';
-import { gregorian, hindu, J2000, JULIAN_CENTURY, Month, MEAN_SIDEREAL_YEAR,
-       MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR } from './Const';
+import { gregorian, hindu, J0000, J2000, JULIAN_CENTURY, Month, MEAN_SIDEREAL_YEAR,
+       MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
+
+/**
+ * Modulus function which works for non-integers
+ * @param {float} amount dividend
+ * @param {float} numerator numerator
+ * @return {float} modulo value
+ */
+function mod (amount, numerator) {
+  return amount - numerator * Math.floor (amount / numerator);
+}
+
+/**
+ * Return day of the week from a julian day number
+ * @param {float} jdn Julian Day Number
+ * @return {float} day of week
+ */
+function jdnToDayOfWeek (jdn : number) : WeekDay {
+  return mod (jdn - J0000, 7);
+}
+
+/**
+ * Return the julian day number of the k-day on or before a given julian day number
+ * k=0 means Sunday, k=1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function kdayOnOrBefore (k : WeekDay, jdn : number) : number {
+  return jdn - jdnToDayOfWeek (jdn - k);
+}
+
+/**
+ * Return the julian day number of the k-day on or after a given julian day number
+ * k=0 means Sunday, k=1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function kdayOnOrAfter (k : WeekDay, jdn : number) : number {
+  return kdayOnOrBefore (k, jdn + 6);
+}
+
+/**
+ * Return the julian day number of the k-day nearest the given julian day number.
+ * k=0 means Sunday, k=1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function kdayNearest (k : WeekDay, jdn : number) : number {
+  return kdayOnOrBefore (k, jdn + 3);
+}
+
+/**
+ * Return the julian day number of the k-day after the given julian day number.
+ * k=0 means Sunday, k=1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function kdayAfter (k : WeekDay, jdn : number) : number {
+  return kdayOnOrBefore (k, jdn + 7);
+}
+
+/**
+ * Return the julian day number of the k-day before the given julian day number.
+ * k=0 means Sunday, k=1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function kdayBefore (k : WeekDay, jdn : number) : number {
+  return kdayOnOrBefore (k, jdn - 1);
+}
+
+/**
+ * Return the fixed date of n-th k-day after julian day number.
+ * If n > 0, return the n-th k-day on or after  jdn.
+ * If n < 0, return the n-th k-day on or before jdn.
+ * If n = 0, return -1.
+ * A k-day of 0 means Sunday, 1 means Monday, and so on.
+ * @param {WeekDay} k a wek day
+ * @param {number} jdn julian day number
+ * @return {number} resulting julian day number
+ */
+function nthKday (n : number, k : WeekDay, jdn : number) : number {
+  if (n === 0) {
+    return -1;
+  }
+
+  if (n > 0) {
+    return 7 * n + kdayBefore (k, jdn);
+  }
+
+  return 7 * n + kdayAfter (k, jdn);
+}
 
 /**
  * arc seconds to radians
@@ -40,16 +136,6 @@ function radiansToDegrees (radians) {
  */
 function angle (degree, minute, second) {
   return degree + (minute + second / 60) / 60;
-}
-
-/**
- * Modulus function which works for non-integers
- * @param {float} amount dividend
- * @param {float} numerator numerator
- * @return {float} modulo value
- */
-function mod (amount, numerator) {
-  return amount - numerator * Math.floor (amount / numerator);
 }
 
 /**
@@ -1098,20 +1184,21 @@ function newMoonAtOrAfter (tee: number) : number {
 }
 
 export {
-amod, angle, apparentToLocal, binarySearch, cosDeg, dawn, degreesToRadians,
-deltaT, dusk,
-dynamicalToUniversal,   // only to be tested, required for nutation!
-ephemerisCorrection,   // only to be tested!
-equationOfTime, equinox, estimatePriorSolarLongitude, final,
-// astro.fixAngle,
-// astro.fixAngleRadians,
-jhms,
-julianCenturies,   // only to be tested!
-jwday, lunarPhase, midDay, mod, newMoonAtOrAfter, newMoonBefore, next,
-nutation,   // only to be tested!
-obliquity,   // only to be tested!
-poly,   // only to be tested!
-precession, radiansToDegrees,
-sigma,   // only to be tested!
-sinDeg, solarLongitude, standardToUniversal, tanDeg
+  amod, angle, apparentToLocal, binarySearch, cosDeg, dawn, degreesToRadians,
+  deltaT, dusk,
+  dynamicalToUniversal,   // only to be tested, required for nutation!
+  ephemerisCorrection,   // only to be tested!
+  equationOfTime, equinox, estimatePriorSolarLongitude, final,
+  // astro.fixAngle,
+  // astro.fixAngleRadians,
+  jhms,
+  julianCenturies,   // only to be tested!
+  jwday, lunarPhase, midDay, mod, newMoonAtOrAfter, newMoonBefore, next,
+  nthKday,
+  nutation,   // only to be tested!
+  obliquity,   // only to be tested!
+  poly,   // only to be tested!
+  precession, radiansToDegrees,
+  sigma,   // only to be tested!
+  sinDeg, solarLongitude, standardToUniversal, tanDeg
 }
