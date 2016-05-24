@@ -1,4 +1,4 @@
-/* global cal data2 describe expect it:.equal (true)*/
+/* global describe it: true */
 
 'use strict';
 
