@@ -82,17 +82,22 @@ const coptic = {
   EPOCH_RD: 201443
 };
 
+const egyptian = {
+  EPOCH: 1448637.5, // 747/02/26 Julian B.C.E.
+  EPOCH_RD: -272787
+};
+
+const ethiopic = {
+  EPOCH: 1724220.5, // 008/08/29 Julian C.E.
+  EPOCH_RD: 2796
+};
+
 const french = {
   EPOCH: 2375839.5, // 1792/09/22 Gregorian C.E.
   MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
   DECADE: [ 'I', 'II', 'III' ],
   JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
   '------------', 'de la Vertu (1)', 'du Génie (2)', 'du Travail (3)', 'de l\'Opinion (4)', 'des Récompenses (5)', 'de la Révolution (6)' ]
-};
-
-const egyptian = {
-  EPOCH: 1448637.5, // 747/02/26 Julian B.C.E.
-  EPOCH_RD: -272787
 };
 
 const gregorian = {
@@ -179,6 +184,7 @@ export {
   bahai,
   coptic,
   egyptian,
+  ethiopic,
   french,
   gregorian,
   hebrew,
