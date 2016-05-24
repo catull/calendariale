@@ -117,7 +117,7 @@ const gregorian = {
 };
 
 const hebrew = {
-  EPOCH: 347995.5, // 3761/10/05 Julian B.C.E.
+  EPOCH: 347995.5, // 3761/10/07 Julian B.C.E.
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
   H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
 };
