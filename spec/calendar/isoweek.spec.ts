@@ -54,7 +54,6 @@ describe ('ISO Week calendar spec', function () {
     data1.forEach (function (data) {
       date = data.iso;
       expected = data.julianDay;
-      debugger;
       actual = cal.toJdn (date.year, date.week, date.day);
 
       expect (expected).to.be.equal (actual);
