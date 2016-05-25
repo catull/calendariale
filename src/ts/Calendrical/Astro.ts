@@ -1,8 +1,8 @@
 /* eslint 'max-params': [ 'error', 5 ] */
 
 import { GregorianCalendar } from './calendar/GregorianCalendar';
-import { gregorian, hindu, J0000, J2000, JULIAN_CENTURY, Month, MEAN_SIDEREAL_YEAR,
-       MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
+import { gregorian, hindu, J0000, J2000, JULIAN_CENTURY, Month, MoonPhase,
+    MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
 
 /**
  * Modulus function which works for non-integers
@@ -219,6 +219,15 @@ function arcTanDeg (y0, x0) {
  */
 function arcSinDeg (alpha) {
   return radiansToDegrees (Math.asin (alpha));
+}
+
+/**
+ * Calculate arc cosine in degrees
+ * @param {float} alpha angle
+ * @return {float} value
+ */
+function arcCosDeg (alpha) {
+  return radiansToDegrees (Math.acos (alpha));
 }
 
 /**
@@ -847,6 +856,19 @@ function declination (tee, beta, lambda) {
 }
 
 /**
+ * Return right ascension at moment UT tee of object at longitude lambda and latitude beta.
+ * @param {float} tee moment in time
+ * @param {float} beta latitude
+ * @param {float} lambda longitude
+ * @return {float} declination
+ */
+function rightAscension (tee, beta, lambda) {
+  const eps = obliquity (tee);
+
+  return arcTanDeg (sinDeg (lambda) * cosDeg (eps) - tanDeg (beta) * sinDeg (eps), cosDeg (lambda));
+}
+
+/**
  * Return sine of angle between position of sun at local time tee and when
  * its depression is alpha at location. Out of range when it does not occur.
  * @param {float} tee moment ini time
@@ -1129,6 +1151,56 @@ function lunarLongitude (tee: number): number {
 }
 
 /**
+ * Return the latitude of moon (in degrees) at moment tee.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann_Bell, Inc., 1998.
+  */
+function lunarLatitude (tee) {
+  const c = julianCenturies (tee);
+  const capLprime = meanLunarLongitude (c);
+  const capD = lunarElongation (c);
+  const capM = solarAnomaly (c);
+  const capMprime = lunarAnomaly (c);
+  const capF = moonNode (c);
+  const capE = poly (c, [ 1, -0.002516, -0.0000074 ]);
+  const lunarElongationArgs2 = [ 0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 0, 0,
+             1, 0, 0, 0, 1, 0, 4, 4, 0, 4, 2, 2, 2, 2, 0, 2, 2, 2, 2, 4, 2, 2,
+             0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2 ];
+  const solarAnomalyArgs2 = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, -1, -1, -1, 1, 0, 1,
+             0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 1,
+             0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2 ];
+  const lunarAnomalyArgs2 = [ 0, 1, 1, 0, -1, -1, 0, 2, 1, 2, 0, -2, 1, 0, -1, 0, -1, -1, -1,
+             0, 0, -1, 0, 1, 1, 0, 0, 3, 0, -1, 1, -2, 0, 2, 1, -2, 3, 2, -3,
+             -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0 ];
+  const moonNodeArgs2 = [ 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1,
+             -1, 1, 3, 1, 1, 1, -1, -1, -1, 1, -1, 1, -3, 1, -3, -1, -1, 1,
+             -1, 1, -1, 1, 1, 1, 1, -1, 3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1 ];
+  const sineCoefficients2 = [ 5128122, 280602, 277693, 173237, 55413, 46271, 32573,
+             17198, 9266, 8822, 8216, 4324, 4200, -3359, 2463, 2211,
+             2065, -1870, 1828, -1794, -1749, -1565, -1491, -1475,
+             -1410, -1344, -1335, 1107, 1021, 833, 777, 671, 607,
+             596, 491, -451, 439, 422, 421, -366, -351, 331, 315,
+             302, -283, -229, 223, 223, -220, -220, -185, 181,
+             -177, 176, 166, -164, 132, -119, 115, 107 ];
+  const beta = 1 / 1000000 *
+    sigma ([ sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2 ],
+      function (v, w, x, y, z) {
+        return v * Math.pow (capE, Math.abs (x)) *
+          sinDeg (w * capD + x * capM + y * capMprime + z * capF);
+      });
+
+  const venus = 175 / 1000000 *
+             (sinDeg (119.75 + c * 131.849 + capF) +
+              sinDeg (119.75 + c * 131.849 - capF));
+  const flatEarth = -2235 / 1000000 *  sinDeg (capLprime) +
+                  127 / 1000000 * sinDeg (capLprime - capMprime) +
+                  -115 / 1000000 * sinDeg (capLprime + capMprime);
+  const extra = 382 / 1000000 *
+             sinDeg (313.45 + c * 481266.484);
+
+  return beta + venus + flatEarth + extra;
+}
+
+/**
  * Return the lunar phase, as an angle in degrees, at moment tee.
  * An angle of
  *    0 means a new moon
@@ -1183,6 +1255,72 @@ function newMoonAtOrAfter (tee: number) : number {
       }));
 }
 
+/**
+ * Return the mean sidereal time of day from moment tee expressed as hour angle.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann_Bell, Inc., 1991.
+ */
+function momentToSidereal (tee: number) {
+    const centuries = (tee - J2000) / JULIAN_CENTURY;
+
+    return mod (poly (centuries,
+        [ 280.46061837, JULIAN_CENTURY * 360.98564736629, 0.000387933, -1 / 38710000 ]), 360);
+}
+
+/**
+ * Return the geocentric altitude of moon at moment tee at given location, as a
+ * small positive/negative angle in degrees, ignoring parallax and refraction.
+ * Adapted from 'Astronomical Algorithms' by Jean Meeus, Willmann_Bell, Inc., 1998.
+ */
+function lunarAltitude (tee: number, location) {
+  const phi = location[0];
+  const psi = location[1];
+  const lambda = lunarLongitude (tee);
+  const beta = lunarLatitude (tee);
+  const alpha = rightAscension (tee, beta, lambda);
+  const delta = declination (tee, beta, lambda);
+  const theta0 = momentToSidereal (tee);
+  const cap_H = mod (theta0 + psi - alpha, 360);
+  const altitude = arcSinDeg (sinDeg (phi) * sinDeg (delta) +
+      cosDeg (phi) * cosDeg (delta) * cosDeg (cap_H));
+
+  return mod (altitude + 180, 360) - 180;
+}
+
+/**
+ * Return S. K. Shaukat's criterion for likely visibility of crescent moon on
+ * eve of jdn at given location.
+ * @param {float} jdn Julian day number
+ * @param {location} location geo-location
+ * @return {float} visibility
+ */
+function visibleCrescent (jdn: number, location) : boolean {
+  const tee = standardToUniversal (dusk (jdn - 1, location, 4.5), location);
+  const phase = lunarPhase (tee);
+  const altitude = lunarAltitude (tee, location);
+  const arcOfLight = arcCosDeg (cosDeg (lunarLatitude (tee)) * cosDeg (phase));
+
+  return (MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER) &&
+         (arcOfLight >= 10.6 && arcOfLight <= 90) &&
+         (altitude > 4.1);
+}
+
+/**
+ * Return the closest fixed date on or before jdn, when crescent moon first
+ * became visible at location.
+ * @param {float} jdn Julian day number
+ * @param {location} location geo-location
+ * @return {float} phasis
+ */
+function phasisOnOrBefore (jdn: number, location) {
+  const jd0  = jdn - J0000;
+  const mean = jd0 - Math.floor (lunarPhase (jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
+  const tau  = (jd0 - mean) <= 3 && !visibleCrescent (jd0, location) ? mean - 30 : mean - 2;
+
+  return  next (tau, function (d0) {
+      return visibleCrescent (d0, location);
+    }) + J0000;
+}
+
 export {
   amod, angle, apparentToLocal, binarySearch, cosDeg, dawn, degreesToRadians,
   deltaT, dusk,
@@ -1197,6 +1335,7 @@ export {
   nthKday,
   nutation,   // only to be tested!
   obliquity,   // only to be tested!
+  phasisOnOrBefore,
   poly,   // only to be tested!
   precession, radiansToDegrees,
   sigma,   // only to be tested!

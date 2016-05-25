@@ -37,6 +37,7 @@
         "src/ts/Calendrical/calendar/HinduSolarModernCalendar.ts",
         "src/ts/Calendrical/calendar/HinduSolarOldCalendar.ts",
         "src/ts/Calendrical/calendar/IslamicCalendar.ts",
+        "src/ts/Calendrical/calendar/IslamicObservationalCalendar.ts",
         "src/ts/Calendrical/calendar/IsoWeekCalendar.ts",
         "src/ts/Calendrical/calendar/JulianCalendar.ts",
         "src/ts/Calendrical/calendar/MayanCountCalendar.ts",

@@ -154,9 +154,10 @@ const hindu = {
 
 const islamic = {
   EPOCH: 1948439.5, // 622/07/16 Julian C.E.
-  EPOCH_RD: 227016,
+  EPOCH_RD: 227015,
   WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
-  MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ]
+  MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ],
+  CAIRO_LOCATION: [ 30.1, 31.3, 200, 1 / 12 ]
 };
 
 const julian = {
@@ -185,6 +186,13 @@ const tibetan = {
   EPOCH_RD: -46410
 };
 
+enum MoonPhase {
+  NEW = 0,
+  FIRST_QUARTER = 90,
+  FULL = 180,
+  LAST_QUARTER = 270
+};
+
 export {
   ARYA_LUNAR_DAY,
   ARYA_LUNAR_MONTH,
@@ -204,6 +212,7 @@ export {
   MEAN_SYNODIC_MONTH,
   MEAN_TROPICAL_YEAR,
   Month,
+  MoonPhase,
   RomanEvent,
   Season,
   TROPICAL_YEAR,
