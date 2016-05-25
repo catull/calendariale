@@ -23,6 +23,7 @@
         "src/ts/Calendrical/HinduAlgorithms.ts",
         "src/ts/Calendrical/calendar/ArmenianCalendar.ts",
         "src/ts/Calendrical/calendar/BahaiCalendar.ts",
+        "src/ts/Calendrical/calendar/BalinesePawukonCalendar.ts",
         "src/ts/Calendrical/calendar/CopticCalendar.ts",
         "src/ts/Calendrical/calendar/EgyptianCalendar.ts",
         "src/ts/Calendrical/calendar/EthiopicCalendar.ts",

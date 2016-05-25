@@ -93,6 +93,11 @@ const bahai = {
   DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
 };
 
+const balinese = {
+  EPOCH: 145.5, // 4713/05/26 Julian B.C.E.
+  EPOCH_RD: -1721278
+};
+
 const coptic = {
   EPOCH: 1825029.5, // 284/08/29 Julian C.E.
   EPOCH_RD: 201443
@@ -205,6 +210,7 @@ export {
   WeekDay,
   armenian,
   bahai,
+  balinese,
   coptic,
   egyptian,
   ethiopic,
