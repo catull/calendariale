@@ -39,6 +39,7 @@
         "calendar/mayan.tzolkin.spec.ts",
         "calendar/persian.arithmetic.spec.ts",
         "calendar/persian.astronomical.spec.ts",
+        "calendar/roman.spec.ts",
         "calendar/tibetan.spec.ts"
     ],
     "atom": {

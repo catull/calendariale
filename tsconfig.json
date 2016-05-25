@@ -43,6 +43,7 @@
         "src/ts/Calendrical/calendar/MayanTzolkinCalendar.ts",
         "src/ts/Calendrical/calendar/PersianArithmeticCalendar.ts",
         "src/ts/Calendrical/calendar/PersianAstronomicalCalendar.ts",
+        "src/ts/Calendrical/calendar/RomanCalendar.ts",
         "src/ts/Calendrical/calendar/TibetanCalendar.ts"
     ]
     /*

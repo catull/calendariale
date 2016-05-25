@@ -73,6 +73,12 @@ enum Month {
   DECEMBER = 12
 }
 
+enum RomanEvent {
+  KALENDS = 1,
+  NONES = 2,
+  IDES = 3
+}
+
 const armenian = {
   EPOCH: 1922867.5, // 522/07/11 Julian B.C.E.
   EPOCH_RD: 201443
@@ -193,6 +199,7 @@ export {
   MEAN_SYNODIC_MONTH,
   MEAN_TROPICAL_YEAR,
   Month,
+  RomanEvent,
   Season,
   TROPICAL_YEAR,
   WeekDay,
