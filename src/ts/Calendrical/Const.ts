@@ -84,6 +84,13 @@ const armenian = {
   EPOCH_RD: 201443
 };
 
+const aztec = {
+  CORRELATION: 2276827.5, // 1521/08/13 Julian C.E.
+  CORRELATION_RD: 555404,
+  XIHUITL_CORRELATION: 2276626.5,
+  XIHUITL_CORRELATION_RD: 555203
+};
+
 const bahai = {
   EPOCH: 2394646.5,    // 1844/03/21 Gregorian C.E.
   EPOCH172: 2457102.5, // 2015/03/21 Gregorian C.E.
@@ -225,6 +232,7 @@ export {
   TROPICAL_YEAR,
   WeekDay,
   armenian,
+  aztec,
   bahai,
   balinese,
   coptic,
