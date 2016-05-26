@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -fr build node_modules spec/build typings spec/typings",
-    "test": "mocha spec/*/*.spec.ts"
+    "test": "node_modules/mocha/bin/mocha spec/*/*.spec.ts"
   },
   "author": "",
   "license": "BSD-2-Clause",
@@ -16,7 +16,7 @@
     "eslint-config-google": "^0.5.0",
     "eslint-plugin-import": "^1.8.0",
     "eslint-plugin-mocha": "^2.2.0",
-    "mocha": "^2.5.2",
+    "mocha": "^2.5.3",
     "requirejs": "^2.2.0",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
