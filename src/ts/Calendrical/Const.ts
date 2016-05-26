@@ -128,11 +128,17 @@ const gregorian = {
   MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 };
 
+enum HebrewMonth {
+  NISAN = 1, IYYAR = 2, SIVAN = 3, TAMMUZ = 4, AV = 5, ELUL = 6, TISHRI = 7,
+  MARHESHVAN = 8, KISLEV = 9, TEVETH = 10, SHEVAT = 11, ADAR = 12, VEADAR = 13
+};
+
 const hebrew = {
   EPOCH: 347995.5, // 3761/10/07 Julian B.C.E.
   EPOCH_RD: -1373428,
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
-  H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ]
+  H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ],
+  JAFFA_LOCATION: [ 961 / 30, 139 / 4, 0, 1 / 12 ]
 };
 
 const hindu = {
@@ -199,6 +205,7 @@ export {
   ARYA_SOLAR_MONTH,
   ARYA_SOLAR_YEAR,
   // ASTRONOMICAL_UNIT,
+  HebrewMonth,
   J0000,
   J1900,
   J1904,

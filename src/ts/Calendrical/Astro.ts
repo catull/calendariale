@@ -335,6 +335,20 @@ function binarySearch (low, high, predicate, discriminator) {
 }
 
 /**
+ * Find inverse of angular function 'f' at 'y' within interval [ low, high ].
+ * Default precision is 0.00001.
+ */
+function invertAngular (f, y, low, high) {
+  return binarySearch (low, high,
+      function (l, h) {
+        return h - l <= 1e-5;
+      },
+      function (x) {
+        return mod (f (x) - y, 360) < 180;
+      });
+}
+
+/**
  * Return fixed momentToFixed
  * @param {float} tee moment in time
  * @return {int} fixed momentToFixed
@@ -882,7 +896,7 @@ function sineOffset (tee, location, alpha) {
       delta = declination (teePrime, 0, solarLongitude (teePrime));
 
   return tanDeg (phi) * tanDeg (delta) +
-             sinDeg (alpha) / cosDeg (delta) * cosDeg (phi);
+             sinDeg (alpha) / (cosDeg (delta) * cosDeg (phi));
 }
 
 /**
@@ -896,7 +910,7 @@ function sineOffset (tee, location, alpha) {
  * @param {boolean} early MORNING or EVENING
  * @return {float} moment of depression
  */
-function approxMomentOfDepression (tee, location, alpha, early) {
+function approxMomentOfDepression (tee: number, location, alpha: number, early: boolean) : number {
   const ttry = sineOffset (tee, location, alpha),
       date = momentToFixed (tee);
 
@@ -925,7 +939,7 @@ function approxMomentOfDepression (tee, location, alpha, early) {
  * @param {boolean} early MORNING or EVENING
  * @return {float} moment of depression
  */
-function momentOfDepression (approx, location, alpha, early) {
+function momentOfDepression (approx: number, location, alpha: number, early: boolean) : number {
   const tee = approxMomentOfDepression (approx, location, alpha, early);
 
   if (tee === -1) {
@@ -948,7 +962,7 @@ function momentOfDepression (approx, location, alpha, early) {
  * @param {float} alpha angle
  * @return {float} time of dawn
  */
-function dawn (date, location, alpha) {
+function dawn (date: number, location, alpha: number) : number {
   const result = momentOfDepression (date + 0.25, location, alpha, true);
 
   if (result === -1) {
@@ -967,7 +981,7 @@ function dawn (date, location, alpha) {
  * @param {float} alpha angle
  * @return {float} time of dusk
  */
-function dusk (date, location, alpha) {
+function dusk (date: number, location, alpha: number) : number {
   const result = momentOfDepression (date + 0.75, location, alpha, false);
 
   if (result === -1) {
@@ -1314,11 +1328,67 @@ function visibleCrescent (jdn: number, location) : boolean {
 function phasisOnOrBefore (jdn: number, location) {
   const jd0  = jdn - J0000;
   const mean = jd0 - Math.floor (lunarPhase (jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
-  const tau  = (jd0 - mean) <= 3 && !visibleCrescent (jd0, location) ? mean - 30 : mean - 2;
+  const tau  = ((jd0 - mean) <= 3 && !visibleCrescent (jd0, location)) ? mean - 30 : mean - 2;
 
-  return  next (tau, function (d0) {
+  return next (tau, function (d0) {
       return visibleCrescent (d0, location);
     }) + J0000;
+}
+
+/**
+ * Return the closest fixed date on or after jdn, when crescent moon first
+ * became visible at location.
+ * @param {float} jdn Julian day number
+ * @param {location} location geo-location
+ * @return {float} phasis
+ */
+function phasisOnOrAfter (jdn: number, location) {
+  // const jd0  = jdn - J0000;
+  const mean = jdn - Math.floor (lunarPhase (jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
+  const tau  = ((jdn - mean) <= 3 && !visibleCrescent (jdn - 1, location)) ? jdn : mean + 29;
+
+  return next (tau, function (d0) {
+      return visibleCrescent (d0, location);
+    }) + J0000;
+}
+
+/**
+ * Return the moment UT of the first time at or after moment tee, when the solar
+ * longitude will be lambda degrees.
+ */
+function solarLongitudeAfter (lambda: number, tee: number) : number {
+  const rate = MEAN_TROPICAL_YEAR / 360;
+  const tau  = tee + rate * mod (lambda - solarLongitude (tee), 360);
+  const a    = Math.max (tee, tau - 5);
+  const b    = tau + 5;
+
+  return invertAngular (solarLongitude, lambda, a, b);
+}
+
+/**
+ * Return refraction angle at given location and time.
+ * @param {float} tee moment in time
+ * @param {location} location geo-location
+ */
+function refraction (tee: number, location) {
+  const h    = Math.max (0, location[2]);
+  const capR = 6.372e6;
+  const dip  = arcCosDeg (capR / (capR + h));
+
+  return angle (0, 50, 0) + dip + 19 * Math.sqrt (h) / 3600;
+}
+
+/**
+ * Return standard time of sunset on jdn at given location.
+ * @param {float} jdn Julian day number
+ * @param {location} location geo-location
+ * @return {float} moment of sunset
+ */
+function sunset (jdn: number, location) {
+  const jd0 = jdn - J0000;
+  const alpha = refraction (jd0, location);
+
+  return dusk (jdn, location, alpha);
 }
 
 export {
@@ -1335,9 +1405,10 @@ export {
   nthKday,
   nutation,   // only to be tested!
   obliquity,   // only to be tested!
+  phasisOnOrAfter,
   phasisOnOrBefore,
   poly,   // only to be tested!
   precession, radiansToDegrees,
   sigma,   // only to be tested!
-  sinDeg, solarLongitude, standardToUniversal, tanDeg
+  sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset, tanDeg
 }

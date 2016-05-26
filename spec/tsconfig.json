@@ -26,6 +26,7 @@
         "calendar/egyptian.spec.ts",
         "calendar/gregorian.spec.ts",
         "calendar/hebrew.spec.ts",
+        "calendar/hebrew.observational.spec.ts",
         "calendar/hindu.lunar.astro.spec.ts",
         "calendar/hindu.lunar.modern.spec.ts",
         "calendar/hindu.lunar.old.spec.ts",

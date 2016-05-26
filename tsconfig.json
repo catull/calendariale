@@ -30,6 +30,7 @@
         "src/ts/Calendrical/calendar/FrenchRevolutionaryCalendar.ts",
         "src/ts/Calendrical/calendar/GregorianCalendar.ts",
         "src/ts/Calendrical/calendar/HebrewCalendar.ts",
+        "src/ts/Calendrical/calendar/HebrewObservationalCalendar.ts",
         "src/ts/Calendrical/calendar/HinduLunarAstroCalendar.ts",
         "src/ts/Calendrical/calendar/HinduLunarModernCalendar.ts",
         "src/ts/Calendrical/calendar/HinduLunarOldCalendar.ts",
