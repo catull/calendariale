@@ -24,7 +24,6 @@ export class IslamicObservationalCalendar extends Calendar {
 
   // Calculate Islamic calendar date from Julian day
   public static fromJdn (jdn: number): Calendar {
-    debugger;
     const crescent = phasisOnOrBefore (jdn, islamic.CAIRO_LOCATION);
     const elapsedMonths = Math.round ((crescent - islamic.EPOCH) / MEAN_SYNODIC_MONTH);
     const year = Math.floor (elapsedMonths / 12) + 1;
