@@ -18,6 +18,7 @@
     "files": [
         "astro/astro.spec.ts",
         "calendar/armenian.spec.ts",
+        "calendar/aztec.tonalpohualli.spec.ts",
         "calendar/aztec.xihuitl.spec.ts",
         "calendar/bahai.spec.ts",
         "calendar/balinese.pawukon.spec.ts",
