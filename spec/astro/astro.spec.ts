@@ -4,9 +4,9 @@
 
 'use strict';
 
-const astro = require ('../../build/Calendrical/Astro.js');
+const astro = require ('../../build/Astro.js');
 const chai = require ('chai');
-const Const = require ('../../build/Calendrical/Const.js');
+const Const = require ('../../build/Const.js');
 
 require ('dirty-chai');
 require ('mocha');

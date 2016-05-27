@@ -3,8 +3,8 @@
 'use strict';
 
 const chai = require ('chai');
-const Const = require ('../../build/Calendrical/Const.js');
-const cal = require ('../../build/Calendrical/calendar/EthiopicCalendar.js').EthiopicCalendar;
+const Const = require ('../../build/Const.js');
+const cal = require ('../../build/calendar/EthiopicCalendar.js').EthiopicCalendar;
 
 require ('dirty-chai');
 require ('mocha');

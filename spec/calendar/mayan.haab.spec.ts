@@ -3,11 +3,11 @@
 'use strict';
 
 const chai = require ('chai');
-const cal = require ('../../build/Calendrical/calendar/MayanHaabCalendar.js').MayanHaabCalendar;
+const cal = require ('../../build/calendar/MayanHaabCalendar.js').MayanHaabCalendar;
+const Const = require ('../../build/Const.js');
 
 require ('dirty-chai');
 require ('mocha');
-const Const = require ('../../build/Calendrical/Const.js');
 
 const expect = chai.expect;
 
