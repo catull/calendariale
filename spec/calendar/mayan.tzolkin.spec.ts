@@ -57,7 +57,7 @@ describe ('Mayan Tzolkin calendar spec', function () {
       expected = { month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
+      expect (expected).to.be.eql (actual);
       expect (expected.month).to.be.equal (actual.month);
       expect (expected.day).to.be.equal (actual.day);
     });
