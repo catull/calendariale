@@ -72,4 +72,14 @@ describe ('French Arithmetic calendar spec', function () {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('should determine whether a French Arithmetic year is leap year', function () {
+    [ 4, 20, 1600, 1760, 1840, 1904, 1980, 2000 ].forEach (function (year) {
+      expect (cal.isLeapYear (year)).to.be.equal (true);
+    });
+
+    [ 0, 1, 2, 3, 5, 1000, 1599, 1700, 1800, 1900, 1970, 2001, 3000, 4000 ].forEach (function (year) {
+      expect (cal.isLeapYear (year)).to.be.equal (false);
+    });
+  });
 });
