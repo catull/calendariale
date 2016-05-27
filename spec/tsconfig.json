@@ -22,6 +22,7 @@
         "calendar/aztec.xihuitl.spec.ts",
         "calendar/bahai.spec.ts",
         "calendar/balinese.pawukon.spec.ts",
+        "calendar/chinese.spec.ts",
         "calendar/coptic.spec.ts",
         "calendar/ethiopic.spec.ts",
         "calendar/french.spec.ts",

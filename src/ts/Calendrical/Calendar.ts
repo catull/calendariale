@@ -25,18 +25,22 @@ export class Calendar implements CalendarValidator {
   }
 
   public getYear (): number {
-      return this.year;
+    return this.year;
   }
 
   public getMonth (): number {
-      return this.month;
+    return this.month;
+  }
+
+  public getMonthLeap () : boolean {
+    return this.monthLeap;
   }
 
   public getDay (): number {
-      return this.day;
+    return this.day;
   }
 
   validate () {
-      return;
+    return;
   }
 }

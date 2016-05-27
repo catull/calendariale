@@ -1410,5 +1410,7 @@ export {
   poly,   // only to be tested!
   precession, radiansToDegrees,
   sigma,   // only to be tested!
-  sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset, tanDeg
+  sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset,
+  tanDeg,
+  universalToStandard
 }

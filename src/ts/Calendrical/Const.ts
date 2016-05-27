@@ -107,6 +107,15 @@ const balinese = {
   EPOCH_RD: -1721278
 };
 
+const chinese = {
+  EPOCH: 758324.5, // 2637/03/07 Julian B.C.E.
+  EPOCH_RD: -963099,
+  EPOCH_1929: 2425612.5,
+  EPOCH_1929_RD: 704189,
+  LOCATION_BEFORE_1929: [ 479 / 12, 1397 / 12, 43.5, 1397 / 4320 ],
+  LOCATION_SINCE_1929: [ 479 / 12, 1397 / 12, 43.5, 1 / 3 ]
+};
+
 const coptic = {
   EPOCH: 1825029.5, // 284/08/29 Julian C.E.
   EPOCH_RD: 201443
@@ -237,6 +246,7 @@ export {
   aztec,
   bahai,
   balinese,
+  chinese,
   coptic,
   egyptian,
   ethiopic,
