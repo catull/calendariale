@@ -30,6 +30,7 @@
         "src/ts/Calendrical/calendar/CopticCalendar.ts",
         "src/ts/Calendrical/calendar/EgyptianCalendar.ts",
         "src/ts/Calendrical/calendar/EthiopicCalendar.ts",
+        "src/ts/Calendrical/calendar/FrenchArithmeticCalendar.ts",
         "src/ts/Calendrical/calendar/FrenchRevolutionaryCalendar.ts",
         "src/ts/Calendrical/calendar/GregorianCalendar.ts",
         "src/ts/Calendrical/calendar/HebrewCalendar.ts",

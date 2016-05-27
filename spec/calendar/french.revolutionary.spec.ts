@@ -72,7 +72,7 @@ describe ('French Revolutionary calendar spec', function () {
       expected = { year: date.year, month: date.month, decade: decade, day: jour };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
 
-    //   expect (expected).to.be.eql (actual);
+      // expect (expected).to.be.eql (actual);
       expect (expected.year).to.be.equal (actual.year);
       expect (expected.month).to.be.equal (actual.month);
       expect (expected.decade).to.be.equal (actual.decade);
