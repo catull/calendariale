@@ -108,6 +108,8 @@ const balinese = {
 };
 
 const chinese = {
+  DAY_NAME_EPOCH: 1721468.5,
+  DAY_NAME_EPOCH_RD: 45,
   EPOCH: 758324.5, // 2637/03/07 Julian B.C.E.
   EPOCH_RD: -963099,
   EPOCH_1929: 2425612.5,
