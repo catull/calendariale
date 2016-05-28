@@ -4,12 +4,17 @@
   "description": "Calendrical calculations in JavaScript",
   "repository": {
     "type": "git",
-    "url": "https://github.com/catull/calendariale.git"
+    "url": "git://github.com/catull/calendariale.git"
   },
   "main": "index.js",
   "scripts": {
-    "clean": "rm -fr build node_modules spec/build typings spec/typings",
-    "test": "node_modules/mocha/bin/mocha spec/*/*.spec.ts"
+    "build": "npm run lint && npm run build:dev",
+    "build:dev": "tsc",
+    "clean": "rm -fr lib node_modules spec/lib typings spec/typings",
+    "lint": "tslint src/*.ts src/*/*.ts",
+    "lint-test": "tslint spec/*.ts spec/*/*.ts",
+    "test": "mocha spec/*/*.spec.ts",
+    "postinstall": "tsc"
   },
   "author": "",
   "license": "BSD-2-Clause",
@@ -22,7 +27,6 @@
     "eslint-plugin-mocha": "^2.2.0",
     "mocha": "^2.5.3",
     "requirejs": "^2.2.0",
-    "typescript": "^1.8.10",
-    "typings": "^1.0.4"
+    "typescript": "^1.8.10"
   }
 }

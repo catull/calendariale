@@ -2,10 +2,10 @@
 
 'use strict';
 
-const chai = require ('chai');
-const cal = require ('../../build/calendar/MayanTzolkinCalendar.js').MayanTzolkinCalendar;
-const Const = require ('../../build/Const.js');
+const cal = require ('../../lib/calendar/MayanTzolkinCalendar.js').MayanTzolkinCalendar;
+const Const = require ('../../lib/Const.js');
 
+const chai = require ('chai');
 require ('dirty-chai');
 require ('mocha');
 

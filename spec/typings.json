@@ -1,20 +1,6 @@
 {
-  "name": "calendrical",
-  "version": false,
-  "dependencies": {
-    "chai": "registry:dt/chai#3.4.0+20160317120654",
-    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
-    "node": "registry:dt/node#6.0.0+20160514165920",
-    "require": "registry:dt/require#2.1.20+20160316155526"
-  },
-  "devDependencies": {
-    "chai": "registry:dt/chai#3.4.0+20160317120654",
-    "mocha": "registry:dt/mocha#2.2.5+20160317120654",
-    "mocha-node": "registry:dt/mocha-node#2.2.5+20160317120654",
-    "node": "registry:dt/node#6.0.0+20160514165920",
-    "require": "registry:dt/require#2.1.20+20160316155526"
-  },
-  "ambientDevDependencies": {
+  "dependencies": {},
+  "globalDevDependencies": {
     "chai": "registry:dt/chai#3.4.0+20160317120654",
     "mocha": "registry:dt/mocha#2.2.5+20160317120654",
     "require": "registry:dt/require#2.1.20+20160316155526"

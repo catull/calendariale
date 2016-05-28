@@ -1,18 +1,19 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "module": "CommonJS",
-        "target": "es6",
-        "removeComments": true,
-        "noLib": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "listFiles": true,
+        "module": "CommonJS",
+        "newLine": "LF",
+        "noLib": false,
+        "outDir": "lib/",
+        "removeComments": true,
         "sourceMap": true,
-        "listFiles": false,
-        "outDir": "build/"
+        "target": "es6"
     },
     "exclude": [
-        "build",
+        "lib",
         "node_modules",
         "spec"
     ],
@@ -54,23 +55,4 @@
         "src/calendar/RomanCalendar.ts",
         "src/calendar/TibetanCalendar.ts"
     ]
-    /*
-    "formatCodeOptions": {
-        "indentSize": 2,
-        "tabSize": 2,
-        "newLineCharacter": "\n",
-        "convertTabsToSpaces": true,
-        "insertSpaceAfterCommaDelimiter": true,
-        "insertSpaceAfterSemicolonInForStatements": true,
-        "insertSpaceBeforeAndAfterBinaryOperators": true,
-        "insertSpaceAfterKeywordsInControlFlowStatements": true,
-        "insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-        "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
-        "placeOpenBraceOnNewLineForFunctions": false,
-        "placeOpenBraceOnNewLineForControlBlocks": false
-    },
-    "atom": {
-        "rewriteTsconfig": true,
-    }
-    */
 }

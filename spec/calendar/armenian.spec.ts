@@ -2,9 +2,9 @@
 
 'use strict';
 
-const chai = require ('chai');
-const cal = require ('../../build/calendar/ArmenianCalendar.js').ArmenianCalendar;
+const cal = require ('../../lib/calendar/ArmenianCalendar.js').ArmenianCalendar;
 
+const chai = require ('chai');
 require ('dirty-chai');
 require ('mocha');
 
