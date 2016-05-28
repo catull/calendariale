@@ -13,8 +13,7 @@ export class BalinesePawukonCalendar {
       private saptawara: number,
       private asatawara: number,
       private sangawara: number,
-      private dasawara: number)
-  {
+      private dasawara: number) {
   }
 
   public static jdnToBalineseDayCount (jdn: number) : number {
