@@ -1,10 +1,10 @@
 import { amod, final, mod } from '../Astro';
 import { tibetan } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapMonthCalendar } from '../Calendar';
 
-export class TibetanCalendar extends YearMonthCalendar {
-  constructor (jdn: number, year: number, month: number, protected monthLeap: boolean, day: number, protected dayLeap: boolean) {
-    super (jdn, year, month, day);
+export class TibetanCalendar extends LeapMonthCalendar {
+  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, protected dayLeap: boolean) {
+    super (jdn, year, month, day, monthLeap, monthLeap);
   }
 
   public static isLeapMonth (year: number, month: number) : boolean {

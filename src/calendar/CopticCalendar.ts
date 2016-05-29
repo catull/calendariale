@@ -1,10 +1,10 @@
 import { mod } from '../Astro';
 import { coptic } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class CopticCalendar extends YearMonthCalendar {
+export class CopticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
+    super (jdn, year, month, day, CopticCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Coptic calendar a leap year?

@@ -1,10 +1,10 @@
 import { mod } from '../Astro';
 import { french } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class FrenchArithmeticCalendar extends YearMonthCalendar {
+export class FrenchArithmeticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
+    super (jdn, year, month, day, FrenchArithmeticCalendar.isLeapYear (year));
   }
 
   // Is the given year a leap year in the French Arithmetic calendar ?

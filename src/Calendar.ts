@@ -8,6 +8,20 @@ export class BaseCalendar {
   }
 }
 
+export class MonthCalendar extends BaseCalendar {
+  constructor (jdn: number, protected month: number, protected day: number) {
+    super (jdn);
+  }
+
+  getMonth () {
+    return this.month;
+  }
+
+  getDay () {
+    return this.day;
+  }
+}
+
 export class YearCalendar extends BaseCalendar {
   constructor (jdn: number, protected year: number) {
     super (jdn);
@@ -18,17 +32,13 @@ export class YearCalendar extends BaseCalendar {
   }
 }
 
-export class YearMonthCalendar extends YearCalendar {
-  constructor (jdn: number, year: number, protected month: number, protected day: number) {
-    super (jdn, year);
+export class YearMonthCalendar extends MonthCalendar {
+  constructor (jdn: number, protected year: number, month: number, day: number) {
+    super (jdn, month, day);
   }
 
-  getMonth () {
-    return this.month;
-  }
-
-  getDay () {
-    return this.day;
+  getYear () {
+    return this.year;
   }
 }
 
