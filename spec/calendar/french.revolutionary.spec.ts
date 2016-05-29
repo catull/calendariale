@@ -58,7 +58,7 @@ describe ('French Revolutionary calendar spec', function () {
       jour     = date.day;
       decade   = Math.floor ((jour - 1) / 10) + 1;
       jour     = astro.amod (jour, 10);
-      actual   = cal.toJdn2 (date.year, date.month, decade, jour);
+      actual   = cal.toJdn (date.year, date.month, decade, jour);
       expect (expected).to.be.equal (actual);
     });
   });

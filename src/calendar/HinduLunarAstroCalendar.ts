@@ -1,11 +1,11 @@
 import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
 import { hinduAstroCalendarYear, siderealSolarLongitude, siderealZodiac } from '../HinduAlgorithms';
 import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class HinduLunarAstroCalendar extends Calendar {
-  constructor (year: number, month: number, protected monthLeap: boolean, day: number, protected dayLeap: boolean) {
-    super (year, month, day);
+export class HinduLunarAstroCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, protected monthLeap: boolean, day: number, protected dayLeap: boolean) {
+    super (jdn, year, month, day);
 
      this.yearLeap = HinduLunarAstroCalendar.isLeapYear (year);
   }
@@ -53,7 +53,7 @@ export class HinduLunarAstroCalendar extends Calendar {
   }
 
   // Calculate Hindu Lunar Astro calendar date from Julian day
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     let jd0, critical, day, dayLeap, lastNewMoon, nextNewMoon, monthSolar, monthLeap, month, year;
 
     jd0         = jdn - J0000;
@@ -67,10 +67,7 @@ export class HinduLunarAstroCalendar extends Calendar {
     month       = amod (monthSolar + 1, 12);
     year        = hinduAstroCalendarYear (month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
 
-    const cal = new HinduLunarAstroCalendar (year, month, monthLeap, day, dayLeap);
-    cal.jdn = jdn;
-
-    return cal;
+    return new HinduLunarAstroCalendar (jdn, year, month, monthLeap, day, dayLeap);
   }
 
   /**

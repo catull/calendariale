@@ -1,12 +1,10 @@
 import { mod } from '../Astro';
 import { coptic } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class CopticCalendar extends Calendar {
-  constructor (year: number, month: number, day: number) {
-    super (year, month, day);
-
-     this.jdn = CopticCalendar.toJdn (year, month, day);
+export class CopticCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number) {
+    super (jdn, year, month, day);
   }
 
   // Is a given year in the Coptic calendar a leap year?
@@ -21,11 +19,11 @@ export class CopticCalendar extends Calendar {
   }
 
   // Calculate Coptic calendar date from Julian day
-  public static fromJdn (jdn: number) : Calendar {
+  public static fromJdn (jdn: number) {
     const year  = Math.floor ((4 * (jdn - coptic.EPOCH) + 1463) / 1461);
     const month = 1 + Math.floor ((jdn - this.toJdn (year, 1, 1)) / 30);
     const day   = jdn + 1 - this.toJdn (year, month, 1);
 
-    return new CopticCalendar (year, month, day);
+    return new CopticCalendar (jdn, year, month, day);
   }
 }

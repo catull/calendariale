@@ -1,24 +1,24 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { bahai, gregorian, TROPICAL_YEAR } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
-export class BahaiCalendar extends Calendar {
+export class BahaiCalendar extends YearMonthCalendar {
     constructor (
+      jdn: number,
       private kull_i_shay: number,
       private vahid: number,
       year: number,
       month: number,
       day : number) {
-        super (year, month, day);
+        super (jdn, year, month, day);
 
-        this.jdn = BahaiCalendar.toJdn (year, month, day);
         this.yearLeap = BahaiCalendar.isLeapYear (year);
     }
 
     // Determine the year in the Bahai // astronomical calendar in which a
     // given Julian day falls.
-    public static jdnToYear (jdn: number): number {
+    public static jdnToYear (jdn: number) : number {
       return this.jdnToYearAndOffset (jdn)[0];
     }
 
@@ -28,14 +28,14 @@ export class BahaiCalendar extends Calendar {
     //
     // **[0]** Bahai year
     // **[1]** Julian day number containing equinox for this year.
-    private static jdnToYearAndOffset (jdn: number): number[] {
+    private static jdnToYearAndOffset (jdn: number) : number[] {
       return this.lastTehranEquinox (jdn, bahai.EPOCH);
     }
 
     // Determine Julian day number from Bahai calendar date, where the year is
     // pre-calculated as
     //    1844 + 361 * (kull-i-shay - 1) + 19 * (vahid - 1) + year - 1
-    public static toJdn (year: number, month: number, day: number): number {
+    public static toJdn (year: number, month: number, day: number) : number {
         let gy, jd, leap, yearDays;
 
         gy = year + GregorianCalendar.fromJdn (bahai.EPOCH).getYear () - 1;
@@ -83,7 +83,7 @@ export class BahaiCalendar extends Calendar {
     }
 
     // Calculate Bahai calendar date from Julian day
-    public static fromJdn (jdn: number): Calendar {
+    public static fromJdn (jdn: number) {
         let jd0, major, vahid, year, month, day, gy, bstarty, by, bys, days, old, leap, leapDays;
 
         jd0 = Math.floor (jdn - 0.5) + 0.5;
@@ -122,13 +122,13 @@ export class BahaiCalendar extends Calendar {
           day   = days - 18 * 19;
         }
 
-        return new BahaiCalendar (major, vahid, year, month, day);
+        return new BahaiCalendar (jdn, major, vahid, year, month, day);
     }
 
     // Determine Julian day and fraction of the
     // March equinox at the Tehran meridian in
     // a given Gregorian year.
-    private static tehranEquinox (year: number): number {
+    private static tehranEquinox (year: number) : number {
       let equJED, equJD, equAPP, equTehran, dtTehran;
 
       // March equinox in dynamical time
@@ -152,7 +152,7 @@ export class BahaiCalendar extends Calendar {
     // Calculate Julian day during which the
     // March equinox, reckoned from the Tehran
     // meridian, occurred for a given Gregorian year.
-    private static tehranEquinoxJd (year: number): number {
+    private static tehranEquinoxJd (year: number) : number {
       let ep, epg;
 
       ep  = this.tehranEquinox (year);
@@ -167,7 +167,7 @@ export class BahaiCalendar extends Calendar {
     //
     // **[0]** Persian year
     // **[1]** Julian day number containing equinox for this year.
-    private static lastTehranEquinox (jd: number, epoch: number): number[] {
+    private static lastTehranEquinox (jd: number, epoch: number) : number[] {
       let guess = GregorianCalendar.fromJdn (jd).getYear () - 2,
         lasteq, nexteq, adr;
 

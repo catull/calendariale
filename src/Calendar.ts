@@ -1,46 +1,67 @@
-export interface CalendarValidator {
-  validate (): void;
+
+export class BaseCalendar {
+  constructor (protected jdn: number) {
+  }
+
+  getJdn () {
+    return this.jdn;
+  }
 }
 
-export class Calendar implements CalendarValidator {
-  protected jdn: number;
+export class YearCalendar extends BaseCalendar {
   protected dayLeap: boolean = false;
   protected monthLeap: boolean = false;
   protected yearLeap: boolean = false;
 
-  public static fromJdn (jdn: number): Calendar {
-    let y = -1, m = -1, d = -1;
-
-    const cal = new Calendar (y, m, d);
-    cal.validate ();
-
-    return cal;
+  constructor (jdn: number, protected year: number) {
+    super (jdn);
   }
 
-  constructor (protected year: number, protected month: number, protected day: number) {
-  }
-
-  public getJdn (): number {
-    return this.jdn;
-  }
-
-  public getYear (): number {
+  getYear () {
     return this.year;
   }
+}
 
-  public getMonth (): number {
+export class YearMonthCalendar extends YearCalendar {
+  constructor (jdn: number, year: number, protected month: number, protected day: number) {
+    super (jdn, year);
+  }
+
+  getMonth () {
     return this.month;
   }
 
-  public getMonthLeap () : boolean {
-    return this.monthLeap;
-  }
-
-  public getDay (): number {
+  getDay () {
     return this.day;
   }
+}
 
-  validate () {
-    return;
+export class LeapCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number, protected yearLeap: boolean) {
+    super (jdn, year, month, day);
+  }
+
+  isYearLeap () {
+    return this.yearLeap;
+  }
+}
+
+export class LeapDayCalendar extends LeapCalendar {
+  constructor (jdn: number, year: number, month: number, day: number, yearLeap: boolean, protected dayLeap: boolean) {
+    super (jdn, year, month, day, yearLeap);
+  }
+
+  isDayLeap () {
+    return this.dayLeap;
+  }
+}
+
+export class LeapMonthCalendar extends LeapCalendar {
+  constructor (jdn: number, year: number, month: number, day: number, yearLeap: boolean, protected monthLeap: boolean) {
+      super (jdn, year, month, day, yearLeap);
+  }
+
+  isMonthLeap () {
+    return this.monthLeap;
   }
 }

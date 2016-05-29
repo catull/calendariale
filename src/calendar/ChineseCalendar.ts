@@ -1,14 +1,12 @@
 import { amod, estimatePriorSolarLongitude, mod, next, newMoonAtOrAfter, newMoonBefore,
     solarLongitude, solarLongitudeAfter, standardToUniversal, universalToStandard } from '../Astro';
 import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Month, Season } from '../Const';
-import { Calendar } from '../Calendar';
+import { LeapMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
-export class ChineseCalendar extends Calendar {
-  constructor (private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
-    super (year, month, day);
-
-    this.monthLeap = monthLeap;
+export class ChineseCalendar extends LeapMonthCalendar {
+  constructor (jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
+    super (jdn, year, month, day, monthLeap, monthLeap);
   }
 
   // Determine Julian day number from Chinese calendar date
@@ -17,14 +15,14 @@ export class ChineseCalendar extends Calendar {
     const newYear = this.chineseNewYearOnOrBefore (midYear);
     const p       = this.chineseNewMoonOnOrAfter (newYear + (month - 1) * 29);
     const d       = this.fromJdn (p + J0000);
-    const priorNewMoon = month === d.getMonth () && monthLeap === d.getMonthLeap () ?
+    const priorNewMoon = month === d.getMonth () && monthLeap === d.isMonthLeap () ?
       p : this.chineseNewMoonOnOrAfter (1 + p);
 
     return priorNewMoon + J0000 + day - 1;
   }
 
   // Calculate Chinese calendar date from Julian day
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     const jd0       = jdn - J0000;
     const s1        = this.chineseWinterSolsticeOnOrBefore (jd0);
     const s2        = this.chineseWinterSolsticeOnOrBefore (s1 + 370);
@@ -42,10 +40,7 @@ export class ChineseCalendar extends Calendar {
     const year      = amod (years, 60);
     const day       = 1 + jd0 - m;
 
-    const cal = new ChineseCalendar (cycle, year, month, monthLeap, day);
-    cal.jdn = jdn;
-
-    return cal;
+    return new ChineseCalendar (jdn, cycle, year, month, monthLeap, day);
   }
 
   // Return True if there is a Chinese leap month on or after lunar month starting on

@@ -1,9 +1,10 @@
 import { amod, mod } from '../Astro';
 import { balinese } from '../Const';
-import { Calendar } from '../Calendar';
+import { BaseCalendar } from '../Calendar';
 
-export class BalinesePawukonCalendar {
+export class BalinesePawukonCalendar extends BaseCalendar {
   constructor (
+      jdn: number,
       private luang: boolean,
       private dwiwara: number,
       private triwara: number,
@@ -14,6 +15,7 @@ export class BalinesePawukonCalendar {
       private asatawara: number,
       private sangawara: number,
       private dasawara: number) {
+    super (jdn);
   }
 
   public static jdnToBalineseDayCount (jdn: number) : number {
@@ -21,7 +23,7 @@ export class BalinesePawukonCalendar {
   }
 
   // Calculate Balinese calendar date from Julian day
-  public static fromJdn (jdn: number) : BalinesePawukonCalendar {
+  public static fromJdn (jdn: number) {
     const count     = this.jdnToBalineseDayCount (jdn);
     const triwara   = mod (count, 3) + 1;
     const pancawara = amod (count + 2, 5);
@@ -39,7 +41,7 @@ export class BalinesePawukonCalendar {
     const dwiwara   = amod (dasawara, 2);
 
     return new BalinesePawukonCalendar (
-        luang, dwiwara, triwara, caturwara, pancawara,
+        jdn, luang, dwiwara, triwara, caturwara, pancawara,
         sadwara, saptawara, asatawara, sangawara, dasawara);
   }
 }

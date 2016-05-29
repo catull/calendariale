@@ -1,22 +1,21 @@
 import { mod } from '../Astro';
 import { julian } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class JulianCalendar extends Calendar {
-  constructor (year : number, month : number, day : number) {
-    super (year, month, day);
+export class JulianCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number) {
+    super (jdn, year, month, day);
 
-     this.jdn = JulianCalendar.toJdn (year, month, day);
      this.yearLeap = JulianCalendar.isLeapYear (year);
   }
 
   // Is a given year in the Julian calendar a leap year?
-  public static isLeapYear (year: number): boolean {
+  public static isLeapYear (year: number) : boolean {
     return mod (year, 4) === (year > 0 ? 0 : 3);
   }
 
   // Determine Julian day number from Julian calendar date
-  public static toJdn (year: number, month: number, day: number): number {
+  public static toJdn (year: number, month: number, day: number) : number {
     let y0 = year,
         m0 = month;
 
@@ -37,7 +36,7 @@ export class JulianCalendar extends Calendar {
   }
 
   // Calculate Julian calendar date from Julian day
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     let b0, c0, d0, e0, year, month, day;
 
     b0 = Math.floor (jdn + 0.5) + 1524;
@@ -56,6 +55,6 @@ export class JulianCalendar extends Calendar {
       year -= 1;
     }
 
-    return new JulianCalendar (year, month, day);
+    return new JulianCalendar (jdn, year, month, day);
   }
 }

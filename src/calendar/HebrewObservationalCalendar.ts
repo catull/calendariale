@@ -1,18 +1,16 @@
 import { phasisOnOrAfter, phasisOnOrBefore, solarLongitudeAfter, standardToUniversal, sunset } from '../Astro';
 import { hebrew, HebrewMonth, J0000, Season } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 
-export class HebrewObservationalCalendar extends Calendar {
-  constructor (year : number, month : number, day : number) {
-    super (year, month, day);
-
-     this.jdn = HebrewObservationalCalendar.toJdn (year, month, day);
+export class HebrewObservationalCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year : number, month : number, day : number) {
+    super (jdn, year, month, day);
   }
 
   // Determine Julian day number from Hebrew calendar date
-  public static toJdn (year: number, month: number, day: number): number {
+  public static toJdn (year: number, month: number, day: number) : number {
     const year1    = (month >= HebrewMonth.TISHRI) ? (year - 1) : year;
     const start    = HebrewCalendar.toJdn (year1, HebrewMonth.NISAN, 1);
     const gYear    = GregorianCalendar.jdnToYear (start + 60);
@@ -24,7 +22,7 @@ export class HebrewObservationalCalendar extends Calendar {
 
   // Convert Julian date to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     const crescent = phasisOnOrBefore (jdn, hebrew.JAFFA_LOCATION);
     const gYear    = GregorianCalendar.jdnToYear (jdn);
     const newYear  = this.toNewYear (gYear);
@@ -33,7 +31,7 @@ export class HebrewObservationalCalendar extends Calendar {
     const year     = HebrewCalendar.fromJdn (newYear2).getYear () + (month >= HebrewMonth.TISHRI ? 1 : 0);
     const day      = jdn - crescent + 1;
 
-    return new HebrewObservationalCalendar (year, month, day);
+    return new HebrewObservationalCalendar (jdn, year, month, day);
   }
 
   // Return jdn of Observational (classical) Nisan 1 occurring in Gregorian year.

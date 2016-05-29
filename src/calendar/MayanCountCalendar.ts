@@ -1,12 +1,10 @@
 import { mod } from '../Astro';
 import { mayan } from '../Const';
-import { Calendar } from '../Calendar';
+import { BaseCalendar } from '../Calendar';
 
-export class MayanCountCalendar {
-  private jdn: number;
-
-  constructor (private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
-     this.jdn = MayanCountCalendar.toJdn (baktun, katun, tun, uinal, kin);
+export class MayanCountCalendar extends BaseCalendar {
+  constructor (jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
+    super (jdn);
   }
 
   // Determine JUlian day number from Mayan Count calendar date
@@ -20,7 +18,7 @@ export class MayanCountCalendar {
   }
 
   // Calculate Mayan Count calendar date from Julian day
-  public static fromJdn (jdn: number): MayanCountCalendar {
+  public static fromJdn (jdn: number) {
     let d0, baktun, katun, tun, uinal, kin;
 
     d0     = Math.floor (jdn) + 0.5 - mayan.EPOCH;
@@ -33,6 +31,6 @@ export class MayanCountCalendar {
     uinal  = Math.floor (d0 / 20);
     kin    = mod (d0, 20);
 
-    return new MayanCountCalendar (baktun, katun, tun, uinal, kin);
+    return new MayanCountCalendar (jdn, baktun, katun, tun, uinal, kin);
   }
 }

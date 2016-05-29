@@ -1,18 +1,16 @@
 import { amod } from '../Astro';
 import { julian, Month, RomanEvent } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 import { JulianCalendar } from './JulianCalendar';
 
 
-export class RomanCalendar extends Calendar {
-  constructor (year : number, month : number, private event : number, private count : number, private leap : boolean) {
-    super (year, month, -1);
-
-     this.jdn = RomanCalendar.toJdn (year, month, event, count, leap);
+export class RomanCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, private event: number, private count: number, private leap: boolean) {
+    super (jdn, year, month, -1);
   }
 
   // Determine Julian day number from Roman calendar date
-  public static toJdn (year : number, month : number, event : RomanEvent, count : number, leap : boolean): number {
+  public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : number {
     const day =
       event === RomanEvent.KALENDS ? 1 :
         event === RomanEvent.NONES ? this.nonesOfMonth (month) :
@@ -35,7 +33,7 @@ export class RomanCalendar extends Calendar {
   }
 
   // Calculate Roman calendar date from Julian day
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     const date = JulianCalendar.fromJdn (jdn);
     let year   = date.getYear ();
     let month  = date.getMonth ();
@@ -70,7 +68,7 @@ export class RomanCalendar extends Calendar {
       leap = (count === 25);
     }
 
-    return new RomanCalendar (year, month, event, count, leap);
+    return new RomanCalendar (jdn, year, month, event, count, leap);
   }
 
   /**
@@ -78,7 +76,7 @@ export class RomanCalendar extends Calendar {
    * @param {number} month the month
    * @result {number} either the 15th or 13th
    */
-  public static idesOfMonth (month : number) : number {
+  public static idesOfMonth (month: number) : number {
     if (month === Month.MARCH ||
       month === Month.MAY ||
       month === Month.JULY ||
@@ -94,23 +92,7 @@ export class RomanCalendar extends Calendar {
    * @param {number} month the month
    * @result {number} either the 7th or 5th
    */
-  public static nonesOfMonth (month : number) : number {
+  public static nonesOfMonth (month: number) : number {
     return this.idesOfMonth (month) - 8;
   }
-
-/*
-YEAR_ROME_FOUNDED = bce(753)
-
-def julian_year_from_auc_year(year):
-    """Return the Julian year equivalent to AUC year 'year'."""
-    return ((year + YEAR_ROME_FOUNDED - 1)
-            if (1 <= year <= (year - YEAR_ROME_FOUNDED))
-            else (year + YEAR_ROME_FOUNDED))
-
-def auc_year_from_julian_year(year):
-    """Return the AUC year equivalent to Julian year 'year'."""
-    return ((year - YEAR_ROME_FOUNDED - 1)
-            if (YEAR_ROME_FOUNDED <= year <= -1)
-            else (year - YEAR_ROME_FOUNDED))
-*/
 }

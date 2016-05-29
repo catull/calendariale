@@ -1,17 +1,16 @@
 import { mod } from '../Astro';
 import { gregorian } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class GregorianCalendar extends Calendar {
-  constructor (year : number, month : number, day : number) {
-    super (year, month, day);
+export class GregorianCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number) {
+    super (jdn, year, month, day);
 
-     this.jdn = GregorianCalendar.toJdn (year, month, day);
      this.yearLeap = GregorianCalendar.isLeapYear (year);
   }
 
   // Determine Julian day number from Gregorian calendar date
-  public static toJdn (year: number, month: number, day: number): number {
+  public static toJdn (year: number, month: number, day: number) : number {
     const y1: number = year - 1;
 
     return gregorian.EPOCH - 1 + 365 * y1 +
@@ -23,11 +22,11 @@ export class GregorianCalendar extends Calendar {
   }
 
   // Is a given year in the Gregorian calendar a leap year?
-  public static isLeapYear (year: number): boolean {
+  public static isLeapYear (year: number) : boolean {
     return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
   }
 
-  public static jdnToYear (jdn: number): number {
+  public static jdnToYear (jdn: number) : number {
     const jd0        = Math.floor (jdn - 0.5) + 0.5;
     const depoch     = jd0 - gregorian.EPOCH;
     const quadricent = Math.floor (depoch / 146097);
@@ -42,7 +41,7 @@ export class GregorianCalendar extends Calendar {
   }
 
   // Calculate Gregorian calendar date from Julian day
-  public static fromJdn (jdn: number): Calendar {
+  public static fromJdn (jdn: number) {
     const jd0     = Math.floor (jdn - 0.5) + 0.5;
     const year    = GregorianCalendar.jdnToYear (jd0);
     const yearDay = jd0 - GregorianCalendar.toJdn (year, 1, 1);
@@ -50,10 +49,10 @@ export class GregorianCalendar extends Calendar {
     const month   = Math.floor (((yearDay + leapAdj) * 12 + 373) / 367);
     const day     = jd0 - GregorianCalendar.toJdn (year, month, 1) + 1;
 
-    return new GregorianCalendar (year, month, day);
+    return new GregorianCalendar (jdn, year, month, day);
   }
 
-  public static dateDifference (date1: GregorianCalendar, date2: GregorianCalendar): number {
+  public static dateDifference (date1: GregorianCalendar, date2: GregorianCalendar) : number {
     return date2.getJdn () - date1.getJdn ();
   }
 }

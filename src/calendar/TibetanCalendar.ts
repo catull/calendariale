@@ -1,12 +1,10 @@
 import { amod, final, mod } from '../Astro';
 import { tibetan } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class TibetanCalendar extends Calendar {
-  constructor (year: number, month: number, protected monthLeap: boolean, day: number, protected dayLeap: boolean) {
-    super (year, month, day);
-
-     this.jdn = TibetanCalendar.toJdn (year, month, monthLeap, day, dayLeap);
+export class TibetanCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, protected monthLeap: boolean, day: number, protected dayLeap: boolean) {
+    super (jdn, year, month, day);
   }
 
   public static isLeapMonth (year: number, month: number) : boolean {
@@ -27,7 +25,7 @@ export class TibetanCalendar extends Calendar {
   }
 
   // Calculate Tibetan calendar date from Julian day
-  public static fromJdn (jdn: number) : Calendar {
+  public static fromJdn (jdn: number) {
     const capY = 365 + 4975 / 18382;
     const years = Math.ceil ((jdn - tibetan.EPOCH) / capY);
 
@@ -78,7 +76,7 @@ export class TibetanCalendar extends Calendar {
 
     const dayLeap = jdn === this.toJdn (year, month, monthLeap, day, true);
 
-    return new TibetanCalendar (year, month, monthLeap, day, dayLeap);
+    return new TibetanCalendar (jdn, year, month, monthLeap, day, dayLeap);
   }
 
   /**

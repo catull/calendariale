@@ -1,13 +1,19 @@
 import { amod, nthKday } from '../Astro';
 import { J0000, Month, WeekDay } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
-export class IsoWeekCalendar extends Calendar {
-  constructor (year : number, private week : number, day : number) {
-    super (year, 0, day);
+export class IsoWeekCalendar extends YearCalendar {
+  constructor (jdn: number, year: number, private week: number, private day: number) {
+    super (jdn, year);
+  }
 
-     this.jdn = IsoWeekCalendar.toJdn (year, week, day);
+  getWeek () {
+    return this.week;
+  }
+
+  getDay () {
+    return this.day;
   }
 
   // Determine Julian day number from Iso Week calendar date
@@ -16,12 +22,12 @@ export class IsoWeekCalendar extends Calendar {
   }
 
   // Calculate Iso Week calendar date from Julian day
-  public static fromJdn (jdn: number) : Calendar {
+  public static fromJdn (jdn: number) {
     const approx = GregorianCalendar.jdnToYear (jdn - 3);
     const year   = jdn >= this.toJdn (approx + 1, 1, 1) ? (approx + 1) : approx;
     const week   = 1 + Math.floor ((jdn - this.toJdn (year, 1, 1)) / 7);
     const day    = amod (jdn - J0000, 7);
 
-    return new IsoWeekCalendar (year, week, day);
+    return new IsoWeekCalendar (jdn, year, week, day);
   }
 }

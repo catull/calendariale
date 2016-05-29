@@ -1,14 +1,16 @@
 import { amod } from '../Astro';
 import { mayan } from '../Const';
+import { BaseCalendar } from '../Calendar';
 
-export class MayanTzolkinCalendar {
-  constructor (private month: number, private day: number) {
+export class MayanTzolkinCalendar extends BaseCalendar {
+  constructor (jdn: number, private month: number, private day: number) {
+    super (jdn);
   }
 
   // Calculate Mayan Tzolkin calendar date from Julian day
-  public static fromJdn (jdn: number): MayanTzolkinCalendar {
+  public static fromJdn (jdn: number) {
     const count = Math.floor (jdn - 0.5) + 0.5 - mayan.EPOCH;
 
-    return new MayanTzolkinCalendar (amod (count + 4, 13), amod (count, 20));
+    return new MayanTzolkinCalendar (jdn, amod (count + 4, 13), amod (count, 20));
   }
 }

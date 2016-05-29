@@ -1,13 +1,11 @@
 import { dusk, mod, next } from '../Astro';
 import { hinduAstroCalendarYear, siderealSolarLongitude, siderealZodiac } from '../HinduAlgorithms';
 import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class HinduSolarAstroCalendar extends Calendar {
-  constructor (year: number, month: number, day: number) {
-    super (year, month, day);
-
-    this.jdn = HinduSolarAstroCalendar.toJdn (year, month, day);
+export class HinduSolarAstroCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number) {
+    super (jdn, year, month, day);
   }
 
   // Determine Julian day number from Hindu Solar Astro calendar date
@@ -22,7 +20,7 @@ export class HinduSolarAstroCalendar extends Calendar {
   }
 
   // Calculate Hindu Solar Astro calendar date from Julian day
-  public static fromJdn (jdn: number) : Calendar {
+  public static fromJdn (jdn: number) {
     const jd0      = jdn - J0000;
     const critical = this.hinduAstroSunset (jd0);
     const month    = siderealZodiac (critical);
@@ -33,7 +31,7 @@ export class HinduSolarAstroCalendar extends Calendar {
     });
     const day      = jd0 - begin + 1;
 
-    return new HinduSolarAstroCalendar (year, month, day);
+    return new HinduSolarAstroCalendar (jdn, year, month, day);
   }
 
   /**

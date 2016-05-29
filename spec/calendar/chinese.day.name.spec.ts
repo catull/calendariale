@@ -56,7 +56,7 @@ describe ('Chinese Day Name calendar spec', function () {
       expected = { stem: date.stem, branch: date.branch };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
 
-      expect (expected).to.be.eql (actual);
+      // expect (expected).to.be.eql (actual);
       expect (expected.stem).to.be.equal (actual.stem);
       expect (expected.branch).to.be.equal (actual.branch);
     });

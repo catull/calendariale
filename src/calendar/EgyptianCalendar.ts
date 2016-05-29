@@ -1,12 +1,10 @@
 import { mod } from '../Astro';
 import { egyptian } from '../Const';
-import { Calendar } from '../Calendar';
+import { YearMonthCalendar } from '../Calendar';
 
-export class EgyptianCalendar extends Calendar {
-  constructor (year: number, month: number, day: number) {
-    super (year, month, day);
-
-     this.jdn = EgyptianCalendar.toJdn (year, month, day);
+export class EgyptianCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number) {
+    super (jdn, year, month, day);
   }
 
   // Determine Julian day number from Egyptian calendar date
@@ -15,12 +13,12 @@ export class EgyptianCalendar extends Calendar {
   }
 
   // Calculate Egyptian calendar date from Julian day
-  public static fromJdn (jdn: number) : Calendar {
+  public static fromJdn (jdn: number) {
     const days  = jdn - egyptian.EPOCH;
     const year  = Math.floor (days / 365) + 1;
     const month = Math.floor (mod (days, 365) / 30) + 1;
     const day   = days - 365 * (year - 1) - 30 * (month - 1) + 1;
 
-    return new EgyptianCalendar (year, month, day);
+    return new EgyptianCalendar (jdn, year, month, day);
   }
 }
