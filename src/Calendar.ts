@@ -9,10 +9,6 @@ export class BaseCalendar {
 }
 
 export class YearCalendar extends BaseCalendar {
-  protected dayLeap: boolean = false;
-  protected monthLeap: boolean = false;
-  protected yearLeap: boolean = false;
-
   constructor (jdn: number, protected year: number) {
     super (jdn);
   }
@@ -43,16 +39,6 @@ export class LeapCalendar extends YearMonthCalendar {
 
   isYearLeap () {
     return this.yearLeap;
-  }
-}
-
-export class LeapDayCalendar extends LeapCalendar {
-  constructor (jdn: number, year: number, month: number, day: number, yearLeap: boolean, protected dayLeap: boolean) {
-    super (jdn, year, month, day, yearLeap);
-  }
-
-  isDayLeap () {
-    return this.dayLeap;
   }
 }
 

@@ -1,11 +1,10 @@
 import { mod } from '../Astro';
 import { islamic } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class IslamicCalendar extends YearMonthCalendar {
+export class IslamicCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-     this.yearLeap = IslamicCalendar.isLeapYear (year);
+    super (jdn, year, month, day, IslamicCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Islamic calendar a leap year?

@@ -1,12 +1,10 @@
 import { mod } from '../Astro';
 import { gregorian } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class GregorianCalendar extends YearMonthCalendar {
+export class GregorianCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-
-     this.yearLeap = GregorianCalendar.isLeapYear (year);
+    super (jdn, year, month, day, GregorianCalendar.isLeapYear (year));
   }
 
   // Determine Julian day number from Gregorian calendar date

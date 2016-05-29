@@ -1,12 +1,10 @@
 import { amod, mod } from '../Astro';
 import { persian } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class PersianArithmeticCalendar extends YearMonthCalendar {
+export class PersianArithmeticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-
-     this.yearLeap = PersianArithmeticCalendar.isLeapYear (year);
+    super (jdn, year, month, day, PersianArithmeticCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Persian Arithmetic calendar a leap year?

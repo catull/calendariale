@@ -1,13 +1,11 @@
 import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude,
          standardToUniversal } from '../Astro';
 import { persian, J0000, MEAN_TROPICAL_YEAR, Season } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class PersianAstronomicalCalendar extends YearMonthCalendar {
+export class PersianAstronomicalCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-
-     this.yearLeap = PersianAstronomicalCalendar.isLeapYear (year);
+    super (jdn, year, month, day, PersianAstronomicalCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Persian Astronmical calendar a leap year?

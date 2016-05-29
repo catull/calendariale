@@ -1,19 +1,17 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { bahai, gregorian, TROPICAL_YEAR } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
-export class BahaiCalendar extends YearMonthCalendar {
+export class BahaiCalendar extends LeapCalendar {
     constructor (
       jdn: number,
       private kull_i_shay: number,
       private vahid: number,
       year: number,
       month: number,
-      day : number) {
-        super (jdn, year, month, day);
-
-        this.yearLeap = BahaiCalendar.isLeapYear (year);
+      day: number) {
+        super (jdn, year, month, day, BahaiCalendar.isLeapYear (year));
     }
 
     // Determine the year in the Bahai // astronomical calendar in which a

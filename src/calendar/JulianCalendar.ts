@@ -1,12 +1,10 @@
 import { mod } from '../Astro';
 import { julian } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class JulianCalendar extends YearMonthCalendar {
+export class JulianCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-
-     this.yearLeap = JulianCalendar.isLeapYear (year);
+    super (jdn, year, month, day, JulianCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Julian calendar a leap year?

@@ -2,12 +2,11 @@ import { mod } from '../Astro';
 import { hindu, ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH,
          ARYA_SOLAR_YEAR, J0000 } from '../Const';
 import { hinduDayCount } from '../HinduAlgorithms';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class HinduLunarOldCalendar extends YearMonthCalendar {
+export class HinduLunarOldCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, protected monthLeap: boolean, day: number) {
-    super (jdn, year, month, day);
-     this.yearLeap = HinduLunarOldCalendar.isLeapYear (year);
+    super (jdn, year, month, day, HinduLunarOldCalendar.isLeapYear (year));
   }
 
   // Is a given year in the Hindu Lunar Old calendar a leap year?

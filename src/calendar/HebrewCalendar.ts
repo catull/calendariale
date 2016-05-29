@@ -1,12 +1,10 @@
 import { amod, mod } from '../Astro';
 import { hebrew } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { LeapCalendar } from '../Calendar';
 
-export class HebrewCalendar extends YearMonthCalendar {
+export class HebrewCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
-
-     this.yearLeap = HebrewCalendar.isLeapYear (year);
+    super (jdn, year, month, day, HebrewCalendar.isLeapYear (year));
   }
 
   // Determine Julian day number from Hebrew calendar date
