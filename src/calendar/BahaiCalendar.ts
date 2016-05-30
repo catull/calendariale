@@ -66,7 +66,6 @@ export class BahaiCalendar extends LeapCalendar {
 
 
     public static validate (kullIshay: number, vahid: number, year: number, month: number, day: number) : void {
-      debugger;
       if (vahid < 1 || vahid > 19) {
         throw new CalendarValidationException ('Invalid vahid');
       }
