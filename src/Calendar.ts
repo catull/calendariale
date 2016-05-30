@@ -61,3 +61,9 @@ export class LeapMonthCalendar extends LeapCalendar {
     return this.monthLeap;
   }
 }
+
+export class CalendarValidationException extends Error {
+  constructor (public error: string) {
+    super (error);
+  }
+}

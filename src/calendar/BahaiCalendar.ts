@@ -1,6 +1,6 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { bahai, gregorian, TROPICAL_YEAR } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class BahaiCalendar extends LeapCalendar {
@@ -58,8 +58,41 @@ export class BahaiCalendar extends LeapCalendar {
     }
 
     // Determine Julian day from Bahai date
-    public static bahaiToJdn (major: number, vahid: number, year: number, month: number, day: number) {
-        return this.toJdn (361 * (major - 1) + 19 * (vahid - 1) + year, month, day);
+    public static bahaiToJdn (kullIshay: number, vahid: number, year: number, month: number, day: number) {
+        this.validate (kullIshay, vahid, year, month, day);
+
+        return this.toJdn (361 * (kullIshay - 1) + 19 * (vahid - 1) + year, month, day);
+    }
+
+
+    public static validate (kullIshay: number, vahid: number, year: number, month: number, day: number) : void {
+      debugger;
+      if (vahid < 1 || vahid > 19) {
+        throw new CalendarValidationException ('Invalid vahid');
+      }
+
+      if (year < 1 || year > 19) {
+        throw new CalendarValidationException ('Invalid year');
+      }
+
+      if (month < 0 || month > 19) {
+        throw new CalendarValidationException ('Invalid month');
+      }
+
+      if (month === 0) {
+        const byear = 361 * (kullIshay - 1) + 19 * (vahid - 1) + year;
+        const maxDay = this.isLeapYear (byear) ? 5 : 4;
+
+        if (day < 1 || day > maxDay) {
+          throw new CalendarValidationException ('Invalid day');
+        }
+
+        return;
+      }
+
+      if (day < 1 || day > 19) {
+        throw new CalendarValidationException ('Invalid day');
+      }
     }
 
     // Is a given year in the Bahai calendar a leap year?
@@ -82,7 +115,7 @@ export class BahaiCalendar extends LeapCalendar {
 
     // Calculate Bahai calendar date from Julian day
     public static fromJdn (jdn: number) {
-        let jd0, major, vahid, year, month, day, gy, bstarty, by, bys, days, old, leap, leapDays;
+        let jd0, kullIshay, vahid, year, month, day, gy, bstarty, by, bys, days, old, leap, leapDays;
 
         jd0 = Math.floor (jdn - 0.5) + 0.5;
         old = jd0 < bahai.EPOCH172;
@@ -100,13 +133,13 @@ export class BahaiCalendar extends LeapCalendar {
           days    = jd0 - by[1];
         }
 
-        major     = Math.floor (bys / 361) + 1;
+        kullIshay = Math.floor (bys / 361) + 1;
         vahid     = Math.floor (mod (bys - 1, 361) / 19) + 1;
         year      = amod (bys, 19);
         leapDays  = leap ? 5 : 4;
 
         if (old) {
-          days    = jd0 - this.bahaiToJdn (major, vahid, year, 1, 1) + 1;
+          days    = jd0 - this.bahaiToJdn (kullIshay, vahid, year, 1, 1) + 1;
         }
 
         if (days <= 18 * 19) {
@@ -120,7 +153,7 @@ export class BahaiCalendar extends LeapCalendar {
           day   = days - 18 * 19;
         }
 
-        return new BahaiCalendar (jdn, major, vahid, year, month, day);
+        return new BahaiCalendar (jdn, kullIshay, vahid, year, month, day);
     }
 
     // Determine Julian day and fraction of the

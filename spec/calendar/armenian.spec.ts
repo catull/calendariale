@@ -71,4 +71,14 @@ describe ('Armenian calendar spec', function () {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1000,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000,  7,  0)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000,  7, 35)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000, 13,  6)).to.throw ('Invalid day');
+   });
 });

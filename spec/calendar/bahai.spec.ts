@@ -110,4 +110,19 @@ describe ('Bahai calendar spec', function () {
     expect (cal.isLeapYear (174)).to.be.equal (true);
     expect (cal.isLeapYear (220)).to.be.equal (true);
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.bahaiToJdn (1, -9, 10, 10, 10)).to.throw ('Invalid vahid');
+    expect (() => cal.bahaiToJdn (1, 20, 10, 10, 10)).to.throw ('Invalid vahid');
+    expect (() => cal.bahaiToJdn (1,  9,  0, 10, 10)).to.throw ('Invalid year');
+    expect (() => cal.bahaiToJdn (1, 10, 21, 10, 10)).to.throw ('Invalid year');
+    expect (() => cal.bahaiToJdn (1,  9, 10, -1, 10)).to.throw ('Invalid month');
+    expect (() => cal.bahaiToJdn (1, 12, 11, 20, 10)).to.throw ('Invalid month');
+    expect (() => cal.bahaiToJdn (1,  9, 10, 10,  0)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1, 16, 11, 12, 22)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1,  9, 10,  0,  0)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  6)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1,  9, 16,  0,  6)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  5)).to.throw ('Invalid day');
+   });
 });
