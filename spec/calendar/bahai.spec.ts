@@ -47,7 +47,7 @@ const data2 = [
   { 'rataDie':  764652, 'bahai': { 'kull_i_shay':  1, 'vahid': 14, 'year':  4, 'month':  7, 'day':  6 } }
 ];
 
-describe ('Bahai calendar spec', function () {
+describe ('Bahai calendar spec', () => {
   let date, expected, actual, year,
       julian = 2456435.5;
 
@@ -67,7 +67,7 @@ describe ('Bahai calendar spec', function () {
   });
   */
 
-  it ('should convert a Bahai date to Julian day', function () {
+  it ('should convert a Bahai date to Julian day', () => {
     // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).to.be.equal (julian);
     // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).to.be.equal (2457810.5);
 
@@ -83,7 +83,7 @@ describe ('Bahai calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Bahai date', function () {
+  it ('should convert a Julian day to a Bahai date', () => {
     // expect (cal.fromJdn (julian)).to.be.eql ([ 1, 9, 18, 6, 1 ]);
     // expect (cal.fromJdn (2457810.5)).to.be.eql ([ 1, 10,  2,  0,  1 ]);
 
@@ -101,7 +101,7 @@ describe ('Bahai calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Bahai year is leap year', function () {
+  it ('should determine whether a Bahai year is leap year', () => {
     // the Bahai years 1 and 169 are the limits of the old leap rule
     expect (cal.isLeapYear (1)).to.be.equal (true);
     expect (cal.isLeapYear (168)).to.be.equal (false);

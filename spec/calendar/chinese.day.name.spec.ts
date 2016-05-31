@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'chineseDayName': { 'stem':  7, 'branch':  3 } }
 ];
 
-describe ('Chinese Day Name calendar spec', function () {
+describe ('Chinese Day Name calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Julian day number to a Chinese Day Name date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day number to a Chinese Day Name date', () => {
+    data4.forEach ((data) => {
       date     = data.chineseDayName;
       expected = { stem: date.stem, branch: date.branch };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);

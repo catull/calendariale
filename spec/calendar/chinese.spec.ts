@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'chinese': { 'cycle': 79, 'year': 51, 'month':  6, 'monthLeap': false, 'day':  7 } }
 ];
 
-describe ('Chinese calendar spec', function () {
+describe ('Chinese calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Chinese date to Julian day', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Chinese date to Julian day', () => {
+    data4.forEach ((data) => {
       date     = data.chinese;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
@@ -59,8 +59,8 @@ describe ('Chinese calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Chinese date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day to a Chinese date', () => {
+    data4.forEach ((data) => {
       date     = data.chinese;
       expected = { cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);

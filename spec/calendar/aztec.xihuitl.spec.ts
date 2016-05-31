@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'aztecXihuitl': { 'month': 16, 'day':  6 } }
 ];
 
-describe ('Aztec Xihuitl calendar spec', function () {
+describe ('Aztec Xihuitl calendar spec', () => {
   let date, julian, expected, actual;
 
-  it ('should convert a Julian day to a Aztec Xihuitl', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Aztec Xihuitl', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.aztecXihuitl;
       expected = { month: date.month, day: date.day };

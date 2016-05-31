@@ -46,11 +46,11 @@ const data1 = [
   { 'julianDay': 2486076.5, 'armenian': { 'year':  1544, 'month':  1, 'day': 15 } }
 ];
 
-describe ('Armenian calendar spec', function () {
+describe ('Armenian calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert an Armenian date to Julian day', function () {
-    data1.forEach (function (data) {
+  it ('should convert an Armenian date to Julian day', () => {
+    data1.forEach ((data) => {
       date = data.armenian;
       expected = data.julianDay;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -59,8 +59,8 @@ describe ('Armenian calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to an Armenian date', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian day to an Armenian date', () => {
+    data1.forEach ((data) => {
       date = data.armenian;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.julianDay);

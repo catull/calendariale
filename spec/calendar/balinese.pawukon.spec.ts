@@ -47,11 +47,11 @@ const data3 = [
   { 'rataDie':  764652, 'balinese': { 'luang': false, 'dwiwara': 1, 'triwara': 3, 'caturwara': 4, 'pancawara': 3, 'sadwara': 6, 'saptawara': 1, 'asatawara': 8, 'sangawara': 6, 'dasawara': 3 } }
 ];
 
-describe ('Balinese Pawukon calendar spec', function () {
+describe ('Balinese Pawukon calendar spec', () => {
   let date, expected, actual, decade, jour;
 
-  it ('should convert a Julian day to a Balinese Pawukon date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Balinese Pawukon date', () => {
+    data3.forEach ((data) => {
       date     = data.balinese;
       expected = { luang: date.luang, dwiwara: date.dwiwara, triwara: date.triwara, caturwara: date.caturwara, pancawara: date.pancawara,
         sadwara: date.sadwara, saptawara: date.saptawara, asatawara: date.asatawara, sangawara: date.sangawara, dasawara: date.dasawara };

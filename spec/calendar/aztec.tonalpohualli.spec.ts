@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'aztecTonalpohualli': { 'number':  2, 'name': 14 } }
 ];
 
-describe ('Aztec Tonalpohualli calendar spec', function () {
+describe ('Aztec Tonalpohualli calendar spec', () => {
   let date, julian, expected, actual;
 
-  it ('should convert a Julian day to a Aztec Tonalpohualli', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Aztec Tonalpohualli', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.aztecTonalpohualli;
       expected = { number: date.number, name: date.name };
