@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { coptic } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class CopticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -14,6 +14,8 @@ export class CopticCalendar extends LeapCalendar {
 
   // Determine Julian day number from Coptic calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     return coptic.EPOCH - 1  + 365 * (year - 1)  +
             Math.floor (year / 4) + 30 * (month - 1)  + day;
   }
@@ -25,5 +27,21 @@ export class CopticCalendar extends LeapCalendar {
     const day   = jdn + 1 - this.toJdn (year, month, 1);
 
     return new CopticCalendar (jdn, year, month, day);
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 13) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    const days = this.isLeapYear (year) ? 6 : 5;
+
+    if (month === 13 && day > days) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    if (day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 }
