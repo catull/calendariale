@@ -48,7 +48,7 @@ const data2 = [
 ];
 
 describe ('Bahai calendar spec', function () {
-  let date, expected, actual,
+  let date, expected, actual, year,
       julian = 2456435.5;
 
   /*
@@ -75,7 +75,10 @@ describe ('Bahai calendar spec', function () {
       expected = data.rataDie + Const.J0000;
       date = data.bahai;
       actual = cal.bahaiToJdn (date.kull_i_shay, date.vahid, date.year, date.month, date.day);
+      expect (expected).to.be.equal (actual);
 
+      year = 361 * (date.kull_i_shay - 1) + 19 * (date.vahid - 1) + date.year;
+      actual = cal.toJdn (year, date.month, date.day);
       expect (expected).to.be.equal (actual);
     });
   });

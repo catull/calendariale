@@ -34,36 +34,39 @@ export class BahaiCalendar extends LeapCalendar {
     // pre-calculated as
     //    1844 + 361 * (kull-i-shay - 1) + 19 * (vahid - 1) + year - 1
     public static toJdn (year: number, month: number, day: number) : number {
-        let gy, jd, leap, yearDays;
+      const kullIshay = Math.floor (year / 361) + 1;
+      const vahid     = Math.floor (mod (year - 1, 361) / 19) + 1;
+      const y         = amod (year, 19);
 
-        gy = year + GregorianCalendar.fromJdn (bahai.EPOCH).getYear () - 1;
-
-        if (year < 172) {
-          leap = GregorianCalendar.isLeapYear (gy + 1);
-          jd = GregorianCalendar.toJdn (gy, 3, 20);
-        } else {
-          leap = this.isLeapYear (year);
-          jd = this.tehranEquinoxJd (gy);
-        }
-
-        if (month === 0) {
-          yearDays = 342;
-        } else if (month === 19) {
-          yearDays = 342 + (leap ? 5 : 4);
-        } else {
-          yearDays = (month - 1) * 19;
-        }
-
-        return jd + yearDays + day;
+      return this.bahaiToJdn (kullIshay, vahid, y, month, day);
     }
 
     // Determine Julian day from Bahai date
     public static bahaiToJdn (kullIshay: number, vahid: number, year: number, month: number, day: number) {
-        this.validate (kullIshay, vahid, year, month, day);
+      this.validate (kullIshay, vahid, year, month, day);
 
-        return this.toJdn (361 * (kullIshay - 1) + 19 * (vahid - 1) + year, month, day);
+      const byear = 361 * (kullIshay - 1) + 19 * (vahid - 1) + year;
+      const gy = byear + GregorianCalendar.fromJdn (bahai.EPOCH).getYear () - 1;
+      let jd, leap, yearDays;
+
+      if (byear < 172) {
+        leap = GregorianCalendar.isLeapYear (gy + 1);
+        jd   = GregorianCalendar.toJdn (gy, 3, 20);
+      } else {
+        leap = this.isLeapYear (byear);
+        jd   = this.tehranEquinoxJd (gy);
+      }
+
+      if (month === 0) {
+        yearDays = 342;
+      } else if (month === 19) {
+        yearDays = 342 + (leap ? 5 : 4);
+      } else {
+        yearDays = (month - 1) * 19;
+      }
+
+      return jd + yearDays + day;
     }
-
 
     public static validate (kullIshay: number, vahid: number, year: number, month: number, day: number) : void {
       if (vahid < 1 || vahid > 19) {
@@ -114,69 +117,64 @@ export class BahaiCalendar extends LeapCalendar {
 
     // Calculate Bahai calendar date from Julian day
     public static fromJdn (jdn: number) {
-        let jd0, kullIshay, vahid, year, month, day, gy, bstarty, by, bys, days, old, leap, leapDays;
+      const jd0 = Math.floor (jdn - 0.5) + 0.5;
+      const old = jd0 < bahai.EPOCH172;
 
-        jd0 = Math.floor (jdn - 0.5) + 0.5;
-        old = jd0 < bahai.EPOCH172;
+      let gy, bstarty, by, bys, days, leap, kullIshay, vahid, year, month, day, leapDays;
 
-        if (old) {
-          gy      = GregorianCalendar.fromJdn (jd0).getYear ();
-          leap    = GregorianCalendar.isLeapYear (gy + 1);
-          bstarty = GregorianCalendar.fromJdn (bahai.EPOCH).getYear ();
-          bys     = gy - (bstarty + (GregorianCalendar.toJdn (gy, 1, 1) <= jd0 &&
-                        jd0 <= GregorianCalendar.toJdn (gy, 3, 20) ? 1 : 0)) + 1;
-        } else {
-          by      = this.jdnToYearAndOffset (jd0);
-          bys     = by[0];
-          leap    = this.isLeapYear (bys);
-          days    = jd0 - by[1];
-        }
+      if (old) {
+        gy      = GregorianCalendar.fromJdn (jd0).getYear ();
+        leap    = GregorianCalendar.isLeapYear (gy + 1);
+        bstarty = GregorianCalendar.fromJdn (bahai.EPOCH).getYear ();
+        bys     = gy - (bstarty + (GregorianCalendar.toJdn (gy, 1, 1) <= jd0 &&
+                    jd0 <= GregorianCalendar.toJdn (gy, 3, 20) ? 1 : 0)) + 1;
+      } else {
+        by      = this.jdnToYearAndOffset (jd0);
+        bys     = by[0];
+        leap    = this.isLeapYear (bys);
+        days    = jd0 - by[1];
+      }
 
-        kullIshay = Math.floor (bys / 361) + 1;
-        vahid     = Math.floor (mod (bys - 1, 361) / 19) + 1;
-        year      = amod (bys, 19);
-        leapDays  = leap ? 5 : 4;
+      kullIshay = Math.floor (bys / 361) + 1;
+      vahid     = Math.floor (mod (bys - 1, 361) / 19) + 1;
+      year      = amod (bys, 19);
+      leapDays  = leap ? 5 : 4;
 
-        if (old) {
-          days    = jd0 - this.bahaiToJdn (kullIshay, vahid, year, 1, 1) + 1;
-        }
+      if (old) {
+        days    = jd0 - this.bahaiToJdn (kullIshay, vahid, year, 1, 1) + 1;
+      }
 
-        if (days <= 18 * 19) {
-          month = 1 + Math.floor ((days - 1) / 19);
-          day   = amod (days, 19);
-        } else if (days > 18 * 19 + leapDays) {
-          month = 19;
-          day   = amod (days - leapDays - 1, 19);
-        } else {
-          month = 0;
-          day   = days - 18 * 19;
-        }
+      if (days <= 18 * 19) {
+        month = 1 + Math.floor ((days - 1) / 19);
+        day   = amod (days, 19);
+      } else if (days > 18 * 19 + leapDays) {
+        month = 19;
+        day   = amod (days - leapDays - 1, 19);
+      } else {
+        month = 0;
+        day   = days - 18 * 19;
+      }
 
-        return new BahaiCalendar (jdn, kullIshay, vahid, year, month, day);
+      return new BahaiCalendar (jdn, kullIshay, vahid, year, month, day);
     }
 
     // Determine Julian day and fraction of the
     // March equinox at the Tehran meridian in
     // a given Gregorian year.
     private static tehranEquinox (year: number) : number {
-      let equJED, equJD, equAPP, equTehran, dtTehran;
-
       // March equinox in dynamical time
-      equJED = equinox (year, 0);
+      const equJED = equinox (year, 0);
 
       // Correct for delta T to obtain Universal time
-      equJD = equJED - deltaT (year) / (24 * 60 * 60);
+      const equJD = equJED - deltaT (year) / (24 * 60 * 60);
 
       // Apply the equation of time to yield the apparent time at Greenwich
-      equAPP = equJD + equationOfTime (equJED);
+      const equAPP = equJD + equationOfTime (equJED);
 
       // Finally, we must correct for the constant difference between
       // the Greenwich meridian andthe time zone standard for
       // Iran Standard time, 52°30' to the East.
-      dtTehran  = 52.5 / 360;
-      equTehran = equAPP + dtTehran;
-
-      return equTehran;
+      return equAPP + 52.5 / 360;
     }
 
     // Calculate Julian day during which the
