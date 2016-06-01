@@ -45,10 +45,10 @@ export class RomanCalendar extends YearMonthCalendar {
       event = RomanEvent.KALENDS;
     } else if (count <= this.nonesOfMonth (month)) {
       event = RomanEvent.NONES;
-      count   = this.nonesOfMonth (month) - count + 1;
+      count = this.nonesOfMonth (month) - count + 1;
     } else if (count <= this.idesOfMonth (month)) {
       event = RomanEvent.IDES;
-      count   = this.idesOfMonth (month) - count + 1;
+      count = this.idesOfMonth (month) - count + 1;
     } else if (month !== Month.FEBRUARY || !JulianCalendar.isLeapYear (year)) {
       const month_ = amod (month + 1, 12);
       const year_  = month_ !== 1 ? year : year !== -1 ? year + 1 : 1;
@@ -56,16 +56,16 @@ export class RomanCalendar extends YearMonthCalendar {
       year  = year_;
       month = month_;
       event = RomanEvent.KALENDS;
-      count   = kalends1 - jdn + 1;
+      count = kalends1 - jdn + 1;
     } else if (count < 25) {
       month = Month.MARCH;
       event = RomanEvent.KALENDS;
-      count   = 30 - count;
+      count = 30 - count;
     } else {
       month = Month.MARCH;
       event = RomanEvent.KALENDS;
-      count   = 31 - count;
-      leap = (count === 25);
+      count = 31 - count;
+      leap  = (count === 25);
     }
 
     return new RomanCalendar (jdn, year, month, event, count, leap);

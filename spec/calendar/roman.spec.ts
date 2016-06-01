@@ -48,11 +48,11 @@ const data1 = [
 ];
 
 
-describe ('Roman calendar spec', function () {
+describe ('Roman calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Roman date to Julian day', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Roman date to Julian day', () => {
+    data1.forEach ((data) => {
       date = data.roman;
       expected = data.julianDay;
       actual = cal.toJdn (date.year, date.month, date.event, date.count, date.leap);
@@ -61,8 +61,8 @@ describe ('Roman calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Roman date', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian day to a Roman date', () => {
+    data1.forEach ((data) => {
       date = data.roman;
       expected = { year: date.year, month: date.month, event: date.event, count: date.count, leap: date.leap };
       actual = cal.fromJdn (data.julianDay);
