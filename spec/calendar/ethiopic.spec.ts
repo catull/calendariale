@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'ethiopic': { 'year': 2086, 'month': 11, 'day': 11 } }
 ];
 
-describe ('Ethiopic calendar spec', function () {
+describe ('Ethiopic calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert an Ethiopic date to Julian day', function () {
-    data2.forEach (function (data) {
+  it ('should convert an Ethiopic date to Julian day', () => {
+    data2.forEach ((data) => {
       date = data.ethiopic;
       expected = data.rataDie + Const.J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -60,8 +60,8 @@ describe ('Ethiopic calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to an Ethiopic date', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to an Ethiopic date', () => {
+    data2.forEach ((data) => {
       date = data.ethiopic;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.rataDie + Const.J0000);
@@ -72,4 +72,14 @@ describe ('Ethiopic calendar spec', function () {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1000,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000,  7,  0)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000,  7, 35)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000, 13,  6)).to.throw ('Invalid day');
+   });
 });

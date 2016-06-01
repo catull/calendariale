@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { ethiopic } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class EthiopicCalendar extends YearMonthCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -9,6 +9,8 @@ export class EthiopicCalendar extends YearMonthCalendar {
 
   // Determine Julian day number from Ethiopic calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     return ethiopic.EPOCH - 1  + 365 * (year - 1)  +
             Math.floor (year / 4) + 30 * (month - 1)  + day;
   }
@@ -20,5 +22,19 @@ export class EthiopicCalendar extends YearMonthCalendar {
     const day   = jdn + 1 - this.toJdn (year, month, 1);
 
     return new EthiopicCalendar (jdn, year, month, day);
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 13) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    if (month === 13 && day > 5) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    if (day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 }
