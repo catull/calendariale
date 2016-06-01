@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'mayanTzolkin': { 'month':  2, 'day': 14 } }
 ];
 
-describe ('Mayan Tzolkin calendar spec', function () {
+describe ('Mayan Tzolkin calendar spec', () => {
   let date, julian, expected, actual;
 
-  it ('should convert a Julian day to a Mayan Tzolkin', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Mayan Tzolkin', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.mayanTzolkin;
       expected = { month: date.month, day: date.day };
