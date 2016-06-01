@@ -24,7 +24,6 @@ export class GregorianCalendar extends LeapCalendar {
   }
 
   public static validate (year: number, month: number, day: number) : void {
-    debugger;
     if (month < 1 || month > 12) {
       throw new CalendarValidationException ('Invalid month');
     }
