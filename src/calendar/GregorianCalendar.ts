@@ -1,6 +1,8 @@
 import { mod } from '../Astro';
-import { gregorian } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { gregorian, Month } from '../Const';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
+
+const daysInMonth : number[] = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
 export class GregorianCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -9,6 +11,8 @@ export class GregorianCalendar extends LeapCalendar {
 
   // Determine Julian day number from Gregorian calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     const y1: number = year - 1;
 
     return gregorian.EPOCH - 1 + 365 * y1 +
@@ -17,6 +21,27 @@ export class GregorianCalendar extends LeapCalendar {
         Math.floor (y1 / 400) +
         Math.floor ((367 * month - 362) / 12 +
           (month <= 2 ? 0 : GregorianCalendar.isLeapYear (year) ? -1 : -2) + day);
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    debugger;
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    if (day < 1) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    const febDays = this.isLeapYear (year) ? 29 : 28;
+
+    if (month === Month.FEBRUARY && day <= febDays) {
+        return;
+    }
+
+    if (daysInMonth[month - 1] < day) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Is a given year in the Gregorian calendar a leap year?

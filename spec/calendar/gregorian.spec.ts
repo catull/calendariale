@@ -46,12 +46,11 @@ const data1 = [
   { 'julianDay': 2486076.5, 'gregorian': { 'year': 2094, 'month':  7, 'day': 18  } }
 ];
 
-describe ('Gregorian calendar spec', function () {
+describe ('Gregorian calendar spec', () => {
   let date, expected, actual;
 
-
-  it ('should convert a Gregorian date to Julian day', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Gregorian date to Julian day', () => {
+    data1.forEach ((data) => {
       date = data.gregorian;
       expected = data.julianDay;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -60,8 +59,8 @@ describe ('Gregorian calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Gregorian date', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian day to a Gregorian date', () => {
+    data1.forEach ((data) => {
       date = data.gregorian;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.julianDay);
@@ -72,13 +71,23 @@ describe ('Gregorian calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Gregorian year is leap year', function () {
-    [ 0, 4, 20, 1600, 1760, 1840, 1904, 1980, 2000 ].forEach (function (year) {
+  it ('should determine whether a Gregorian year is leap year', () => {
+    [ 0, 4, 20, 1600, 1760, 1840, 1904, 1980, 2000 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
-    [ 1, 2, 3, 5, 1599, 1700, 1800, 1900, 1970, 2001 ].forEach (function (year) {
+    [ 1, 2, 3, 5, 1599, 1700, 1800, 1900, 1970, 2001 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  7, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  2, 29)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (2000,  2, 30)).to.throw ('Invalid day');
+   });
 });
