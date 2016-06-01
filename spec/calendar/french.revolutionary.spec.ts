@@ -48,11 +48,11 @@ const data3 = [
   { 'rataDie':  764652, 'french': { 'year':   302, 'month': 10, 'day': 30 } }
 ];
 
-describe ('French Revolutionary calendar spec', function () {
+describe ('French Revolutionary calendar spec', () => {
   let date, expected, actual, decade, jour;
 
-  it ('should convert a French Revolutionary date to Julian day', function () {
-    data3.forEach (function (data) {
+  it ('should convert a French Revolutionary date to Julian day', () => {
+    data3.forEach ((data) => {
       date     = data.french;
       expected = data.rataDie + Const.J0000;
       jour     = date.day;
@@ -63,8 +63,8 @@ describe ('French Revolutionary calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a French Revolutionary date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a French Revolutionary date', () => {
+    data3.forEach ((data) => {
       date     = data.french;
       jour     = date.day;
       decade   = Math.floor ((jour - 1) / 10) + 1;
@@ -79,4 +79,16 @@ describe ('French Revolutionary calendar spec', function () {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1,  0, 3, 10)).to.throw ('Invalid mois');
+    expect (() => cal.toJdn (1, -2, 3, 10)).to.throw ('Invalid mois');
+    expect (() => cal.toJdn (1, 15, 3, 10)).to.throw ('Invalid mois');
+    expect (() => cal.toJdn (1,  7, 0, 10)).to.throw ('Invalid decadi');
+    expect (() => cal.toJdn (1,  7, 4, 10)).to.throw ('Invalid decadi');
+    expect (() => cal.toJdn (1,  7, 3, -5)).to.throw ('Invalid jour');
+    expect (() => cal.toJdn (1,  7, 3, 12)).to.throw ('Invalid jour');
+    expect (() => cal.toJdn (1, 13, 1,  6)).to.throw ('Invalid jour');
+    expect (() => cal.toJdn (3, 13, 1,  7)).to.throw ('Invalid jour');
+   });
 });

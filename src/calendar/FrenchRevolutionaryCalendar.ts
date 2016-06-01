@@ -1,16 +1,18 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { french, TROPICAL_YEAR } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
-  constructor (jdn: number, year: number, month: number, private decade: number, day: number) {
-    super (jdn, year, month, day);
+  constructor (jdn: number, an: number, mois: number, private decade: number, jour: number) {
+    super (jdn, an, mois, jour);
   }
 
   // Obtain Julian day from a given French Revolutionary calendar date.
-  public static toJdn (an: number, mois: number, decadi: number, jour: number) : number {
-    let adr, equinoxe, guess, jdn;
+  public static toJdn (an: number, mois: number, decade: number, jour: number) : number {
+    this.validate (an, mois, decade, jour);
+
+    let adr, guess;
 
     guess = french.EPOCH + TROPICAL_YEAR * (an - 2);
     adr = [ an - 1, 0 ];
@@ -20,57 +22,52 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
       guess = adr[1] + TROPICAL_YEAR + 2;
     }
 
-    equinoxe = adr[1];
+    const equinoxe = adr[1];
 
-    return equinoxe + 30 * (mois - 1) + 10 * (decadi - 1) + jour - 1;
+    return equinoxe + 30 * (mois - 1) + 10 * (decade - 1) + jour - 1;
   }
 
   // Calculate date in the French Revolutionary calendar from Julian day.
   // The five or six "sansculottides" are considered a thirteenth month in the
   // results of this function.
   public static fromJdn (jdn: number) {
-    let jd0, an, mois, decadi, jour, adr, equinoxe;
+    const jd0      = Math.floor (jdn) + 0.5;
+    const adr      = this.anneeDeLaRevolution (jd0);
+    const an       = adr[0];
+    const equinoxe = adr[1];
+    const mois     = Math.floor ((jd0 - equinoxe) / 30) + 1;
+    let jour       = (jd0 - equinoxe) % 30;
+    const decade   = Math.floor (jour / 10) + 1;
+    jour           = jour % 10 + 1;
 
-    jd0      = Math.floor (jdn) + 0.5;
-    adr      = this.anneeDeLaRevolution (jd0);
-    an       = adr[0];
-    equinoxe = adr[1];
-    mois     = Math.floor ((jd0 - equinoxe) / 30) + 1;
-    jour     = (jd0 - equinoxe) % 30;
-    decadi   = Math.floor (jour / 10) + 1;
-    jour     = jour % 10 + 1;
-
-    return new FrenchRevolutionaryCalendar (jdn, an, mois, decadi, jour);
+    return new FrenchRevolutionaryCalendar (jdn, an, mois, decade, jour);
   }
 
-  // Determine Julian day and fraction of the September equinox at the Paris
-  // meridian in a given Gregorian year.
-  private static equinoxeAParis (year: number) : number {
-    let equJED, equJD, equAPP, equParis, dtParis;
+  public static isLeapYear (year: number) : boolean {
+    const equinox0 = this.parisEquinoxeJd (year + 1791);
+    const equinox1 = this.parisEquinoxeJd (year + 1792);
 
-    // September equinox in dynamical time
-    equJED = equinox (year, 2);
-
-    // Correct for delta T to obtain Universal time
-    equJD = equJED - deltaT (year) / (24 * 60 * 60);
-
-    // Apply the equation of time to yield the apparent time at Greenwich
-    equAPP = equJD + equationOfTime (equJED);
-
-    // Finally, we must correct for the constant difference between
-    // the Greenwich meridian and that of Paris, 2°20'15" to the East.
-    dtParis = (2 + 20 / 60.0 + 15 / (60 * 60.0)) / 360;
-    equParis = equAPP + dtParis;
-
-    return equParis;
+    return equinox1 - equinox0 > 365;
   }
 
-  // Calculate Julian day during which the September equinox, reckoned from
-  // the Paris meridian, occurred for a given Gregorian year.
-  private static parisEquinoxeJd (year: number) : number {
-    const ep  = this.equinoxeAParis (year);
+  public static validate (an: number, mois: number, decade: number, jour: number) : void {
+    if (mois < 1 || mois > 13) {
+      throw new CalendarValidationException ('Invalid mois');
+    }
 
-    return Math.floor (ep - 0.5) + 0.5;
+    if (decade < 1 || decade > 3) {
+      throw new CalendarValidationException ('Invalid decadi');
+    }
+
+    const sans_cullotides = this.isLeapYear (an) ? 6 : 5;
+
+    if (mois === 13 && jour > sans_cullotides) {
+      throw new CalendarValidationException ('Invalid jour');
+    }
+
+    if (jour < 1 || jour > 10) {
+      throw new CalendarValidationException ('Invalid jour');
+    }
   }
 
   // Determine the year in the French
@@ -101,5 +98,33 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     adr = Math.round ((lasteq - french.EPOCH) / TROPICAL_YEAR) + 1;
 
     return [ adr, lasteq ];
+  }
+
+  // Calculate Julian day during which the September equinox, reckoned from
+  // the Paris meridian, occurred for a given Gregorian year.
+  private static parisEquinoxeJd (year: number) : number {
+    const ep  = this.equinoxeAParis (year);
+
+    return Math.floor (ep - 0.5) + 0.5;
+  }
+
+  // Determine Julian day and fraction of the September equinox at the Paris
+  // meridian in a given Gregorian year.
+  private static equinoxeAParis (year: number) : number {
+    // September equinox in dynamical time
+    const equJED = equinox (year, 2);
+
+    // Correct for delta T to obtain Universal time
+    const equJD = equJED - deltaT (year) / (24 * 60 * 60);
+
+    // Apply the equation of time to yield the apparent time at Greenwich
+    const equAPP = equJD + equationOfTime (equJED);
+
+    // Finally, we must correct for the constant difference between
+    // the Greenwich meridian and that of Paris, 2°20'15" to the East.
+    const dtParis = (2 + 20 / 60.0 + 15 / (60 * 60.0)) / 360;
+    const equParis = equAPP + dtParis;
+
+    return equParis;
   }
 }
