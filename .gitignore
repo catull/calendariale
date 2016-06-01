@@ -1,5 +1,7 @@
 lib
 node_modules
-spec/build
+spec/lib
 spec/typings
+spec/**/*.js
+src/**/*.js
 typings
