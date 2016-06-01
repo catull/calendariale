@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { mayan } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { BaseCalendar, CalendarValidationException } from '../Calendar';
 
 export class MayanCountCalendar extends BaseCalendar {
   constructor (jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
@@ -8,13 +8,38 @@ export class MayanCountCalendar extends BaseCalendar {
   }
 
   // Determine JUlian day number from Mayan Count calendar date
-  public static toJdn (baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
+  public static toJdn (baktun: number, katun: number, tun: number, uinal: number, kin: number) : number {
+    this.validate (baktun, katun, tun, uinal, kin);
+
     return mayan.EPOCH +
       baktun * 144000 +
       katun * 7200 +
       tun * 360 +
       uinal * 20 +
       kin;
+  }
+
+  public static validate (baktun: number, katun: number, tun: number, uinal: number, kin: number) : void {
+    debugger;
+    if (kin < 0 || kin > 19) {
+      throw new CalendarValidationException ('Invalid kin');
+    }
+
+    if (uinal < 0 || uinal > 17) {
+      throw new CalendarValidationException ('Invalid uinal');
+    }
+
+    if (tun < 0 || tun > 19) {
+      throw new CalendarValidationException ('Invalid tun');
+    }
+
+    if (katun < 0 || katun > 19) {
+      throw new CalendarValidationException ('Invalid katun');
+    }
+
+    if (baktun < 0) {
+      throw new CalendarValidationException ('Invalid baktun');
+    }
   }
 
   // Calculate Mayan Count calendar date from Julian day

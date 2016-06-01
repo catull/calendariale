@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'mayanLong': { 'baktun': 13, 'katun':  4, 'tun':  2, 'uinal': 13, 'kin': 14 } }
 ];
 
-describe ('Mayan Count calendar spec', function () {
+describe ('Mayan Count calendar spec', () => {
   let date, julian, expected, actual;
 
-  it ('should convert a Mayan Count to Julian day', function () {
-    data2.forEach (function (data) {
+  it ('should conv0ert a Mayan Count to Julian day', () => {
+    data2.forEach ((data) => {
       expected = data.rataDie + Const.J0000;
       date     = data.mayanLong;
       actual   = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
@@ -60,8 +60,8 @@ describe ('Mayan Count calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Mayan Count', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Mayan Count', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.mayanLong;
       expected = { baktun: date.baktun, katun: date.katun, tun: date.tun, uinal: date.uinal, kin: date.kin };
@@ -75,4 +75,15 @@ describe ('Mayan Count calendar spec', function () {
       expect (expected.kin).to.be.equal (actual.kin);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (0,  0,  0,  0, -1)).to.throw ('Invalid kin');
+    expect (() => cal.toJdn (0,  0,  0,  0, 20)).to.throw ('Invalid kin');
+    expect (() => cal.toJdn (0,  0,  0, -1, 19)).to.throw ('Invalid uinal');
+    expect (() => cal.toJdn (0,  0,  0, 18, 19)).to.throw ('Invalid uinal');
+    expect (() => cal.toJdn (0,  0, -1, 17, 19)).to.throw ('Invalid tun');
+    expect (() => cal.toJdn (0,  0, 20, 17, 19)).to.throw ('Invalid tun');
+    expect (() => cal.toJdn (0, -1, 19, 17, 19)).to.throw ('Invalid katun');
+    expect (() => cal.toJdn (0, 20, 19, 17, 19)).to.throw ('Invalid katun');
+   });
 });
