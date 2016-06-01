@@ -84,7 +84,6 @@ describe ('Hebrew calendar spec', () => {
   });
 
   it ('throws validation excetions', () => {
-    // console.log (5000, cal.isLeapYear (5000));
     expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');
