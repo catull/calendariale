@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { french } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class FrenchArithmeticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -18,6 +18,8 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
 
   // Determine Julian day number from French Arithmetic calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     const y1 = year - 1;
 
     return french.EPOCH - 1       +
@@ -38,5 +40,21 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
     const day    = jdn - this.toJdn (year, month, 1) + 1;
 
     return new FrenchArithmeticCalendar (jdn, year, month, day);
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 13) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    const days = this.isLeapYear (year) ? 6 : 5;
+
+    if (month === 13 && day > days) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    if (day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 }
