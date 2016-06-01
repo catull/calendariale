@@ -1,7 +1,7 @@
 import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude,
          standardToUniversal } from '../Astro';
 import { persian, J0000, MEAN_TROPICAL_YEAR, Season } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class PersianAstronomicalCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -15,14 +15,26 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
 
   // Determine day number from Persian Astronmical calendar date
   public static toJdn (year: number, month: number, day: number) : number {
-    let temp, nowRuz;
+    this.validate (year, month, day);
 
-    temp = year > 0 ? year - 1 : year;
-    nowRuz = this.persianNewYearOnOrBefore (persian.EPOCH_RD + 180 +
+    const temp = year > 0 ? year - 1 : year;
+    const nowRuz = this.persianNewYearOnOrBefore (persian.EPOCH_RD + 180 +
         Math.floor (MEAN_TROPICAL_YEAR * temp));
 
     return nowRuz - 1 + day +
             ((month <= 7) ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    const maxDays = month < 7 ? 31 : (!this.isLeapYear (year) && month === 12) ? 29 : 30;
+
+    if (day < 1 || day > maxDays) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
   }
 
   // Calculate Persian Astronmical calendar date from Julian day

@@ -47,11 +47,11 @@ const data3 = [
   { 'rataDie':  764652, 'persianAstro': { 'year':  1473, 'month':  4, 'day': 28 } }
 ];
 
-describe ('Persian Astronmical calendar spec', function () {
+describe ('Persian Astronmical calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Persian Astronmical date to Julian day', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Persian Astronmical date to Julian day', () => {
+    data3.forEach ((data) => {
       date     = data.persianAstro;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.day);
@@ -59,8 +59,8 @@ describe ('Persian Astronmical calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Persian Astronmical date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Persian Astronmical date', () => {
+    data3.forEach ((data) => {
       date     = data.persianAstro;
       expected = { year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
@@ -71,14 +71,24 @@ describe ('Persian Astronmical calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Persian Astronmical year is leap year', function () {
-    [ 38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370 ].forEach (function (year) {
+  it ('should determine whether a Persian Astronmical year is leap year', () => {
+    [ 38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
     [ 165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862,
-      903, 944, 985, 1026, 1067, 1108, 1149, 1190, 1231, 1272 ].forEach (function (year) {
+      903, 944, 985, 1026, 1067, 1108, 1149, 1190, 1231, 1272 ].forEach ((year) => {
           expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1333,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333, 13, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1333,  7, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1333, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1334, 12, 30)).to.throw ('Invalid day');
+   });
 });
