@@ -47,11 +47,11 @@ const data3 = [
   { 'rataDie':  764652, 'hebrew': { 'year': 5854, 'month':  5, 'day':  5 } }
 ];
 
-describe ('Hebrew calendar spec', function () {
+describe ('Hebrew calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Hebrew date to Julian day', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Hebrew date to Julian day', () => {
+    data3.forEach ((data) => {
       date = data.hebrew;
       expected = data.rataDie + Const.J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -60,8 +60,8 @@ describe ('Hebrew calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Hebrew date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Hebrew date', () => {
+    data3.forEach ((data) => {
       date = data.hebrew;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.rataDie + Const.J0000);
@@ -73,13 +73,28 @@ describe ('Hebrew calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Hebrew year is leap year', function () {
-    [ 5700, 5703, 5706, 5708, 5711, 5714, 5717 ].forEach (function (year) {
+  it ('should determine whether a Hebrew year is leap year', () => {
+    [ 5700, 5703, 5706, 5708, 5711, 5714, 5717 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
-    [ 5699, 5701, 5702, 5704, 5705, 5709, 5710 ].forEach (function (year) {
+    [ 5699, 5701, 5702, 5704, 5705, 5709, 5710 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
+
+  it ('throws validation excetions', () => {
+    // console.log (5000, cal.isLeapYear (5000));
+    expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000,  7, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000,  2, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5001, 12, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5102,  8, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5103,  9, 30)).to.throw ('Invalid day');
+   });
 });

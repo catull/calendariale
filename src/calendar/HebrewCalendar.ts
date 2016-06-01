@@ -1,6 +1,6 @@
 import { amod, mod } from '../Astro';
 import { hebrew } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class HebrewCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -9,11 +9,11 @@ export class HebrewCalendar extends LeapCalendar {
 
   // Determine Julian day number from Hebrew calendar date
   public static toJdn (year: number, month: number, day: number) : number {
-    let jdn, mon, months;
+    this.validate (year, month, day);
 
-    months = this.hebrewYearMonths (year);
-
-    jdn = hebrew.EPOCH + this.hebrewDelay1 (year) + this.hebrewDelay2 (year) + day + 1;
+    const months = this.hebrewYearMonths (year);
+    let jdn = hebrew.EPOCH + this.hebrewDelay1 (year) + this.hebrewDelay2 (year) + day + 1;
+    let mon;
 
     if (month < 7) {
       for (mon = 7; mon <= months; mon += 1) {
@@ -29,6 +29,16 @@ export class HebrewCalendar extends LeapCalendar {
     }
 
     return jdn;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > this.hebrewYearMonths (year)) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    if (day < 1 || day > this.hebrewMonthDays (year, month)) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Convert Julian date to Hebrew date
@@ -57,7 +67,7 @@ export class HebrewCalendar extends LeapCalendar {
   }
 
   // Is a given Hebrew year a leap year?
-  private static isLeapYear (year: number) : boolean {
+  public static isLeapYear (year: number) : boolean {
     return mod (year * 7 + 1, 19) < 7;
   }
 
@@ -99,7 +109,7 @@ export class HebrewCalendar extends LeapCalendar {
   }
 
   // How many days are in a given month of a given year
-  private static hebrewMonthDays (year: number, month: number) : number {
+  public static hebrewMonthDays (year: number, month: number) : number {
     // First of all, dispose of fixed-length 29 day months
     if (month === 2 || month === 4 || month === 6 || month === 10 || month === 13) {
       return 29;
