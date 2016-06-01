@@ -47,11 +47,11 @@ const data3 = [
   { 'rataDie':  764652, 'persianArith': { 'year':  1473, 'month':  4, 'day': 28 } }
 ];
 
-describe ('Persian Arithmetic calendar spec', function () {
+describe ('Persian Arithmetic calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Persian Arithmetic date to Julian day', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Persian Arithmetic date to Julian day', () => {
+    data3.forEach ((data) => {
       date     = data.persianArith;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.day);
@@ -59,8 +59,8 @@ describe ('Persian Arithmetic calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Persian Arithmetic year', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Persian Arithmetic year', () => {
+    data3.forEach ((data) => {
       date     = data.persianArith;
       expected = date.year;
       actual   = cal.jdnToYear (data.rataDie + Const.J0000);
@@ -68,8 +68,8 @@ describe ('Persian Arithmetic calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Persian Arithmetic date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Persian Arithmetic date', () => {
+    data3.forEach ((data) => {
       date     = data.persianArith;
       expected = { year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
@@ -80,14 +80,24 @@ describe ('Persian Arithmetic calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Persian Arithmetic year is leap year', function () {
-    [ 4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395 ].forEach (function (year) {
+  it ('should determine whether a Persian Arithmetic year is leap year', () => {
+    [ 4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
     [ 1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847,
-        894, 988, 1035, 1082, 1129, 1223, 1270, 1364 ].forEach (function (year) {
+        894, 988, 1035, 1082, 1129, 1223, 1270, 1364 ].forEach ((year) => {
           expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1333,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333, 13, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1333,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1333,  7, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1333, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1334, 12, 30)).to.throw ('Invalid day');
+   });
 });

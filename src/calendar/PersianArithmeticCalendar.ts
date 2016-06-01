@@ -1,6 +1,6 @@
 import { amod, mod } from '../Astro';
 import { persian } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class PersianArithmeticCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -17,12 +17,26 @@ export class PersianArithmeticCalendar extends LeapCalendar {
 
   // Determine Julian day number from Persian Arithmetic calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     const y0     = year > 0 ? year - 474 : year - 473,
           y1     = mod (y0, 2820) + 474,
           offset = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
 
       return persian.EPOCH - 1 + 1029983 * Math.floor (y0 / 2820) +
              365 * (y1 - 1) + Math.floor ((31 * y1 - 5) / 128) + offset + day;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    const maxDays = month < 7 ? 31 : (!this.isLeapYear (year) && month === 12) ? 29 : 30;
+
+    if (day < 1 || day > maxDays) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
   }
 
   // Calculate Persian Arithmetic calendar date from Julian day
