@@ -20,7 +20,6 @@ export class MayanCountCalendar extends BaseCalendar {
   }
 
   public static validate (baktun: number, katun: number, tun: number, uinal: number, kin: number) : void {
-    debugger;
     if (kin < 0 || kin > 19) {
       throw new CalendarValidationException ('Invalid kin');
     }
