@@ -46,11 +46,11 @@ const data1 = [
   { 'julianDay': 2486076.5, 'julianDate': { 'year': 2094, 'month':  7, 'day':  5 } }
 ];
 
-describe ('Julian calendar spec', function () {
+describe ('Julian calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Julian date to Julian day', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian date to Julian day', () => {
+    data1.forEach ((data) => {
       date = data.julianDate;
       expected = data.julianDay;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -59,8 +59,8 @@ describe ('Julian calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Julian date', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian day to a Julian date', () => {
+    data1.forEach ((data) => {
       date = data.julianDate;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.julianDay);
@@ -72,12 +72,12 @@ describe ('Julian calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Julian year is leap year', function () {
-    [ 4, 20, 1600, 1700, 1760, 1800, 1840, 1904, 1980, 2000 ].forEach (function (year) {
+  it ('should determine whether a Julian year is leap year', () => {
+    [ 4, 20, 1600, 1700, 1760, 1800, 1840, 1904, 1980, 2000 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
-    [ 1, 2, 3, 5, 1599, 1970, 2001 ].forEach (function (year) {
+    [ 1, 2, 3, 5, 1599, 1970, 2001 ].forEach ((year) => {
       expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
