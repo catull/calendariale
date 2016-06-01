@@ -1,7 +1,0 @@
-bower_components/*
-lib/*
-docs/*
-node_modules/*
-src/**/*.js
-spec/build/*
-vendor/*
