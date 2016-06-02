@@ -46,12 +46,12 @@ const data1 = [
   { 'julianDay': 2486076.5, 'iso': { 'year': 2094, 'week': 28, 'day': 7 } }
 ];
 
-describe ('ISO Week calendar spec', function () {
+describe ('ISO Week calendar spec', () => {
   let date, expected, actual;
 
 
-  it ('should convert an ISO Week date to Julian day', function () {
-    data1.forEach (function (data) {
+  it ('should convert an ISO Week date to Julian day', () => {
+    data1.forEach ((data) => {
       date = data.iso;
       expected = data.julianDay;
       actual = cal.toJdn (date.year, date.week, date.day);
@@ -60,8 +60,8 @@ describe ('ISO Week calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to an ISO Week date', function () {
-    data1.forEach (function (data) {
+  it ('should convert a Julian day to an ISO Week date', () => {
+    data1.forEach ((data) => {
       date = data.iso;
       expected = { year: date.year, week: date.week, day: date.day };
       actual = cal.fromJdn (data.julianDay);

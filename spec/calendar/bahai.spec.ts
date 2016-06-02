@@ -52,7 +52,7 @@ describe ('Bahai calendar spec', () => {
       julian = 2456435.5;
 
   /*
-  it ('should convert a date to Bahai calendar', function () {
+  it ('should convert a date to Bahai calendar', () => {
     expect (date.getBahai()).to.be.eql ({
       kull_i_shay: 1,
       vahid: 9,
@@ -71,7 +71,7 @@ describe ('Bahai calendar spec', () => {
     // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).to.be.equal (julian);
     // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).to.be.equal (2457810.5);
 
-    data2.forEach (function (data) {
+    data2.forEach ((data) => {
       expected = data.rataDie + Const.J0000;
       date = data.bahai;
       actual = cal.bahaiToJdn (date.kull_i_shay, date.vahid, date.year, date.month, date.day);
@@ -87,7 +87,7 @@ describe ('Bahai calendar spec', () => {
     // expect (cal.fromJdn (julian)).to.be.eql ([ 1, 9, 18, 6, 1 ]);
     // expect (cal.fromJdn (2457810.5)).to.be.eql ([ 1, 10,  2,  0,  1 ]);
 
-    data2.forEach (function (data) {
+    data2.forEach ((data) => {
       julian = data.rataDie + Const.J0000;
       date = data.bahai;
       expected = { kull_i_shay: date.kull_i_shay, vahid: date.vahid, year: date.year, month: date.month, day: date.day };

@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'hinduSolarModern': { 'year': 2016, 'month':  4, 'day':  2 } }
 ];
 
-describe ('Hindu Solar Modern calendar spec', function () {
+describe ('Hindu Solar Modern calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Hindu Solar Modern date to Julian day', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Hindu Solar Modern date to Julian day', () => {
+    data4.forEach ((data) => {
       date     = data.hinduSolarModern;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.day, date.dayLeap);
@@ -59,8 +59,8 @@ describe ('Hindu Solar Modern calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Hindu Solar Modern date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day to a Hindu Solar Modern date', () => {
+    data4.forEach ((data) => {
       date     = data.hinduSolarModern;
       expected = { year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);

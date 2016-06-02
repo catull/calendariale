@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'hinduLunarAstro': { 'year': 2151, 'month':  4, 'monthLeap': false, 'day':  6, 'dayLeap': false } }
 ];
 
-describe ('Hindu Lunar Astro calendar spec', function () {
+describe ('Hindu Lunar Astro calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Hindu Lunar Astro date to Julian day', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Hindu Lunar Astro date to Julian day', () => {
+    data4.forEach ((data) => {
       date     = data.hinduLunarAstro;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
@@ -59,8 +59,8 @@ describe ('Hindu Lunar Astro calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Hindu Lunar Astro date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day to a Hindu Lunar Astro date', () => {
+    data4.forEach ((data) => {
       date     = data.hinduLunarAstro;
       expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day, dayLeap: date.dayLeap };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);

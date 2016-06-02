@@ -47,11 +47,11 @@ const data3 = [
   { 'rataDie':  764652, 'hebrewObs': { 'year': 5854, 'month':  5, 'day':  5 } }
 ];
 
-describe ('Hebrew Observational calendar spec', function () {
+describe ('Hebrew Observational calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Hebrew Observational date to Julian day', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Hebrew Observational date to Julian day', () => {
+    data3.forEach ((data) => {
       date = data.hebrewObs;
       expected = data.rataDie + Const.J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
@@ -59,8 +59,8 @@ describe ('Hebrew Observational calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Hebrew Observational date', function () {
-    data3.forEach (function (data) {
+  it ('should convert a Julian day to a Hebrew Observational date', () => {
+    data3.forEach ((data) => {
       date = data.hebrewObs;
       expected = { year: date.year, month: date.month, day: date.day };
       actual = cal.fromJdn (data.rataDie + Const.J0000);

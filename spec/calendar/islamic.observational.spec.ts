@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'islamicObs': { 'year':  1518, 'month':  3, 'day':  5 } }
 ];
 
-describe ('Islamic Observational calendar spec', function () {
+describe ('Islamic Observational calendar spec', () => {
   let julian, date, expected, actual;
 
-  it ('should convert a Islamic Observational date to Julian day', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Islamic Observational date to Julian day', () => {
+    data2.forEach ((data) => {
       expected = data.rataDie + Const.J0000;
       date     = data.islamicObs;
       actual   = cal.toJdn (date.year, date.month, date.day);
@@ -60,8 +60,8 @@ describe ('Islamic Observational calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Islamic Observational date', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Islamic Observational date', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.islamicObs;
       expected = { year: date.year, month: date.month, day: date.day };

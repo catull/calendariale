@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'hinduLunarOld': { 'year': 5195, 'month':  4, 'monthLeap': false, 'day':  6 } }
 ];
 
-describe ('Hindu Lunar Old calendar spec', function () {
+describe ('Hindu Lunar Old calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Hindu Lunar Old date to Julian day', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Hindu Lunar Old date to Julian day', () => {
+    data4.forEach ((data) => {
       date     = data.hinduLunarOld;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
@@ -59,8 +59,8 @@ describe ('Hindu Lunar Old calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Hindu Lunar Old date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day to a Hindu Lunar Old date', () => {
+    data4.forEach ((data) => {
       date     = data.hinduLunarOld;
       expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
@@ -72,17 +72,17 @@ describe ('Hindu Lunar Old calendar spec', function () {
     });
   });
 
-  it ('should establish whether a Hindu Lunar Old year is leap', function () {
+  it ('should establish whether a Hindu Lunar Old year is leap', () => {
     [ 2933, 3570, 3795, 4197, 4340, 4389,
         4492, 4536, 4593, 4660, 4869, 4940
-      ].forEach (function (year) {
+      ].forEach ((year) => {
         actual   = cal.isLeapYear (year);
         expect (true).to.be.equal (actual);
       });
 
     [ 2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781,
         4817, 4920, 5004, 5030, 5042, 5044, 5092, 5096, 5139, 5195
-      ].forEach (function (year) {
+      ].forEach ((year) => {
         actual   = cal.isLeapYear (year);
         expect (false).to.be.equal (actual);
       });

@@ -47,11 +47,11 @@ const data4 = [
   { 'rataDie':  764652, 'tibetan': { 'year': 2221, 'month':  6, 'monthLeap': false, 'day':  6, 'dayLeap': false } }
 ];
 
-describe ('Tibetan calendar spec', function () {
+describe ('Tibetan calendar spec', () => {
   let date, expected, actual;
 
-  it ('should convert a Tibetan date to Julian day', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Tibetan date to Julian day', () => {
+    data4.forEach ((data) => {
       date     = data.tibetan;
       expected = data.rataDie + Const.J0000;
       actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
@@ -59,8 +59,8 @@ describe ('Tibetan calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Tibetan date', function () {
-    data4.forEach (function (data) {
+  it ('should convert a Julian day to a Tibetan date', () => {
+    data4.forEach ((data) => {
       date     = data.tibetan;
       expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day, dayLeap: date.dayLeap };
       actual   = cal.fromJdn (data.rataDie + Const.J0000);
@@ -74,8 +74,8 @@ describe ('Tibetan calendar spec', function () {
     });
   });
 
-  it ('should establish whether a Tibetan month is leap', function () {
-    data4.forEach (function (data) {
+  it ('should establish whether a Tibetan month is leap', () => {
+    data4.forEach ((data) => {
       date     = data.tibetan;
       expected = date.monthLeap;
       actual   = cal.isLeapMonth (date.year, date.month);

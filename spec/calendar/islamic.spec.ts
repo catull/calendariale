@@ -47,11 +47,11 @@ const data2 = [
   { 'rataDie':  764652, 'islamic': { 'year':  1518, 'month':  3, 'day':  5 } }
 ];
 
-describe ('Islamic calendar spec', function () {
+describe ('Islamic calendar spec', () => {
   let julian, date, expected, actual;
 
-  it ('should convert a Islamic date to Julian day', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Islamic date to Julian day', () => {
+    data2.forEach ((data) => {
       expected = data.rataDie + Const.J0000;
       date     = data.islamic;
       actual   = cal.toJdn (date.year, date.month, date.day);
@@ -60,8 +60,8 @@ describe ('Islamic calendar spec', function () {
     });
   });
 
-  it ('should convert a Julian day to a Islamic date', function () {
-    data2.forEach (function (data) {
+  it ('should convert a Julian day to a Islamic date', () => {
+    data2.forEach ((data) => {
       julian   = data.rataDie + Const.J0000;
       date     = data.islamic;
       expected = { year: date.year, month: date.month, day: date.day };
@@ -74,7 +74,7 @@ describe ('Islamic calendar spec', function () {
     });
   });
 
-  it ('should determine whether a Islamic year is leap year', function () {
+  it ('should determine whether a Islamic year is leap year', () => {
     expect (cal.isLeapYear (  1)).to.be.equal (false);
     expect (cal.isLeapYear (168)).to.be.equal (true);
     expect (cal.isLeapYear (169)).to.be.equal (false);
