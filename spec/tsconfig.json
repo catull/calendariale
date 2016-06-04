@@ -49,6 +49,7 @@
         "calendar/persian.arithmetic.spec.ts",
         "calendar/persian.astronomical.spec.ts",
         "calendar/roman.spec.ts",
+        "calendar/symmetry454.spec.ts",
         "calendar/tibetan.spec.ts"
     ],
     "atom": {

@@ -53,6 +53,7 @@
         "src/calendar/PersianArithmeticCalendar.ts",
         "src/calendar/PersianAstronomicalCalendar.ts",
         "src/calendar/RomanCalendar.ts",
+        "src/calendar/Symmetry454Calendar.ts",
         "src/calendar/TibetanCalendar.ts"
     ]
 }
