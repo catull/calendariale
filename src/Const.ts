@@ -212,6 +212,11 @@ const tibetan = {
   EPOCH_RD: -46410
 };
 
+const yerm_ = {
+  EPOCH: 1948379, // 622/05/16 12:00 Julian C.E.
+  EPOCH_RD: 226955.5
+};
+
 enum MoonPhase {
   NEW = 0,
   FIRST_QUARTER = 90,
@@ -260,5 +265,6 @@ export {
   julian,
   mayan,
   persian,
-  tibetan
+  tibetan,
+  yerm_
 }

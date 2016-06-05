@@ -55,6 +55,7 @@
         "src/calendar/RomanCalendar.ts",
         "src/calendar/Symmetry010Calendar.ts",
         "src/calendar/Symmetry454Calendar.ts",
-        "src/calendar/TibetanCalendar.ts"
+        "src/calendar/TibetanCalendar.ts",
+        "src/calendar/YermCalendar.ts"
     ]
 }

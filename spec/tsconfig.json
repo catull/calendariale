@@ -51,7 +51,8 @@
         "calendar/roman.spec.ts",
         "calendar/symmetry010.spec.ts",
         "calendar/symmetry454.spec.ts",
-        "calendar/tibetan.spec.ts"
+        "calendar/tibetan.spec.ts",
+        "calendar/yerm.spec.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
