@@ -1,7 +1,7 @@
 import { mod, next } from '../Astro';
 import { hinduCalendarYear, hinduSolarLongitude, hinduSunrise, hinduZodiac } from '../HinduAlgorithms';
 import { hindu, J0000 } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarModernCalendar extends YearMonthCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -10,6 +10,8 @@ export class HinduSolarModernCalendar extends YearMonthCalendar {
 
   // Determine Julian day number from Hindu Solar Modern calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     const begin = Math.floor ((year + hindu.SOLAR_ERA +
                  (month - 1) / 12) * hindu.SIDEREAL_YEAR + hindu.EPOCH_RD);
 
@@ -19,6 +21,17 @@ export class HinduSolarModernCalendar extends YearMonthCalendar {
 
       return zodiac === month;
     }) + J0000;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    const maxDays = (month < 7) ? 31 : 30;
+    if (day < 1 || day > maxDays) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Calculate Hindu Solar Modern calendar date from Julian day
