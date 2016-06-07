@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { islamic } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class IslamicCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -14,8 +14,21 @@ export class IslamicCalendar extends LeapCalendar {
 
   // Determine Julian day number from Islamic calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     return day + Math.ceil (29.5 * (month - 1)) + (year - 1) * 354 +
       Math.floor ((3 + 11 * year) / 30) + islamic.EPOCH - 1;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    const maxDay = ((mod (month, 2) === 1) || (this.isLeapYear (year) && month === 12)) ? 30 : 29;
+    if (day < 1 || day > maxDay) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Calculate Islamic calendar date from Julian day
