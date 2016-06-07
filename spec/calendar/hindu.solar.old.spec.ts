@@ -70,4 +70,23 @@ describe ('Hindu Solar Old calendar spec', () => {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, 13, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  1, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  2, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  3, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  4, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  5, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  6, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  7, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  8, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  9, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999, 10, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999, 11, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999, 12, 31)).to.throw ('Invalid day');
+  });
 });
