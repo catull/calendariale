@@ -1,6 +1,6 @@
 import { mod, phasisOnOrBefore } from '../Astro';
 import { islamic, J0000, MEAN_SYNODIC_MONTH } from '../Const';
-import { LeapCalendar } from '../Calendar';
+import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class IslamicObservationalCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
@@ -14,9 +14,21 @@ export class IslamicObservationalCalendar extends LeapCalendar {
 
   // Determine Julian day number from Islamic Observational calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    this.validate (year, month, day);
+
     const midMonth = islamic.EPOCH + Math.floor (((year - 1) * 12 + month - 0.5) * MEAN_SYNODIC_MONTH);
 
     return phasisOnOrBefore (midMonth, islamic.CAIRO_LOCATION) + day - 1;
+  }
+
+  public static validate (year: number, month: number, day: number) : void {
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    if (day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Calculate Islamic calendar date from Julian day

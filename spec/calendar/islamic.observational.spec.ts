@@ -55,7 +55,6 @@ describe ('Islamic Observational calendar spec', () => {
       expected = data.rataDie + Const.J0000;
       date     = data.islamicObs;
       actual   = cal.toJdn (date.year, date.month, date.day);
-
       expect (expected).to.be.equal (actual);
     });
   });
@@ -66,11 +65,18 @@ describe ('Islamic Observational calendar spec', () => {
       date     = data.islamicObs;
       expected = { year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
-
 	  // expect (expected).to.be.eql (actual);
       expect (expected.year).to.be.equal (actual.year);
       expect (expected.month).to.be.equal (actual.month);
       expect (expected.day).to.be.equal (actual.day);
     });
+  });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (220,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (220, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (220, 13, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (220,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (220,  1, 31)).to.throw ('Invalid day');
   });
 });
