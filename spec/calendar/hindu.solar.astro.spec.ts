@@ -70,4 +70,12 @@ describe ('Hindu Solar Astro calendar spec', () => {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999, 13, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1999,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  7, 32)).to.throw ('Invalid day');
+  });
 });
