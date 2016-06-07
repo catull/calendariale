@@ -71,4 +71,12 @@ describe ('ISO Week calendar spec', () => {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (1999,  0, 2)).to.throw ('Invalid week');
+    expect (() => cal.toJdn (1999, -2, 2)).to.throw ('Invalid week');
+    expect (() => cal.toJdn (1999, 54, 1)).to.throw ('Invalid week');
+    expect (() => cal.toJdn (1999, 52, 0)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  1, 8)).to.throw ('Invalid day');
+  });
 });

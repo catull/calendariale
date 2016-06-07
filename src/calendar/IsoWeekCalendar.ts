@@ -1,6 +1,6 @@
 import { amod, nthKday } from '../Astro';
 import { J0000, Month, WeekDay } from '../Const';
-import { YearCalendar } from '../Calendar';
+import { CalendarValidationException, YearCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class IsoWeekCalendar extends YearCalendar {
@@ -18,7 +18,19 @@ export class IsoWeekCalendar extends YearCalendar {
 
   // Determine Julian day number from Iso Week calendar date
   public static toJdn (year: number, week: number, day: number) : number {
+    this.validate (year, week, day);
+
     return nthKday (week, WeekDay.SUNDAY, GregorianCalendar.toJdn (year - 1, Month.DECEMBER, 28)) + day;
+  }
+
+  public static validate (year: number, week: number, day: number) : void {
+    if (week < 1 || week > 53) {
+      throw new CalendarValidationException ('Invalid week');
+    }
+
+    if (day < 1 || day > 7) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Calculate Iso Week calendar date from Julian day
