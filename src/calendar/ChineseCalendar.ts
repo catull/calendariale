@@ -1,7 +1,7 @@
 import { amod, estimatePriorSolarLongitude, mod, next, newMoonAtOrAfter, newMoonBefore,
     solarLongitude, solarLongitudeAfter, standardToUniversal, universalToStandard } from '../Astro';
 import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Month, Season } from '../Const';
-import { LeapMonthCalendar } from '../Calendar';
+import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class ChineseCalendar extends LeapMonthCalendar {
@@ -11,6 +11,14 @@ export class ChineseCalendar extends LeapMonthCalendar {
 
   // Determine Julian day number from Chinese calendar date
   public static toJdn (cycle: number, year: number, month: number, monthLeap: boolean, day: number) : number {
+    const jdn = this.calculateJdn (cycle, year, month, monthLeap, day);
+    this.validate (cycle, year, month, monthLeap, day, jdn);
+
+    return jdn;
+  }
+
+  // Determine Julian day number from Chinese calendar date
+  public static calculateJdn (cycle: number, year: number, month: number, monthLeap: boolean, day: number) : number {
     const midYear = Math.floor (chinese.EPOCH + ((cycle - 1) * 60 + year - 0.5) * MEAN_TROPICAL_YEAR) - J0000;
     const newYear = this.chineseNewYearOnOrBefore (midYear);
     const p       = this.chineseNewMoonOnOrAfter (newYear + (month - 1) * 29);
@@ -19,6 +27,25 @@ export class ChineseCalendar extends LeapMonthCalendar {
       p : this.chineseNewMoonOnOrAfter (1 + p);
 
     return priorNewMoon + J0000 + day - 1;
+  }
+
+  private static validate (cycle: number, year: number, month: number, monthLeap: boolean, day: number, jdn: number) {
+    if (year < 1 || year > 60) {
+      throw new CalendarValidationException ('Invalid year');
+    }
+
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    const date = this.fromJdn (jdn);
+    if (monthLeap && !date.isMonthLeap ()) {
+      throw new CalendarValidationException ('Invalid leap month');
+    }
+
+    if (date.getDay () !== day || day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
   }
 
   // Calculate Chinese calendar date from Julian day

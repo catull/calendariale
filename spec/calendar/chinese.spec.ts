@@ -73,4 +73,16 @@ describe ('Chinese calendar spec', () => {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws a validation exception', () => {
+    expect (() => cal.toJdn (78,  0,  1, false,  1)).to.throw ('Invalid year');
+    expect (() => cal.toJdn (78, 61,  1, false,  1)).to.throw ('Invalid year');
+    expect (() => cal.toJdn (78,  1,  0, false,  1)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (78,  1, 14, false,  1)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (78, 34,  5, true ,  1)).to.throw ('Invalid leap month');
+    expect (() => cal.toJdn (78, 34,  4, false, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (78, 34,  5, false, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (78, 34,  6, false, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (78, 34,  6, true , 30)).not.to.throw ('Invalid day');
+  });
 });
