@@ -52,9 +52,9 @@ export class LeapCalendar extends YearMonthCalendar {
   }
 }
 
-export class LeapMonthCalendar extends LeapCalendar {
-  constructor (jdn: number, year: number, month: number, day: number, yearLeap: boolean, protected monthLeap: boolean) {
-      super (jdn, year, month, day, yearLeap);
+export class LeapMonthCalendar extends YearMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number, protected monthLeap: boolean) {
+    super (jdn, year, month, day);
   }
 
   isMonthLeap () {

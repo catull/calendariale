@@ -6,7 +6,7 @@ import { GregorianCalendar } from './GregorianCalendar';
 
 export class ChineseCalendar extends LeapMonthCalendar {
   constructor (jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
-    super (jdn, year, month, day, monthLeap, monthLeap);
+    super (jdn, year, month, day, monthLeap);
   }
 
   // Determine Julian day number from Chinese calendar date
