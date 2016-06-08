@@ -92,7 +92,7 @@ describe ('Roman calendar spec', () => {
     expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  6, true )).to.throw ('Invalid leap day');
     expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
     expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
-    expect (() => cal.toJdn (4,  3, RomanEvent.KALENDS,  6, true )).not.to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (4,  3, RomanEvent.KALENDS,  6, true )).not.to.throw ();
     expect (() => cal.toJdn (4,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
     expect (() => cal.toJdn (4,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
   });
