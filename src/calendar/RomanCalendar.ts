@@ -1,7 +1,7 @@
-import { amod } from '../Astro';
+import { amod, mod } from '../Astro';
 import { julian, Month, RomanEvent } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
-import { JulianCalendar } from './JulianCalendar';
+import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { daysInMonth, JulianCalendar } from './JulianCalendar';
 
 
 export class RomanCalendar extends YearMonthCalendar {
@@ -11,6 +11,8 @@ export class RomanCalendar extends YearMonthCalendar {
 
   // Determine Julian day number from Roman calendar date
   public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : number {
+    this.validate (year, month, event, count, leap);
+
     const day =
       event === RomanEvent.KALENDS ? 1 :
         event === RomanEvent.NONES ? this.nonesOfMonth (month) :
@@ -32,6 +34,24 @@ export class RomanCalendar extends YearMonthCalendar {
     return jdn;
   }
 
+  public static validate (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : void {
+    if (month < 1 || month > 12) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+    const previousMonth = mod (month - 1, 12);
+    const maxKalends = daysInMonth[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
+    const maxCount = (event === RomanEvent.IDES) ? 8 :
+      (event === RomanEvent.NONES) ? (this.nonesOfMonth (month) - 1) : maxKalends;
+
+    if (count < 1 || count > maxCount) {
+      throw new CalendarValidationException ('Invalid count');
+    }
+
+    if (leap && (event !== RomanEvent.KALENDS || month !== 3 || count !== 6 || !JulianCalendar.isLeapYear (year))) {
+      throw new CalendarValidationException ('Invalid leap day');
+    }
+  }
+
   // Calculate Roman calendar date from Julian day
   public static fromJdn (jdn: number) {
     const date = JulianCalendar.fromJdn (jdn);
@@ -39,7 +59,7 @@ export class RomanCalendar extends YearMonthCalendar {
     let month  = date.getMonth ();
     let count  = date.getDay ();
 
-    let event : RomanEvent, leap = false;
+    let event: RomanEvent, leap = false;
 
     if (count === 1) {
       event = RomanEvent.KALENDS;

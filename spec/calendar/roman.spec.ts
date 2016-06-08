@@ -75,4 +75,25 @@ describe ('Roman calendar spec', () => {
       expect (expected.leap).to.be.equal (actual.leap);
     });
   });
+
+  it ('throws a validation exception', () => {
+    expect (() => cal.toJdn (1,  0, RomanEvent.KALENDS,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1,  0, RomanEvent.NONES,    1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1,  0, RomanEvent.IDES,     1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1, 13, RomanEvent.KALENDS,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1, 13, RomanEvent.NONES,    1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1, 13, RomanEvent.IDES,     1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  0, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS, 19, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    0, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    7, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     0, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     9, false)).to.throw ('Invalid count');
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  6, true )).to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (4,  3, RomanEvent.KALENDS,  6, true )).not.to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (4,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (4,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
+  });
 });
