@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { julian, Month } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
-const daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+export const daysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 
 export class JulianCalendar extends LeapCalendar {
   constructor (jdn: number, year: number, month: number, day: number) {
