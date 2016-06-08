@@ -83,4 +83,15 @@ describe ('Tibetan calendar spec', () => {
       expect (expected).to.be.equal (actual);
     });
   });
+
+  it ('throws a validation exception', () => {
+    expect (() => cal.toJdn (2143,  0, false,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (2143, 14, false,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (2143,  9, true ,  1, false)).to.throw ('Invalid leap month');
+    expect (() => cal.toJdn (2143,  4, false,  0, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (2143,  4, false, 31, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (2143,  4, false,  2, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (2143,  3, false, 29, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (2143,  6, false, 17, true )).to.throw ('Invalid leap day');
+  });
 });

@@ -1,18 +1,48 @@
 import { amod, final, mod } from '../Astro';
 import { tibetan } from '../Const';
-import { LeapMonthCalendar } from '../Calendar';
+import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 
 export class TibetanCalendar extends LeapMonthCalendar {
   constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, protected dayLeap: boolean) {
-    super (jdn, year, month, day, monthLeap, monthLeap);
+    super (jdn, year, month, day, monthLeap);
+  }
+
+  getDayLeap () {
+    return this.dayLeap;
   }
 
   public static isLeapMonth (year: number, month: number) : boolean {
-    return month === this.fromJdn (this.toJdn (year, month, true, 2, false)).getMonth ();
+    return month === this.fromJdn (this.calculateJdn (year, month, true, 2, false)).getMonth ();
   }
 
   // Determine Julian day number from Tibetan calendar date
   public static toJdn (year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) : number {
+    const jdn = this.calculateJdn (year, month, monthLeap, day, dayLeap);
+    this.validate (year, month, monthLeap, day, dayLeap, jdn);
+
+    return jdn;
+  }
+
+  private static validate (year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
+    if (month < 1 || month > 13) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    if (monthLeap && !this.isLeapMonth (year, month)) {
+      throw new CalendarValidationException ('Invalid leap month');
+    }
+
+    const date = this.fromJdn (jdn);
+    if (date.getDayLeap () !== dayLeap) {
+      throw new CalendarValidationException ('Invalid leap day');
+    }
+    if (date.getDay () !== day || day < 1 || day > 30) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+  }
+
+  // Determine Julian day number from Tibetan calendar date
+  private static calculateJdn (year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) : number {
     const months     = Math.floor (804 / 65 * (year - 1) + 67 / 65 * month + (monthLeap ? -1 : 0) + 64 / 65);
     const days       = 30 * months + day;
     const mean       = days * 11135 / 11312 - 30 + (dayLeap ? 0 : -1) + 1071 / 1616;
@@ -31,21 +61,21 @@ export class TibetanCalendar extends LeapMonthCalendar {
 
     let year0 = years;
 
-    while (jdn >= this.toJdn (year0, 1, false, 1, false)) {
+    while (jdn >= this.calculateJdn (year0, 1, false, 1, false)) {
       year0 += 1;
     }
 
     year0 -= 1;
     let month0 = 1;
-    while (jdn >= this.toJdn (year0, month0, false, 1, false)) {
+    while (jdn >= this.calculateJdn (year0, month0, false, 1, false)) {
       month0 += 1;
     }
 
     month0 -= 1;
-    const est = jdn - this.toJdn (year0, month0, false, 1, false);
+    const est = jdn - this.calculateJdn (year0, month0, false, 1, false);
     let day0 = est - 2;
 
-    while (jdn >= this.toJdn (year0, month0, false, day0, false)) {
+    while (jdn >= this.calculateJdn (year0, month0, false, day0, false)) {
       day0 += 1;
     }
 
@@ -74,7 +104,7 @@ export class TibetanCalendar extends LeapMonthCalendar {
       year = year0;
     }
 
-    const dayLeap = jdn === this.toJdn (year, month, monthLeap, day, true);
+    const dayLeap = jdn === this.calculateJdn (year, month, monthLeap, day, true);
 
     return new TibetanCalendar (jdn, year, month, monthLeap, day, dayLeap);
   }
