@@ -87,4 +87,13 @@ describe ('Hindu Lunar Old calendar spec', () => {
         expect (false).to.be.equal (actual);
       });
   });
+
+  it ('throws a validation exception', () => {
+    expect (() => cal.toJdn (3570,  0, false,  1)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (3570, 13, false,  1)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (3570, 11, true ,  3)).not.to.throw ();
+    expect (() => cal.toJdn (3570,  9, true ,  1)).to.throw ('Invalid leap month');
+    expect (() => cal.toJdn (3570,  4, false,  0)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (3570,  4, false, 31)).to.throw ('Invalid day');
+  });
 });
