@@ -72,4 +72,15 @@ describe ('Hindu Lunar Astro calendar spec', () => {
       expect (expected.dayLeap).to.be.equal (actual.dayLeap);
     });
   });
+
+  it ('throws a validation exception', () => {
+    expect (() => cal.toJdn (1549,  0, false,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1549, 13, false,  1, false)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1549,  2, true ,  3, false)).to.not.throw ();
+    expect (() => cal.toJdn (1549,  9, true ,  1, false)).to.throw ('Invalid leap month');
+    expect (() => cal.toJdn (1549,  2, true ,  1, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1549,  4, false,  0, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1549,  4, false, 31, false)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1549,  6, false, 17, true )).to.throw ('Invalid leap day');
+  });
 });
