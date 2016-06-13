@@ -8,7 +8,7 @@ export class IslamicObservationalCalendar extends LeapCalendar {
   }
 
   // Is a given year in the Islamic calendar a leap year?
-  public static isLeapYear (year: number): boolean {
+  public static isLeapYear (year: number) : boolean {
     return (year * 11 + 14) % 30 < 11;
   }
 

@@ -8,7 +8,7 @@ export class CopticCalendar extends LeapCalendar {
   }
 
   // Is a given year in the Coptic calendar a leap year?
-  public static isLeapYear (year: number): boolean {
+  public static isLeapYear (year: number) : boolean {
     return mod (year, 4) === 3;
   }
 

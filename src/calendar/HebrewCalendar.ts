@@ -109,7 +109,7 @@ export class HebrewCalendar extends LeapCalendar {
   }
 
   // How many days are in a given month of a given year
-  public static hebrewMonthDays (year: number, month: number) : number {
+  private static hebrewMonthDays (year: number, month: number) : number {
     // First of all, dispose of fixed-length 29 day months
     if (month === 2 || month === 4 || month === 6 || month === 10 || month === 13) {
       return 29;
