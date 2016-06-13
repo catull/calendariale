@@ -1,14 +1,10 @@
 import { amod, final, mod } from '../Astro';
 import { tibetan } from '../Const';
-import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
+import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 
-export class TibetanCalendar extends LeapMonthCalendar {
-  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, protected dayLeap: boolean) {
-    super (jdn, year, month, day, monthLeap);
-  }
-
-  getDayLeap () {
-    return this.dayLeap;
+export class TibetanCalendar extends LeapDayMonthCalendar {
+  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
+    super (jdn, year, month, day, monthLeap, dayLeap);
   }
 
   public static isLeapMonth (year: number, month: number) : boolean {
@@ -33,7 +29,7 @@ export class TibetanCalendar extends LeapMonthCalendar {
     }
 
     const date = this.fromJdn (jdn);
-    if (date.getDayLeap () !== dayLeap) {
+    if (date.isDayLeap () !== dayLeap) {
       throw new CalendarValidationException ('Invalid leap day');
     }
     if (date.getDay () !== day || day < 1 || day > 30) {

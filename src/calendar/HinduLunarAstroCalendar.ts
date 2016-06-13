@@ -1,15 +1,11 @@
 import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
 import { hinduAstroCalendarYear, siderealSolarLongitude, siderealZodiac } from '../HinduAlgorithms';
 import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
-import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
+import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 
-export class HinduLunarAstroCalendar extends LeapMonthCalendar {
-  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, private dayLeap: boolean) {
-    super (jdn, year, month, day, monthLeap);
-  }
-
-  isDayLeap () {
-    return this.dayLeap;
+export class HinduLunarAstroCalendar extends LeapDayMonthCalendar {
+  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
+    super (jdn, year, month, day, monthLeap, dayLeap);
   }
 
   // Is a given year in the Hindu Lunar Astro calendar a leap year?

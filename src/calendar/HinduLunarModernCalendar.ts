@@ -2,15 +2,27 @@ import { amod, mod, next } from '../Astro';
 import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
 import { hinduCalendarYear, hinduLunarDayFromMoment, hinduNewMoonBefore,
          hinduSolarLongitude, hinduSunrise, hinduZodiac } from '../HinduAlgorithms';
-import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
+import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 
-export class HinduLunarModernCalendar extends LeapMonthCalendar {
-  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, private dayLeap: boolean) {
-    super (jdn, year, month, day, monthLeap);
+export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
+  constructor (jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
+    super (jdn, year, month, day, monthLeap, dayLeap);
   }
 
-  isDayLeap () {
-    return this.dayLeap;
+  // Calculate Hindu Lunar Modern calendar date from Julian day
+  public static fromJdn (jdn: number) {
+    const jd0         = jdn - J0000;
+    const critical    = hinduSunrise (jd0);
+    const day         = hinduLunarDayFromMoment (critical);
+    const dayLeap     = day === hinduLunarDayFromMoment (hinduSunrise (jd0 - 1));
+    const lastNewMoon = hinduNewMoonBefore (critical);
+    const nextNewMoon = hinduNewMoonBefore (Math.floor (lastNewMoon) + 35);
+    const monthSolar  = hinduZodiac (lastNewMoon);
+    const monthLeap   = monthSolar === hinduZodiac (nextNewMoon);
+    const month       = amod (monthSolar + 1, 12);
+    const year        = hinduCalendarYear (month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
+
+    return new HinduLunarModernCalendar (jdn, year, month, monthLeap, day, dayLeap);
   }
 
   // Determine Julian day number from Hindu Lunar Modern calendar date
@@ -75,21 +87,5 @@ export class HinduLunarModernCalendar extends LeapMonthCalendar {
     }) + (dayLeap ? 1 : 0);
 
     return date + J0000;
-  }
-
-  // Calculate Hindu Lunar Modern calendar date from Julian day
-  public static fromJdn (jdn: number) {
-    const jd0         = jdn - J0000;
-    const critical    = hinduSunrise (jd0);
-    const day         = hinduLunarDayFromMoment (critical);
-    const dayLeap     = day === hinduLunarDayFromMoment (hinduSunrise (jd0 - 1));
-    const lastNewMoon = hinduNewMoonBefore (critical);
-    const nextNewMoon = hinduNewMoonBefore (Math.floor (lastNewMoon) + 35);
-    const monthSolar  = hinduZodiac (lastNewMoon);
-    const monthLeap   = monthSolar === hinduZodiac (nextNewMoon);
-    const month       = amod (monthSolar + 1, 12);
-    const year        = hinduCalendarYear (month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
-
-    return new HinduLunarModernCalendar (jdn, year, month, monthLeap, day, dayLeap);
   }
 }

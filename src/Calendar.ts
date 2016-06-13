@@ -62,6 +62,16 @@ export class LeapMonthCalendar extends YearMonthCalendar {
   }
 }
 
+export class LeapDayMonthCalendar extends LeapMonthCalendar {
+  constructor (jdn: number, year: number, month: number, day: number, monthLeap: boolean, protected dayLeap: boolean) {
+    super (jdn, year, month, day, monthLeap);
+  }
+
+  isDayLeap () {
+    return this.dayLeap;
+  }
+}
+
 export class CalendarValidationException extends Error {
   constructor (public error: string) {
     super (error);
