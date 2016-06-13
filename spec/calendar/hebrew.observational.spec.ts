@@ -71,4 +71,18 @@ describe ('Hebrew Observational calendar spec', () => {
       expect (expected.day).to.be.equal (actual.day);
     });
   });
+
+  it ('throws validation excetions', () => {
+    expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (5000,  7, -5)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000,  7, 32)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000,  2, 30)).to.not.throw ();
+    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5001, 12, 30)).to.not.throw ();
+    expect (() => cal.toJdn (5102,  8, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (5103,  9, 30)).to.not.throw ();
+  });
 });

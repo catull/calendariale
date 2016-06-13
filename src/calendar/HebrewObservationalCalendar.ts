@@ -1,6 +1,6 @@
 import { phasisOnOrAfter, phasisOnOrBefore, solarLongitudeAfter, standardToUniversal, sunset } from '../Astro';
 import { hebrew, HebrewMonth, J0000, Season } from '../Const';
-import { YearMonthCalendar } from '../Calendar';
+import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 
@@ -11,6 +11,21 @@ export class HebrewObservationalCalendar extends YearMonthCalendar {
 
   // Determine Julian day number from Hebrew calendar date
   public static toJdn (year: number, month: number, day: number) : number {
+    const jdn = this.calculateJdn (year, month, day);
+
+    const date = this.fromJdn (jdn);
+    if (day < 1 || day !== date.day) {
+      throw new CalendarValidationException ('Invalid day');
+    }
+    if (month < 1 || date.month !== month) {
+      throw new CalendarValidationException ('Invalid month');
+    }
+
+    return jdn;
+  }
+
+  // Determine Julian day number from Hebrew calendar date
+  public static calculateJdn (year: number, month: number, day: number) : number {
     const year1    = (month >= HebrewMonth.TISHRI) ? (year - 1) : year;
     const start    = HebrewCalendar.toJdn (year1, HebrewMonth.NISAN, 1);
     const gYear    = GregorianCalendar.jdnToYear (start + 60);
