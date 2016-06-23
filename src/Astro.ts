@@ -105,7 +105,7 @@ function nthKday(n: number, k: WeekDay, jdn: number): number {
  * @param {float} arcs arc seconds
  * @return {float} radians value
  */
-// astro.astor = function (arcs) {
+// astro.astor = function (arcs: number): number {
 //    return arcs * Math.PI / (180.0 * 3600.0);
 // };
 
@@ -152,7 +152,7 @@ function degrees(theta: number): number {
  * @param {float} alpha angle
  * @return {float} degrees
  */
-// astro.fixAngle = function (alpha) {
+// astro.fixAngle = function (alpha: number): number {
 //    return alpha - 360.0 * Math.floor (alpha / 360.0);
 // };
 
@@ -161,7 +161,7 @@ function degrees(theta: number): number {
  * @param {float} alpha angle
  * @return {float} radians
  */
-// astro.fixAngleRadians = function (alpha) {
+// astro.fixAngleRadians = function (alpha: number): number {
 //    return alpha - 2 * Math.PI * Math.floor (alpha / (2 * Math.PI));
 // };
 
@@ -396,7 +396,7 @@ function longitudeToZone(phi: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function universalToLocal (teeRomU: number, location: Location) {
+// function universalToLocal (teeRomU: number, location: Location): number {
 //   return teeRomU + longitudeToZone (location.getLongitude());
 // }
 
@@ -426,7 +426,7 @@ function localToStandard(teeEll: number, location: Location): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function standardToLocal (teeRomS: number, location: Location) {
+// function standardToLocal (teeRomS: number, location: Location): number {
 //    return universalToLocal (standardToUniversal (teeRomS, location), location);
 // }
 
@@ -551,7 +551,7 @@ function equationOfTime(tee: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function localToApparent (tee: number, location: Location) {
+// function localToApparent (tee: number, location: Location): number {
 //   return tee + equationOfTime (localToUniversal (tee, location));
 // }
 
@@ -580,7 +580,7 @@ function midDay(date: number, location: Location): number {
  * @param {float} jdn Julian day number
  * @return {float[]} day portion of Julian day number, as array [ hours, minutes, seconds ]
  */
-function jhms(jdn: number) {
+function jhms(jdn: number): number[] {
   // Astronomical to civil
   const j2: number = jdn + 0.5;
   const ij: number = (j2 - Math.floor(j2)) * 86400.0 + 0.5;
@@ -1321,7 +1321,7 @@ function visibleCrescent(jdn: number, location: Location): boolean {
  * @param {Location} location geo-location
  * @return {float} phasis
  */
-function phasisOnOrBefore(jdn: number, location: Location) {
+function phasisOnOrBefore(jdn: number, location: Location): number {
   const jd0: number = jdn - J0000;
   const mean: number = jd0 - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jd0 - mean) <= 3 && !visibleCrescent(jd0, location)) ? mean - 30 : mean - 2;
@@ -1338,7 +1338,7 @@ function phasisOnOrBefore(jdn: number, location: Location) {
  * @param {Location} location geo-location
  * @return {float} phasis
  */
-function phasisOnOrAfter(jdn: number, location: Location) {
+function phasisOnOrAfter(jdn: number, location: Location): number {
   // const jd0  = jdn - J0000;
   const mean: number = jdn - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jdn - mean) <= 3 && !visibleCrescent(jdn - 1, location)) ? jdn : mean + 29;
