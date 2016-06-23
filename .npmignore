@@ -1,4 +1,5 @@
-.eslint*
+.flowconfig
+.vscode
 lib
 spec
 tslint.json

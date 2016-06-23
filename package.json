@@ -11,7 +11,7 @@
     "build": "npm run lint && npm run build:dev",
     "build:dev": "tsc",
     "clean": "rm -fr lib spec/lib",
-    "clean:dist": "rm -fr lib spec/lib node_modules spec/typings",
+    "clean:dist": "rm -fr .vscode lib spec/lib node_modules spec/typings",
     "flow:check": "flow check --color=always --all --show-all-errors --profile",
     "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
     "lint": "tslint src/*.ts src/*/*.ts",
