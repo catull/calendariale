@@ -3,6 +3,7 @@ import { amod, estimatePriorSolarLongitude, mod, next, newMoonAtOrAfter, newMoon
 import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Month, Season } from '../Const';
 import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
+import { Location } from '../Location';
 
 export class ChineseCalendar extends LeapMonthCalendar {
   constructor(jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
@@ -137,7 +138,7 @@ export class ChineseCalendar extends LeapMonthCalendar {
   }
 
   // Return location of Beijing; time zone varies with time.
-  private static chineseLocation(fixed: number) {
+  private static chineseLocation(fixed: number) : Location {
     return (fixed < chinese.EPOCH_1929_RD) ?
       chinese.LOCATION_BEFORE_1929 :
       chinese.LOCATION_SINCE_1929;

@@ -1,5 +1,6 @@
 import { angle, binarySearch, mod, next, precession, sinDeg, solarLongitude } from './Astro';
 import { hindu, MEAN_SIDEREAL_YEAR } from './Const';
+import { Location } from './Location';
 
 /**
  * Return elapsed days (Ahargana) to date date since Hindu epoch (KY).
@@ -139,12 +140,12 @@ function hinduTropicalLongitude(jdn: number): number {
 /**
  * Return the difference between right and oblique ascension of sun on date at location.
  * @param {float} jdn moment in time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @return {float} difference
  */
-function hinduAscensionalDifference(jdn: number, location): number {
+function hinduAscensionalDifference(jdn: number, location: Location): number {
   const sinDelta: number = 1397 / 3438 * hinduSine(hinduTropicalLongitude(jdn));
-  const phi: number = location[0];
+  const phi: number = location.getLatitude();
   const diurnal: number = hinduSine(90 + hinduArcsin(sinDelta));
   const tanPhi: number = hinduSine(phi) / hinduSine(90 + phi);
   const earthSine: number = sinDelta * tanPhi;

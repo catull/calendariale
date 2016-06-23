@@ -2,6 +2,7 @@
 
 import { GregorianCalendar } from './calendar/GregorianCalendar';
 import { gregorian, hindu, J0000, J2000, JULIAN_CENTURY, Month, MoonPhase, MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
+import { Location } from './Location';
 
 /**
  * Modulus function which works for non-integers
@@ -362,21 +363,21 @@ function momentToFixed(tee: number): number {
 /**
  * Return standard time from teeRomU in universal time at location
  * @param {float} teeRomU moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function universalToStandard(teeRomU: number, location): number {
-  return teeRomU + location[3];
+function universalToStandard(teeRomU: number, location: Location): number {
+  return teeRomU + location.getZone();
 }
 
 /**
  * Return universal time from teeRomU in standard time at location
  * @param {float} teeRomS moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function standardToUniversal(teeRomS: number, location): number {
-  return teeRomS - location[3];
+function standardToUniversal(teeRomS: number, location: Location): number {
+  return teeRomS - location.getZone();
 }
 
 /**
@@ -392,40 +393,40 @@ function longitudeToZone(phi: number): number {
 /**
  * Return local time from teeRomU in universal time at location
  * @param {float} teeRomU moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function universalToLocal (teeRomU, location) {
-//   return teeRomU + longitudeToZone (location[1]);
+// function universalToLocal (teeRomU: number, location: Location) {
+//   return teeRomU + longitudeToZone (location.getLongitude());
 // }
 
 /**
  * Return universal time from teeEll in local time at location
  * @param {float} teeEll moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function localToUniversal(teeEll: number, location): number {
-  return teeEll - longitudeToZone(location[1]);
+function localToUniversal(teeEll: number, location: Location): number {
+  return teeEll - longitudeToZone(location.getLongitude());
 }
 
 /**
  * Return standard time from teeEll in local time at location
  * @param {float} teeEll moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function localToStandard(teeEll: number, location): number {
+function localToStandard(teeEll: number, location: Location): number {
   return universalToStandard(localToUniversal(teeEll, location), location);
 }
 
 /**
  * Return local time from teeRomS in standard time at location
  * @param {float} teeRomS moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function standardToLocal (teeRomS, location) {
+// function standardToLocal (teeRomS: number, location: Location) {
 //    return universalToLocal (standardToUniversal (teeRomS, location), location);
 // }
 
@@ -545,32 +546,32 @@ function equationOfTime(tee: number): number {
 }
 
 /**
- * Return sundial time at local time tee at location, location
+ * Return sundial time at local time tee at given location
  * @param {float} tee moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function localToApparent (tee, location) {
+// function localToApparent (tee: number, location: Location) {
 //   return tee + equationOfTime (localToUniversal (tee, location));
 // }
 
 /**
- * Return local time from sundial time tee at location, location
+ * Return local time from sundial time tee at given location
  * @param {float} tee moment in time
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function apparentToLocal(tee: number, location): number {
+function apparentToLocal(tee: number, location: Location): number {
   return tee - equationOfTime(localToUniversal(tee, location));
 }
 
 /**
- * Return standard time on fixed date date, of midday at location location
+ * Return standard time on fixed date date, of midday at given location
  * @param {float} date fixed
- * @param {location} location geographic location
+ * @param {Location} location geographic location
  * @return {float} converted time
  */
-function midDay(date: number, location): number {
+function midDay(date: number, location: Location): number {
   return localToStandard(apparentToLocal(date + 0.5, location), location);
 }
 
@@ -885,12 +886,12 @@ function rightAscension(tee: number, beta: number, lambda: number): number {
  * Return sine of angle between position of sun at local time tee and when
  * its depression is alpha at location. Out of range when it does not occur.
  * @param {float} tee moment ini time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @param {float} alpha angle
  * @return {float} sine offset
  */
-function sineOffset(tee: number, location, alpha: number): number {
-  const phi = location[0],
+function sineOffset(tee: number, location: Location, alpha: number): number {
+  const phi = location.getLatitude(),
     teePrime: number = localToUniversal(tee, location),
     delta: number = declination(teePrime, 0, solarLongitude(teePrime));
 
@@ -903,12 +904,12 @@ function sineOffset(tee: number, location, alpha: number): number {
  * event is sought and false for EVENING.
  * Returns -1 if depression angle is not reached.
  * @param {float} tee moment in time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @param {float} alpha angle
  * @param {boolean} early MORNING or EVENING
  * @return {float} moment of depression
  */
-function approxMomentOfDepression(tee: number, location, alpha: number, early: boolean): number {
+function approxMomentOfDepression(tee: number, location: Location, alpha: number, early: boolean): number {
   const ttry: number = sineOffset(tee, location, alpha), date: number = momentToFixed(tee);
 
   const alt: number = (alpha >= 0) ? (early ? date : date + 1) : date + 0.5;
@@ -931,12 +932,12 @@ function approxMomentOfDepression(tee: number, location, alpha: number, early: b
  * event is sought, and false for EVENING.
  * Returns -1 if depression angle is not reached.
  * @param {float} approx approximation
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @param {float} alpha angle of the sun
  * @param {boolean} early MORNING or EVENING
  * @return {float} moment of depression
  */
-function momentOfDepression(approx: number, location, alpha: number, early: boolean): number {
+function momentOfDepression(approx: number, location: Location, alpha: number, early: boolean): number {
   const tee: number = approxMomentOfDepression(approx, location, alpha, early);
 
   if (tee === -1) {
@@ -955,11 +956,11 @@ function momentOfDepression(approx: number, location, alpha: number, early: bool
  * depression angle of sun is alpha.
  * Returns -1 if there is no dawn on date.
  * @param {float} date moment in time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @param {float} alpha angle
  * @return {float} time of dawn
  */
-function dawn(date: number, location, alpha: number): number {
+function dawn(date: number, location: Location, alpha: number): number {
   const result: number = momentOfDepression(date + 0.25, location, alpha, true);
 
   if (result === -1) {
@@ -974,11 +975,11 @@ function dawn(date: number, location, alpha: number): number {
  * angle of sun is alpha.
  * Return -1 if there is no dusk on date.
  * @param {float} date moment in time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @param {float} alpha angle
  * @return {float} time of dusk
  */
-function dusk(date: number, location, alpha: number): number {
+function dusk(date: number, location: Location, alpha: number): number {
   const result: number = momentOfDepression(date + 0.75, location, alpha, false);
 
   if (result === -1) {
@@ -1281,9 +1282,9 @@ function momentToSidereal(tee: number): number {
  * small positive/negative angle in degrees, ignoring parallax and refraction.
  * Adapted from 'Astronomical Algorithms' by Jean Meeus, Willmann_Bell, Inc., 1998.
  */
-function lunarAltitude(tee: number, location): number {
-  const phi = location[0];
-  const psi = location[1];
+function lunarAltitude(tee: number, location: Location): number {
+  const phi = location.getLatitude();
+  const psi = location.getLongitude();
   const lambda: number = lunarLongitude(tee);
   const beta: number = lunarLatitude(tee);
   const alpha: number = rightAscension(tee, beta, lambda);
@@ -1300,10 +1301,10 @@ function lunarAltitude(tee: number, location): number {
  * Return S. K. Shaukat's criterion for likely visibility of crescent moon on
  * eve of jdn at given location.
  * @param {float} jdn Julian day number
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @return {float} visibility
  */
-function visibleCrescent(jdn: number, location): boolean {
+function visibleCrescent(jdn: number, location: Location): boolean {
   const tee: number = standardToUniversal(dusk(jdn - 1, location, 4.5), location);
   const phase: number = lunarPhase(tee);
   const altitude: number = lunarAltitude(tee, location);
@@ -1317,10 +1318,10 @@ function visibleCrescent(jdn: number, location): boolean {
  * Return the closest fixed date on or before jdn, when crescent moon first
  * became visible at location.
  * @param {float} jdn Julian day number
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @return {float} phasis
  */
-function phasisOnOrBefore(jdn: number, location) {
+function phasisOnOrBefore(jdn: number, location: Location) {
   const jd0: number = jdn - J0000;
   const mean: number = jd0 - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jd0 - mean) <= 3 && !visibleCrescent(jd0, location)) ? mean - 30 : mean - 2;
@@ -1334,10 +1335,10 @@ function phasisOnOrBefore(jdn: number, location) {
  * Return the closest fixed date on or after jdn, when crescent moon first
  * became visible at location.
  * @param {float} jdn Julian day number
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @return {float} phasis
  */
-function phasisOnOrAfter(jdn: number, location) {
+function phasisOnOrAfter(jdn: number, location: Location) {
   // const jd0  = jdn - J0000;
   const mean: number = jdn - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jdn - mean) <= 3 && !visibleCrescent(jdn - 1, location)) ? jdn : mean + 29;
@@ -1363,10 +1364,10 @@ function solarLongitudeAfter(lambda: number, tee: number): number {
 /**
  * Return refraction angle at given location and time.
  * @param {float} tee moment in time
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  */
-function refraction(tee: number, location): number {
-  const h: number = Math.max(0, location[2]);
+function refraction(tee: number, location: Location): number {
+  const h: number = Math.max(0, location.getElevation());
   const capR: number = 6.372e6;
   const dip: number = arcCosDeg(capR / (capR + h));
 
@@ -1376,10 +1377,10 @@ function refraction(tee: number, location): number {
 /**
  * Return standard time of sunset on jdn at given location.
  * @param {float} jdn Julian day number
- * @param {location} location geo-location
+ * @param {Location} location geo-location
  * @return {float} moment of sunset
  */
-function sunset(jdn: number, location): number {
+function sunset(jdn: number, location: Location): number {
   const jd0: number = jdn - J0000;
   const alpha: number = refraction(jd0, location);
 

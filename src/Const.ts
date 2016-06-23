@@ -1,3 +1,4 @@
+import { Location } from './Location';
 
 // *Days in Julian century*
 const JULIAN_CENTURY: number = 36525;
@@ -114,8 +115,8 @@ const chinese = {
   EPOCH_RD: -963099,
   EPOCH_1929: 2425612.5,
   EPOCH_1929_RD: 704189,
-  LOCATION_BEFORE_1929: [ 479 / 12, 1397 / 12, 43.5, 1397 / 4320 ],
-  LOCATION_SINCE_1929: [ 479 / 12, 1397 / 12, 43.5, 1 / 3 ]
+  LOCATION_BEFORE_1929: new Location (479 / 12, 1397 / 12, 43.5, 1397 / 4320),
+  LOCATION_SINCE_1929: new Location (479 / 12, 1397 / 12, 43.5, 1 / 3)
 };
 
 const coptic = {
@@ -158,7 +159,7 @@ const hebrew = {
   EPOCH_RD: -1373428,
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
   H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ],
-  JAFFA_LOCATION: [ 961 / 30, 139 / 4, 0, 1 / 12 ]
+  JAFFA_LOCATION: new Location (961 / 30, 139 / 4, 0, 1 / 12)
 };
 
 const hindu = {
@@ -172,7 +173,7 @@ const hindu = {
   ANOMALISTIC_MONTH: 1577917828 / (57753336 - 488199),
   SOLAR_ERA: 3179,
   LUNAR_ERA: 3044,
-  UJJAIN_LOCATION: [ 23.15, 75 + 461 / 600, 0, (5 + 461 / 9000) / 24 ],
+  UJJAIN_LOCATION: new Location (23.15, 75 + 461 / 600, 0, (5 + 461 / 9000) / 24),
   SIDEREAL_START: 336.13605090692613,
   WEEKDAYS: [ 'ravivara', 'somavara', 'mangalavara', 'budhavara', 'brahaspativara', 'sukravara', 'sanivara' ],
   MONTHS: [ 'Caitra', 'Vaisakha', 'Jyaistha', 'Asadha', 'Sravana', 'Bhadra', 'Asvina', 'Kartika', 'Agrahayana', 'Pausa', 'Magha', 'Phalguna' ]
@@ -183,7 +184,7 @@ const islamic = {
   EPOCH_RD: 227015,
   WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
   MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ],
-  CAIRO_LOCATION: [ 30.1, 31.3, 200, 1 / 12 ]
+  CAIRO_LOCATION: new Location (30.1, 31.3, 200, 1 / 12)
 };
 
 const julian = {
@@ -202,7 +203,7 @@ const mayan = {
 const persian = {
   EPOCH: 1948320.5, // 622/03/19 Julian C.E.
   EPOCH_RD: 226896,
-  TEHRAN_LOCATION: [ 35.68, 51.42, 1100, 7 / 48 ],
+  TEHRAN_LOCATION: new Location (35.68, 51.42, 1100, 7 / 48),
   WEEKDAYS: [ 'Yekshanbeh', 'Doshanbeh', 'Seshhanbeh', 'Chaharshanbeh', 'Panjshanbeh', 'Jomeh', 'Shanbeh' ],
   MONTHS: [ 'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand' ]
 };
