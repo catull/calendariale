@@ -12,6 +12,8 @@
     "build:dev": "tsc",
     "clean": "rm -fr lib spec/lib",
     "clean:dist": "rm -fr lib spec/lib node_modules spec/typings",
+    "flow:check": "flow check --color=always --all --show-all-errors --profile",
+    "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
     "lint": "tslint src/*.ts src/*/*.ts",
     "lint-test": "tslint spec/*.ts spec/*/*.ts",
     "test": "mocha spec/*/*.spec.ts",
@@ -23,7 +25,6 @@
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
     "mocha": "^2.5.3",
-    "requirejs": "^2.2.0",
-    "typescript": "^1.8.10"
+    "requirejs": "^2.2.0"
   }
 }
