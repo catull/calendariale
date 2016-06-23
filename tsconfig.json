@@ -1,13 +1,17 @@
 {
     "compilerOptions": {
+        "allowUnreachableCode": false,
+        "charset": "utf8",
         "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "listFiles": false,
-        "module": "CommonJS",
+        "module": "commonjs",
         "newLine": "LF",
+        "noImplicitAny": true,
         "noLib": false,
         "outDir": "lib/",
+        "pretty": true,
         "removeComments": true,
         "sourceMap": true,
         "target": "es6"
@@ -18,6 +22,7 @@
         "spec"
     ],
     "files": [
+        "src/Location.ts",
         "src/Const.ts",
         "src/Astro.ts",
         "src/Calendar.ts",
