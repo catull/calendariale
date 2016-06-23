@@ -13,11 +13,11 @@ export class RomanCalendar extends YearMonthCalendar {
   public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : number {
     this.validate (year, month, event, count, leap);
 
-    const day =
+    const day: number =
       event === RomanEvent.KALENDS ? 1 :
         event === RomanEvent.NONES ? this.nonesOfMonth (month) :
           this.idesOfMonth (month);
-    let jdn = JulianCalendar.toJdn (year, month, day) - count;
+    let jdn: number = JulianCalendar.toJdn (year, month, day) - count;
 
     if (leap) {
       jdn += 1;
@@ -38,9 +38,10 @@ export class RomanCalendar extends YearMonthCalendar {
     if (month < 1 || month > 12) {
       throw new CalendarValidationException ('Invalid month');
     }
-    const previousMonth = mod (month - 1, 12);
-    const maxKalends = daysInMonth[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
-    const maxCount = (event === RomanEvent.IDES) ? 8 :
+
+    const previousMonth: number = mod (month - 1, 12);
+    const maxKalends: number    = daysInMonth[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
+    const maxCount: number      = (event === RomanEvent.IDES) ? 8 :
       (event === RomanEvent.NONES) ? (this.nonesOfMonth (month) - 1) : maxKalends;
 
     if (count < 1 || count > maxCount) {
@@ -53,12 +54,11 @@ export class RomanCalendar extends YearMonthCalendar {
   }
 
   // Calculate Roman calendar date from Julian day
-  public static fromJdn (jdn: number) {
-    const date = JulianCalendar.fromJdn (jdn);
-    let year   = date.getYear ();
-    let month  = date.getMonth ();
-    let count  = date.getDay ();
-
+  public static fromJdn (jdn: number) : RomanCalendar {
+    const date: JulianCalendar = JulianCalendar.fromJdn (jdn);
+    let year: number   = date.getYear ();
+    let month: number  = date.getMonth ();
+    let count: number  = date.getDay ();
     let event: RomanEvent, leap = false;
 
     if (count === 1) {

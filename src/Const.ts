@@ -1,6 +1,6 @@
 
 // *Days in Julian century*
-const JULIAN_CENTURY = 36525;
+const JULIAN_CENTURY: number = 36525;
 
 // *Days in Julian millennium*
 // const JULIAN_MILLENIUM = 365250;
@@ -9,37 +9,37 @@ const JULIAN_CENTURY = 36525;
 // const ASTRONOMICAL_UNIT = 149597870.0;
 
 // *Julian date of Gregorian epoch: 0000-01-01*
-const J0000 = 1721424.5;
+const J0000: number = 1721424.5;
 
 // *Julian date at Unix epoch: 1970-01-01*
-const J1970 = 2440587.5;
+const J1970: number = 2440587.5;
 
 // *Epoch of Modified Julian Date system*
-const JMJD = 2400000.5;
+const JMJD: number = 2400000.5;
 
 // *Epoch (day 1) of Excel 1900 date system (PC)*
-const J1900 = 2415020.5;
+const J1900: number = 2415020.5;
 
 // *Epoch (day 0) of Excel 1904 date system (Mac)*
-const J1904 = 2416480.5;
+const J1904: number = 2416480.5;
 
 // *Gregorian date: 02000-01-01
-const J2000 = 730120.5;
+const J2000: number = 730120.5;
 
 // *Julian day of J2000 epoch*
 // const J2000_JDN = 2451545.0;
 
-const ARYA_LUNAR_MONTH = 1577917500 / 53433336; // 29.5305818076,
-const ARYA_LUNAR_DAY = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
-const ARYA_SOLAR_YEAR = 1577917500 / 4320000; // 365.258680556,
-const ARYA_SOLAR_MONTH = ARYA_SOLAR_YEAR / 12; // 30.4382233796,
+const ARYA_LUNAR_MONTH: number = 1577917500 / 53433336; // 29.5305818076,
+const ARYA_LUNAR_DAY: number = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
+const ARYA_SOLAR_YEAR: number = 1577917500 / 4320000; // 365.258680556,
+const ARYA_SOLAR_MONTH: number = ARYA_SOLAR_YEAR / 12; // 30.4382233796,
 
-const MEAN_SIDEREAL_YEAR = 365.25636;
-const MEAN_SYNODIC_MONTH = 29.530588861;
-const MEAN_TROPICAL_YEAR = 365.242189;
+const MEAN_SIDEREAL_YEAR: number = 365.25636;
+const MEAN_SYNODIC_MONTH: number = 29.530588861;
+const MEAN_TROPICAL_YEAR: number = 365.242189;
 
 // *Mean solar tropical year*
-const TROPICAL_YEAR = 365.24219878;
+const TROPICAL_YEAR: number = 365.24219878;
 
 enum WeekDay {
   SUNDAY = 0,
@@ -93,7 +93,7 @@ const aztec = {
   XIHUITL_CORRELATION_RD: 555203
 };
 
-const bahai = {
+const bahai  = {
   EPOCH: 2394646.5,    // 1844/03/21 Gregorian C.E.
   EPOCH172: 2457102.5, // 2015/03/21 Gregorian C.E.
   WEEKDAYS: [ 'Jamál', 'Kamál', 'Fidál', 'Idál', 'Istijlál', 'Istiqlál', 'Jalál' ],

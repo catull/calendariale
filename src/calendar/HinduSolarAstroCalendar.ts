@@ -4,46 +4,46 @@ import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarAstroCalendar extends YearMonthCalendar {
-  constructor (jdn: number, year: number, month: number, day: number) {
-    super (jdn, year, month, day);
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
   }
 
   // Determine Julian day number from Hindu Solar Astro calendar date
-  public static toJdn (year: number, month: number, day: number) : number {
-    this.validate (year, month, day);
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
 
-    const approx = hindu.EPOCH - 3 + Math.floor ((year + hindu.SOLAR_ERA +
-                  (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
-    const begin = next (approx, function (i0) {
-      return siderealZodiac (HinduSolarAstroCalendar.hinduAstroSunset (i0)) === month;
+    const approx: number = hindu.EPOCH - 3 + Math.floor((year + hindu.SOLAR_ERA +
+      (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
+    const begin: number = next(approx, function (i: number) {
+      return siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month;
     });
 
     return J0000 + begin + day - 1;
   }
 
-  public static validate (year: number, month: number, day: number) : void {
+  public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException ('Invalid month');
+      throw new CalendarValidationException('Invalid month');
     }
 
     if (day < 1 || day > 31) {
-      throw new CalendarValidationException ('Invalid day');
+      throw new CalendarValidationException('Invalid day');
     }
   }
 
   // Calculate Hindu Solar Astro calendar date from Julian day
-  public static fromJdn (jdn: number) {
-    const jd0      = jdn - J0000;
-    const critical = this.hinduAstroSunset (jd0);
-    const month    = siderealZodiac (critical);
-    const year     = hinduAstroCalendarYear (critical) - hindu.SOLAR_ERA;
-    const approx   = jd0 - 3 - mod (Math.floor (siderealSolarLongitude (critical)), 30);
-    const begin    = next (approx, function (index) {
-      return siderealZodiac (HinduSolarAstroCalendar.hinduAstroSunset (index)) === month;
+  public static fromJdn(jdn: number): HinduSolarAstroCalendar {
+    const jd0: number = jdn - J0000;
+    const critical: number = this.hinduAstroSunset(jd0);
+    const month: number = siderealZodiac(critical);
+    const year: number = hinduAstroCalendarYear(critical) - hindu.SOLAR_ERA;
+    const approx: number = jd0 - 3 - mod(Math.floor(siderealSolarLongitude(critical)), 30);
+    const begin: number = next(approx, function (index: number): boolean {
+      return siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month;
     });
-    const day      = jd0 - begin + 1;
+    const day: number = jd0 - begin + 1;
 
-    return new HinduSolarAstroCalendar (jdn, year, month, day);
+    return new HinduSolarAstroCalendar(jdn, year, month, day);
   }
 
   /**
@@ -51,7 +51,7 @@ export class HinduSolarAstroCalendar extends YearMonthCalendar {
    * @param {float} date moment in time
    * @return {float} sunset of that date
    */
-  private static hinduAstroSunset (jdn: number) : number {
-    return dusk (jdn, hindu.UJJAIN_LOCATION, 0);
+  private static hinduAstroSunset(jdn: number): number {
+    return dusk(jdn, hindu.UJJAIN_LOCATION, 0);
   }
 }

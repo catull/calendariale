@@ -3,58 +3,51 @@ import { mayan } from '../Const';
 import { BaseCalendar, CalendarValidationException } from '../Calendar';
 
 export class MayanCountCalendar extends BaseCalendar {
-  constructor (jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
-    super (jdn);
+  constructor(jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
+    super(jdn);
   }
 
   // Determine JUlian day number from Mayan Count calendar date
-  public static toJdn (baktun: number, katun: number, tun: number, uinal: number, kin: number) : number {
-    this.validate (baktun, katun, tun, uinal, kin);
+  public static toJdn(baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
+    this.validate(baktun, katun, tun, uinal, kin);
 
-    return mayan.EPOCH +
-      baktun * 144000 +
-      katun * 7200 +
-      tun * 360 +
-      uinal * 20 +
-      kin;
+    return mayan.EPOCH + baktun * 144000 + katun * 7200 + tun * 360 + uinal * 20 + kin;
   }
 
-  public static validate (baktun: number, katun: number, tun: number, uinal: number, kin: number) : void {
+  public static validate(baktun: number, katun: number, tun: number, uinal: number, kin: number): void {
     if (kin < 0 || kin > 19) {
-      throw new CalendarValidationException ('Invalid kin');
+      throw new CalendarValidationException('Invalid kin');
     }
 
     if (uinal < 0 || uinal > 17) {
-      throw new CalendarValidationException ('Invalid uinal');
+      throw new CalendarValidationException('Invalid uinal');
     }
 
     if (tun < 0 || tun > 19) {
-      throw new CalendarValidationException ('Invalid tun');
+      throw new CalendarValidationException('Invalid tun');
     }
 
     if (katun < 0 || katun > 19) {
-      throw new CalendarValidationException ('Invalid katun');
+      throw new CalendarValidationException('Invalid katun');
     }
 
     if (baktun < 0) {
-      throw new CalendarValidationException ('Invalid baktun');
+      throw new CalendarValidationException('Invalid baktun');
     }
   }
 
   // Calculate Mayan Count calendar date from Julian day
-  public static fromJdn (jdn: number) {
-    let d0, baktun, katun, tun, uinal, kin;
+  public static fromJdn(jdn: number): MayanCountCalendar {
+    let d: number = Math.floor(jdn) + 0.5 - mayan.EPOCH;
+    const baktun: number = Math.floor(d / 144000);
+    d = mod(d, 144000);
+    const katun: number = Math.floor(d / 7200);
+    d = mod(d, 7200);
+    const tun: number = Math.floor(d / 360);
+    d = mod(d, 360);
+    const uinal: number = Math.floor(d / 20);
+    const kin: number = mod(d, 20);
 
-    d0     = Math.floor (jdn) + 0.5 - mayan.EPOCH;
-    baktun = Math.floor (d0 / 144000);
-    d0     = mod (d0, 144000);
-    katun  = Math.floor (d0 / 7200);
-    d0     = mod (d0, 7200);
-    tun    = Math.floor (d0 / 360);
-    d0     = mod (d0, 360);
-    uinal  = Math.floor (d0 / 20);
-    kin    = mod (d0, 20);
-
-    return new MayanCountCalendar (jdn, baktun, katun, tun, uinal, kin);
+    return new MayanCountCalendar(jdn, baktun, katun, tun, uinal, kin);
   }
 }
