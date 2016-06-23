@@ -247,7 +247,7 @@ function amod(amount: number, numerator: number): number {
  * @param {function} predicate boolean function applied to each iter until true
  * @return {int} iterator satisfying the predicate
  */
-function next(iter: number, predicate: (number) => boolean): number {
+function next(iter: number, predicate: (n: number) => boolean): number {
   return predicate(iter) ? iter : next(iter + 1, predicate);
 }
 
@@ -258,7 +258,7 @@ function next(iter: number, predicate: (number) => boolean): number {
  * @param {function} predicate boolean function applied to each iter until false
  * @return {int} iterator satisfying the predicate
  */
-function final(iter: number, predicate: (number) => boolean): number {
+function final(iter: number, predicate: (n: number) => boolean): number {
   return predicate(iter) ? final(iter + 1, predicate) : iter - 1;
 }
 
@@ -302,7 +302,7 @@ function zip(arrays: Array<Array<number>>): Array<Array<number>> {
  * @param {function} func application function
  * @return {float} sum of products
  */
-function sigma(matrix: Array<Array<number>>, func: (...number) => number): number {
+function sigma(matrix: Array<Array<number>>, func: (...n: number[]) => number): number {
   return zip(matrix).map(function (v: Array<number>): number {
     return func.apply(null, v);
   }).reduce(function (memo: number, n: number): number {
@@ -323,7 +323,7 @@ function binarySearch(
   low: number,
   high: number,
   predicate: (l: number, h: number) => boolean,
-  discriminator: (number) => boolean): number {
+  discriminator: (n: number) => boolean): number {
   const x: number = (low + high) / 2;
 
   if (predicate(low, high)) {
@@ -341,7 +341,7 @@ function binarySearch(
  * Find inverse of angular function 'f' at 'y' within interval [ low, high ].
  * Default precision is 0.00001.
  */
-function invertAngular(f: (number) => number, y: number, low: number, high: number): number {
+function invertAngular(f: (n: number) => number, y: number, low: number, high: number): number {
   return binarySearch(low, high,
     function (l: number, h: number): boolean {
       return h - l <= 1e-5;

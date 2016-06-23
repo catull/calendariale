@@ -43,7 +43,7 @@ export class PersianArithmeticCalendar extends LeapCalendar {
   public static fromJdn(jdn: number): PersianArithmeticCalendar {
     const year: number = this.jdnToYear(jdn);
     let yDay: number = jdn - this.toJdn(year, 1, 1) + 1;
-    let month, day;
+    let month: number, day: number;
 
     if (yDay <= 186) {
       month = Math.ceil(yDay / 31);
