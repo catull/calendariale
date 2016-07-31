@@ -1,5 +1,3 @@
-/* eslint 'max-params': [ 'error', 5 ] */
-
 import { GregorianCalendar } from './calendar/GregorianCalendar';
 import { gregorian, J0000, J2000, JULIAN_CENTURY, Month, MoonPhase, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
 import { Location } from './Location';
