@@ -1,10 +1,10 @@
 import { mod } from '../Astro';
 import { mayan } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { MonthCalendar } from '../Calendar';
 
-export class MayanHaabCalendar extends BaseCalendar {
-  constructor(jdn: number, private month: number, private day: number) {
-    super(jdn);
+export class MayanHaabCalendar extends MonthCalendar {
+  constructor(jdn: number, month: number, day: number) {
+    super(jdn, month, day);
   }
 
   // Calculate Mayan Haab calendar date from Julian day

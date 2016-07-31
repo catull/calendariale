@@ -1,5 +1,5 @@
 import { mod, phasisOnOrBefore } from '../Astro';
-import { islamic, J0000, MEAN_SYNODIC_MONTH } from '../Const';
+import { islamic, MEAN_SYNODIC_MONTH } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class IslamicObservationalCalendar extends LeapCalendar {

@@ -1,10 +1,10 @@
 import { amod } from '../Astro';
 import { mayan } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { MonthCalendar } from '../Calendar';
 
-export class MayanTzolkinCalendar extends BaseCalendar {
-  constructor(jdn: number, private month: number, private day: number) {
-    super(jdn);
+export class MayanTzolkinCalendar extends MonthCalendar {
+  constructor(jdn: number, month: number, day: number) {
+    super(jdn, month, day);
   }
 
   // Calculate Mayan Tzolkin calendar date from Julian day

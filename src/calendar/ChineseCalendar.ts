@@ -1,13 +1,17 @@
-import { amod, estimatePriorSolarLongitude, mod, next, newMoonAtOrAfter, newMoonBefore,
-  solarLongitude, solarLongitudeAfter, standardToUniversal, universalToStandard } from '../Astro';
-import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Month, Season } from '../Const';
+import { amod, estimatePriorSolarLongitude, next, newMoonAtOrAfter, newMoonBefore,
+  solarLongitude, standardToUniversal, universalToStandard } from '../Astro';
+import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Season } from '../Const';
 import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
-import { GregorianCalendar } from './GregorianCalendar';
+// import { GregorianCalendar } from './GregorianCalendar';
 import { Location } from '../Location';
 
 export class ChineseCalendar extends LeapMonthCalendar {
   constructor(jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
     super(jdn, year, month, day, monthLeap);
+  }
+
+  getCycle () : number {
+    return this.cycle;
   }
 
   // Determine Julian day number from Chinese calendar date
@@ -80,9 +84,11 @@ export class ChineseCalendar extends LeapMonthCalendar {
   }
 
   // Return Julian day number of Chinese New Year in given Gregorian year.
+  /*
   private static chineseNewYear(gYear: number): number {
     return this.chineseNewYearOnOrBefore(GregorianCalendar.toJdn(gYear, Month.JULY, 1));
   }
+  */
 
   // Return Julian day number of Chinese New Year on or before given date,.
   private static chineseNewYearOnOrBefore(fixed: number): number {
@@ -154,30 +160,36 @@ export class ChineseCalendar extends LeapMonthCalendar {
   // Return moment (in Beijing) of the first Chinese minor solar term (jieqi)
   // on or after given date.
   // The minor terms begin when the sun's longitude is an odd multiple of 15 degrees.
+  /*
   private static minorSolarTermOnOrAfter(fixed: number): number {
     const s: number = solarLongitude(this.midnightInChina(fixed));
     const l: number = mod(30 * Math.ceil((s - 15) / 30) + 15, 360);
 
     return this.chineseSolarLongitudeOnOrAfter(l, fixed);
   }
+  */
 
   // Return last Chinese minor solar term (jieqi) before given date.
+  /*
   private static currentMinorSolarTerm(fixed: number): number {
     const s: number = solarLongitude(
       standardToUniversal(fixed, this.chineseLocation(fixed)));
 
     return amod(3 + Math.floor((s - 15) / 30), 12);
   }
+  */
 
   // Return moment (in Beijing) of the first Chinese major solar term (zhongqi)
   // on or after given date.
   // The major terms begin when the sun's longitude is a multiple of 30 degrees.
+  /*
   private static majorSolarTermOnOrAfter(fixed: number): number {
     const s: number = solarLongitude(this.midnightInChina(fixed));
     const l: number = mod(30 * Math.ceil(s / 30), 360);
 
     return this.chineseSolarLongitudeOnOrAfter(l, fixed);
   }
+  */
 
   // Return last Chinese major solar term (zhongqi) before given date.
   private static currentMajorSolarTerm(date: number): number {
@@ -188,9 +200,11 @@ export class ChineseCalendar extends LeapMonthCalendar {
 
   // Return moment (Beijing time) of the first date on or after given date,
   // (Beijing time) when the solar longitude will be 'lambda' degrees.
+  /*
   private static chineseSolarLongitudeOnOrAfter(lambda: number, fixed: number): number {
     const tee: number = solarLongitudeAfter(lambda, standardToUniversal(fixed, this.chineseLocation(fixed)));
 
     return universalToStandard(tee, this.chineseLocation(tee));
   }
+  */
 }

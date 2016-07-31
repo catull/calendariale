@@ -1,5 +1,5 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
-import { bahai, gregorian, TROPICAL_YEAR } from '../Const';
+import { bahai, TROPICAL_YEAR } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
@@ -12,6 +12,14 @@ export class BahaiCalendar extends LeapCalendar {
     month: number,
     day: number) {
     super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
+  }
+
+  getKullIshay () : number {
+    return this.kull_i_shay;
+  }
+
+  getVahid () : number {
+    return this.vahid;
   }
 
   // Determine the year in the Bahai // astronomical calendar in which a

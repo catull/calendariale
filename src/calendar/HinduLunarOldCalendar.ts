@@ -1,5 +1,5 @@
 import { mod } from '../Astro';
-import { hindu, ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, J0000 } from '../Const';
+import { hindu, ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
 import { hinduDayCount } from '../HinduAlgorithms';
 import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 

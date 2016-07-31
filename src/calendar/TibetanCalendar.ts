@@ -1,4 +1,4 @@
-import { amod, final, mod } from '../Astro';
+import { amod, mod } from '../Astro';
 import { tibetan } from '../Const';
 import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 

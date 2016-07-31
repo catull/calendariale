@@ -18,6 +18,46 @@ export class BalinesePawukonCalendar extends BaseCalendar {
     super(jdn);
   }
 
+  isLuag () : boolean {
+    return this.luang;
+  }
+
+  getDwiwara () : number {
+    return this.dwiwara;
+  }
+
+  getTriwara () : number {
+    return this.triwara;
+  }
+
+  getCaturwara () : number {
+    return this.caturwara;
+  }
+
+  getPancawara () : number {
+    return this.pancawara;
+  }
+
+  getSadwara () : number {
+    return this.sadwara;
+  }
+
+  getSaptawara () : number {
+    return this.saptawara;
+  }
+
+  getAsatawara () : number {
+    return this.asatawara;
+  }
+
+  getSangawara () : number {
+    return this.sangawara;
+  }
+
+  getDasawara () : number {
+    return this.dasawara;
+  }
+
   public static jdnToBalineseDayCount(jdn: number): number {
     return mod(jdn - balinese.EPOCH, 210);
   }

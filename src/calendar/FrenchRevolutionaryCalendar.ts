@@ -1,4 +1,4 @@
-import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
+import { deltaT, equationOfTime, equinox } from '../Astro';
 import { french, TROPICAL_YEAR } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
@@ -6,6 +6,10 @@ import { GregorianCalendar } from './GregorianCalendar';
 export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
   constructor(jdn: number, an: number, mois: number, private decade: number, jour: number) {
     super(jdn, an, mois, jour);
+  }
+
+  getDecade () : number {
+    return this.decade;
   }
 
   // Obtain Julian day from a given French Revolutionary calendar date.

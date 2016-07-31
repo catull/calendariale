@@ -1,12 +1,24 @@
 import { amod, mod } from '../Astro';
-import { julian, Month, RomanEvent } from '../Const';
+import { Month, RomanEvent } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 import { daysInMonth, JulianCalendar } from './JulianCalendar';
 
 
 export class RomanCalendar extends YearMonthCalendar {
-  constructor (jdn: number, year: number, month: number, private event: number, private count: number, private leap: boolean) {
+  constructor (jdn: number, year: number, month: number, private event: RomanEvent, private count: number, private leap: boolean) {
     super (jdn, year, month, -1);
+  }
+
+  getEvent () : RomanEvent {
+    return this.event;
+  }
+
+  getCount () : number {
+    return this.count;
+  }
+
+  isLeap () : boolean {
+    return this.leap;
   }
 
   // Determine Julian day number from Roman calendar date

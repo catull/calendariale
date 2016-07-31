@@ -1,5 +1,5 @@
 import { amod, mod, next } from '../Astro';
-import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
+import { hindu, J0000 } from '../Const';
 import { hinduCalendarYear, hinduLunarDayFromMoment, hinduNewMoonBefore, hinduSolarLongitude, hinduSunrise, hinduZodiac } from '../HinduAlgorithms';
 import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 

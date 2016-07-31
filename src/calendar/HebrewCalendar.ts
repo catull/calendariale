@@ -1,4 +1,4 @@
-import { amod, mod } from '../Astro';
+import { mod } from '../Astro';
 import { hebrew } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 

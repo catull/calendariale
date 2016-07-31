@@ -1,5 +1,4 @@
-import { mod } from '../Astro';
-import { gregorian, J0000, Month } from '../Const';
+import { gregorian, J0000 } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class Symmetry010Calendar extends LeapCalendar {

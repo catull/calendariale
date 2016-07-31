@@ -7,6 +7,14 @@ export class AztecTonalpohualliCalendar extends BaseCalendar {
     super(jdn);
   }
 
+  getNumber () : number {
+    return this.number;
+  }
+
+  getName () : number {
+    return this.name;
+  }
+
   // Calculate Aztec Tonalpohualli calendar date from Julian day
   public static fromJdn(jdn: number): AztecTonalpohualliCalendar {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;

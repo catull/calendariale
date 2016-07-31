@@ -1,4 +1,3 @@
-import { mod } from '../Astro';
 import { ethiopic } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 

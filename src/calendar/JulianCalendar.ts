@@ -1,5 +1,5 @@
 import { mod } from '../Astro';
-import { julian, Month } from '../Const';
+import { Month } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export const daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

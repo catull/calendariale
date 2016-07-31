@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { hinduDayCount } from '../HinduAlgorithms';
-import { hindu, J0000, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
+import { hindu, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarOldCalendar extends YearMonthCalendar {

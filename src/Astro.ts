@@ -1,7 +1,7 @@
 /* eslint 'max-params': [ 'error', 5 ] */
 
 import { GregorianCalendar } from './calendar/GregorianCalendar';
-import { gregorian, hindu, J0000, J2000, JULIAN_CENTURY, Month, MoonPhase, MEAN_SIDEREAL_YEAR, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
+import { gregorian, J0000, J2000, JULIAN_CENTURY, Month, MoonPhase, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, WeekDay } from './Const';
 import { Location } from './Location';
 
 /**
@@ -41,9 +41,11 @@ function kdayOnOrBefore(k: WeekDay, jdn: number): number {
  * @param {number} jdn julian day number
  * @return {number} resulting julian day number
  */
+/*
 function kdayOnOrAfter(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 6);
 }
+*/
 
 /**
  * Return the julian day number of the k-day nearest the given julian day number.
@@ -52,9 +54,11 @@ function kdayOnOrAfter(k: WeekDay, jdn: number): number {
  * @param {number} jdn julian day number
  * @return {number} resulting julian day number
  */
+/*
 function kdayNearest(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 3);
 }
+*/
 
 /**
  * Return the julian day number of the k-day after the given julian day number.

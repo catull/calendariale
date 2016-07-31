@@ -1,10 +1,18 @@
-import { amod, mod } from '../Astro';
+import { mod } from '../Astro';
 import { yerm_ } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class YermCalendar extends YearMonthCalendar {
   constructor(jdn: number, private cycle: number, private yerm: number, month: number, day: number) {
     super(jdn, 0, month, day);
+  }
+
+  getCycle () : number {
+    return this.cycle;
+  }
+
+  getYerm () : number {
+    return this.yerm;
   }
 
   // Determine Julian day number from Yerm calendar date
