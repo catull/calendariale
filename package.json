@@ -22,9 +22,9 @@
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "dirty-chai": "^1.2.2",
-    "mocha": "^2.5.3",
-    "requirejs": "^2.2.0"
+    "chai": "~3.5.0",
+    "dirty-chai": "~1.2.2",
+    "mocha": "~3.0.0",
+    "requirejs": "~2.2.0"
   }
 }
