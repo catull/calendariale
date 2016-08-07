@@ -2,10 +2,7 @@
   "name": "calendariale",
   "version": "0.0.1",
   "description": "Calendrical calculations in JavaScript",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/catull/calendariale.git"
-  },
+  "repository": "catull/calendariale",
   "main": "index.js",
   "scripts": {
     "build": "npm run lint && npm run build:dev",
