@@ -128,7 +128,7 @@ export class BahaiCalendar extends LeapCalendar {
     const jd0: number = Math.floor(jdn - 0.5) + 0.5;
     const old: boolean = jd0 < bahai.EPOCH172;
 
-    let bys: number, days: number, leap: boolean;
+    let bys: number, by: number[], leap: boolean;
 
     if (old) {
       const gy: number = GregorianCalendar.fromJdn(jd0).getYear();
@@ -136,21 +136,20 @@ export class BahaiCalendar extends LeapCalendar {
       const bstarty: number = GregorianCalendar.fromJdn(bahai.EPOCH).getYear();
       bys = gy - (bstarty + (GregorianCalendar.toJdn(gy, 1, 1) <= jd0 &&
         jd0 <= GregorianCalendar.toJdn(gy, 3, 20) ? 1 : 0)) + 1;
+      by = [0, 0];
     } else {
-      const by: number[] = this.jdnToYearAndOffset(jd0);
+      by = this.jdnToYearAndOffset(jd0);
       bys = by[0];
       leap = this.isLeapYear(bys);
-      days = jd0 - by[1];
     }
 
     const kullIshay: number = Math.floor(bys / 361) + 1;
     const vahid: number = Math.floor(mod(bys - 1, 361) / 19) + 1;
     const year: number = amod(bys, 19);
     const leapDays: number = leap ? 5 : 4;
-
-    if (old) {
-      days = jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1;
-    }
+    const days: number = old ?
+      jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 :
+      jd0 - by[1];
 
     let month: number, day: number;
 
