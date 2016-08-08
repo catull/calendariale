@@ -12,8 +12,8 @@
     "flow:check": "flow check --color=always --all --show-all-errors --profile",
     "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
     "lint": "tslint src/*.ts src/*/*.ts",
-    "lint-test": "tslint spec/*.ts spec/*/*.ts",
-    "test": "mocha spec/*/*.spec.ts",
+    "lint:test": "tslint spec/*.ts spec/*/*.ts",
+    "test": "npm run lint:test && mocha spec/*/*.spec.ts",
     "postinstall": "tsc"
   },
   "author": "",
