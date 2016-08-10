@@ -37,6 +37,7 @@
         "src/Const.ts",
         "src/Astro.ts",
         "src/Calendar.ts",
+        "src/index.ts",
         "src/HinduAlgorithms.ts",
         "src/calendar/ArmenianCalendar.ts",
         "src/calendar/AztecTonalpohualliCalendar.ts",
@@ -72,6 +73,7 @@
         "src/calendar/Symmetry010Calendar.ts",
         "src/calendar/Symmetry454Calendar.ts",
         "src/calendar/TibetanCalendar.ts",
-        "src/calendar/YermCalendar.ts"
+        "src/calendar/YermCalendar.ts",
+        "src/calendar/index.ts"
     ]
 }
