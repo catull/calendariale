@@ -48,28 +48,29 @@ const data2 = [
 ];
 
 describe ('Ethiopic calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert an Ethiopic date to Julian day', () => {
-    data2.forEach ((data) => {
-      date = data.ethiopic;
-      expected = data.rataDie + Const.J0000;
+    data2.forEach (dt => {
+      date   = dt.ethiopic;
+      julian = dt.rataDie + Const.J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
 
-      expect (expected).to.be.equal (actual);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to an Ethiopic date', () => {
-    data2.forEach ((data) => {
-      date = data.ethiopic;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual = cal.fromJdn (data.rataDie + Const.J0000);
+    data2.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.ethiopic;
+      expected = { jdn: julian, year: date.year, month: date.month, day: date.day };
+      actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
