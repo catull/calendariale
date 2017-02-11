@@ -7,16 +7,16 @@ export class ChineseDayNameCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getStem () : number {
+  getStem (): number {
     return this.stem;
   }
 
-  getBranch () : number {
+  getBranch (): number {
     return this.branch;
   }
 
   // Calculate Mayan Tzolkin calendar date from Julian day
-  public static fromJdn(jdn: number) : ChineseDayNameCalendar {
+  public static fromJdn(jdn: number): ChineseDayNameCalendar {
     const count: number = jdn - chinese.DAY_NAME_EPOCH - 1;
 
     return new ChineseDayNameCalendar(jdn, amod(count, 10), amod(count, 12));

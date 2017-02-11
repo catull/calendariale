@@ -10,7 +10,7 @@ export class ChineseCalendar extends LeapMonthCalendar {
     super(jdn, year, month, day, monthLeap);
   }
 
-  getCycle () : number {
+  getCycle (): number {
     return this.cycle;
   }
 
@@ -144,7 +144,7 @@ export class ChineseCalendar extends LeapMonthCalendar {
   }
 
   // Return location of Beijing; time zone varies with time.
-  private static chineseLocation(fixed: number) : Location {
+  private static chineseLocation(fixed: number): Location {
     return (fixed < chinese.EPOCH_1929_RD) ?
       chinese.LOCATION_BEFORE_1929 :
       chinese.LOCATION_SINCE_1929;
