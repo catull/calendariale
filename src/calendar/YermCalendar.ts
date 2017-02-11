@@ -7,11 +7,11 @@ export class YermCalendar extends YearMonthCalendar {
     super(jdn, 0, month, day);
   }
 
-  getCycle () : number {
+  getCycle (): number {
     return this.cycle;
   }
 
-  getYerm () : number {
+  getYerm (): number {
     return this.yerm;
   }
 
