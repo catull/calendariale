@@ -48,26 +48,27 @@ const data3 = [
 ];
 
 describe ('Balinese Pawukon calendar spec', () => {
-  let date, expected, actual, decade, jour;
+  let date, expected, actual, julian;
 
   it ('should convert a Julian day to a Balinese Pawukon date', () => {
-    data3.forEach ((data) => {
-      date     = data.balinese;
-      expected = { luang: date.luang, dwiwara: date.dwiwara, triwara: date.triwara, caturwara: date.caturwara, pancawara: date.pancawara,
+    data3.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.balinese;
+      expected = { jdn: julian, luang: date.luang, dwiwara: date.dwiwara, triwara: date.triwara, caturwara: date.caturwara, pancawara: date.pancawara,
         sadwara: date.sadwara, saptawara: date.saptawara, asatawara: date.asatawara, sangawara: date.sangawara, dasawara: date.dasawara };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
+      actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.luang).to.be.equal (actual.luang);
-      expect (expected.dwiwara).to.be.equal (actual.dwiwara);
-      expect (expected.triwara).to.be.equal (actual.triwara);
-      expect (expected.caturwara).to.be.equal (actual.caturwara);
-      expect (expected.pancawara).to.be.equal (actual.pancawara);
-      expect (expected.sadwara).to.be.equal (actual.sadwara);
-      expect (expected.saptawara).to.be.equal (actual.saptawara);
-      expect (expected.asatawara).to.be.equal (actual.asatawara);
-      expect (expected.sangawara).to.be.equal (actual.sangawara);
-      expect (expected.dasawara).to.be.equal (actual.dasawara);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.luang).to.be.equal (actual.luang);
+      // expect (expected.dwiwara).to.be.equal (actual.dwiwara);
+      // expect (expected.triwara).to.be.equal (actual.triwara);
+      // expect (expected.caturwara).to.be.equal (actual.caturwara);
+      // expect (expected.pancawara).to.be.equal (actual.pancawara);
+      // expect (expected.sadwara).to.be.equal (actual.sadwara);
+      // expect (expected.saptawara).to.be.equal (actual.saptawara);
+      // expect (expected.asatawara).to.be.equal (actual.asatawara);
+      // expect (expected.sangawara).to.be.equal (actual.sangawara);
+      // expect (expected.dasawara).to.be.equal (actual.dasawara);
     });
   });
 });
