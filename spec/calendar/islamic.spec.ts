@@ -51,25 +51,26 @@ describe ('Islamic calendar spec', () => {
   let julian, date, expected, actual;
 
   it ('should convert a Islamic date to Julian day', () => {
-    // data2.forEach ((data) => {
-    //   expected = data.rataDie + Const.J0000;
-    //   date     = data.islamic;
-    //   actual   = cal.toJdn (date.year, date.month, date.day);
-    //   expect (expected).to.be.equal (actual);
-    // });
+    data2.forEach (dt => {
+      expected = dt.rataDie + Const.J0000;
+      date     = dt.islamic;
+      actual   = cal.toJdn (date.year, date.month, date.day);
+      expect (expected).to.be.equal (actual);
+    });
   });
 
   it ('should convert a Julian day to a Islamic date', () => {
-    // data2.forEach ((data) => {
-    //   julian   = data.rataDie + Const.J0000;
-    //   date     = data.islamic;
-    //   expected = { year: date.year, month: date.month, day: date.day };
-    //   actual   = cal.fromJdn (julian);
-	//   // expect (expected).to.be.eql (actual);
-    //   expect (expected.year).to.be.equal (actual.year);
-    //   expect (expected.month).to.be.equal (actual.month);
-    //   expect (expected.day).to.be.equal (actual.day);
-    // });
+    data2.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.islamic;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
+    });
   });
 
   it ('should determine whether a Islamic year is leap year', () => {
