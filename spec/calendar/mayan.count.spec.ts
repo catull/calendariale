@@ -51,28 +51,28 @@ describe ('Mayan Count calendar spec', () => {
   let date, julian, expected, actual;
 
   it ('should conv0ert a Mayan Count to Julian day', () => {
-    data2.forEach ((data) => {
-      expected = data.rataDie + Const.J0000;
-      date     = data.mayanLong;
-      actual   = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
+    data2.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.mayanLong;
+      actual = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
 
-      expect (expected).to.be.equal (actual);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Mayan Count', () => {
-    data2.forEach ((data) => {
-      julian   = data.rataDie + Const.J0000;
-      date     = data.mayanLong;
-      expected = { baktun: date.baktun, katun: date.katun, tun: date.tun, uinal: date.uinal, kin: date.kin };
+    data2.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.mayanLong;
+      expected = { 'jdn': julian, 'baktun': date.baktun, 'katun': date.katun, 'tun': date.tun, 'uinal': date.uinal, 'kin': date.kin };
       actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.baktun).to.be.equal (actual.baktun);
-      expect (expected.katun).to.be.equal (actual.katun);
-      expect (expected.tun).to.be.equal (actual.tun);
-      expect (expected.uinal).to.be.equal (actual.uinal);
-      expect (expected.kin).to.be.equal (actual.kin);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.baktun).to.be.equal (actual.baktun);
+      // expect (expected.katun).to.be.equal (actual.katun);
+      // expect (expected.tun).to.be.equal (actual.tun);
+      // expect (expected.uinal).to.be.equal (actual.uinal);
+      // expect (expected.kin).to.be.equal (actual.kin);
     });
   });
 
