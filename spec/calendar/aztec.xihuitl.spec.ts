@@ -51,15 +51,15 @@ describe ('Aztec Xihuitl calendar spec', () => {
   let date, julian, expected, actual;
 
   it ('should convert a Julian day to a Aztec Xihuitl', () => {
-    data2.forEach ((data) => {
-      julian   = data.rataDie + Const.J0000;
-      date     = data.aztecXihuitl;
-      expected = { month: date.month, day: date.day };
+    data2.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.aztecXihuitl;
+      expected = { jdn: julian, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 });
