@@ -7,23 +7,23 @@ export class MayanCountCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getBaktun () : number {
+  getBaktun (): number {
     return this.baktun;
   }
 
-  getKatun () : number {
+  getKatun (): number {
     return this.katun;
   }
 
-  getTun () : number {
+  getTun (): number {
     return this.tun;
   }
 
-  getUinal () : number {
+  getUinal (): number {
     return this.uinal;
   }
 
-  getKin () : number {
+  getKin (): number {
     return this.kin;
   }
 
