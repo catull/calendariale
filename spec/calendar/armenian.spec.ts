@@ -50,9 +50,9 @@ describe ('Armenian calendar spec', () => {
   let date, expected, actual;
 
   it ('should convert an Armenian date to Julian day', () => {
-    data1.forEach ((data) => {
-      date = data.armenian;
-      expected = data.julianDay;
+    data1.forEach (dt => {
+      date = dt.armenian;
+      expected = dt.julianDay;
       actual = cal.toJdn (date.year, date.month, date.day);
 
       expect (expected).to.be.equal (actual);
@@ -60,15 +60,15 @@ describe ('Armenian calendar spec', () => {
   });
 
   it ('should convert a Julian day to an Armenian date', () => {
-    data1.forEach ((data) => {
-      date = data.armenian;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual = cal.fromJdn (data.julianDay);
+    data1.forEach (dt => {
+      date = dt.armenian;
+      expected = { jdn: dt.julianDay, year: date.year, month: date.month, day: date.day };
+      actual = cal.fromJdn (dt.julianDay);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
