@@ -9,20 +9,20 @@ export class RomanCalendar extends YearMonthCalendar {
     super (jdn, year, month, -1);
   }
 
-  getEvent () : RomanEvent {
+  getEvent (): RomanEvent {
     return this.event;
   }
 
-  getCount () : number {
+  getCount (): number {
     return this.count;
   }
 
-  isLeap () : boolean {
+  isLeap (): boolean {
     return this.leap;
   }
 
   // Determine Julian day number from Roman calendar date
-  public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : number {
+  public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean): number {
     this.validate (year, month, event, count, leap);
 
     const day: number =
@@ -46,7 +46,7 @@ export class RomanCalendar extends YearMonthCalendar {
     return jdn;
   }
 
-  public static validate (year: number, month: number, event: RomanEvent, count: number, leap: boolean) : void {
+  public static validate (year: number, month: number, event: RomanEvent, count: number, leap: boolean): void {
     if (month < 1 || month > 12) {
       throw new CalendarValidationException ('Invalid month');
     }
@@ -66,7 +66,7 @@ export class RomanCalendar extends YearMonthCalendar {
   }
 
   // Calculate Roman calendar date from Julian day
-  public static fromJdn (jdn: number) : RomanCalendar {
+  public static fromJdn (jdn: number): RomanCalendar {
     const date: JulianCalendar = JulianCalendar.fromJdn (jdn);
     let year: number   = date.getYear ();
     let month: number  = date.getMonth ();
@@ -108,7 +108,7 @@ export class RomanCalendar extends YearMonthCalendar {
    * @param {number} month the month
    * @result {number} either the 15th or 13th
    */
-  public static idesOfMonth (month: number) : number {
+  public static idesOfMonth (month: number): number {
     if (month === Month.MARCH ||
       month === Month.MAY ||
       month === Month.JULY ||
@@ -124,7 +124,7 @@ export class RomanCalendar extends YearMonthCalendar {
    * @param {number} month the month
    * @result {number} either the 7th or 5th
    */
-  public static nonesOfMonth (month: number) : number {
+  public static nonesOfMonth (month: number): number {
     return this.idesOfMonth (month) - 8;
   }
 }
