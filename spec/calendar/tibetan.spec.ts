@@ -48,35 +48,36 @@ const data4 = [
 ];
 
 describe ('Tibetan calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Tibetan date to Julian day', () => {
-    data4.forEach ((data) => {
-      date     = data.tibetan;
-      expected = data.rataDie + Const.J0000;
-      actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
-      expect (expected).to.be.equal (actual);
+    data4.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.tibetan;
+      actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Tibetan date', () => {
-    data4.forEach ((data) => {
-      date     = data.tibetan;
-      expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day, dayLeap: date.dayLeap };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.tibetan;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day, 'dayLeap': date.dayLeap };
+      actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      expect (expected.day).to.be.equal (actual.day);
-      expect (expected.dayLeap).to.be.equal (actual.dayLeap);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
+      // expect (expected.day).to.be.equal (actual.day);
+      // expect (expected.dayLeap).to.be.equal (actual.dayLeap);
     });
   });
 
   it ('should establish whether a Tibetan month is leap', () => {
-    data4.forEach ((data) => {
-      date     = data.tibetan;
+    data4.forEach (dt => {
+      date     = dt.tibetan;
       expected = date.monthLeap;
       actual   = cal.isLeapMonth (date.year, date.month);
 
