@@ -8,7 +8,7 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     super(jdn, an, mois, jour);
   }
 
-  getDecade () : number {
+  getDecade (): number {
     return this.decade;
   }
 
