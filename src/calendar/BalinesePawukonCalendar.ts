@@ -18,43 +18,43 @@ export class BalinesePawukonCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  isLuag () : boolean {
+  isLuag (): boolean {
     return this.luang;
   }
 
-  getDwiwara () : number {
+  getDwiwara (): number {
     return this.dwiwara;
   }
 
-  getTriwara () : number {
+  getTriwara (): number {
     return this.triwara;
   }
 
-  getCaturwara () : number {
+  getCaturwara (): number {
     return this.caturwara;
   }
 
-  getPancawara () : number {
+  getPancawara (): number {
     return this.pancawara;
   }
 
-  getSadwara () : number {
+  getSadwara (): number {
     return this.sadwara;
   }
 
-  getSaptawara () : number {
+  getSaptawara (): number {
     return this.saptawara;
   }
 
-  getAsatawara () : number {
+  getAsatawara (): number {
     return this.asatawara;
   }
 
-  getSangawara () : number {
+  getSangawara (): number {
     return this.sangawara;
   }
 
-  getDasawara () : number {
+  getDasawara (): number {
     return this.dasawara;
   }
 
