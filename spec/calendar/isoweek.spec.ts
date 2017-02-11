@@ -51,21 +51,21 @@ describe ('ISO Week calendar spec', () => {
 
 
   it ('should convert an ISO Week date to Julian day', () => {
-    data1.forEach ((data) => {
-      date = data.iso;
-      expected = data.julianDay;
-      actual = cal.toJdn (date.year, date.week, date.day);
+    data1.forEach (dt => {
+      date     = dt.iso;
+      actual   = cal.toJdn (date.year, date.week, date.day);
 
-      expect (expected).to.be.equal (actual);
+      expect (dt.julianDay).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to an ISO Week date', () => {
-    data1.forEach ((data) => {
-      date = data.iso;
-      expected = { year: date.year, week: date.week, day: date.day };
-      actual = cal.fromJdn (data.julianDay);
+    data1.forEach (dt => {
+      date     = dt.iso;
+      expected = { 'jdn': dt.julianDay, 'year': date.year, 'week': date.week, 'day': date.day };
+      actual   = cal.fromJdn (dt.julianDay);
 
+      // expect (expected).to.be.equal (actual);
       expect (expected.year).to.be.equal (actual.year);
       expect (expected.week).to.be.equal (actual.week);
       expect (expected.day).to.be.equal (actual.day);
