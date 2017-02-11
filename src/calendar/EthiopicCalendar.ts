@@ -15,7 +15,7 @@ export class EthiopicCalendar extends YearMonthCalendar {
   }
 
   // Calculate Ethiopic calendar date from Julian day
-  public static fromJdn(jdn: number) : EthiopicCalendar {
+  public static fromJdn(jdn: number): EthiopicCalendar {
     const year: number = Math.floor((4 * (jdn - ethiopic.EPOCH) + 1463) / 1461);
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
     const day: number = jdn + 1 - this.toJdn(year, month, 1);
