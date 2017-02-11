@@ -79,7 +79,7 @@ describe ('Persian Astronmical calendar spec', () => {
     });
 
     [ 165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862, 903, 944, 985, 1026, 1067, 1108, 1149, 1190, 1231, 1272 ].forEach (year => {
-          expect (cal.isLeapYear (year)).to.be.equal (false);
+      expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
 
