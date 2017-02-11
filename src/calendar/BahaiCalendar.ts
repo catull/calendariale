@@ -14,11 +14,11 @@ export class BahaiCalendar extends LeapCalendar {
     super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
   }
 
-  getKullIshay () : number {
+  getKullIshay (): number {
     return this.kull_i_shay;
   }
 
-  getVahid () : number {
+  getVahid (): number {
     return this.vahid;
   }
 
