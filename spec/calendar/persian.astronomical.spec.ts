@@ -48,36 +48,37 @@ const data3 = [
 ];
 
 describe ('Persian Astronmical calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Persian Astronmical date to Julian day', () => {
-    data3.forEach ((data) => {
-      date     = data.persianAstro;
-      expected = data.rataDie + Const.J0000;
-      actual   = cal.toJdn (date.year, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+    data3.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.persianAstro;
+      actual = cal.toJdn (date.year, date.month, date.day);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Persian Astronmical date', () => {
-    data3.forEach ((data) => {
-      date     = data.persianAstro;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
-	  // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+    data3.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.persianAstro;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
   it ('should determine whether a Persian Astronmical year is leap year', () => {
-    [ 38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370 ].forEach ((year) => {
+    [ 38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370 ].forEach (year => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
-    [ 165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862,
-      903, 944, 985, 1026, 1067, 1108, 1149, 1190, 1231, 1272 ].forEach ((year) => {
+    [ 165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862, 903, 944, 985, 1026, 1067, 1108, 1149, 1190, 1231, 1272 ].forEach (year => {
           expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
