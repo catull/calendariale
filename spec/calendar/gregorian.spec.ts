@@ -50,24 +50,26 @@ describe ('Gregorian calendar spec', () => {
   let date, expected, actual;
 
   it ('should convert a Gregorian date to Julian day', () => {
-    data1.forEach ((data) => {
-      date = data.gregorian;
-      expected = data.julianDay;
-      actual = cal.toJdn (date.year, date.month, date.day);
+    data1.forEach (dt => {
+      date     = dt.gregorian;
+      actual   = cal.toJdn (date.year, date.month, date.day);
 
-      expect (expected).to.be.equal (actual);
+      expect (dt.julianDay).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Gregorian date', () => {
-    data1.forEach ((data) => {
-      date = data.gregorian;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual = cal.fromJdn (data.julianDay);
+    data1.forEach (dt => {
+      date     = dt.gregorian;
+      expected = { 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear(date.year) };
+      actual   = cal.fromJdn (dt.julianDay);
 
+      // expect (expected).to.be.equal (actual);
+      // expect (expected.jdn).to.be.equal (actual.jdn);
       expect (expected.year).to.be.equal (actual.year);
       expect (expected.month).to.be.equal (actual.month);
       expect (expected.day).to.be.equal (actual.day);
+      // expect (expected.yearLeap).to.be.equal (actual.yearLeap);
     });
   });
 
