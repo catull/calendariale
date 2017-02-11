@@ -48,45 +48,48 @@ const data3 = [
 ];
 
 describe ('Persian Arithmetic calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Persian Arithmetic date to Julian day', () => {
-    data3.forEach ((data) => {
-      date     = data.persianArith;
-      expected = data.rataDie + Const.J0000;
-      actual   = cal.toJdn (date.year, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+    data3.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.persianArith;
+      actual = cal.toJdn (date.year, date.month, date.day);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Persian Arithmetic year', () => {
-    data3.forEach ((data) => {
-      date     = data.persianArith;
+    data3.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.persianArith;
       expected = date.year;
-      actual   = cal.jdnToYear (data.rataDie + Const.J0000);
+      actual   = cal.jdnToYear (julian);
       expect (expected).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Persian Arithmetic date', () => {
-    data3.forEach ((data) => {
-      date     = data.persianArith;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
-	  // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+    data3.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.persianArith;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
   it ('should determine whether a Persian Arithmetic year is leap year', () => {
-    [ 4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395 ].forEach ((year) => {
+    [ 4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395 ].forEach (year => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
 
     [ 1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847,
-        894, 988, 1035, 1082, 1129, 1223, 1270, 1364 ].forEach ((year) => {
+        894, 988, 1035, 1082, 1129, 1223, 1270, 1364 ].forEach (year => {
           expect (cal.isLeapYear (year)).to.be.equal (false);
     });
   });
