@@ -48,29 +48,30 @@ const data4 = [
 ];
 
 describe ('Chinese calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Chinese date to Julian day', () => {
-    data4.forEach ((data) => {
-      date     = data.chinese;
-      expected = data.rataDie + Const.J0000;
+    data4.forEach (dt => {
+      date     = dt.chinese;
+      julian   = dt.rataDie + Const.J0000;
       actual   = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
-      expect (expected).to.be.equal (actual);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Chinese date', () => {
-    data4.forEach ((data) => {
-      date     = data.chinese;
-      expected = { cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.chinese;
+      expected = { jdn: julian, cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
+      actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.cycle).to.be.equal (actual.cycle);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.cycle).to.be.equal (actual.cycle);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
