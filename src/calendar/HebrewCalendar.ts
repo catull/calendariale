@@ -43,7 +43,7 @@ export class HebrewCalendar extends LeapCalendar {
 
   // Convert Julian date to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
-  public static fromJdn(jdn: number) : HebrewCalendar {
+  public static fromJdn(jdn: number): HebrewCalendar {
     const jd0: number = Math.floor(jdn) + 0.5;
     const count: number = Math.floor((jd0 - hebrew.EPOCH) * 98496.0 / 35975351.0);
     let year: number = count - 1;
