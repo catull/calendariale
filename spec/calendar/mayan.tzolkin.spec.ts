@@ -48,18 +48,16 @@ const data2 = [
 ];
 
 describe ('Mayan Tzolkin calendar spec', () => {
-  let date, julian, expected, actual;
-
   it ('should convert a Julian day to a Mayan Tzolkin', () => {
-    data2.forEach ((data) => {
-      julian   = data.rataDie + Const.J0000;
-      date     = data.mayanTzolkin;
-      expected = { month: date.month, day: date.day };
-      actual   = cal.fromJdn (julian);
+    data2.forEach (dt => {
+      const julian   = dt.rataDie + Const.J0000;
+      const date     = dt.mayanTzolkin;
+      const expected = { 'jdn': julian, 'month': date.month, 'day': date.day };
+      const actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 });
