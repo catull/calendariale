@@ -52,27 +52,26 @@ describe ('Roman calendar spec', () => {
   let date, expected, actual;
 
   it ('should convert a Roman date to Julian day', () => {
-    data1.forEach ((data) => {
-      date = data.roman;
-      expected = data.julianDay;
+    data1.forEach (dt => {
+      date   = dt.roman;
       actual = cal.toJdn (date.year, date.month, date.event, date.count, date.leap);
 
-      expect (expected).to.be.equal (actual);
+      expect (dt.julianDay).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Roman date', () => {
-    data1.forEach ((data) => {
-      date = data.roman;
-      expected = { year: date.year, month: date.month, event: date.event, count: date.count, leap: date.leap };
-      actual = cal.fromJdn (data.julianDay);
+    data1.forEach (dt => {
+      date     = dt.roman;
+      expected = { 'jdn': dt.julianDay, 'day': -1, 'year': date.year, 'month': date.month, 'event': date.event, 'count': date.count, 'leap': date.leap };
+      actual   = cal.fromJdn (dt.julianDay);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.event).to.be.equal (actual.event);
-      expect (expected.count).to.be.equal (actual.count);
-      expect (expected.leap).to.be.equal (actual.leap);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.event).to.be.equal (actual.event);
+      // expect (expected.count).to.be.equal (actual.count);
+      // expect (expected.leap).to.be.equal (actual.leap);
     });
   });
 
