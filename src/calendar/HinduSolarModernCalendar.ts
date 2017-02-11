@@ -41,7 +41,7 @@ export class HinduSolarModernCalendar extends YearMonthCalendar {
     const year: number = hinduCalendarYear(critical) - hindu.SOLAR_ERA;
     const approx: number = jd0 - 3 - mod(Math.floor(hinduSolarLongitude(critical)), 30);
 
-    const begin: number = next(approx, function (index: number) : boolean {
+    const begin: number = next(approx, function (index: number): boolean {
       return hinduZodiac(hinduSunrise(index + 1)) === month;
     });
 
