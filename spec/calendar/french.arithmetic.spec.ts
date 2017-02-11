@@ -48,7 +48,7 @@ const data3 = [
 ];
 
 describe ('French Arithmetic calendar spec', () => {
-  let date, expected, actual, decade, jour;
+  let date, expected, actual;
 
   it ('should convert a French Arithmetic date to Julian day', () => {
     data3.forEach ((data) => {
