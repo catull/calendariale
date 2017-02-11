@@ -48,28 +48,30 @@ const data4 = [
 ];
 
 describe ('Hindu Lunar Modern calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Hindu Lunar Modern date to Julian day', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduLunarModern;
-      expected = data.rataDie + Const.J0000;
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.hinduLunarModern;
       actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
-      expect (expected).to.be.equal (actual);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Hindu Lunar Modern date', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduLunarModern;
-      expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day, dayLeap: date.dayLeap };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      expect (expected.day).to.be.equal (actual.day);
-      expect (expected.dayLeap).to.be.equal (actual.dayLeap);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.hinduLunarModern;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day, 'dayLeap': date.dayLeap };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
+      // expect (expected.day).to.be.equal (actual.day);
+      // expect (expected.dayLeap).to.be.equal (actual.dayLeap);
     });
   });
 
