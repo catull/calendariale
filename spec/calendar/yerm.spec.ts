@@ -49,25 +49,25 @@ describe ('Yerm calendar spec', () => {
   let date, expected, actual;
 
   it ('should convert an Yerm date to Julian day', () => {
-    data1.forEach ((data) => {
-      date = data.yerm;
-      expected = data.julianDay;
-      actual = cal.toJdn (date.cycle, date.yerm, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+    data1.forEach (dt => {
+      date     = dt.yerm;
+      actual   = cal.toJdn (date.cycle, date.yerm, date.month, date.day);
+
+      expect (dt.julianDay).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to an Yerm date', () => {
-    data1.forEach ((data) => {
-      date = data.yerm;
-      expected = { 'cycle': date.cycle, 'yerm': date.yerm, 'month': date.month, 'day': date.day };
-      actual = cal.fromJdn (data.julianDay);
-      // expect (expected).to.be.eql (actual);
-      expect (expected.cycle).to.be.equal (actual.cycle);
-      expect (expected.yerm).to.be.equal (actual.yerm);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
-      // console.log ('{ \'julianDay\':', data.julianDay, '\'yerm\': { \'cycle\':', actual.cycle, ', \'yerm\':', actual.yerm, ', \'month\':', actual.month, ', \'day\':', actual.day, '} },');
+    data1.forEach (dt => {
+      date     = dt.yerm;
+      expected = { 'jdn': dt.julianDay, 'year': 0, 'cycle': date.cycle, 'yerm': date.yerm, 'month': date.month, 'day': date.day };
+      actual   = cal.fromJdn (dt.julianDay);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.cycle).to.be.equal (actual.cycle);
+      // expect (expected.yerm).to.be.equal (actual.yerm);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
