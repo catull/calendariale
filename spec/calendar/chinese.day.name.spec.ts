@@ -48,17 +48,18 @@ const data4 = [
 ];
 
 describe ('Chinese Day Name calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Julian day number to a Chinese Day Name date', () => {
-    data4.forEach ((data) => {
-      date     = data.chineseDayName;
-      expected = { stem: date.stem, branch: date.branch };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.chineseDayName;
+      expected = { jdn: julian, stem: date.stem, branch: date.branch };
+      actual   = cal.fromJdn (julian);
 
-      // expect (expected).to.be.eql (actual);
-      expect (expected.stem).to.be.equal (actual.stem);
-      expect (expected.branch).to.be.equal (actual.branch);
+      expect (expected).to.be.eql (actual);
+      // expect (expected.stem).to.be.equal (actual.stem);
+      // expect (expected.branch).to.be.equal (actual.branch);
     });
   });
 });
