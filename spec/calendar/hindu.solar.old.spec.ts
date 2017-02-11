@@ -48,26 +48,28 @@ const data4 = [
 ];
 
 describe ('Hindu Solar Old calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Hindu Solar Old date to Julian day', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduSolarOld;
-      expected = data.rataDie + Const.J0000;
-      actual   = cal.toJdn (date.year, date.month, date.day, date.dayLeap);
-      expect (expected).to.be.equal (actual);
+    data4.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.hinduSolarOld;
+      actual = cal.toJdn (date.year, date.month, date.day, date.dayLeap);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Hindu Solar Old date', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduSolarOld;
-      expected = { year: date.year, month: date.month, day: date.day };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.hinduSolarOld;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
