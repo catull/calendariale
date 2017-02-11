@@ -48,41 +48,39 @@ const data4 = [
 ];
 
 describe ('Hindu Lunar Old calendar spec', () => {
-  let date, expected, actual;
+  let date, expected, actual, julian;
 
   it ('should convert a Hindu Lunar Old date to Julian day', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduLunarOld;
-      expected = data.rataDie + Const.J0000;
-      actual   = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
-      expect (expected).to.be.equal (actual);
+    data4.forEach (dt => {
+      julian = dt.rataDie + Const.J0000;
+      date   = dt.hinduLunarOld;
+      actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
+      expect (julian).to.be.equal (actual);
     });
   });
 
   it ('should convert a Julian day to a Hindu Lunar Old date', () => {
-    data4.forEach ((data) => {
-      date     = data.hinduLunarOld;
-      expected = { year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
-      actual   = cal.fromJdn (data.rataDie + Const.J0000);
-      // expect (expected).to.be.eql (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      expect (expected.day).to.be.equal (actual.day);
+    data4.forEach (dt => {
+      julian   = dt.rataDie + Const.J0000;
+      date     = dt.hinduLunarOld;
+      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day };
+      actual   = cal.fromJdn (julian);
+
+      expect (expected).to.be.eql (actual);
+      // expect (expected.year).to.be.equal (actual.year);
+      // expect (expected.month).to.be.equal (actual.month);
+      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
+      // expect (expected.day).to.be.equal (actual.day);
     });
   });
 
   it ('should establish whether a Hindu Lunar Old year is leap', () => {
-    [ 2933, 3570, 3795, 4197, 4340, 4389,
-        4492, 4536, 4593, 4660, 4869, 4940
-      ].forEach ((year) => {
+    [ 2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940 ].forEach (year => {
         actual   = cal.isLeapYear (year);
         expect (true).to.be.equal (actual);
       });
 
-    [ 2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781,
-        4817, 4920, 5004, 5030, 5042, 5044, 5092, 5096, 5139, 5195
-      ].forEach ((year) => {
+    [ 2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781, 4817, 4920, 5004, 5030, 5042, 5044, 5092, 5096, 5139, 5195 ].forEach (year => {
         actual   = cal.isLeapYear (year);
         expect (false).to.be.equal (actual);
       });
