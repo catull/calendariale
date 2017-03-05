@@ -187,11 +187,13 @@ const islamic = {
   CAIRO_LOCATION: new Location (30.1, 31.3, 200, 1 / 12)
 };
 
+/*
 const julian = {
-  EPOCH: 1721423.5, // 0001/01/01 Julian C.E.
+  EPOCH: J0000, // 0001/01/01 Julian C.E.
   EPOCH_RD: 0,
   MONTHS: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ]
 };
+*/
 
 const mayan = {
   EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
@@ -263,7 +265,7 @@ export {
   hebrew,
   hindu,
   islamic,
-  julian,
+  // julian,
   mayan,
   persian,
   tibetan,
