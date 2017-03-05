@@ -22,8 +22,8 @@
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
     "mocha": "^3.2.0",
-    "requirejs": "^2.3.2",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.6"
+    "requirejs": "^2.3.3",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1"
   }
 }
