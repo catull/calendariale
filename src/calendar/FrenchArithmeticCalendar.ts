@@ -21,6 +21,7 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
     this.validate(year, month, day);
 
     const y1: number = year - 1;
+    const m_ = 0 === month ? 12 : month - 1;
 
     return french.EPOCH - 1 +
       365 * y1 +
@@ -28,7 +29,7 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
       Math.floor(y1 / 100) +
       Math.floor(y1 / 400) -
       Math.floor(y1 / 4000) +
-      30 * (month - 1) +
+      30 * m_ +
       day;
   }
 
@@ -36,20 +37,23 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
   public static fromJdn(jdn: number): FrenchArithmeticCalendar {
     const approx: number = Math.floor((jdn - french.EPOCH + 2) / (1460969 / 4000)) + 1;
     const year: number = jdn < this.toJdn(approx, 1, 1) ? approx - 1 : approx;
-    const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
+    let month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
+    if (13 === month) {
+      month = 0;
+    }
     const day: number = jdn - this.toJdn(year, month, 1) + 1;
 
     return new FrenchArithmeticCalendar(jdn, year, month, day);
   }
 
   public static validate(year: number, month: number, day: number): void {
-    if (month < 1 || month > 13) {
+    if (month < 0 || month > 12) {
       throw new CalendarValidationException('Invalid month');
     }
 
     const days: number = this.isLeapYear(year) ? 6 : 5;
 
-    if (month === 13 && day > days) {
+    if (month === 0 && day > days) {
       throw new CalendarValidationException('Invalid day');
     }
 

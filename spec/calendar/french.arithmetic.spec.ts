@@ -28,7 +28,7 @@ const data3 = [
   { 'rataDie':  507850, 'frenchArithmetic': { 'year':  -401, 'month':  9, 'day': 23 } },
   { 'rataDie':  524156, 'frenchArithmetic': { 'year':  -356, 'month':  5, 'day': 13 } },
   { 'rataDie':  544676, 'frenchArithmetic': { 'year':  -300, 'month':  7, 'day': 19 } },
-  { 'rataDie':  567118, 'frenchArithmetic': { 'year':  -239, 'month': 13, 'day':  1 } },
+  { 'rataDie':  567118, 'frenchArithmetic': { 'year':  -239, 'month':  0, 'day':  1 } },
   { 'rataDie':  569477, 'frenchArithmetic': { 'year':  -232, 'month':  6, 'day': 14 } },
   { 'rataDie':  601716, 'frenchArithmetic': { 'year':  -144, 'month':  9, 'day': 22 } },
   { 'rataDie':  613424, 'frenchArithmetic': { 'year':  -112, 'month': 10, 'day': 12 } },
@@ -84,12 +84,11 @@ describe ('French Arithmetic calendar spec', () => {
   });
 
   it ('throws validation excetions', () => {
-    expect (() => cal.toJdn (1000,  0, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1000, -2, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1000, 15, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, -1, 10)).to.throw ('Invalid month');
+    expect (() => cal.toJdn (1000, 13, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1000,  7,  0)).to.throw ('Invalid day');
     expect (() => cal.toJdn (1000,  7, -5)).to.throw ('Invalid day');
     expect (() => cal.toJdn (1000,  7, 35)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1000, 13,  6)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000,  0,  6)).to.throw ('Invalid day');
    });
 });
