@@ -81,7 +81,7 @@ enum RomanEvent {
 }
 
 const armenian = {
-  EPOCH: 1922867.5, // 522/07/11 Julian B.C.E.
+  EPOCH: 1922867.5, // 522/07/11 Julian C.E.
   EPOCH_RD: 201443
 };
 
