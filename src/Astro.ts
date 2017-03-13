@@ -13,6 +13,16 @@ function mod(amount: number, numerator: number): number {
 }
 
 /**
+ * Modulus function which returns value in range [1, N] instead of [0, N-1]
+ * @param {float} amount dividend
+ * @param {float} numerator numerator
+ * @return {float} modulo value
+ */
+function amod(amount: number, numerator: number): number {
+  return mod(amount - 1, numerator) + 1;
+}
+
+/**
  * Return day of the week from a julian day number
  * @param {float} jdn Julian Day Number
  * @return {float} day of week
@@ -232,15 +242,6 @@ function arcCosDeg(alpha: number): number {
   return radiansToDegrees(Math.acos(alpha));
 }
 
-/**
- * Modulus function which returns numerator if modulus is zero
- * @param {float} amount dividend
- * @param {float} numerator numerator
- * @return {float} modulo value
- */
-function amod(amount: number, numerator: number): number {
-  return mod(amount - 1, numerator) + 1;
-}
 
 /**
  * Return first integer greater or equal to initial index iter,
