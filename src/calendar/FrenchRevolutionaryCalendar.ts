@@ -25,8 +25,9 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     }
 
     const equinoxe: number = adr[1];
+    const m: number = mois === 0 ? 12 : mois - 1;
 
-    return equinoxe + 30 * (mois - 1) + 10 * (decade - 1) + jour - 1;
+    return equinoxe + 30 * m + 10 * (decade - 1) + jour - 1;
   }
 
   // Calculate date in the French Revolutionary calendar from Julian day.
@@ -37,7 +38,10 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     const adr: number[] = this.anneeDeLaRevolution(jd0);
     const an: number = adr[0];
     const equinoxe: number = adr[1];
-    const mois: number = Math.floor((jd0 - equinoxe) / 30) + 1;
+    let mois: number = Math.floor((jd0 - equinoxe) / 30) + 1;
+    if (13 === mois) {
+      mois = 0;
+    }
     let jour: number = (jd0 - equinoxe) % 30;
     const decade: number = Math.floor(jour / 10) + 1;
     jour = jour % 10 + 1;
@@ -53,7 +57,7 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
   }
 
   public static validate(an: number, mois: number, decade: number, jour: number): void {
-    if (mois < 1 || mois > 13) {
+    if (mois < 0 || mois > 12) {
       throw new CalendarValidationException('Invalid mois');
     }
 
@@ -63,7 +67,7 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
 
     const sansCullotides: number = this.isLeapYear(an) ? 6 : 5;
 
-    if (mois === 13 && jour > sansCullotides) {
+    if (mois === 0 && jour > sansCullotides) {
       throw new CalendarValidationException('Invalid jour');
     }
 
