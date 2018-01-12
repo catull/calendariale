@@ -1,3 +1,4 @@
+import { mod } from '../Astro';
 import { ethiopic } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
@@ -22,13 +23,17 @@ export class EthiopicCalendar extends YearMonthCalendar {
 
     return new EthiopicCalendar(jdn, year, month, day);
   }
+  public static isLeapYear(year: number): boolean {
+    return mod(year, 4) === 0;
+  }
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarValidationException('Invalid month');
     }
 
-    if (month === 13 && day > 5) {
+    const maxDaysOfMonth13 = this.isLeapYear (year) ? 6 : 5;
+    if (month === 13 && day > maxDaysOfMonth13) {
       throw new CalendarValidationException('Invalid day');
     }
 

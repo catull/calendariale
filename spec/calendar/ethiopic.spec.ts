@@ -81,6 +81,7 @@ describe ('Ethiopic calendar spec', () => {
     expect (() => cal.toJdn (1000,  7,  0)).to.throw ('Invalid day');
     expect (() => cal.toJdn (1000,  7, -5)).to.throw ('Invalid day');
     expect (() => cal.toJdn (1000,  7, 35)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1000, 13,  6)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000, 13,  7)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1001, 13,  6)).to.throw ('Invalid day');
    });
 });
