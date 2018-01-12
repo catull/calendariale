@@ -1412,4 +1412,4 @@ export {
   sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset,
   tanDeg,
   universalToStandard
-}
+};

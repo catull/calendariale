@@ -19,11 +19,11 @@
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "dirty-chai": "^1.2.2",
-    "mocha": "^3.2.0",
-    "requirejs": "^2.3.3",
-    "tslint": "^4.5.1",
-    "typescript": "^2.2.1"
+    "chai": "^4.1.2",
+    "dirty-chai": "^2.0.1",
+    "mocha": "^4.1.0",
+    "requirejs": "^2.3.5",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2"
   }
 }

@@ -79,7 +79,7 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
     return next(Math.floor(approx) - 1, function (day: number) {
       return solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2;
     });
-  };
+  }
 
   // Return  Universal time of midday on fixed date, date, in Tehran
   private static midDayInTehran(jdn: number): number {

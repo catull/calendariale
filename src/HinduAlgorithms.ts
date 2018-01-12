@@ -302,4 +302,4 @@ export {
   hinduZodiac,
   siderealSolarLongitude,
   siderealZodiac
-}
+};

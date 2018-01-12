@@ -152,7 +152,7 @@ const gregorian = {
 enum HebrewMonth {
   NISAN = 1, IYYAR = 2, SIVAN = 3, TAMMUZ = 4, AV = 5, ELUL = 6, TISHRI = 7,
   MARHESHVAN = 8, KISLEV = 9, TEVETH = 10, SHEVAT = 11, ADAR = 12, VEADAR = 13
-};
+}
 
 const hebrew = {
   EPOCH: 347995.5, // 3761/10/07 Julian B.C.E.
@@ -225,7 +225,7 @@ enum MoonPhase {
   FIRST_QUARTER = 90,
   FULL = 180,
   LAST_QUARTER = 270
-};
+}
 
 export {
   ARYA_LUNAR_DAY,
@@ -270,4 +270,4 @@ export {
   persian,
   tibetan,
   yerm_
-}
+};
