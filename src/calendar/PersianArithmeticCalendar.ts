@@ -3,9 +3,6 @@ import { persian } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class PersianArithmeticCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, PersianArithmeticCalendar.isLeapYear(year));
-  }
 
   // Is a given year in the Persian Arithmetic calendar a leap year?
   public static isLeapYear(year: number): boolean {
@@ -68,4 +65,9 @@ export class PersianArithmeticCalendar extends LeapCalendar {
 
     return year > 0 ? year : year - 1;
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, PersianArithmeticCalendar.isLeapYear(year));
+  }
+
 }
