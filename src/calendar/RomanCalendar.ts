@@ -5,10 +5,6 @@ import { daysInMonth, JulianCalendar } from './JulianCalendar';
 
 
 export class RomanCalendar extends YearMonthCalendar {
-  constructor (jdn: number, year: number, month: number, private event: RomanEvent, private count: number, private leap: boolean) {
-    super (jdn, year, month, -1);
-  }
-
   // Determine Julian day number from Roman calendar date
   public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean): number {
     this.validate (year, month, event, count, leap);
@@ -70,11 +66,11 @@ export class RomanCalendar extends YearMonthCalendar {
       event = RomanEvent.IDES;
       count = this.idesOfMonth (month) - count + 1;
     } else if (month !== Month.FEBRUARY || !JulianCalendar.isLeapYear (year)) {
-      const month_ = amod (month + 1, 12);
-      const year_  = month_ !== 1 ? year : year !== -1 ? year + 1 : 1;
-      const kalends1 = this.toJdn (year_, month_, RomanEvent.KALENDS, 1, false);
-      year  = year_;
-      month = month_;
+      const m = amod (month + 1, 12);
+      const y  = m !== 1 ? year : year !== -1 ? year + 1 : 1;
+      const kalends1 = this.toJdn (y, m, RomanEvent.KALENDS, 1, false);
+      year  = y;
+      month = m;
       event = RomanEvent.KALENDS;
       count = kalends1 - jdn + 1;
     } else if (count < 25) {
@@ -116,15 +112,19 @@ export class RomanCalendar extends YearMonthCalendar {
     return this.idesOfMonth (month) - 8;
   }
 
-  getEvent (): RomanEvent {
+  constructor (jdn: number, year: number, month: number, private event: RomanEvent, private count: number, private leap: boolean) {
+    super (jdn, year, month, -1);
+  }
+
+  public getEvent (): RomanEvent {
     return this.event;
   }
 
-  getCount (): number {
+  public getCount (): number {
     return this.count;
   }
 
-  isLeap (): boolean {
+  public isLeap (): boolean {
     return this.leap;
   }
 }
