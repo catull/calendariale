@@ -4,30 +4,10 @@ import { CalendarValidationException, LeapCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class BahaiCalendar extends LeapCalendar {
-  constructor(
-    jdn: number,
-    private kull_i_shay: number,
-    private vahid: number,
-    year: number,
-    month: number,
-    day: number) {
-    super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
-  }
-
   // Determine the year in the Bahai // astronomical calendar in which a
   // given Julian day falls.
   public static jdnToYear(jdn: number): number {
     return this.jdnToYearAndOffset(jdn)[0];
-  }
-
-  // Determine the year in the Bahai // astronomical calendar in which a
-  // given Julian day falls.
-  // Returns an array of two elements:
-  //
-  // **[0]** Bahai year
-  // **[1]** Julian day number containing equinox for this year.
-  private static jdnToYearAndOffset(jdn: number): number[] {
-    return this.lastTehranEquinox(jdn, bahai.EPOCH);
   }
 
   // Determine Julian day number from Bahai calendar date, where the year is
@@ -159,6 +139,16 @@ export class BahaiCalendar extends LeapCalendar {
     return new BahaiCalendar(jdn, kullIshay, vahid, year, month, day);
   }
 
+  // Determine the year in the Bahai // astronomical calendar in which a
+  // given Julian day falls.
+  // Returns an array of two elements:
+  //
+  // **[0]** Bahai year
+  // **[1]** Julian day number containing equinox for this year.
+  private static jdnToYearAndOffset(jdn: number): number[] {
+    return this.lastTehranEquinox(jdn, bahai.EPOCH);
+  }
+
   // Determine Julian day and fraction of the
   // March equinox at the Tehran meridian in
   // a given Gregorian year.
@@ -216,11 +206,21 @@ export class BahaiCalendar extends LeapCalendar {
     return [adr, lasteq];
   }
 
-  getKullIshay (): number {
-    return this.kull_i_shay;
+  constructor(
+    jdn: number,
+    private kullIShay: number,
+    private vahid: number,
+    year: number,
+    month: number,
+    day: number) {
+    super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
   }
 
-  getVahid (): number {
+  public getKullIshay (): number {
+    return this.kullIShay;
+  }
+
+  public getVahid (): number {
     return this.vahid;
   }
 }
