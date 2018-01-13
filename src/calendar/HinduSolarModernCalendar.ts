@@ -4,17 +4,13 @@ import { hindu, J0000 } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarModernCalendar extends YearMonthCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day);
-  }
-
   // Determine Julian day number from Hindu Solar Modern calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
     const begin: number = Math.floor((year + hindu.SOLAR_ERA + (month - 1) / 12) * hindu.SIDEREAL_YEAR + hindu.EPOCH_RD);
 
-    return day - 1 + next(begin - 3, function (param: number) {
+    return day - 1 + next(begin - 3, (param: number): boolean => {
       const sunrise = hinduSunrise(param + 1);
       const zodiac = hinduZodiac(sunrise);
 
@@ -41,12 +37,17 @@ export class HinduSolarModernCalendar extends YearMonthCalendar {
     const year: number = hinduCalendarYear(critical) - hindu.SOLAR_ERA;
     const approx: number = jd0 - 3 - mod(Math.floor(hinduSolarLongitude(critical)), 30);
 
-    const begin: number = next(approx, function (index: number): boolean {
-      return hinduZodiac(hinduSunrise(index + 1)) === month;
-    });
+    const begin: number = next(approx, (index: number): boolean =>
+      hinduZodiac(hinduSunrise(index + 1)) === month
+    );
 
     const day: number = jd0 - begin + 1;
 
     return new HinduSolarModernCalendar(jdn, year, month, day);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
+  }
+
 }
