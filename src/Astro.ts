@@ -290,11 +290,9 @@ function poly(term: number, array: number[]): number {
  * @return {float} zipped array
  */
 function zip(arrays: Array<Array<number>>): Array<Array<number>> {
-  return arrays.length === 0 ? [] : arrays[0].map(function (ignore: number, index: number): Array<number> {
-    return arrays.map(function (array: Array<number>): number {
-      return array[index];
-    });
-  });
+  return arrays.length === 0 ? [] : arrays[0].map((ignore: number, index: number): Array<number> =>
+    arrays.map((array: Array<number>): number => array[index])
+  );
 }
 
 /**
@@ -306,11 +304,9 @@ function zip(arrays: Array<Array<number>>): Array<Array<number>> {
  * @return {float} sum of products
  */
 function sigma(matrix: Array<Array<number>>, func: (...n: number[]) => number): number {
-  return zip(matrix).map(function (v: Array<number>): number {
-    return func.apply(null, v);
-  }).reduce(function (memo: number, n: number): number {
-    return memo + n;
-  }, 0);
+  return zip(matrix).map((v: Array<number>): number =>
+    func.apply(undefined, v))
+    .reduce((memo: number, n: number): number => memo + n, 0);
 }
 
 /**
@@ -346,12 +342,8 @@ function binarySearch(
  */
 function invertAngular(f: (n: number) => number, y: number, low: number, high: number): number {
   return binarySearch(low, high,
-    function (l: number, h: number): boolean {
-      return h - l <= 1e-5;
-    },
-    function (x: number): boolean {
-      return mod(f(x) - y, 360) < 180;
-    });
+    (l: number, h: number): boolean => h - l <= 1e-5,
+    (x: number): boolean => mod(f(x) - y, 360) < 180 );
 }
 
 /**
@@ -818,9 +810,7 @@ function solarLongitude(tee: number): number {
   const centuries: number = julianCenturies(tee);
   const lambda: number = 282.7771834 + 36000.76953744 * centuries + 0.000005729577951308232 *
     sigma([SOLAR_LONGITUDE_COEFFICIENTS, SOLAR_LONGITUDE_ADDENDS, SOLAR_LONGITUDE_MULTIPLIERS],
-      function (x: number, y: number, z: number): number {
-        return x * sinDeg(y + z * centuries);
-      }
+      (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries)
     );
 
   return mod(lambda + aberration(tee) + nutation(tee), 360);
@@ -1020,18 +1010,16 @@ function nthNewMoon(n: number): number {
   const capO: number = poly(c, [124.7746, -1.56375588 * 1236.85, 0.0020672, 0.00000215]);
   const correction: number = -0.00017 * sinDeg(capO) +
     sigma([sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
-      function (v: number, w: number, x: number, y: number, z: number): number {
-        return v * Math.pow(capE, w) *
-          sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg);
-      });
+      (v: number, w: number, x: number, y: number, z: number): number =>
+        v * Math.pow(capE, w) *
+          sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
+      );
   const addConst: Array<number> = [251.88, 251.83, 349.42, 84.66, 141.74, 207.14, 154.84, 34.52, 207.19, 291.34, 161.72, 239.56, 331.55];
   const addCoeff: Array<number> = [0.016321, 26.651886, 36.412478, 18.206239, 53.303771, 2.453732, 7.306860, 27.261239, 0.121824, 1.844379, 24.198154, 25.513099, 3.592518];
   const addFactor: Array<number> = [0.000165, 0.000164, 0.000126, 0.000110, 0.000062, 0.000060, 0.000056, 0.000047, 0.000042, 0.000040, 0.000037, 0.000035, 0.000023];
   const extra: number = 0.000325 * sinDeg(poly(c, [299.77, 132.8475848, -0.009173]));
   const additional: number = sigma([addConst, addCoeff, addFactor],
-    function (i: number, j: number, l: number): number {
-      return l * sinDeg(i + j * k);
-    });
+    (i: number, j: number, l: number): number => l * sinDeg(i + j * k) );
 
   return dynamicalToUniversal(approx + correction + extra + additional);
 }
@@ -1149,10 +1137,10 @@ function lunarLongitude(tee: number): number {
   const capE: number = poly(centuries, [1, -0.002516, -0.0000074]);
 
   const correction: number = sigma([sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
-    function (v: number, w: number, x: number, y: number, z: number): number {
-      return v * Math.pow(capE, Math.abs(x)) *
-        sinDeg(w * capD + x * capM + y * capMprime + z * capF);
-    }) / 1000000;
+    (v: number, w: number, x: number, y: number, z: number): number =>
+      v * Math.pow(capE, Math.abs(x)) *
+        sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+    ) / 1000000;
 
   const A1: number = 119.75 + centuries * 131.849;
   const venus: number = 3958 / 1000000 * sinDeg(A1);
@@ -1201,10 +1189,9 @@ function lunarLatitude(tee: number): number {
     -177, 176, 166, -164, 132, -119, 115, 107];
   const beta: number = 1 / 1000000 *
     sigma([sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
-      function (v: number, w: number, x: number, y: number, z: number): number {
-        return v * Math.pow(capE, Math.abs(x)) *
-          sinDeg(w * capD + x * capM + y * capMprime + z * capF);
-      });
+      (v: number, w: number, x: number, y: number, z: number): number =>
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+      );
 
   const venus: number = 175 / 1000000 * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF));
   const flatEarth: number = -2235 / 1000000 * sinDeg(capLprime) + 127 / 1000000 * sinDeg(capLprime - capMprime) +
@@ -1247,10 +1234,7 @@ function newMoonBefore(tee: number): number {
     phi: number = lunarPhase(tee),
     n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
 
-  return nthNewMoon(final(n - 1,
-    function (k: number): boolean {
-      return nthNewMoon(k) < tee;
-    }));
+  return nthNewMoon(final(n - 1, (k: number): boolean => nthNewMoon(k) < tee));
 }
 
 /**
@@ -1263,10 +1247,7 @@ function newMoonAtOrAfter(tee: number): number {
     phi: number = lunarPhase(tee),
     n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
 
-  return nthNewMoon(next(n,
-    function (k: number): boolean {
-      return nthNewMoon(k) >= tee;
-    }));
+  return nthNewMoon(next(n, (k: number): boolean => nthNewMoon(k) >= tee));
 }
 
 /**
@@ -1293,9 +1274,9 @@ function lunarAltitude(tee: number, location: Location): number {
   const alpha: number = rightAscension(tee, beta, lambda);
   const delta: number = declination(tee, beta, lambda);
   const theta0: number = momentToSidereal(tee);
-  const cap_H: number = mod(theta0 + psi - alpha, 360);
+  const capH: number = mod(theta0 + psi - alpha, 360);
   const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) +
-    cosDeg(phi) * cosDeg(delta) * cosDeg(cap_H));
+    cosDeg(phi) * cosDeg(delta) * cosDeg(capH));
 
   return mod(altitude + 180, 360) - 180;
 }
@@ -1329,9 +1310,7 @@ function phasisOnOrBefore(jdn: number, location: Location): number {
   const mean: number = jd0 - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jd0 - mean) <= 3 && !visibleCrescent(jd0, location)) ? mean - 30 : mean - 2;
 
-  return next(tau, function (d: number): boolean {
-    return visibleCrescent(d, location);
-  }) + J0000;
+  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
 
 /**
@@ -1346,9 +1325,7 @@ function phasisOnOrAfter(jdn: number, location: Location): number {
   const mean: number = jdn - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
   const tau: number = ((jdn - mean) <= 3 && !visibleCrescent(jdn - 1, location)) ? jdn : mean + 29;
 
-  return next(tau, function (d: number): boolean {
-    return visibleCrescent(d, location);
-  }) + J0000;
+  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
 
 /**
