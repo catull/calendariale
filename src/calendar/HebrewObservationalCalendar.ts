@@ -5,10 +5,6 @@ import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 
 export class HebrewObservationalCalendar extends YearMonthCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day);
-  }
-
   // Determine Julian day number from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     const jdn: number = this.calculateJdn(year, month, day);
@@ -57,4 +53,9 @@ export class HebrewObservationalCalendar extends YearMonthCalendar {
 
     return phasisOnOrAfter(Math.floor(equinox) - ((equinox < sset) ? 14 : 13), hebrew.JAFFA_LOCATION);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
+  }
+
 }
