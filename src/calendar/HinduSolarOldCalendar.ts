@@ -4,10 +4,6 @@ import { hindu, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarOldCalendar extends YearMonthCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day);
-  }
-
   // Determine Julian day number from Hindu Solar Old calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -36,4 +32,9 @@ export class HinduSolarOldCalendar extends YearMonthCalendar {
 
     return new HinduSolarOldCalendar(jdn, year, month, day);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
+  }
+
 }
