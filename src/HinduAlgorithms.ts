@@ -76,9 +76,7 @@ function hinduArcsin(amp: number): number {
     return -hinduArcsin(-amp);
   }
 
-  const pos: number = next(0, function (index: number): boolean {
-    return amp <= hinduSineTable(index);
-  });
+  const pos: number = next(0, (index: number): boolean => amp <= hinduSineTable(index));
   const below: number = hinduSineTable(pos - 1);
 
   return angle(0, 225, 0) *
@@ -132,9 +130,9 @@ function hinduSolarLongitude(tee: number): number {
  */
 function hinduTropicalLongitude(jdn: number): number {
   const days: number = Math.floor(jdn - hindu.EPOCH_RD);
-  const precession_: number = 27 - Math.abs(54 - mod(27 + 108 * 600 / 1577917828 * days, 108));
+  const precession2: number = 27 - Math.abs(54 - mod(27 + 108 * 600 / 1577917828 * days, 108));
 
-  return mod(hinduSolarLongitude(jdn) - precession_, 360);
+  return mod(hinduSolarLongitude(jdn) - precession2, 360);
 }
 
 /**
@@ -270,12 +268,9 @@ function hinduNewMoonBefore(tee: number): number {
   const tau: number = tee - hinduLunarPhase(tee) * hindu.SYNODIC_MONTH / 360;
 
   return binarySearch(tau - 1, Math.min(tee, tau + 1),
-    function (lower: number, upper: number): boolean {
-      return hinduZodiac(lower) === hinduZodiac(upper) || upper - lower < eps;
-    },
-    function (x): boolean {
-      return hinduLunarPhase(x) < 180;
-    });
+    (lower: number, upper: number): boolean =>
+      hinduZodiac(lower) === hinduZodiac(upper) || upper - lower < eps,
+    (x): boolean => hinduLunarPhase(x) < 180);
 }
 
 export {
