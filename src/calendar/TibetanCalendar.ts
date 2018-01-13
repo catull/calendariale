@@ -3,10 +3,6 @@ import { tibetan } from '../Const';
 import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 
 export class TibetanCalendar extends LeapDayMonthCalendar {
-  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
-    super(jdn, year, month, day, monthLeap, dayLeap);
-  }
-
   public static isLeapMonth(year: number, month: number): boolean {
     return month === this.fromJdn(this.calculateJdn(year, month, true, 2, false)).getMonth();
   }
@@ -17,37 +13,6 @@ export class TibetanCalendar extends LeapDayMonthCalendar {
     this.validate(year, month, monthLeap, day, dayLeap, jdn);
 
     return jdn;
-  }
-
-  private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
-    if (month < 1 || month > 13) {
-      throw new CalendarValidationException('Invalid month');
-    }
-
-    if (monthLeap && !this.isLeapMonth(year, month)) {
-      throw new CalendarValidationException('Invalid leap month');
-    }
-
-    const date: TibetanCalendar = this.fromJdn(jdn);
-    if (date.isDayLeap() !== dayLeap) {
-      throw new CalendarValidationException('Invalid leap day');
-    }
-    if (date.getDay() !== day || day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
-    }
-  }
-
-  // Determine Julian day number from Tibetan calendar date
-  private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
-    const months: number = Math.floor(804 / 65 * (year - 1) + 67 / 65 * month + (monthLeap ? -1 : 0) + 64 / 65);
-    const days: number = 30 * months + day;
-    const mean: number = days * 11135 / 11312 - 30 + (dayLeap ? 0 : -1) + 1071 / 1616;
-    const solAnomaly: number = mod(days * 13 / 4824 + 2117 / 4824, 1);
-    const lunAnomaly: number = mod(days * 3781 / 105840 + 2837 / 15120, 1);
-    const sun: number = this.tibetanSunEquation(12 * solAnomaly);
-    const moon: number = this.tibetanMoonEquation(28 * lunAnomaly);
-
-    return Math.floor(tibetan.EPOCH + mean - sun + moon - 0.5) + 0.5;
   }
 
   // Calculate Tibetan calendar date from Julian day
@@ -103,6 +68,37 @@ export class TibetanCalendar extends LeapDayMonthCalendar {
     const dayLeap: boolean = jdn === this.calculateJdn(year, month, monthLeap, day, true);
 
     return new TibetanCalendar(jdn, year, month, monthLeap, day, dayLeap);
+  }
+
+  private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
+    if (month < 1 || month > 13) {
+      throw new CalendarValidationException('Invalid month');
+    }
+
+    if (monthLeap && !this.isLeapMonth(year, month)) {
+      throw new CalendarValidationException('Invalid leap month');
+    }
+
+    const date: TibetanCalendar = this.fromJdn(jdn);
+    if (date.isDayLeap() !== dayLeap) {
+      throw new CalendarValidationException('Invalid leap day');
+    }
+    if (date.getDay() !== day || day < 1 || day > 30) {
+      throw new CalendarValidationException('Invalid day');
+    }
+  }
+
+  // Determine Julian day number from Tibetan calendar date
+  private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
+    const months: number = Math.floor(804 / 65 * (year - 1) + 67 / 65 * month + (monthLeap ? -1 : 0) + 64 / 65);
+    const days: number = 30 * months + day;
+    const mean: number = days * 11135 / 11312 - 30 + (dayLeap ? 0 : -1) + 1071 / 1616;
+    const solAnomaly: number = mod(days * 13 / 4824 + 2117 / 4824, 1);
+    const lunAnomaly: number = mod(days * 3781 / 105840 + 2837 / 15120, 1);
+    const sun: number = this.tibetanSunEquation(12 * solAnomaly);
+    const moon: number = this.tibetanMoonEquation(28 * lunAnomaly);
+
+    return Math.floor(tibetan.EPOCH + mean - sun + moon - 0.5) + 0.5;
   }
 
   /**
@@ -161,4 +157,9 @@ export class TibetanCalendar extends LeapDayMonthCalendar {
     return mod(alpha, 1) * this.tibetanSunEquation(Math.ceil(alpha)) +
       mod(-alpha, 1) * this.tibetanSunEquation(alphaInt);
   }
+
+  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
+    super(jdn, year, month, day, monthLeap, dayLeap);
+  }
+
 }
