@@ -5,10 +5,6 @@ import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 import { Location } from '../Location';
 
 export class ChineseCalendar extends LeapMonthCalendar {
-  constructor(jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
-    super(jdn, year, month, day, monthLeap);
-  }
-
   // Determine Julian day number from Chinese calendar date
   public static toJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
     const jdn = this.calculateJdn(cycle, year, month, monthLeap, day);
@@ -27,6 +23,28 @@ export class ChineseCalendar extends LeapMonthCalendar {
       p : this.chineseNewMoonOnOrAfter(1 + p);
 
     return priorNewMoon + J0000 + day - 1;
+  }
+
+  // Calculate Chinese calendar date from Julian day
+  public static fromJdn(jdn: number): ChineseCalendar {
+    const jd0: number = jdn - J0000;
+    const s1: number = this.chineseWinterSolsticeOnOrBefore(jd0);
+    const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
+    const nextM11: number = this.chineseNewMoonBefore(1 + s2);
+    const m12: number = this.chineseNewMoonOnOrAfter(1 + s1);
+    const yearLeap: boolean = Math.round((nextM11 - m12) / MEAN_SYNODIC_MONTH) === 12;
+
+    const m: number = this.chineseNewMoonBefore(1 + jd0);
+    const month: number = amod(Math.round((m - m12) / MEAN_SYNODIC_MONTH) -
+      (yearLeap && this.isChinesePriorLeapMonth(m12, m) ? 1 : 0), 12);
+    const monthLeap: boolean = (yearLeap && this.isChineseNoMajorSolarTerm(m) &&
+      (!this.isChinesePriorLeapMonth(m12, this.chineseNewMoonBefore(m))));
+    const years: number = Math.floor(1.5 - (month / 12) + ((jd0 - chinese.EPOCH_RD) / MEAN_TROPICAL_YEAR));
+    const cycle: number = 1 + Math.floor((years - 1) / 60);
+    const year: number = amod(years, 60);
+    const day: number = 1 + jd0 - m;
+
+    return new ChineseCalendar(jdn, cycle, year, month, monthLeap, day);
   }
 
   private static validate(cycle: number, year: number, month: number, monthLeap: boolean, day: number, jdn: number) {
@@ -48,34 +66,12 @@ export class ChineseCalendar extends LeapMonthCalendar {
     }
   }
 
-  // Calculate Chinese calendar date from Julian day
-  public static fromJdn(jdn: number): ChineseCalendar {
-    const jd0: number = jdn - J0000;
-    const s1: number = this.chineseWinterSolsticeOnOrBefore(jd0);
-    const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
-    const next_m11: number = this.chineseNewMoonBefore(1 + s2);
-    const m12: number = this.chineseNewMoonOnOrAfter(1 + s1);
-    const yearLeap: boolean = Math.round((next_m11 - m12) / MEAN_SYNODIC_MONTH) === 12;
-
-    const m: number = this.chineseNewMoonBefore(1 + jd0);
-    const month: number = amod(Math.round((m - m12) / MEAN_SYNODIC_MONTH) -
-      (yearLeap && this.isChinesePriorLeapMonth(m12, m) ? 1 : 0), 12);
-    const monthLeap: boolean = (yearLeap && this.isChineseNoMajorSolarTerm(m) &&
-      (!this.isChinesePriorLeapMonth(m12, this.chineseNewMoonBefore(m))));
-    const years: number = Math.floor(1.5 - (month / 12) + ((jd0 - chinese.EPOCH_RD) / MEAN_TROPICAL_YEAR));
-    const cycle: number = 1 + Math.floor((years - 1) / 60);
-    const year: number = amod(years, 60);
-    const day: number = 1 + jd0 - m;
-
-    return new ChineseCalendar(jdn, cycle, year, month, monthLeap, day);
-  }
-
   // Return True if there is a Chinese leap month on or after lunar month starting on
   // Julian day number m_prime and at or before lunar month starting at m.
-  private static isChinesePriorLeapMonth(m_prime: number, m: number): boolean {
-    return (m >= m_prime) &&
+  private static isChinesePriorLeapMonth(mPrime: number, m: number): boolean {
+    return (m >= mPrime) &&
       (this.isChineseNoMajorSolarTerm(m) ||
-        this.isChinesePriorLeapMonth(m_prime, this.chineseNewMoonBefore(m)));
+        this.isChinesePriorLeapMonth(mPrime, this.chineseNewMoonBefore(m)));
   }
 
   // Return Julian day number of Chinese New Year in given Gregorian year.
@@ -97,10 +93,10 @@ export class ChineseCalendar extends LeapMonthCalendar {
   private static chineseNewYearInSui(fixed: number): number {
     const s1: number = this.chineseWinterSolsticeOnOrBefore(fixed);
     const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
-    const next_m11: number = this.chineseNewMoonBefore(1 + s2);
+    const nextM11: number = this.chineseNewMoonBefore(1 + s2);
     const m12: number = this.chineseNewMoonOnOrAfter(1 + s1);
     const m13: number = this.chineseNewMoonOnOrAfter(1 + m12);
-    const yearLeap: boolean = Math.round((next_m11 - m12) / MEAN_SYNODIC_MONTH) === 12;
+    const yearLeap: boolean = Math.round((nextM11 - m12) / MEAN_SYNODIC_MONTH) === 12;
 
     if (yearLeap && (this.isChineseNoMajorSolarTerm(m12) || this.isChineseNoMajorSolarTerm(m13))) {
       return this.chineseNewMoonOnOrAfter(1 + m13);
@@ -128,9 +124,7 @@ export class ChineseCalendar extends LeapMonthCalendar {
     const approx: number = estimatePriorSolarLongitude(Season.WINTER, this.midnightInChina(fixed + 1));
 
     return next(Math.floor(approx) - 1,
-      function (day: number) {
-        return Season.WINTER < solarLongitude(ChineseCalendar.midnightInChina(1 + day));
-      });
+      (day: number) => Season.WINTER < solarLongitude(ChineseCalendar.midnightInChina(1 + day)));
   }
 
   // Return Universal time of (clock) midnight at start of given date, in China.
@@ -203,7 +197,11 @@ export class ChineseCalendar extends LeapMonthCalendar {
   }
   */
 
-  getCycle (): number {
+  constructor(jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
+    super(jdn, year, month, day, monthLeap);
+  }
+
+  public getCycle (): number {
     return this.cycle;
   }
 }
