@@ -5,10 +5,6 @@ import { CalendarValidationException, LeapCalendar } from '../Calendar';
 export const daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export class JulianCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, JulianCalendar.isLeapYear(year));
-  }
-
   // Is a given year in the Julian calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(year, 4) === (year > 0 ? 0 : 3);
@@ -74,4 +70,9 @@ export class JulianCalendar extends LeapCalendar {
 
     return new JulianCalendar(jdn, year, month, day);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, JulianCalendar.isLeapYear(year));
+  }
+
 }
