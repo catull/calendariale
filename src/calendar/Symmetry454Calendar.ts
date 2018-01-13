@@ -2,10 +2,6 @@ import { gregorian, J0000 } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class Symmetry454Calendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, Symmetry454Calendar.isLeapYear(year));
-  }
-
   // Determine Julian day number from Symmetry454 calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -68,4 +64,9 @@ export class Symmetry454Calendar extends LeapCalendar {
   private static getLeapYearsBefore(year: number): number {
     return Math.floor((52 * (year - 1) + 146) / 293);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, Symmetry454Calendar.isLeapYear(year));
+  }
+
 }
