@@ -3,10 +3,6 @@ import { egyptian } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class EgyptianCalendar extends YearMonthCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day);
-  }
-
   // Determine Julian day number from Egyptian calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -36,5 +32,9 @@ export class EgyptianCalendar extends YearMonthCalendar {
     if (day < 1 || day > 30) {
       throw new CalendarValidationException('Invalid day');
     }
+  }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
   }
 }
