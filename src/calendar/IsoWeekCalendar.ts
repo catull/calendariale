@@ -4,10 +4,6 @@ import { CalendarValidationException, YearCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class IsoWeekCalendar extends YearCalendar {
-  constructor(jdn: number, year: number, private week: number, private day: number) {
-    super(jdn, year);
-  }
-
   // Determine Julian day number from Iso Week calendar date
   public static toJdn(year: number, week: number, day: number): number {
     this.validate(year, week, day);
@@ -35,11 +31,15 @@ export class IsoWeekCalendar extends YearCalendar {
     return new IsoWeekCalendar(jdn, year, week, day);
   }
 
-  getWeek(): number {
+  constructor(jdn: number, year: number, private week: number, private day: number) {
+    super(jdn, year);
+  }
+
+  public getWeek(): number {
     return this.week;
   }
 
-  getDay(): number {
+  public getDay(): number {
     return this.day;
   }
 }
