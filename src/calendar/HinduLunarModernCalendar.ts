@@ -4,10 +4,6 @@ import { hinduCalendarYear, hinduLunarDayFromMoment, hinduNewMoonBefore, hinduSo
 import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
 
 export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
-  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
-    super(jdn, year, month, day, monthLeap, dayLeap);
-  }
-
   // Calculate Hindu Lunar Modern calendar date from Julian day
   public static fromJdn(jdn: number): HinduLunarModernCalendar {
     const jd0: number = jdn - J0000;
@@ -78,7 +74,7 @@ export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
     const est: number = s + day - temp;
     const tau: number = est - mod(hinduLunarDayFromMoment(est + 0.25) - day + 15, 30) + 15;
 
-    const date: number = next(tau - 1, function (d): boolean {
+    const date: number = next(tau - 1, (d: number): boolean => {
       const d1: number = hinduLunarDayFromMoment(hinduSunrise(d)),
         d2: number = amod(day + 1, 30);
 
@@ -87,4 +83,9 @@ export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
 
     return date + J0000;
   }
+
+  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
+    super(jdn, year, month, day, monthLeap, dayLeap);
+  }
+
 }
