@@ -220,7 +220,7 @@ const tibetan = {
   EPOCH_RD: -46410
 };
 
-const yerm_ = {
+const yermEpoch = {
   EPOCH: 1948379, // 622/05/16 12:00 Julian C.E.
   EPOCH_RD: 226955.5
 };
@@ -274,5 +274,5 @@ export {
   mayan,
   persian,
   tibetan,
-  yerm_
+  yermEpoch
 };
