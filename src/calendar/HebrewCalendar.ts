@@ -3,10 +3,6 @@ import { hebrew } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class HebrewCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, HebrewCalendar.isLeapYear(year));
-  }
-
   // Determine Julian day number from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -128,4 +124,9 @@ export class HebrewCalendar extends LeapCalendar {
     // Nope, it's a 30 day month
     return 30;
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, HebrewCalendar.isLeapYear(year));
+  }
+
 }
