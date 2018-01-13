@@ -8,14 +8,6 @@ export class IsoWeekCalendar extends YearCalendar {
     super(jdn, year);
   }
 
-  getWeek(): number {
-    return this.week;
-  }
-
-  getDay(): number {
-    return this.day;
-  }
-
   // Determine Julian day number from Iso Week calendar date
   public static toJdn(year: number, week: number, day: number): number {
     this.validate(year, week, day);
@@ -41,5 +33,13 @@ export class IsoWeekCalendar extends YearCalendar {
     const day: number = amod(jdn - J0000, 7);
 
     return new IsoWeekCalendar(jdn, year, week, day);
+  }
+
+  getWeek(): number {
+    return this.week;
+  }
+
+  getDay(): number {
+    return this.day;
   }
 }

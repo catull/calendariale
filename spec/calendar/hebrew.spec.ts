@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/HebrewCalendar.js').HebrewCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { HebrewCalendar as cal } from '../../lib/calendar/HebrewCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'hebrew': { 'year': 3174, 'month':  5, 'day': 10 } },
@@ -53,7 +49,7 @@ describe ('Hebrew calendar spec', () => {
   it ('should convert a Hebrew date to Julian day', () => {
     data3.forEach (dt => {
       date   = dt.hebrew;
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
 
       expect (julian).to.be.equal (actual);
@@ -62,7 +58,7 @@ describe ('Hebrew calendar spec', () => {
 
   it ('should convert a Julian day to a Hebrew date', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.hebrew;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
@@ -84,7 +80,7 @@ describe ('Hebrew calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');

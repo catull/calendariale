@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/AztecXihuitlCalendar.js').AztecXihuitlCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { AztecXihuitlCalendar as cal } from '../../lib/calendar/AztecXihuitlCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecXihuitl': { 'month':  2, 'day':  6 } },
@@ -52,7 +48,7 @@ describe ('Aztec Xihuitl calendar spec', () => {
 
   it ('should convert a Julian day to a Aztec Xihuitl', () => {
     data2.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.aztecXihuitl;
       expected = { jdn: julian, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);

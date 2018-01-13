@@ -62,7 +62,7 @@ export class TibetanCalendar extends LeapDayMonthCalendar {
     }
 
     year0 -= 1;
-    let month0: number = 1;
+    let month0 = 1;
     while (jdn >= this.calculateJdn(year0, month0, false, 1, false)) {
       month0 += 1;
     }
@@ -76,7 +76,7 @@ export class TibetanCalendar extends LeapDayMonthCalendar {
     }
 
     day0 -= 1;
-    let monthLeap: boolean = day0 > 30;
+    const monthLeap = day0 > 30;
     const day: number = amod(day0, 30);
 
     let temp: number;

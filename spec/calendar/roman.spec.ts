@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/RomanCalendar.js').RomanCalendar;
-const RomanEvent = require ('../../lib/Const.js').RomanEvent;
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { RomanEvent } from '../../lib/Const';
+import { RomanCalendar as cal } from '../../lib/calendar/RomanCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'roman': { 'year': -587, 'month':  8, 'event':  RomanEvent.KALENDS, 'count':  3, 'leap': false } },

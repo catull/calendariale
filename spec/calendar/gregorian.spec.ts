@@ -1,14 +1,10 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/GregorianCalendar.js').GregorianCalendar;
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { GregorianCalendar as cal } from '../../lib/calendar/GregorianCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'gregorian': { 'year': -586, 'month':  7, 'day': 24  } },
@@ -83,7 +79,7 @@ describe ('Gregorian calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, 15, 10)).to.throw ('Invalid month');

@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/HebrewObservationalCalendar.js').HebrewObservationalCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { HebrewObservationalCalendar as cal } from '../../lib/calendar/HebrewObservationalCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'hebrewObs': { 'year': 3174, 'month':  5, 'day': 11 } },
@@ -53,7 +49,7 @@ describe ('Hebrew Observational calendar spec', () => {
   it ('should convert a Hebrew Observational date to Julian day', () => {
     data3.forEach (dt => {
       date   = dt.hebrewObs;
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
       expect (julian).to.be.equal (actual);
     });
@@ -61,7 +57,7 @@ describe ('Hebrew Observational calendar spec', () => {
 
   it ('should convert a Julian day to a Hebrew Observational date', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.hebrewObs;
       expected = { jdn: julian, year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
@@ -73,7 +69,7 @@ describe ('Hebrew Observational calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');

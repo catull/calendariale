@@ -9,18 +9,6 @@ export class RomanCalendar extends YearMonthCalendar {
     super (jdn, year, month, -1);
   }
 
-  getEvent (): RomanEvent {
-    return this.event;
-  }
-
-  getCount (): number {
-    return this.count;
-  }
-
-  isLeap (): boolean {
-    return this.leap;
-  }
-
   // Determine Julian day number from Roman calendar date
   public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean): number {
     this.validate (year, month, event, count, leap);
@@ -126,5 +114,17 @@ export class RomanCalendar extends YearMonthCalendar {
    */
   public static nonesOfMonth (month: number): number {
     return this.idesOfMonth (month) - 8;
+  }
+
+  getEvent (): RomanEvent {
+    return this.event;
+  }
+
+  getCount (): number {
+    return this.count;
+  }
+
+  isLeap (): boolean {
+    return this.leap;
   }
 }

@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/TibetanCalendar.js').TibetanCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { TibetanCalendar as cal } from '../../lib/calendar/TibetanCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'tibetan': { 'year': -459, 'month':  8, 'monthLeap': false, 'day': 11, 'dayLeap': false } },
@@ -52,7 +48,7 @@ describe ('Tibetan calendar spec', () => {
 
   it ('should convert a Tibetan date to Julian day', () => {
     data4.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.tibetan;
       actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
       expect (julian).to.be.equal (actual);
@@ -61,7 +57,7 @@ describe ('Tibetan calendar spec', () => {
 
   it ('should convert a Julian day to a Tibetan date', () => {
     data4.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.tibetan;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day, 'dayLeap': date.dayLeap };
       actual   = cal.fromJdn (julian);

@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/IslamicCalendar.js').IslamicCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { IslamicCalendar as cal } from '../../lib/calendar/IslamicCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'islamic': { 'year': -1245, 'month': 12, 'day':  9 } },
@@ -52,7 +48,7 @@ describe ('Islamic calendar spec', () => {
 
   it ('should convert a Islamic date to Julian day', () => {
     data2.forEach (dt => {
-      expected = dt.rataDie + Const.J0000;
+      expected = dt.rataDie + J0000;
       date     = dt.islamic;
       actual   = cal.toJdn (date.year, date.month, date.day);
       expect (expected).to.be.equal (actual);
@@ -61,7 +57,7 @@ describe ('Islamic calendar spec', () => {
 
   it ('should convert a Julian day to a Islamic date', () => {
     data2.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.islamic;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
@@ -83,7 +79,7 @@ describe ('Islamic calendar spec', () => {
     expect (cal.isLeapYear (220)).to.be.equal (true);
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (220,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (220, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (220, 13, 10)).to.throw ('Invalid month');

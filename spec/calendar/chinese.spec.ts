@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/ChineseCalendar.js').ChineseCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { ChineseCalendar as cal } from '../../lib/calendar/ChineseCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'chinese': { 'cycle': 35, 'year': 11, 'month':  6, 'monthLeap': false, 'day': 12 } },
@@ -53,7 +49,7 @@ describe ('Chinese calendar spec', () => {
   it ('should convert a Chinese date to Julian day', () => {
     data4.forEach (dt => {
       date     = dt.chinese;
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       actual   = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
       expect (julian).to.be.equal (actual);
     });
@@ -61,7 +57,7 @@ describe ('Chinese calendar spec', () => {
 
   it ('should convert a Julian day to a Chinese date', () => {
     data4.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.chinese;
       expected = { jdn: julian, cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
       actual   = cal.fromJdn (julian);

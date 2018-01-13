@@ -8,10 +8,6 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     super(jdn, an, mois, jour);
   }
 
-  getDecade (): number {
-    return this.decade;
-  }
-
   // Obtain Julian day from a given French Revolutionary calendar date.
   public static toJdn(an: number, mois: number, decade: number, jour: number): number {
     this.validate(an, mois, decade, jour);
@@ -130,5 +126,9 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     const equParis: number = equAPP + dtParis;
 
     return equParis;
+  }
+
+  getDecade (): number {
+    return this.decade;
   }
 }

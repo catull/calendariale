@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/PersianArithmeticCalendar.js').PersianArithmeticCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { PersianArithmeticCalendar as cal } from '../../lib/calendar/PersianArithmeticCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'persianArith': { 'year': -1208, 'month':  5, 'day':  1 } },
@@ -52,7 +48,7 @@ describe ('Persian Arithmetic calendar spec', () => {
 
   it ('should convert a Persian Arithmetic date to Julian day', () => {
     data3.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.persianArith;
       actual = cal.toJdn (date.year, date.month, date.day);
       expect (julian).to.be.equal (actual);
@@ -61,7 +57,7 @@ describe ('Persian Arithmetic calendar spec', () => {
 
   it ('should convert a Julian day to a Persian Arithmetic year', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.persianArith;
       expected = date.year;
       actual   = cal.jdnToYear (julian);
@@ -71,7 +67,7 @@ describe ('Persian Arithmetic calendar spec', () => {
 
   it ('should convert a Julian day to a Persian Arithmetic date', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.persianArith;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
@@ -94,7 +90,7 @@ describe ('Persian Arithmetic calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1333,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1333, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1333, 13, 10)).to.throw ('Invalid month');

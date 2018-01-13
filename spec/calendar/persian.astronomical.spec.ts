@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/PersianAstronomicalCalendar.js').PersianAstronomicalCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { PersianAstronomicalCalendar as cal } from '../../lib/calendar/PersianAstronomicalCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'persianAstro': { 'year': -1208, 'month':  5, 'day':  1 } },
@@ -47,21 +43,21 @@ const data3 = [
   { 'rataDie':  764652, 'persianAstro': { 'year':  1473, 'month':  4, 'day': 28 } }
 ];
 
-describe ('Persian Astronmical calendar spec', () => {
+describe ('Persian Astronomical calendar spec', () => {
   let date, expected, actual, julian;
 
-  it ('should convert a Persian Astronmical date to Julian day', () => {
+  it ('should convert a Persian Astronomical date to Julian day', () => {
     data3.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.persianAstro;
       actual = cal.toJdn (date.year, date.month, date.day);
       expect (julian).to.be.equal (actual);
     });
   });
 
-  it ('should convert a Julian day to a Persian Astronmical date', () => {
+  it ('should convert a Julian day to a Persian Astronomical date', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.persianAstro;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
@@ -73,7 +69,7 @@ describe ('Persian Astronmical calendar spec', () => {
     });
   });
 
-  it ('should determine whether a Persian Astronmical year is leap year', () => {
+  it ('should determine whether a Persian Astronomical year is leap year', () => {
     [ 38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370 ].forEach (year => {
       expect (cal.isLeapYear (year)).to.be.equal (true);
     });
@@ -83,7 +79,7 @@ describe ('Persian Astronmical calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1333,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1333, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1333, 13, 10)).to.throw ('Invalid month');

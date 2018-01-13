@@ -132,9 +132,9 @@ function hinduSolarLongitude(tee: number): number {
  */
 function hinduTropicalLongitude(jdn: number): number {
   const days: number = Math.floor(jdn - hindu.EPOCH_RD);
-  const precession: number = 27 - Math.abs(54 - mod(27 + 108 * 600 / 1577917828 * days, 108));
+  const precession_: number = 27 - Math.abs(54 - mod(27 + 108 * 600 / 1577917828 * days, 108));
 
-  return mod(hinduSolarLongitude(jdn) - precession, 360);
+  return mod(hinduSolarLongitude(jdn) - precession_, 360);
 }
 
 /**
@@ -266,7 +266,7 @@ function hinduCalendarYear(tee: number): number {
  * @return {float} moment of new moon
  */
 function hinduNewMoonBefore(tee: number): number {
-  const eps: number = 7.888609052210118e-31;
+  const eps = 7.888609052210118e-31;
   const tau: number = tee - hinduLunarPhase(tee) * hindu.SYNODIC_MONTH / 360;
 
   return binarySearch(tau - 1, Math.min(tee, tau + 1),

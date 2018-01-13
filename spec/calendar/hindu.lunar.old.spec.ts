@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/HinduLunarOldCalendar.js').HinduLunarOldCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { HinduLunarOldCalendar as cal } from '../../lib/calendar/HinduLunarOldCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'hinduLunarOld': { 'year': 2515, 'month':  6, 'monthLeap': false, 'day': 11 } },
@@ -52,7 +48,7 @@ describe ('Hindu Lunar Old calendar spec', () => {
 
   it ('should convert a Hindu Lunar Old date to Julian day', () => {
     data4.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.hinduLunarOld;
       actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
       expect (julian).to.be.equal (actual);
@@ -61,7 +57,7 @@ describe ('Hindu Lunar Old calendar spec', () => {
 
   it ('should convert a Julian day to a Hindu Lunar Old date', () => {
     data4.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.hinduLunarOld;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day };
       actual   = cal.fromJdn (julian);

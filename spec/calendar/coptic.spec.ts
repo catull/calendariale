@@ -1,14 +1,10 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/CopticCalendar.js').CopticCalendar;
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { CopticCalendar as cal } from '../../lib/calendar/CopticCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'coptic': { 'year': -870, 'month': 12, 'day':  6 } },
@@ -83,7 +79,7 @@ describe ('Coptic calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1000,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1000, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1000, 15, 10)).to.throw ('Invalid month');

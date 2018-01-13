@@ -1,15 +1,10 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/Symmetry010Calendar.js').Symmetry010Calendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { Symmetry010Calendar as cal } from '../../lib/calendar/Symmetry010Calendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'symmetry010': { 'year': -586, 'month':  7, 'day': 21 } },
@@ -82,7 +77,7 @@ describe ('Symmetry010 calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, 13, 10)).to.throw ('Invalid month');

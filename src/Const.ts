@@ -1,7 +1,7 @@
 import { Location } from './Location';
 
 // *Days in Julian century*
-const JULIAN_CENTURY: number = 36525;
+const JULIAN_CENTURY = 36525;
 
 // *Days in Julian millennium*
 // const JULIAN_MILLENIUM = 365250;
@@ -10,22 +10,22 @@ const JULIAN_CENTURY: number = 36525;
 // const ASTRONOMICAL_UNIT = 149597870.0;
 
 // *Julian date of Gregorian epoch: 0000-01-01*
-const J0000: number = 1721424.5;
+const J0000 = 1721424.5;
 
 // *Julian date at Unix epoch: 1970-01-01*
-const J1970: number = 2440587.5;
+const J1970 = 2440587.5;
 
 // *Epoch of Modified Julian Date system*
-const JMJD: number = 2400000.5;
+const JMJD = 2400000.5;
 
 // *Epoch (day 1) of Excel 1900 date system (PC)*
-const J1900: number = 2415020.5;
+const J1900 = 2415020.5;
 
 // *Epoch (day 0) of Excel 1904 date system (Mac)*
-const J1904: number = 2416480.5;
+const J1904 = 2416480.5;
 
 // *Gregorian date: 02000-01-01
-const J2000: number = 730120.5;
+const J2000 = 730120.5;
 
 // *Julian day of J2000 epoch*
 // const J2000_JDN = 2451545.0;
@@ -35,12 +35,12 @@ const ARYA_LUNAR_DAY: number = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
 const ARYA_SOLAR_YEAR: number = 1577917500 / 4320000; // 365.258680556,
 const ARYA_SOLAR_MONTH: number = ARYA_SOLAR_YEAR / 12; // 30.4382233796,
 
-const MEAN_SIDEREAL_YEAR: number = 365.25636;
-const MEAN_SYNODIC_MONTH: number = 29.530588861;
-const MEAN_TROPICAL_YEAR: number = 365.242189;
+const MEAN_SIDEREAL_YEAR = 365.25636;
+const MEAN_SYNODIC_MONTH = 29.530588861;
+const MEAN_TROPICAL_YEAR = 365.242189;
 
 // *Mean solar tropical year*
-const TROPICAL_YEAR: number = 365.24219878;
+const TROPICAL_YEAR = 365.24219878;
 
 enum WeekDay {
   SUNDAY = 0,
@@ -99,8 +99,10 @@ const bahai  = {
   EPOCH172: 2457102.5, // 2015/03/21 Gregorian C.E.
   WEEKDAYS: [ 'Jamál', 'Kamál', 'Fidál', 'Idál', 'Istijlál', 'Istiqlál', 'Jalál' ],
   YEARS: [ 'Alif', 'Bá', 'Ab', 'Dál', 'Báb', 'Váv', 'Abad', 'Jád', 'Bahá', 'Hubb', 'Bahháj', 'Javáb', 'Ahad', 'Vahháb', 'Vidád', 'Badí', 'Bahí', 'Abhá', 'Vahíd' ],
-  MONTHS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
-  DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat', 'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
+  MONTHS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat',
+    'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
+  DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat',
+    'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
 };
 
 const balinese = {
@@ -139,7 +141,8 @@ const french = {
   EPOCH_RD: 654416,
   MOIS: [ 'Vendémiaire', 'Brumaire', 'Frimaire', 'Nivôse', 'Pluviôse', 'Ventôse', 'Germinal', 'Floréal', 'Prairial', 'Messidor', 'Thermidor', 'Fructidor', '(Sans-culottides)' ],
   DECADE: [ 'I', 'II', 'III' ],
-  JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)', 'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
+  JOUR: [ 'du Primidi (1)', 'du Duodi (2)', 'du Tridi (3)', 'du Quartidi (4)', 'du Quintidi (5)',
+    'du Sextidi (6)', 'du Septidi (7)', 'du Octidi (8)', 'du Nonidi (9)', 'du Décadi (10)',
   '------------', 'de la Vertu (1)', 'du Génie (2)', 'du Travail (3)', 'de l\'Opinion (4)', 'des Récompenses (5)', 'de la Révolution (6)' ]
 };
 
@@ -198,8 +201,10 @@ const julian = {
 const mayan = {
   EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
   EPOCH_RD: -1137141,
-  HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin', 'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
-  TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben', 'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
+  HAAB_MONTHS: [ 'Pop', 'Uo', 'Zip', 'Zotz', 'Tzec', 'Xul', 'Yaxkin', 'Mol', 'Chen', 'Yax', 'Zac', 'Ceh', 'Mac', 'Kankin',
+    'Muan', 'Pax', 'Kayab', 'Cumku', 'Uayeb' ],
+  TZOLKIN_MONTHS: [ 'Imix', 'Ik', 'Akbal', 'Kan', 'Chicchan', 'Cimi', 'Manik', 'Lamat', 'Muluc', 'Oc', 'Chuen', 'Eb', 'Ben',
+    'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
 };
 
 const persian = {

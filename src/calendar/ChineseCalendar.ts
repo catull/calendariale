@@ -2,16 +2,11 @@ import { amod, estimatePriorSolarLongitude, next, newMoonAtOrAfter, newMoonBefor
   solarLongitude, standardToUniversal, universalToStandard } from '../Astro';
 import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Season } from '../Const';
 import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
-// import { GregorianCalendar } from './GregorianCalendar';
 import { Location } from '../Location';
 
 export class ChineseCalendar extends LeapMonthCalendar {
   constructor(jdn: number, private cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
     super(jdn, year, month, day, monthLeap);
-  }
-
-  getCycle (): number {
-    return this.cycle;
   }
 
   // Determine Julian day number from Chinese calendar date
@@ -207,4 +202,8 @@ export class ChineseCalendar extends LeapMonthCalendar {
     return universalToStandard(tee, this.chineseLocation(tee));
   }
   */
+
+  getCycle (): number {
+    return this.cycle;
+  }
 }

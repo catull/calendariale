@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/MayanTzolkinCalendar.js').MayanTzolkinCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { MayanTzolkinCalendar as cal } from '../../lib/calendar/MayanTzolkinCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'mayanTzolkin': { 'month':  5, 'day':  9 } },
@@ -50,7 +46,7 @@ const data2 = [
 describe ('Mayan Tzolkin calendar spec', () => {
   it ('should convert a Julian day to a Mayan Tzolkin', () => {
     data2.forEach (dt => {
-      const julian   = dt.rataDie + Const.J0000;
+      const julian   = dt.rataDie + J0000;
       const date     = dt.mayanTzolkin;
       const expected = { 'jdn': julian, 'month': date.month, 'day': date.day };
       const actual   = cal.fromJdn (julian);

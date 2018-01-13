@@ -1,16 +1,12 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/FrenchRevolutionaryCalendar.js').FrenchRevolutionaryCalendar;
-const astro = require ('../../lib/Astro.js');
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { amod } from '../../lib/Astro';
+import { J0000 } from '../../lib/Const';
+import { FrenchRevolutionaryCalendar as cal } from '../../lib/calendar/FrenchRevolutionaryCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'french': { 'year': -2378, 'month': 11, 'day':  5 } },
@@ -54,10 +50,10 @@ describe ('French Revolutionary calendar spec', () => {
   it ('should convert a French Revolutionary date to Julian day', () => {
     data3.forEach (dt => {
       date   = dt.french;
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       jour   = date.day;
       decade = Math.floor ((jour - 1) / 10) + 1;
-      jour   = astro.amod (jour, 10);
+      jour   = amod (jour, 10);
       actual = cal.toJdn (date.year, date.month, decade, jour);
       expect (julian).to.be.equal (actual);
     });
@@ -65,11 +61,11 @@ describe ('French Revolutionary calendar spec', () => {
 
   it ('should convert a Julian day to a French Revolutionary date', () => {
     data3.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.french;
       jour     = date.day;
       decade   = Math.floor ((jour - 1) / 10) + 1;
-      jour     = astro.amod (jour, 10);
+      jour     = amod (jour, 10);
       expected = { jdn: julian, year: date.year, month: date.month, decade: decade, day: jour };
       actual   = cal.fromJdn (julian);
 
@@ -81,7 +77,7 @@ describe ('French Revolutionary calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1, -1, 3, 10)).to.throw ('Invalid mois');
     expect (() => cal.toJdn (1, 15, 3, 10)).to.throw ('Invalid mois');
     expect (() => cal.toJdn (1,  7, 0, 10)).to.throw ('Invalid decadi');

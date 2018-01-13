@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/MayanCountCalendar.js').MayanCountCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { MayanCountCalendar as cal } from '../../lib/calendar/MayanCountCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'mayanLong': { 'baktun':  6, 'katun':  8, 'tun':  3, 'uinal': 13, 'kin':  9 } },
@@ -50,9 +46,9 @@ const data2 = [
 describe ('Mayan Count calendar spec', () => {
   let date, julian, expected, actual;
 
-  it ('should conv0ert a Mayan Count to Julian day', () => {
+  it ('should convert a Mayan Count to Julian day', () => {
     data2.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.mayanLong;
       actual = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
 
@@ -62,7 +58,7 @@ describe ('Mayan Count calendar spec', () => {
 
   it ('should convert a Julian day to a Mayan Count', () => {
     data2.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.mayanLong;
       expected = { 'jdn': julian, 'baktun': date.baktun, 'katun': date.katun, 'tun': date.tun, 'uinal': date.uinal, 'kin': date.kin };
       actual   = cal.fromJdn (julian);
@@ -76,7 +72,7 @@ describe ('Mayan Count calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (0,  0,  0,  0, -1)).to.throw ('Invalid kin');
     expect (() => cal.toJdn (0,  0,  0,  0, 20)).to.throw ('Invalid kin');
     expect (() => cal.toJdn (0,  0,  0, -1, 19)).to.throw ('Invalid uinal');

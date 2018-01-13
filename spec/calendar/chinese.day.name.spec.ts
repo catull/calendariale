@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/ChineseDayNameCalendar.js').ChineseDayNameCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { ChineseDayNameCalendar as cal } from '../../lib/calendar/ChineseDayNameCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'chineseDayName': { 'stem':  2, 'branch': 10 } },
@@ -52,7 +48,7 @@ describe ('Chinese Day Name calendar spec', () => {
 
   it ('should convert a Julian day number to a Chinese Day Name date', () => {
     data4.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.chineseDayName;
       expected = { jdn: julian, stem: date.stem, branch: date.branch };
       actual   = cal.fromJdn (julian);

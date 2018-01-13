@@ -1,14 +1,10 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/IsoWeekCalendar.js').IsoWeekCalendar;
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { IsoWeekCalendar as cal } from '../../lib/calendar/IsoWeekCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'iso': { 'year': -586, 'week': 29, 'day': 7 } },
@@ -72,7 +68,7 @@ describe ('ISO Week calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 2)).to.throw ('Invalid week');
     expect (() => cal.toJdn (1999, -2, 2)).to.throw ('Invalid week');
     expect (() => cal.toJdn (1999, 54, 1)).to.throw ('Invalid week');

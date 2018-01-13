@@ -1,13 +1,10 @@
 /* global describe it require: true */
-'use strict';
 
-const cal = require ('../../lib/calendar/YermCalendar.js').YermCalendar;
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { YermCalendar as cal } from '../../lib/calendar/YermCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'yerm': { 'cycle': -17, 'yerm': 23, 'month':  2, 'day': 10.5 } },
@@ -71,7 +68,7 @@ describe ('Yerm calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1,  0,  1,  1)).to.throw ('Invalid yerm');
     expect (() => cal.toJdn (1, 53,  1,  1)).to.throw ('Invalid yerm');
     expect (() => cal.toJdn (1,  1,  0,  1)).to.throw ('Invalid month');

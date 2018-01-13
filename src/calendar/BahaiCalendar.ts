@@ -14,14 +14,6 @@ export class BahaiCalendar extends LeapCalendar {
     super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
   }
 
-  getKullIshay (): number {
-    return this.kull_i_shay;
-  }
-
-  getVahid (): number {
-    return this.vahid;
-  }
-
   // Determine the year in the Bahai // astronomical calendar in which a
   // given Julian day falls.
   public static jdnToYear(jdn: number): number {
@@ -219,8 +211,16 @@ export class BahaiCalendar extends LeapCalendar {
       nexteq = this.tehranEquinoxJd(guess);
     }
 
-    let adr: number = Math.round((lasteq - epoch) / TROPICAL_YEAR) + 1;
+    const adr: number = Math.round((lasteq - epoch) / TROPICAL_YEAR) + 1;
 
     return [adr, lasteq];
+  }
+
+  getKullIshay (): number {
+    return this.kull_i_shay;
+  }
+
+  getVahid (): number {
+    return this.vahid;
   }
 }

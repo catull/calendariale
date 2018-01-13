@@ -1,14 +1,10 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/JulianCalendar.js').JulianCalendar;
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { JulianCalendar as cal } from '../../lib/calendar/JulianCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'julianDate': { 'year': -587, 'month':  7, 'day': 30 } },
@@ -81,7 +77,7 @@ describe ('Julian calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, 15, 10)).to.throw ('Invalid month');

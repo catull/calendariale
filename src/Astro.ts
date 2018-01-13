@@ -215,7 +215,7 @@ function arcTanDeg(y0: number, x0: number): number {
     return mod(Math.sign(y0) * 90, 360);
   }
 
-  let alpha: number = radiansToDegrees(Math.atan(y0 / x0));
+  const alpha: number = radiansToDegrees(Math.atan(y0 / x0));
 
   if (x0 >= 0) {
     return alpha;
@@ -747,7 +747,7 @@ function equinox(year: number, which: number): number {
   const deltaL: number = 1 + 0.0334 * cosDeg(w) + 0.0007 * cosDeg(2 * w);
 
   // Sum the periodic terms for time t0
-  let sum: number = 0, index: number = 0, j: number = 0;
+  let sum = 0, index = 0, j = 0;
   while (index < 24) {
     sum += EQUINOX_P_TERMS[j] * cosDeg(EQUINOX_P_TERMS[j + 1] + EQUINOX_P_TERMS[j + 2] * t);
     j += 3;
@@ -1371,7 +1371,7 @@ function solarLongitudeAfter(lambda: number, tee: number): number {
  */
 function refraction(tee: number, location: Location): number {
   const h: number = Math.max(0, location.getElevation());
-  const capR: number = 6.372e6;
+  const capR = 6.372e6;
   const dip: number = arcCosDeg(capR / (capR + h));
 
   return angle(0, 50, 0) + dip + 19 * Math.sqrt(h) / 3600;

@@ -7,14 +7,6 @@ export class AztecTonalpohualliCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getNumber (): number {
-    return this.num;
-  }
-
-  getName (): number {
-    return this.name;
-  }
-
   // Calculate Aztec Tonalpohualli calendar date from Julian day
   public static fromJdn(jdn: number): AztecTonalpohualliCalendar {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;
@@ -32,5 +24,13 @@ export class AztecTonalpohualliCalendar extends BaseCalendar {
   // Return Julian day number of latest date on or before an Aztec Tonalpohualli date
   public static onOrBefore(num: number, name: number, jdn: number): number {
     return jdn - mod(jdn - aztec.TONALPOHUALLI_CORRELATION - this.toOrdinal(num, name), 260);
+  }
+
+  getNumber (): number {
+    return this.num;
+  }
+
+  getName (): number {
+    return this.name;
   }
 }

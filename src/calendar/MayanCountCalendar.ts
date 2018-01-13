@@ -7,27 +7,7 @@ export class MayanCountCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getBaktun (): number {
-    return this.baktun;
-  }
-
-  getKatun (): number {
-    return this.katun;
-  }
-
-  getTun (): number {
-    return this.tun;
-  }
-
-  getUinal (): number {
-    return this.uinal;
-  }
-
-  getKin (): number {
-    return this.kin;
-  }
-
-  // Determine JUlian day number from Mayan Count calendar date
+  // Determine Julian day number from Mayan Count calendar date
   public static toJdn(baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
     this.validate(baktun, katun, tun, uinal, kin);
 
@@ -69,5 +49,25 @@ export class MayanCountCalendar extends BaseCalendar {
     const kin: number = mod(d, 20);
 
     return new MayanCountCalendar(jdn, baktun, katun, tun, uinal, kin);
+  }
+
+  getBaktun (): number {
+    return this.baktun;
+  }
+
+  getKatun (): number {
+    return this.katun;
+  }
+
+  getTun (): number {
+    return this.tun;
+  }
+
+  getUinal (): number {
+    return this.uinal;
+  }
+
+  getKin (): number {
+    return this.kin;
   }
 }

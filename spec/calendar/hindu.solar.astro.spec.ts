@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/HinduSolarAstroCalendar.js').HinduSolarAstroCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { HinduSolarAstroCalendar as cal } from '../../lib/calendar/HinduSolarAstroCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'hinduSolarAstro': { 'year': -664, 'month':  5, 'day': 13 } },
@@ -52,7 +48,7 @@ describe ('Hindu Solar Astro calendar spec', () => {
 
   it ('should convert a Hindu Solar Astro date to Julian day', () => {
     data4.forEach (dt => {
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       date   = dt.hinduSolarAstro;
       actual = cal.toJdn (date.year, date.month, date.day, date.dayLeap);
       expect (julian).to.be.equal (actual);
@@ -61,7 +57,7 @@ describe ('Hindu Solar Astro calendar spec', () => {
 
   it ('should convert a Julian day to a Hindu Solar Astro date', () => {
     data4.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.hinduSolarAstro;
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day };
       actual   = cal.fromJdn (julian);
@@ -73,7 +69,7 @@ describe ('Hindu Solar Astro calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1999, 13, 10)).to.throw ('Invalid month');

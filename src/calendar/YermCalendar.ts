@@ -7,14 +7,6 @@ export class YermCalendar extends YearMonthCalendar {
     super(jdn, 0, month, day);
   }
 
-  getCycle (): number {
-    return this.cycle;
-  }
-
-  getYerm (): number {
-    return this.yerm;
-  }
-
   // Determine Julian day number from Yerm calendar date
   public static toJdn(cycle: number, yerm: number, month: number, day: number): number {
     this.validate(cycle, yerm, month, day);
@@ -61,5 +53,13 @@ export class YermCalendar extends YearMonthCalendar {
     if (day < 1 || day > dayMax) {
       throw new CalendarValidationException('Invalid day');
     }
+  }
+
+  getCycle (): number {
+    return this.cycle;
+  }
+
+  getYerm (): number {
+    return this.yerm;
   }
 }

@@ -1,15 +1,11 @@
 /* global describe it: true */
 
-'use strict';
+import { expect } from 'chai';
+import 'dirty-chai';
+import { describe, it } from 'mocha';
 
-const cal = require ('../../lib/calendar/EthiopicCalendar.js').EthiopicCalendar;
-const Const = require ('../../lib/Const.js');
-
-const chai = require ('chai');
-require ('dirty-chai');
-require ('mocha');
-
-const expect = chai.expect;
+import { J0000 } from '../../lib/Const';
+import { EthiopicCalendar as cal } from '../../lib/calendar/EthiopicCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'ethiopic': { 'year': -594, 'month': 12, 'day':  6 } },
@@ -53,7 +49,7 @@ describe ('Ethiopic calendar spec', () => {
   it ('should convert an Ethiopic date to Julian day', () => {
     data2.forEach (dt => {
       date   = dt.ethiopic;
-      julian = dt.rataDie + Const.J0000;
+      julian = dt.rataDie + J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
 
       expect (julian).to.be.equal (actual);
@@ -62,7 +58,7 @@ describe ('Ethiopic calendar spec', () => {
 
   it ('should convert a Julian day to an Ethiopic date', () => {
     data2.forEach (dt => {
-      julian   = dt.rataDie + Const.J0000;
+      julian   = dt.rataDie + J0000;
       date     = dt.ethiopic;
       expected = { jdn: julian, year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
@@ -74,7 +70,7 @@ describe ('Ethiopic calendar spec', () => {
     });
   });
 
-  it ('throws validation excetions', () => {
+  it ('throws validation exceptions', () => {
     expect (() => cal.toJdn (1000,  0, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1000, -2, 10)).to.throw ('Invalid month');
     expect (() => cal.toJdn (1000, 15, 10)).to.throw ('Invalid month');
