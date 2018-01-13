@@ -3,10 +3,6 @@ import { coptic } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class CopticCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, CopticCalendar.isLeapYear(year));
-  }
-
   // Is a given year in the Coptic calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(year, 4) === 3;
@@ -43,5 +39,9 @@ export class CopticCalendar extends LeapCalendar {
     if (day < 1 || day > 30) {
       throw new CalendarValidationException('Invalid day');
     }
+  }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, CopticCalendar.isLeapYear(year));
   }
 }
