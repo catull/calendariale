@@ -4,19 +4,15 @@ import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class HinduSolarAstroCalendar extends YearMonthCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day);
-  }
-
   // Determine Julian day number from Hindu Solar Astro calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
     const approx: number = hindu.EPOCH - 3 + Math.floor((year + hindu.SOLAR_ERA +
       (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
-    const begin: number = next(approx, function (i: number) {
-      return siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month;
-    });
+    const begin: number = next(approx, (i: number): boolean =>
+      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
+    );
 
     return J0000 + begin + day - 1;
   }
@@ -38,9 +34,9 @@ export class HinduSolarAstroCalendar extends YearMonthCalendar {
     const month: number = siderealZodiac(critical);
     const year: number = hinduAstroCalendarYear(critical) - hindu.SOLAR_ERA;
     const approx: number = jd0 - 3 - mod(Math.floor(siderealSolarLongitude(critical)), 30);
-    const begin: number = next(approx, function (index: number): boolean {
-      return siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month;
-    });
+    const begin: number = next(approx, (index: number): boolean =>
+      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month
+    );
     const day: number = jd0 - begin + 1;
 
     return new HinduSolarAstroCalendar(jdn, year, month, day);
@@ -54,4 +50,9 @@ export class HinduSolarAstroCalendar extends YearMonthCalendar {
   private static hinduAstroSunset(jdn: number): number {
     return dusk(jdn, hindu.UJJAIN_LOCATION, 0);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day);
+  }
+
 }
