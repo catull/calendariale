@@ -11,7 +11,7 @@
     "clean:dist": "rm -fr .vscode lib spec/lib node_modules spec/typings",
     "flow:check": "flow check --color=always --all --show-all-errors --profile",
     "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
-    "lint": "tslint -p tslint.json src/*/*.ts",
+    "lint": "tslint -p tslint.json",
     "lint:test": "tslint -p tslint.json spec/*/*.ts",
     "test": "npm run lint:test && mocha -r ts-node/register spec/*/*.spec.ts",
     "postinstall": "tsc"
