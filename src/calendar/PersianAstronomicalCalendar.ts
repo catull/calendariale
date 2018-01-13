@@ -3,16 +3,12 @@ import { persian, J0000, MEAN_TROPICAL_YEAR, Season } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class PersianAstronomicalCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, PersianAstronomicalCalendar.isLeapYear(year));
-  }
-
-  // Is a given year in the Persian Astronmical calendar a leap year?
+  // Is a given year in the Persian Astronomical calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return this.toJdn(year + 1, 1, 1) - this.toJdn(year, 1, 1) > 365;
   }
 
-  // Determine day number from Persian Astronmical calendar date
+  // Determine day number from Persian Astronomical calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
@@ -36,7 +32,7 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
     }
   }
 
-  // Calculate Persian Astronmical calendar date from Julian day
+  // Calculate Persian Astronomical calendar date from Julian day
   public static fromJdn(jdn: number): PersianAstronomicalCalendar {
     const depoch: number = jdn - this.toJdn(475, 1, 1);
     const cycle: number = Math.floor(depoch / 1029983);
@@ -76,13 +72,18 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
   private static persianNewYearOnOrBefore(jdn: number): number {
     const approx: number = estimatePriorSolarLongitude(Season.SPRING, this.midDayInTehran(jdn));
 
-    return next(Math.floor(approx) - 1, function (day: number) {
-      return solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2;
-    });
+    return next(Math.floor(approx) - 1, (day: number): boolean =>
+      solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2
+    );
   }
 
   // Return  Universal time of midday on fixed date, date, in Tehran
   private static midDayInTehran(jdn: number): number {
     return standardToUniversal(midDay(jdn, persian.TEHRAN_LOCATION), persian.TEHRAN_LOCATION);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, PersianAstronomicalCalendar.isLeapYear(year));
+  }
+
 }
