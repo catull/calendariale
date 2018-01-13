@@ -1,12 +1,8 @@
 import { mod } from '../Astro';
-import { yerm_ } from '../Const';
+import { yermEpoch } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 
 export class YermCalendar extends YearMonthCalendar {
-  constructor(jdn: number, private cycle: number, private yerm: number, month: number, day: number) {
-    super(jdn, 0, month, day);
-  }
-
   // Determine Julian day number from Yerm calendar date
   public static toJdn(cycle: number, yerm: number, month: number, day: number): number {
     this.validate(cycle, yerm, month, day);
@@ -15,7 +11,7 @@ export class YermCalendar extends YearMonthCalendar {
     const y1: number = yerm - 1;
     const m1: number = month - 1;
 
-    return yerm_.EPOCH + 25101 * c1 +
+    return yermEpoch.EPOCH + 25101 * c1 +
       1447 * Math.floor(y1 / 3) + (y1 % 3) * 502 +
       59 * Math.floor(m1 / 2) + (m1 % 2) * 30 +
       day - 1;
@@ -23,7 +19,7 @@ export class YermCalendar extends YearMonthCalendar {
 
   // Calculate Yerm calendar date from Julian day
   public static fromJdn(jdn: number): YermCalendar {
-    let day = jdn - yerm_.EPOCH;
+    let day = jdn - yermEpoch.EPOCH;
 
     const cycle: number = Math.floor(day / 25101) + 1;
     day = mod(day, 25101);
@@ -55,11 +51,15 @@ export class YermCalendar extends YearMonthCalendar {
     }
   }
 
-  getCycle (): number {
+  constructor(jdn: number, private cycle: number, private yerm: number, month: number, day: number) {
+    super(jdn, 0, month, day);
+  }
+
+  public getCycle (): number {
     return this.cycle;
   }
 
-  getYerm (): number {
+  public getYerm (): number {
     return this.yerm;
   }
 }
