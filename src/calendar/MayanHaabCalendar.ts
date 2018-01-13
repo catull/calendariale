@@ -3,10 +3,6 @@ import { mayan } from '../Const';
 import { MonthCalendar } from '../Calendar';
 
 export class MayanHaabCalendar extends MonthCalendar {
-  constructor(jdn: number, month: number, day: number) {
-    super(jdn, month, day);
-  }
-
   // Calculate Mayan Haab calendar date from Julian day
   public static fromJdn(jdn: number): MayanHaabCalendar {
     const count: number = Math.floor(jdn) + 0.5 - mayan.EPOCH;
@@ -14,4 +10,9 @@ export class MayanHaabCalendar extends MonthCalendar {
 
     return new MayanHaabCalendar(jdn, Math.floor(day / 20) + 1, mod(day, 20));
   }
+
+  constructor(jdn: number, month: number, day: number) {
+    super(jdn, month, day);
+  }
+
 }
