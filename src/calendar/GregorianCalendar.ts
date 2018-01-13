@@ -5,10 +5,6 @@ import { CalendarValidationException, LeapCalendar } from '../Calendar';
 const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export class GregorianCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, GregorianCalendar.isLeapYear(year));
-  }
-
   // Determine Julian day number from Gregorian calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -77,4 +73,9 @@ export class GregorianCalendar extends LeapCalendar {
   public static dateDifference(date1: GregorianCalendar, date2: GregorianCalendar): number {
     return date2.getJdn() - date1.getJdn();
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, GregorianCalendar.isLeapYear(year));
+  }
+
 }
