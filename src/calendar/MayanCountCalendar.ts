@@ -3,10 +3,6 @@ import { mayan } from '../Const';
 import { BaseCalendar, CalendarValidationException } from '../Calendar';
 
 export class MayanCountCalendar extends BaseCalendar {
-  constructor(jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
-    super(jdn);
-  }
-
   // Determine Julian day number from Mayan Count calendar date
   public static toJdn(baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
     this.validate(baktun, katun, tun, uinal, kin);
@@ -51,23 +47,27 @@ export class MayanCountCalendar extends BaseCalendar {
     return new MayanCountCalendar(jdn, baktun, katun, tun, uinal, kin);
   }
 
-  getBaktun (): number {
+  constructor(jdn: number, private baktun: number, private katun: number, private tun: number, private uinal: number, private kin: number) {
+    super(jdn);
+  }
+
+  public getBaktun (): number {
     return this.baktun;
   }
 
-  getKatun (): number {
+  public getKatun (): number {
     return this.katun;
   }
 
-  getTun (): number {
+  public getTun (): number {
     return this.tun;
   }
 
-  getUinal (): number {
+  public getUinal (): number {
     return this.uinal;
   }
 
-  getKin (): number {
+  public getKin (): number {
     return this.kin;
   }
 }
