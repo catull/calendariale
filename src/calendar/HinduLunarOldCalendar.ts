@@ -4,10 +4,6 @@ import { hinduDayCount } from '../HinduAlgorithms';
 import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
 
 export class HinduLunarOldCalendar extends LeapMonthCalendar {
-  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number) {
-    super(jdn, year, month, day, monthLeap);
-  }
-
   // Is a given year in the Hindu Lunar Old calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(year * ARYA_SOLAR_YEAR - ARYA_SOLAR_MONTH, ARYA_LUNAR_MONTH) >= 23902504679 / 1282400064;
@@ -69,4 +65,9 @@ export class HinduLunarOldCalendar extends LeapMonthCalendar {
     return Math.ceil(hindu.EPOCH + lunarNewYear + ARYA_LUNAR_MONTH * temp +
       (day - 1) * ARYA_LUNAR_DAY - 0.75) + 0.5;
   }
+
+  constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number) {
+    super(jdn, year, month, day, monthLeap);
+  }
+
 }
