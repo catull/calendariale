@@ -6,19 +6,19 @@ export class Location {
     private zone: number) {
   }
 
-  getLatitude (): number {
+  public getLatitude (): number {
     return this.latitude;
   }
 
-  getLongitude (): number {
+  public getLongitude (): number {
     return this.longitude;
   }
 
-  getElevation (): number {
+  public getElevation (): number {
     return this.elevation;
   }
 
-  getZone (): number {
+  public getZone (): number {
     return this.zone;
   }
 }
