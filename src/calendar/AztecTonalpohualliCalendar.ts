@@ -3,10 +3,6 @@ import { aztec } from '../Const';
 import { BaseCalendar } from '../Calendar';
 
 export class AztecTonalpohualliCalendar extends BaseCalendar {
-  constructor(jdn: number, private num: number, private name: number) {
-    super(jdn);
-  }
-
   // Calculate Aztec Tonalpohualli calendar date from Julian day
   public static fromJdn(jdn: number): AztecTonalpohualliCalendar {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;
@@ -26,11 +22,15 @@ export class AztecTonalpohualliCalendar extends BaseCalendar {
     return jdn - mod(jdn - aztec.TONALPOHUALLI_CORRELATION - this.toOrdinal(num, name), 260);
   }
 
-  getNumber (): number {
+  constructor(jdn: number, private num: number, private name: number) {
+    super(jdn);
+  }
+
+  public getNumber (): number {
     return this.num;
   }
 
-  getName (): number {
+  public getName (): number {
     return this.name;
   }
 }
