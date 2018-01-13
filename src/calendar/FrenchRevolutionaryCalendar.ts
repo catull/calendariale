@@ -4,10 +4,6 @@ import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
-  constructor(jdn: number, an: number, mois: number, private decade: number, jour: number) {
-    super(jdn, an, mois, jour);
-  }
-
   // Obtain Julian day from a given French Revolutionary calendar date.
   public static toJdn(an: number, mois: number, decade: number, jour: number): number {
     this.validate(an, mois, decade, jour);
@@ -128,7 +124,11 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
     return equParis;
   }
 
-  getDecade (): number {
+  constructor(jdn: number, an: number, mois: number, private decade: number, jour: number) {
+    super(jdn, an, mois, jour);
+  }
+
+  public getDecade (): number {
     return this.decade;
   }
 }
