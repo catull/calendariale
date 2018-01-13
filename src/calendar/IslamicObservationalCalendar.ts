@@ -3,10 +3,6 @@ import { islamic, MEAN_SYNODIC_MONTH } from '../Const';
 import { CalendarValidationException, LeapCalendar } from '../Calendar';
 
 export class IslamicObservationalCalendar extends LeapCalendar {
-  constructor(jdn: number, year: number, month: number, day: number) {
-    super(jdn, year, month, day, IslamicObservationalCalendar.isLeapYear(year));
-  }
-
   // Is a given year in the Islamic calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return (year * 11 + 14) % 30 < 11;
@@ -41,4 +37,9 @@ export class IslamicObservationalCalendar extends LeapCalendar {
 
     return new IslamicObservationalCalendar(jdn, year, month, day);
   }
+
+  constructor(jdn: number, year: number, month: number, day: number) {
+    super(jdn, year, month, day, IslamicObservationalCalendar.isLeapYear(year));
+  }
+
 }
