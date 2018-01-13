@@ -3,7 +3,7 @@ export class BaseCalendar {
   constructor(protected jdn: number) {
   }
 
-  getJdn(): number {
+  public getJdn(): number {
     return this.jdn;
   }
 }
@@ -13,11 +13,11 @@ export class MonthCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getMonth(): number {
+  public getMonth(): number {
     return this.month;
   }
 
-  getDay(): number {
+  public getDay(): number {
     return this.day;
   }
 }
@@ -27,7 +27,7 @@ export class YearCalendar extends BaseCalendar {
     super(jdn);
   }
 
-  getYear(): number {
+  public getYear(): number {
     return this.year;
   }
 }
@@ -37,7 +37,7 @@ export class YearMonthCalendar extends MonthCalendar {
     super(jdn, month, day);
   }
 
-  getYear(): number {
+  public getYear(): number {
     return this.year;
   }
 }
@@ -47,7 +47,7 @@ export class LeapCalendar extends YearMonthCalendar {
     super(jdn, year, month, day);
   }
 
-  isYearLeap(): boolean {
+  public isYearLeap(): boolean {
     return this.yearLeap;
   }
 }
@@ -57,7 +57,7 @@ export class LeapMonthCalendar extends YearMonthCalendar {
     super(jdn, year, month, day);
   }
 
-  isMonthLeap(): boolean {
+  public isMonthLeap(): boolean {
     return this.monthLeap;
   }
 }
@@ -67,7 +67,7 @@ export class LeapDayMonthCalendar extends LeapMonthCalendar {
     super(jdn, year, month, day, monthLeap);
   }
 
-  isDayLeap(): boolean {
+  public isDayLeap(): boolean {
     return this.dayLeap;
   }
 }
