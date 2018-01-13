@@ -3,21 +3,6 @@ import { balinese } from '../Const';
 import { BaseCalendar } from '../Calendar';
 
 export class BalinesePawukonCalendar extends BaseCalendar {
-  constructor(
-    jdn: number,
-    private luang: boolean,
-    private dwiwara: number,
-    private triwara: number,
-    private caturwara: number,
-    private pancawara: number,
-    private sadwara: number,
-    private saptawara: number,
-    private asatawara: number,
-    private sangawara: number,
-    private dasawara: number) {
-    super(jdn);
-  }
-
   public static jdnToBalineseDayCount(jdn: number): number {
     return mod(jdn - balinese.EPOCH, 210);
   }
@@ -46,43 +31,58 @@ export class BalinesePawukonCalendar extends BaseCalendar {
       sadwara, saptawara, asatawara, sangawara, dasawara);
   }
 
-  isLuag (): boolean {
+  constructor(
+    jdn: number,
+    private luang: boolean,
+    private dwiwara: number,
+    private triwara: number,
+    private caturwara: number,
+    private pancawara: number,
+    private sadwara: number,
+    private saptawara: number,
+    private asatawara: number,
+    private sangawara: number,
+    private dasawara: number) {
+    super(jdn);
+  }
+
+  public isLuag (): boolean {
     return this.luang;
   }
 
-  getDwiwara (): number {
+  public getDwiwara (): number {
     return this.dwiwara;
   }
 
-  getTriwara (): number {
+  public getTriwara (): number {
     return this.triwara;
   }
 
-  getCaturwara (): number {
+  public getCaturwara (): number {
     return this.caturwara;
   }
 
-  getPancawara (): number {
+  public getPancawara (): number {
     return this.pancawara;
   }
 
-  getSadwara (): number {
+  public getSadwara (): number {
     return this.sadwara;
   }
 
-  getSaptawara (): number {
+  public getSaptawara (): number {
     return this.saptawara;
   }
 
-  getAsatawara (): number {
+  public getAsatawara (): number {
     return this.asatawara;
   }
 
-  getSangawara (): number {
+  public getSangawara (): number {
     return this.sangawara;
   }
 
-  getDasawara (): number {
+  public getDasawara (): number {
     return this.dasawara;
   }
 }
