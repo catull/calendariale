@@ -1,14 +1,20 @@
 {
     "compilerOptions": {
         "allowUnreachableCode": false,
+        "baseUrl": "",
         "charset": "utf8",
         "declaration": true,
         "diagnostics": false,
-        "forceConsistentCasingInFileNames": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es2017"
+        ],
         "listFiles": false,
+        "mapRoot": "",
         "module": "commonjs",
+        "moduleResolution": "node",
         "newLine": "LF",
         "noEmitHelpers": true,
         "noEmitOnError": true,
@@ -23,15 +29,22 @@
         "preserveConstEnums": true,
         "pretty": true,
         "removeComments": true,
+        "rootDir": "./src",
+        "skipLibCheck": true,
         "sourceMap": true,
+        "sourceRoot": "./src",
         "strictNullChecks": true,
         "stripInternal": true,
-        "target": "es6"
+        "target": "es6",
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "types": []
     },
     "exclude": [
         "lib",
         "node_modules",
-        "spec"
+        "src/spec"
     ],
     "include": [
         "src/*.ts",
