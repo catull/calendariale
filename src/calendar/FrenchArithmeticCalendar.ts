@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { french } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { french, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class FrenchArithmeticCalendar extends LeapCalendar {
   // Is the given year a leap year in the French Arithmetic calendar ?
@@ -44,17 +44,17 @@ export class FrenchArithmeticCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 0 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const days: number = this.isLeapYear(year) ? 6 : 5;
 
     if (month === 0 && day > days) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

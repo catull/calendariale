@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
 import { mayan } from '../Const';
-import { MonthCalendar } from '../Calendar';
+import { MonthCalendar } from './core';
 
 export class MayanHaabCalendar extends MonthCalendar {
   // Calculate Mayan Haab calendar date from Julian day

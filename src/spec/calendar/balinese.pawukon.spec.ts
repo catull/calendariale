@@ -1,10 +1,6 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { J0000 } from '../../Const';
+
 import { BalinesePawukonCalendar as cal } from '../../calendar/BalinesePawukonCalendar';
 
 const data3 = [
@@ -506,38 +502,36 @@ const data3 = [
 ];
 
 describe('Balinese Pawukon calendar spec', () => {
-  let date, expected, actual, julian;
-
-  it('should convert a Julian day to a Balinese Pawukon date', () => {
+  it ('should convert a Julian day to a Balinese Pawukon date', () => {
     data3.forEach(dt => {
-      julian = dt.rataDie + J0000;
-      date = dt.balinese;
-      expected = {
-        jdn: julian,
-        luang: date.luang,
-        dwiwara: date.dwiwara,
-        triwara: date.triwara,
-        caturwara: date.caturwara,
-        pancawara: date.pancawara,
-        sadwara: date.sadwara,
-        saptawara: date.saptawara,
-        asatawara: date.asatawara,
-        sangawara: date.sangawara,
-        dasawara: date.dasawara
-      };
-      actual = cal.fromJdn(julian);
-
-      expect(expected).to.be.eql(actual);
-      // expect (expected.luang).to.be.equal (actual.luang);
-      // expect (expected.dwiwara).to.be.equal (actual.dwiwara);
-      // expect (expected.triwara).to.be.equal (actual.triwara);
-      // expect (expected.caturwara).to.be.equal (actual.caturwara);
-      // expect (expected.pancawara).to.be.equal (actual.pancawara);
-      // expect (expected.sadwara).to.be.equal (actual.sadwara);
-      // expect (expected.saptawara).to.be.equal (actual.saptawara);
-      // expect (expected.asatawara).to.be.equal (actual.asatawara);
-      // expect (expected.sangawara).to.be.equal (actual.sangawara);
-      // expect (expected.dasawara).to.be.equal (actual.dasawara);
+      const julian = dt.rataDie + J0000;
+      const date = dt.balinese;
+      // const expected = {
+      //   jdn: julian,
+      //   luang: date.luang,
+      //   dwiwara: date.dwiwara,
+      //   triwara: date.triwara,
+      //   caturwara: date.caturwara,
+      //   pancawara: date.pancawara,
+      //   sadwara: date.sadwara,
+      //   saptawara: date.saptawara,
+      //   asatawara: date.asatawara,
+      //   sangawara: date.sangawara,
+      //   dasawara: date.dasawara
+      // };
+      const expected = { jdn: julian, ...date };
+      const actual = cal.fromJdn(julian);
+      expect(expected).toEqual(actual);
+      expect (expected.luang).toBe (actual.isLuag());
+      expect (expected.dwiwara).toBe (actual.getDwiwara());
+      expect (expected.triwara).toBe (actual.getTriwara());
+      expect (expected.caturwara).toBe (actual.getCaturwara());
+      expect (expected.pancawara).toBe (actual.getPancawara());
+      expect (expected.sadwara).toBe (actual.getSadwara());
+      expect (expected.saptawara).toBe (actual.getSaptawara());
+      expect (expected.asatawara).toBe (actual.getAsatawara());
+      expect (expected.sangawara).toBe (actual.getSangawara());
+      expect (expected.dasawara).toBe (actual.getDasawara());
     });
   });
 });

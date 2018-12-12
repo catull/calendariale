@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_DAY, INVALID_MONTH, INVALID_LEAP_MONTH } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { HinduLunarOldCalendar as cal } from '../../calendar/HinduLunarOldCalendar';
 
 const data4 = [
@@ -44,14 +40,17 @@ const data4 = [
 ];
 
 describe ('Hindu Lunar Old calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let expected;
+  let actual;
+  let julian;
 
   it ('should convert a Hindu Lunar Old date to Julian day', () => {
     data4.forEach (dt => {
       julian = dt.rataDie + J0000;
       date   = dt.hinduLunarOld;
-      actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
-      expect (julian).to.be.equal (actual);
+      actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -59,35 +58,36 @@ describe ('Hindu Lunar Old calendar spec', () => {
     data4.forEach (dt => {
       julian   = dt.rataDie + J0000;
       date     = dt.hinduLunarOld;
-      expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day };
+      // expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'monthLeap': date.monthLeap, 'day': date.day };
+      expected = { 'jdn': julian, ...date };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      expect (expected.day).toBe (actual.getDay());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.monthLeap).toBe (actual.isMonthLeap());
+      expect (expected.year).toBe (actual.getYear());
     });
   });
 
   it ('should establish whether a Hindu Lunar Old year is leap', () => {
     [ 2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940 ].forEach (year => {
         actual   = cal.isLeapYear (year);
-        expect (true).to.be.equal (actual);
+        expect (true).toBe (actual);
       });
 
     [ 2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781, 4817, 4920, 5004, 5030, 5042, 5044, 5092, 5096, 5139, 5195 ].forEach (year => {
         actual   = cal.isLeapYear (year);
-        expect (false).to.be.equal (actual);
+        expect (false).toBe (actual);
       });
   });
 
   it ('throws a validation exception', () => {
-    expect (() => cal.toJdn (3570,  0, false,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (3570, 13, false,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (3570, 11, true ,  3)).not.to.throw ();
-    expect (() => cal.toJdn (3570,  9, true ,  1)).to.throw ('Invalid leap month');
-    expect (() => cal.toJdn (3570,  4, false,  0)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (3570,  4, false, 31)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (3570,  0, false,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (3570, 13, false,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (3570, 11, true ,  3)).not.toThrow ();
+    expect (() => cal.toJdn (3570,  9, true ,  1)).toThrow (INVALID_LEAP_MONTH);
+    expect (() => cal.toJdn (3570,  4, false,  0)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (3570,  4, false, 31)).toThrow (INVALID_DAY);
   });
 });

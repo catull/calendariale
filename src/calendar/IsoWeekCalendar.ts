@@ -1,6 +1,6 @@
 import { amod, nthKday } from '../Astro';
-import { J0000, Month, WeekDay } from '../Const';
-import { CalendarValidationException, YearCalendar } from '../Calendar';
+import { J0000, Month, WeekDay, INVALID_WEEK, INVALID_DAY } from '../Const';
+import { CalendarValidationException, YearCalendar } from './core';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class IsoWeekCalendar extends YearCalendar {
@@ -13,11 +13,11 @@ export class IsoWeekCalendar extends YearCalendar {
 
   public static validate(year: number, week: number, day: number): void {
     if (week < 1 || week > 53) {
-      throw new CalendarValidationException('Invalid week');
+      throw new CalendarValidationException(INVALID_WEEK);
     }
 
     if (day < 1 || day > 7) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

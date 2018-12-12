@@ -1,7 +1,8 @@
 import { mod } from '../Astro';
-import { hinduDayCount } from '../HinduAlgorithms';
-import { hindu, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+
+import { ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, hindu, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
+import { hinduDayCount } from './HinduAlgorithms';
 
 export class HinduSolarOldCalendar extends YearMonthCalendar {
   // Determine Julian day number from Hindu Solar Old calendar date
@@ -14,12 +15,12 @@ export class HinduSolarOldCalendar extends YearMonthCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const maxDays: number = (month < 7) ? 31 : 30;
     if (day < 1 || day > maxDays) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

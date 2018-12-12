@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { mayan } from '../Const';
-import { BaseCalendar, CalendarValidationException } from '../Calendar';
+import { mayan, INVALID_KIN, INVALID_UINAL, INVALID_TUN, INVALID_KATUN, INVALID_BAKTUN } from '../Const';
+import { BaseCalendar, CalendarValidationException } from './core';
 
 export class MayanCountCalendar extends BaseCalendar {
   // Determine Julian day number from Mayan Count calendar date
@@ -11,24 +11,24 @@ export class MayanCountCalendar extends BaseCalendar {
   }
 
   public static validate(baktun: number, katun: number, tun: number, uinal: number, kin: number): void {
+    if (baktun < 0) {
+      throw new CalendarValidationException(INVALID_BAKTUN);
+    }
+
     if (kin < 0 || kin > 19) {
-      throw new CalendarValidationException('Invalid kin');
+      throw new CalendarValidationException(INVALID_KIN);
     }
 
     if (uinal < 0 || uinal > 17) {
-      throw new CalendarValidationException('Invalid uinal');
+      throw new CalendarValidationException(INVALID_UINAL);
     }
 
     if (tun < 0 || tun > 19) {
-      throw new CalendarValidationException('Invalid tun');
+      throw new CalendarValidationException(INVALID_TUN);
     }
 
     if (katun < 0 || katun > 19) {
-      throw new CalendarValidationException('Invalid katun');
-    }
-
-    if (baktun < 0) {
-      throw new CalendarValidationException('Invalid baktun');
+      throw new CalendarValidationException(INVALID_KATUN);
     }
   }
 

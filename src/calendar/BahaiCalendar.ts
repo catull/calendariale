@@ -1,6 +1,6 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
-import { bahai, TROPICAL_YEAR } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { bahai, TROPICAL_YEAR, INVALID_VAHID, INVALID_YEAR, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class BahaiCalendar extends LeapCalendar {
@@ -27,7 +27,10 @@ export class BahaiCalendar extends LeapCalendar {
 
     const byear: number = 361 * (kullIshay - 1) + 19 * (vahid - 1) + year;
     const gy: number = byear + GregorianCalendar.fromJdn(bahai.EPOCH).getYear() - 1;
-    let jd: number, leap: boolean, yearDays: number;
+
+    let jd: number;
+    let leap: boolean;
+    let yearDays: number;
 
     if (byear < 172) {
       leap = GregorianCalendar.isLeapYear(gy + 1);
@@ -50,15 +53,15 @@ export class BahaiCalendar extends LeapCalendar {
 
   public static validate(kullIshay: number, vahid: number, year: number, month: number, day: number): void {
     if (vahid < 1 || vahid > 19) {
-      throw new CalendarValidationException('Invalid vahid');
+      throw new CalendarValidationException(INVALID_VAHID);
     }
 
     if (year < 1 || year > 19) {
-      throw new CalendarValidationException('Invalid year');
+      throw new CalendarValidationException(INVALID_YEAR);
     }
 
     if (month < 0 || month > 19) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (month === 0) {
@@ -66,14 +69,14 @@ export class BahaiCalendar extends LeapCalendar {
       const maxDay: number = this.isLeapYear(byear) ? 5 : 4;
 
       if (day < 1 || day > maxDay) {
-        throw new CalendarValidationException('Invalid day');
+        throw new CalendarValidationException(INVALID_DAY);
       }
 
       return;
     }
 
     if (day < 1 || day > 19) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
@@ -100,7 +103,9 @@ export class BahaiCalendar extends LeapCalendar {
     const jd0: number = Math.floor(jdn - 0.5) + 0.5;
     const old: boolean = jd0 < bahai.EPOCH172;
 
-    let bys: number, by: number[], leap: boolean;
+    let bys: number;
+    let by: number[];
+    let leap: boolean;
 
     if (old) {
       const gy: number = GregorianCalendar.fromJdn(jd0).getYear();
@@ -123,7 +128,8 @@ export class BahaiCalendar extends LeapCalendar {
       jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 :
       jd0 - by[1];
 
-    let month: number, day: number;
+    let month: number;
+    let day: number;
 
     if (days <= 18 * 19) {
       month = 1 + Math.floor((days - 1) / 19);
@@ -185,8 +191,8 @@ export class BahaiCalendar extends LeapCalendar {
   // **[0]** Persian year
   // **[1]** Julian day number containing equinox for this year.
   private static lastTehranEquinox(jd: number, epoch: number): number[] {
-    let guess: number = GregorianCalendar.fromJdn(jd).getYear() - 2,
-      lasteq: number = this.tehranEquinoxJd(guess);
+    let guess: number = GregorianCalendar.fromJdn(jd).getYear() - 2;
+    let lasteq: number = this.tehranEquinoxJd(guess);
 
     while (lasteq > jd) {
       guess -= 1;

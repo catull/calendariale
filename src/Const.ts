@@ -232,6 +232,27 @@ enum MoonPhase {
   LAST_QUARTER = 270
 }
 
+const INVALID_DAY = 'Invalid day';
+const INVALID_LEAP_DAY = 'Invalid leap day';
+const INVALID_LEAP_MONTH = 'Invalid leap month';
+const INVALID_MONTH = 'Invalid month';
+const INVALID_VAHID = 'Invalid vahid';
+const INVALID_WEEK = 'Invalid week';
+const INVALID_YEAR = 'Invalid year';
+const INVALID_YERM = 'Invalid yerm';
+
+const INVALID_DECADI = 'Invalid decadi';
+const INVALID_JOUR = 'Invalid jour';
+const INVALID_MOIS = 'Invalid mois';
+
+const INVALID_KIN = 'Invalid kin';
+const INVALID_UINAL = 'Invalid uinal';
+const INVALID_TUN = 'Invalid tun';
+const INVALID_KATUN = 'Invalid katun';
+const INVALID_BAKTUN = 'Invalid baktun';
+
+const INVALID_COUNT = 'Invalid count';
+
 export {
   ARYA_LUNAR_DAY,
   ARYA_LUNAR_MONTH,
@@ -239,6 +260,25 @@ export {
   ARYA_SOLAR_YEAR,
   // ASTRONOMICAL_UNIT,
   HebrewMonth,
+
+  INVALID_BAKTUN,
+  INVALID_COUNT,
+  INVALID_DAY,
+  INVALID_DECADI,
+  INVALID_JOUR,
+  INVALID_KATUN,
+  INVALID_KIN,
+  INVALID_LEAP_DAY,
+  INVALID_LEAP_MONTH,
+  INVALID_MOIS,
+  INVALID_MONTH,
+  INVALID_TUN,
+  INVALID_UINAL,
+  INVALID_VAHID,
+  INVALID_WEEK,
+  INVALID_YEAR,
+  INVALID_YERM,
+
   J0000,
   J1900,
   J1904,

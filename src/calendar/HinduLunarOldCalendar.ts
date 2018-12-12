@@ -1,7 +1,8 @@
 import { mod } from '../Astro';
-import { hindu, ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR } from '../Const';
-import { hinduDayCount } from '../HinduAlgorithms';
-import { CalendarValidationException, LeapMonthCalendar } from '../Calendar';
+
+import { ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, hindu, INVALID_MONTH, INVALID_DAY, INVALID_LEAP_MONTH } from '../Const';
+import { CalendarValidationException, LeapMonthCalendar } from './core';
+import { hinduDayCount } from './HinduAlgorithms';
 
 export class HinduLunarOldCalendar extends LeapMonthCalendar {
   // Is a given year in the Hindu Lunar Old calendar a leap year?
@@ -32,20 +33,20 @@ export class HinduLunarOldCalendar extends LeapMonthCalendar {
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, jdn: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     const date: HinduLunarOldCalendar = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
-      throw new CalendarValidationException('Invalid leap month');
+      throw new CalendarValidationException(INVALID_LEAP_MONTH);
     }
 
     if (day !== date.day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
@@ -55,12 +56,7 @@ export class HinduLunarOldCalendar extends LeapMonthCalendar {
     const lunarNewYear: number = ARYA_LUNAR_MONTH * Math.ceil(mina / ARYA_LUNAR_MONTH);
 
     let temp: number = Math.ceil((lunarNewYear - mina) / (ARYA_SOLAR_MONTH - ARYA_LUNAR_MONTH));
-
-    if (monthLeap || temp > month) {
-      temp = month - 1;
-    } else {
-      temp = month;
-    }
+    temp = (monthLeap || temp > month) ? month - 1 : month;
 
     return Math.ceil(hindu.EPOCH + lunarNewYear + ARYA_LUNAR_MONTH * temp +
       (day - 1) * ARYA_LUNAR_DAY - 0.75) + 0.5;

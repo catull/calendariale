@@ -1,6 +1,6 @@
 import { amod } from '../Astro';
 import { chinese } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { BaseCalendar } from './core';
 
 export class ChineseDayNameCalendar extends BaseCalendar {
   // Calculate Mayan Tzolkin calendar date from Julian day

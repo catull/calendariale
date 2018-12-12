@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { hebrew } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { hebrew, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class HebrewCalendar extends LeapCalendar {
   // Determine Julian day number from Hebrew calendar date
@@ -29,11 +29,11 @@ export class HebrewCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > this.hebrewYearMonths(year)) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1 || day > this.hebrewMonthDays(year, month)) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

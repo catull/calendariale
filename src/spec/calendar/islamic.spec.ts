@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_DAY, INVALID_MONTH } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { IslamicCalendar as cal } from '../../calendar/IslamicCalendar';
 
 const data2 = [
@@ -44,14 +40,17 @@ const data2 = [
 ];
 
 describe ('Islamic calendar spec', () => {
-  let julian, date, expected, actual;
+  let julian;
+  let date;
+  let expected;
+  let actual;
 
   it ('should convert a Islamic date to Julian day', () => {
     data2.forEach (dt => {
       expected = dt.rataDie + J0000;
       date     = dt.islamic;
       actual   = cal.toJdn (date.year, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+      expect (expected).toBe (actual);
     });
   });
 
@@ -62,40 +61,40 @@ describe ('Islamic calendar spec', () => {
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.year).toBe (actual.year);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 
   it ('should determine whether a Islamic year is leap year', () => {
-    expect (cal.isLeapYear (  1)).to.be.equal (false);
-    expect (cal.isLeapYear (168)).to.be.equal (true);
-    expect (cal.isLeapYear (169)).to.be.equal (false);
-    expect (cal.isLeapYear (170)).to.be.equal (false);
-    expect (cal.isLeapYear (173)).to.be.equal (false);
-    expect (cal.isLeapYear (174)).to.be.equal (true);
-    expect (cal.isLeapYear (220)).to.be.equal (true);
+    expect (cal.isLeapYear (  1)).toBe (false);
+    expect (cal.isLeapYear (168)).toBe (true);
+    expect (cal.isLeapYear (169)).toBe (false);
+    expect (cal.isLeapYear (170)).toBe (false);
+    expect (cal.isLeapYear (173)).toBe (false);
+    expect (cal.isLeapYear (174)).toBe (true);
+    expect (cal.isLeapYear (220)).toBe (true);
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (220,  0, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (220, -2, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (220, 13, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (220,  7, -5)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  1, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  2, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  3, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  4, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  5, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  6, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  7, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  8, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220,  9, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220, 10, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220, 11, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (220, 12, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (221, 12, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (220,  0, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (220, -2, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (220, 13, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (220,  7, -5)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  1, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  2, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  3, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  4, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  5, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  6, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  7, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  8, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220,  9, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220, 10, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220, 11, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (220, 12, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (221, 12, 30)).toThrow (INVALID_DAY);
   });
 });

@@ -1,6 +1,7 @@
 import { mod } from '../Astro';
+
 import { aztec } from '../Const';
-import { MonthCalendar } from '../Calendar';
+import { MonthCalendar } from './core';
 
 export class AztecXihuitlCalendar extends MonthCalendar {
   // Calculate Aztec Xihuitl calendar date from Julian day

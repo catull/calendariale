@@ -1,10 +1,6 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { Symmetry010Calendar as cal } from '../../calendar/Symmetry010Calendar';
+import { INVALID_DAY, INVALID_MONTH } from '../../Const';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'symmetry010': { 'year': -586, 'month':  7, 'day': 21 } },
@@ -43,48 +39,51 @@ const data1 = [
 ];
 
 describe ('Symmetry010 calendar spec', () => {
-  let date, expected, actual;
+  let date;
+  let expected;
+  let actual;
 
   it ('should convert a Symmetry010 date to Julian day', () => {
     data1.forEach (dt => {
       date     = dt.symmetry010;
       actual   = cal.toJdn (date.year, date.month, date.day);
-      expect (dt.julianDay).to.be.equal (actual);
+      expect (dt.julianDay).toBe (actual);
     });
   });
 
   it ('should convert a Julian day to a Symmetry010 date', () => {
     data1.forEach (dt => {
       date = dt.symmetry010;
-      expected = { 'jdn': dt.julianDay, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
+      // expected = { 'jdn': dt.julianDay, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
+      expected = { ...date, 'jdn': dt.julianDay, 'yearLeap': cal.isLeapYear (date.year) };
       actual = cal.fromJdn (dt.julianDay);
 
-      // expect (expected).to.be.equal (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.month).to.be.equal (actual.month);
-      expect (expected.day).to.be.equal (actual.day);
-      expect (expected.yearLeap).to.be.equal (actual.yearLeap);
+      expect (expected).toEqual (actual);
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
+      expect (expected.yearLeap).toBe (actual.isYearLeap());
     });
   });
 
   it ('should determine whether a Symmetry010 year is leap year', () => {
     [ 1761, 1812, 1857, 1880, 1919, 1953, 1987, 2004, 2021, 2043, 2060 ].forEach (year => {
-      expect (cal.isLeapYear (year)).to.be.equal (true);
+      expect (cal.isLeapYear (year)).toBe (true);
     });
 
     [ 1, 2, 5, 1599, 1700, 1800, 1900, 1969, 2001, 2010, 2020, 2030, 2040 ].forEach (year => {
-      expect (cal.isLeapYear (year)).to.be.equal (false);
+      expect (cal.isLeapYear (year)).toBe (false);
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1999,  0, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1999, -2, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1999, 13, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1999,  7, -5)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1999,  1, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1999,  2, 32)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1999, 12, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (2004, 12, 38)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  0, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1999, -2, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1999, 13, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1999,  7, -5)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1999,  1, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1999,  2, 32)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1999, 12, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (2004, 12, 38)).toThrow (INVALID_DAY);
    });
 });
