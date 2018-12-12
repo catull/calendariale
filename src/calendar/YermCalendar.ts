@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { yermEpoch } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { yermEpoch, INVALID_YERM, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class YermCalendar extends YearMonthCalendar {
   // Determine Julian day number from Yerm calendar date
@@ -37,17 +37,17 @@ export class YermCalendar extends YearMonthCalendar {
 
   public static validate(cycle: number, yerm: number, month: number, day: number): void {
     if (yerm < 1 || yerm > 52) {
-      throw new CalendarValidationException('Invalid yerm');
+      throw new CalendarValidationException(INVALID_YERM);
     }
 
     const monthMax: number = (yerm % 3 === 0) ? 15 : 17;
     if (month < 1 || month > monthMax) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const dayMax: number = (month % 2 === 1) ? 30 : 29;
     if (day < 1 || day > dayMax) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

@@ -1,5 +1,5 @@
-import { gregorian, J0000 } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { gregorian, J0000, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class Symmetry454Calendar extends LeapCalendar {
   // Determine Julian day number from Symmetry454 calendar date
@@ -13,13 +13,13 @@ export class Symmetry454Calendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const maxDays: number = ((month % 3) === 2) || (month === 12 && this.isLeapYear(year)) ? 35 : 28;
 
     if (day < 1 || day > maxDays) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
@@ -30,7 +30,7 @@ export class Symmetry454Calendar extends LeapCalendar {
 
   // Calculate Symmetry454 calendar date from Julian day
   public static fromJdn(jdn: number): Symmetry454Calendar {
-    const jd0: number = jdn - J0000; // Math.floor (jdn - 0.5) + 0.5 - J0000;
+    const jd0: number = jdn - J0000;
     let year: number = 1 + Math.floor((293 * jd0) / 107016);
     let yearDay: number = jd0 - 364 * (year - 1) - 7 * this.getLeapYearsBefore(year);
 

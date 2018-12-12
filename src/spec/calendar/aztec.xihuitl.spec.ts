@@ -1,11 +1,8 @@
 /* global describe it: true */
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { J0000 } from '../../Const';
-import { AztecXihuitlCalendar as cal } from '../../calendar/AztecXihuitlCalendar';
+
+import { AztecXihuitlCalendar as cal, AztecXihuitlCalendar } from '../../calendar/AztecXihuitlCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecXihuitl': { 'month':  2, 'day':  6 } },
@@ -44,18 +41,33 @@ const data2 = [
 ];
 
 describe ('Aztec Xihuitl calendar spec', () => {
-  let date, julian, expected, actual;
+  let date;
+  let julian;
+  let expected;
+  let actual;
 
   it ('should convert a Julian day to a Aztec Xihuitl', () => {
     data2.forEach (dt => {
       julian   = dt.rataDie + J0000;
       date     = dt.aztecXihuitl;
-      expected = { jdn: julian, month: date.month, day: date.day };
+      expected = { jdn: julian, ...date };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
+
+  it ('should calculate an Aztec Xihuitl ordinal', () => {
+    const ordinal = AztecXihuitlCalendar.toOrdinal(10, 10);
+    expect(ordinal).toBeLessThan (260);
+    expect(ordinal).toBe (189);
+  });
+
+  it ('should interpolate an Aztec Xihuitl date', () => {
+    const jdn = AztecXihuitlCalendar.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
+    expect(jdn).toBe (2451285.5); // gregorian: 1999/04/17
+  });
+
 });

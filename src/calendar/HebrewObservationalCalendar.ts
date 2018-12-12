@@ -1,6 +1,6 @@
 import { phasisOnOrAfter, phasisOnOrBefore, solarLongitudeAfter, standardToUniversal, sunset } from '../Astro';
-import { hebrew, HebrewMonth, J0000, Season } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { hebrew, HebrewMonth, J0000, Season, INVALID_DAY, INVALID_MONTH } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 
@@ -11,10 +11,10 @@ export class HebrewObservationalCalendar extends YearMonthCalendar {
 
     const date: HebrewObservationalCalendar = this.fromJdn(jdn);
     if (day < 1 || day !== date.day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
     if (month < 1 || date.month !== month) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     return jdn;

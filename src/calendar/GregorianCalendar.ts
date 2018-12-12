@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { gregorian, Month } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { gregorian, Month, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -21,11 +21,11 @@ export class GregorianCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     const febDays: number = this.isLeapYear(year) ? 29 : 28;
@@ -35,7 +35,7 @@ export class GregorianCalendar extends LeapCalendar {
     }
 
     if (daysInMonth[month - 1] < day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

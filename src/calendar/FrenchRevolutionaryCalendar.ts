@@ -1,6 +1,6 @@
 import { deltaT, equationOfTime, equinox } from '../Astro';
-import { french, TROPICAL_YEAR } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { french, TROPICAL_YEAR, INVALID_MOIS, INVALID_DECADI, INVALID_JOUR } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 import { GregorianCalendar } from './GregorianCalendar';
 
 export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
@@ -50,21 +50,21 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
 
   public static validate(an: number, mois: number, decade: number, jour: number): void {
     if (mois < 0 || mois > 12) {
-      throw new CalendarValidationException('Invalid mois');
+      throw new CalendarValidationException(INVALID_MOIS);
     }
 
     if (decade < 1 || decade > 3) {
-      throw new CalendarValidationException('Invalid decadi');
+      throw new CalendarValidationException(INVALID_DECADI);
     }
 
     const sansCullotides: number = this.isLeapYear(an) ? 6 : 5;
 
     if (mois === 0 && jour > sansCullotides) {
-      throw new CalendarValidationException('Invalid jour');
+      throw new CalendarValidationException(INVALID_JOUR);
     }
 
     if (jour < 1 || jour > 10) {
-      throw new CalendarValidationException('Invalid jour');
+      throw new CalendarValidationException(INVALID_JOUR);
     }
   }
 
@@ -75,8 +75,8 @@ export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
   // **[0]** Année de la Révolution
   // **[1]** Julian day number containing equinox for this year.
   private static anneeDeLaRevolution(jdn: number): number[] {
-    let guess = GregorianCalendar.fromJdn(jdn).getYear() - 2,
-      lasteq: number = this.parisEquinoxeJd(guess);
+    let guess = GregorianCalendar.fromJdn(jdn).getYear() - 2;
+    let lasteq: number = this.parisEquinoxeJd(guess);
 
     while (lasteq > jdn) {
       guess -= 1;

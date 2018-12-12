@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, INVALID_BAKTUN } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { MayanCountCalendar as cal } from '../../calendar/MayanCountCalendar';
 
 const data2 = [
@@ -44,7 +40,10 @@ const data2 = [
 ];
 
 describe ('Mayan Count calendar spec', () => {
-  let date, julian, expected, actual;
+  let date;
+  let julian;
+  let expected;
+  let actual;
 
   it ('should convert a Mayan Count to Julian day', () => {
     data2.forEach (dt => {
@@ -52,7 +51,7 @@ describe ('Mayan Count calendar spec', () => {
       date   = dt.mayanLong;
       actual = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
 
-      expect (julian).to.be.equal (actual);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -63,23 +62,24 @@ describe ('Mayan Count calendar spec', () => {
       expected = { 'jdn': julian, 'baktun': date.baktun, 'katun': date.katun, 'tun': date.tun, 'uinal': date.uinal, 'kin': date.kin };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.baktun).to.be.equal (actual.baktun);
-      // expect (expected.katun).to.be.equal (actual.katun);
-      // expect (expected.tun).to.be.equal (actual.tun);
-      // expect (expected.uinal).to.be.equal (actual.uinal);
-      // expect (expected.kin).to.be.equal (actual.kin);
+      expect (expected).toEqual (actual);
+      expect (expected.baktun).toBe (actual.getBaktun());
+      expect (expected.katun).toBe (actual.getKatun());
+      expect (expected.tun).toBe (actual.getTun());
+      expect (expected.uinal).toBe (actual.getUinal());
+      expect (expected.kin).toBe (actual.getKin());
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (0,  0,  0,  0, -1)).to.throw ('Invalid kin');
-    expect (() => cal.toJdn (0,  0,  0,  0, 20)).to.throw ('Invalid kin');
-    expect (() => cal.toJdn (0,  0,  0, -1, 19)).to.throw ('Invalid uinal');
-    expect (() => cal.toJdn (0,  0,  0, 18, 19)).to.throw ('Invalid uinal');
-    expect (() => cal.toJdn (0,  0, -1, 17, 19)).to.throw ('Invalid tun');
-    expect (() => cal.toJdn (0,  0, 20, 17, 19)).to.throw ('Invalid tun');
-    expect (() => cal.toJdn (0, -1, 19, 17, 19)).to.throw ('Invalid katun');
-    expect (() => cal.toJdn (0, 20, 19, 17, 19)).to.throw ('Invalid katun');
+    expect (() => cal.toJdn (-1, 19, 19, 17, 19)).toThrow (INVALID_BAKTUN);
+    expect (() => cal.toJdn ( 0,  0,  0,  0, -1)).toThrow (INVALID_KIN);
+    expect (() => cal.toJdn ( 0,  0,  0,  0, 20)).toThrow (INVALID_KIN);
+    expect (() => cal.toJdn ( 0,  0,  0, -1, 19)).toThrow (INVALID_UINAL);
+    expect (() => cal.toJdn ( 0,  0,  0, 18, 19)).toThrow (INVALID_UINAL);
+    expect (() => cal.toJdn ( 0,  0, -1, 17, 19)).toThrow (INVALID_TUN);
+    expect (() => cal.toJdn ( 0,  0, 20, 17, 19)).toThrow (INVALID_TUN);
+    expect (() => cal.toJdn ( 0, -1, 19, 17, 19)).toThrow (INVALID_KATUN);
+    expect (() => cal.toJdn ( 0, 20, 19, 17, 19)).toThrow (INVALID_KATUN);
    });
 });

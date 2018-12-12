@@ -1,6 +1,7 @@
 import { mod } from '../Astro';
-import { armenian } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+
+import { armenian, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class ArmenianCalendar extends YearMonthCalendar {
   // Determine Julian day number from Armenian calendar date
@@ -22,15 +23,15 @@ export class ArmenianCalendar extends YearMonthCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (month === 13 && day > 5) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

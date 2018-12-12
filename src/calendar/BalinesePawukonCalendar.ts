@@ -1,6 +1,6 @@
 import { amod, mod } from '../Astro';
 import { balinese } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { BaseCalendar } from './core';
 
 export class BalinesePawukonCalendar extends BaseCalendar {
   public static jdnToBalineseDayCount(jdn: number): number {

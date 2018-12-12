@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { coptic } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { coptic, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class CopticCalendar extends LeapCalendar {
   // Is a given year in the Coptic calendar a leap year?
@@ -27,17 +27,17 @@ export class CopticCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const days: number = this.isLeapYear(year) ? 6 : 5;
 
     if (month === 13 && day > days) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

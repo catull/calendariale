@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_MONTH, INVALID_DAY } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { HebrewObservationalCalendar as cal } from '../../calendar/HebrewObservationalCalendar';
 
 const data3 = [
@@ -44,14 +40,17 @@ const data3 = [
 ];
 
 describe ('Hebrew Observational calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let expected;
+  let actual;
+  let julian;
 
   it ('should convert a Hebrew Observational date to Julian day', () => {
     data3.forEach (dt => {
       date   = dt.hebrewObs;
       julian = dt.rataDie + J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
-      expect (julian).to.be.equal (actual);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -62,24 +61,24 @@ describe ('Hebrew Observational calendar spec', () => {
       expected = { jdn: julian, year: date.year, month: date.month, day: date.day };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.year).toBe (actual.year);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (5000,  0, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (5000, -2, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (5000, 15, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (5000,  7, -5)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (5000,  7, 32)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (5000,  2, 30)).to.not.throw ();
-    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (5000, 12, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (5001, 12, 30)).to.not.throw ();
-    expect (() => cal.toJdn (5102,  8, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (5103,  9, 30)).to.not.throw ();
+    expect (() => cal.toJdn (5000,  0, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (5000, -2, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (5000, 15, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (5000,  7, -5)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (5000,  7, 32)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (5000,  2, 30)).toBeDefined ();
+    expect (() => cal.toJdn (5000, 12, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (5000, 12, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (5001, 12, 30)).toBeDefined ();
+    expect (() => cal.toJdn (5102,  8, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (5103,  9, 30)).toBeDefined ();
   });
 });

@@ -1,13 +1,13 @@
 import { amod, mod } from '../Astro';
-import { persian } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { persian, INVALID_DAY, INVALID_MONTH } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class PersianArithmeticCalendar extends LeapCalendar {
 
   // Is a given year in the Persian Arithmetic calendar a leap year?
   public static isLeapYear(year: number): boolean {
-    const y0: number = year > 0 ? year - 474 : year - 473,
-      y1: number = mod(y0, 2820) + 474;
+    const y0: number = year > 0 ? year - 474 : year - 473;
+    const y1: number = mod(y0, 2820) + 474;
 
     return mod((y1 + 38) * 31, 128) < 31;
   }
@@ -16,9 +16,9 @@ export class PersianArithmeticCalendar extends LeapCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    const y0: number = year > 0 ? year - 474 : year - 473,
-      y1: number = mod(y0, 2820) + 474,
-      offset: number = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
+    const y0: number = year > 0 ? year - 474 : year - 473;
+    const y1: number = mod(y0, 2820) + 474;
+    const offset: number = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
 
     return persian.EPOCH - 1 + 1029983 * Math.floor(y0 / 2820) +
       365 * (y1 - 1) + Math.floor((31 * y1 - 5) / 128) + offset + day;
@@ -28,19 +28,21 @@ export class PersianArithmeticCalendar extends LeapCalendar {
     const maxDays: number = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
 
     if (day < 1 || day > maxDays) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
   }
 
   // Calculate Persian Arithmetic calendar date from Julian day
   public static fromJdn(jdn: number): PersianArithmeticCalendar {
     const year: number = this.jdnToYear(jdn);
+
     let yDay: number = jdn - this.toJdn(year, 1, 1) + 1;
-    let month: number, day: number;
+    let month: number;
+    let day: number;
 
     if (yDay <= 186) {
       month = Math.ceil(yDay / 31);

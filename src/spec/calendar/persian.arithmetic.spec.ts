@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_DAY, INVALID_MONTH } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { PersianArithmeticCalendar as cal } from '../../calendar/PersianArithmeticCalendar';
 
 const data3 = [
@@ -44,14 +40,17 @@ const data3 = [
 ];
 
 describe ('Persian Arithmetic calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let expected;
+  let actual;
+  let julian;
 
   it ('should convert a Persian Arithmetic date to Julian day', () => {
     data3.forEach (dt => {
       julian = dt.rataDie + J0000;
       date   = dt.persianArith;
       actual = cal.toJdn (date.year, date.month, date.day);
-      expect (julian).to.be.equal (actual);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -61,7 +60,7 @@ describe ('Persian Arithmetic calendar spec', () => {
       date     = dt.persianArith;
       expected = date.year;
       actual   = cal.jdnToYear (julian);
-      expect (expected).to.be.equal (actual);
+      expect (expected).toBe (actual);
     });
   });
 
@@ -72,31 +71,31 @@ describe ('Persian Arithmetic calendar spec', () => {
       expected = { 'jdn': julian, 'year': date.year, 'month': date.month, 'day': date.day, 'yearLeap': cal.isLeapYear (date.year) };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.year).toBe (actual.year);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 
   it ('should determine whether a Persian Arithmetic year is leap year', () => {
     [ 4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395 ].forEach (year => {
-      expect (cal.isLeapYear (year)).to.be.equal (true);
+      expect (cal.isLeapYear (year)).toBe (true);
     });
 
     [ 1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847,
         894, 988, 1035, 1082, 1129, 1223, 1270, 1364 ].forEach (year => {
-          expect (cal.isLeapYear (year)).to.be.equal (false);
+          expect (cal.isLeapYear (year)).toBe (false);
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1333,  0, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1333, -2, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1333, 13, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1333,  7, -5)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1333,  7, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1333, 12, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1334, 12, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1333,  0, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1333, -2, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1333, 13, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1333,  7, -5)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1333,  7, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1333, 12, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1334, 12, 30)).toThrow (INVALID_DAY);
    });
 });

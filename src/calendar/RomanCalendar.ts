@@ -1,6 +1,6 @@
 import { amod, mod } from '../Astro';
-import { Month, RomanEvent } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { Month, RomanEvent, INVALID_MONTH, INVALID_COUNT, INVALID_LEAP_DAY } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 import { daysInMonth, JulianCalendar } from './JulianCalendar';
 
 
@@ -32,7 +32,7 @@ export class RomanCalendar extends YearMonthCalendar {
 
   public static validate (year: number, month: number, event: RomanEvent, count: number, leap: boolean): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException ('Invalid month');
+      throw new CalendarValidationException (INVALID_MONTH);
     }
 
     const previousMonth: number = mod (month - 1, 12);
@@ -41,21 +41,22 @@ export class RomanCalendar extends YearMonthCalendar {
       (event === RomanEvent.NONES) ? (this.nonesOfMonth (month) - 1) : maxKalends;
 
     if (count < 1 || count > maxCount) {
-      throw new CalendarValidationException ('Invalid count');
+      throw new CalendarValidationException (INVALID_COUNT);
     }
 
     if (leap && (event !== RomanEvent.KALENDS || month !== 3 || count !== 6 || !JulianCalendar.isLeapYear (year))) {
-      throw new CalendarValidationException ('Invalid leap day');
+      throw new CalendarValidationException (INVALID_LEAP_DAY);
     }
   }
 
   // Calculate Roman calendar date from Julian day
   public static fromJdn (jdn: number): RomanCalendar {
     const date: JulianCalendar = JulianCalendar.fromJdn (jdn);
-    let year: number   = date.getYear ();
-    let month: number  = date.getMonth ();
-    let count: number  = date.getDay ();
-    let event: RomanEvent, leap = false;
+    let year: number  = date.getYear ();
+    let month: number = date.getMonth ();
+    let count: number = date.getDay ();
+    let event: RomanEvent;
+    let leap = false;
 
     if (count === 1) {
       event = RomanEvent.KALENDS;

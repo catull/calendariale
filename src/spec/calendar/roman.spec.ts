@@ -1,10 +1,5 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { RomanEvent } from '../../Const';
+import { RomanEvent, INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH } from '../../Const';
 import { RomanCalendar as cal } from '../../calendar/RomanCalendar';
 
 const data1 = [
@@ -45,14 +40,16 @@ const data1 = [
 
 
 describe ('Roman calendar spec', () => {
-  let date, expected, actual;
+  let date;
+  let expected;
+  let actual;
 
   it ('should convert a Roman date to Julian day', () => {
     data1.forEach (dt => {
       date   = dt.roman;
       actual = cal.toJdn (date.year, date.month, date.event, date.count, date.leap);
 
-      expect (dt.julianDay).to.be.equal (actual);
+      expect (dt.julianDay).toBe (actual);
     });
   });
 
@@ -62,33 +59,33 @@ describe ('Roman calendar spec', () => {
       expected = { 'jdn': dt.julianDay, 'day': -1, 'year': date.year, 'month': date.month, 'event': date.event, 'count': date.count, 'leap': date.leap };
       actual   = cal.fromJdn (dt.julianDay);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.event).to.be.equal (actual.event);
-      // expect (expected.count).to.be.equal (actual.count);
-      // expect (expected.leap).to.be.equal (actual.leap);
+      expect (expected).toEqual (actual);
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.event).toBe (actual.getEvent());
+      expect (expected.count).toBe (actual.getCount());
+      expect (expected.leap).toBe (actual.isLeap());
     });
   });
 
   it ('throws a validation exception', () => {
-    expect (() => cal.toJdn (1,  0, RomanEvent.KALENDS,  1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  0, RomanEvent.NONES,    1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  0, RomanEvent.IDES,     1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1, 13, RomanEvent.KALENDS,  1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1, 13, RomanEvent.NONES,    1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1, 13, RomanEvent.IDES,     1, false)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  0, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS, 19, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    0, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    7, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     0, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     9, false)).to.throw ('Invalid count');
-    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  6, true )).to.throw ('Invalid leap day');
-    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
-    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
-    expect (() => cal.toJdn (4,  3, RomanEvent.KALENDS,  6, true )).not.to.throw ();
-    expect (() => cal.toJdn (4,  3, RomanEvent.NONES,    6, true )).to.throw ('Invalid leap day');
-    expect (() => cal.toJdn (4,  3, RomanEvent.IDES,     6, true )).to.throw ('Invalid leap day');
+    expect (() => cal.toJdn (1,  0, RomanEvent.KALENDS,  1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  0, RomanEvent.NONES,    1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  0, RomanEvent.IDES,     1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1, 13, RomanEvent.KALENDS,  1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1, 13, RomanEvent.NONES,    1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1, 13, RomanEvent.IDES,     1, false)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  0, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS, 19, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    0, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    7, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     0, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     9, false)).toThrow (INVALID_COUNT);
+    expect (() => cal.toJdn (1,  3, RomanEvent.KALENDS,  6, true )).toThrow (INVALID_LEAP_DAY);
+    expect (() => cal.toJdn (1,  3, RomanEvent.NONES,    6, true )).toThrow (INVALID_LEAP_DAY);
+    expect (() => cal.toJdn (1,  3, RomanEvent.IDES,     6, true )).toThrow (INVALID_LEAP_DAY);
+    expect (() => cal.toJdn (4,  3, RomanEvent.KALENDS,  6, true )).not.toThrow ();
+    expect (() => cal.toJdn (4,  3, RomanEvent.NONES,    6, true )).toThrow (INVALID_LEAP_DAY);
+    expect (() => cal.toJdn (4,  3, RomanEvent.IDES,     6, true )).toThrow (INVALID_LEAP_DAY);
   });
 });

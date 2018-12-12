@@ -1,6 +1,6 @@
 import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude, standardToUniversal } from '../Astro';
-import { persian, J0000, MEAN_TROPICAL_YEAR, Season } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { J0000, MEAN_TROPICAL_YEAR, persian, Season, INVALID_DAY, INVALID_MONTH } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class PersianAstronomicalCalendar extends LeapCalendar {
   // Is a given year in the Persian Astronomical calendar a leap year?
@@ -24,11 +24,11 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
     const maxDays = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
 
     if (day < 1 || day > maxDays) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
   }
 
@@ -54,7 +54,8 @@ export class PersianAstronomicalCalendar extends LeapCalendar {
     }
 
     let yday: number = jdn - this.toJdn(year, 1, 1) + 1;
-    let month: number, day: number;
+    let month: number;
+    let day: number;
 
     if (yday <= 186) {
       month = Math.ceil(yday / 31);

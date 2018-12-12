@@ -1,7 +1,14 @@
 import { amod, mod, next } from '../Astro';
-import { hindu, J0000 } from '../Const';
-import { hinduCalendarYear, hinduLunarDayFromMoment, hinduNewMoonBefore, hinduSolarLongitude, hinduSunrise, hinduZodiac } from '../HinduAlgorithms';
-import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
+import { hindu, J0000, INVALID_MONTH, INVALID_DAY, INVALID_LEAP_MONTH, INVALID_LEAP_DAY } from '../Const';
+import { CalendarValidationException, LeapDayMonthCalendar } from './core';
+import {
+  hinduCalendarYear,
+  hinduLunarDayFromMoment,
+  hinduNewMoonBefore,
+  hinduSolarLongitude,
+  hinduSunrise,
+  hinduZodiac
+} from './HinduAlgorithms';
 
 export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
   // Calculate Hindu Lunar Modern calendar date from Julian day
@@ -30,24 +37,24 @@ export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     const date: HinduLunarModernCalendar = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
-      throw new CalendarValidationException('Invalid leap month');
+      throw new CalendarValidationException(INVALID_LEAP_MONTH);
     }
 
     if (dayLeap !== date.isDayLeap()) {
-      throw new CalendarValidationException('Invalid leap day');
+      throw new CalendarValidationException(INVALID_LEAP_DAY);
     }
 
     if (day !== date.day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
@@ -57,26 +64,21 @@ export class HinduLunarModernCalendar extends LeapDayMonthCalendar {
       mod(hinduSolarLongitude(approx) - (month - 1) * 30 + 180, 360) / 360);
     const k: number = hinduLunarDayFromMoment(s + 0.25);
 
-    let temp: number, mid: HinduLunarModernCalendar;
+    let temp: number;
 
     if (k > 3 && k < 27) {
       temp = k;
     } else {
-      mid = this.fromJdn(s - 15 + J0000);
-
-      if (mid.month !== month || (mid.monthLeap && !monthLeap)) {
-        temp = mod(k + 15, 30) - 15;
-      } else {
-        temp = mod(k - 15, 30) + 15;
-      }
+      const mid: HinduLunarModernCalendar = this.fromJdn(s - 15 + J0000);
+      temp = (mid.month !== month || (mid.monthLeap && !monthLeap)) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
     }
 
     const est: number = s + day - temp;
     const tau: number = est - mod(hinduLunarDayFromMoment(est + 0.25) - day + 15, 30) + 15;
 
     const date: number = next(tau - 1, (d: number): boolean => {
-      const d1: number = hinduLunarDayFromMoment(hinduSunrise(d)),
-        d2: number = amod(day + 1, 30);
+      const d1: number = hinduLunarDayFromMoment(hinduSunrise(d));
+      const d2: number = amod(day + 1, 30);
 
       return d1 === day || d1 === d2;
     }) + (dayLeap ? 1 : 0);

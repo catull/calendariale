@@ -1,11 +1,7 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { amod } from '../../Astro';
-import { J0000 } from '../../Const';
+import { J0000, INVALID_DECADI, INVALID_JOUR, INVALID_MOIS } from '../../Const';
+
 import { FrenchRevolutionaryCalendar as cal } from '../../calendar/FrenchRevolutionaryCalendar';
 
 const data3 = [
@@ -45,7 +41,12 @@ const data3 = [
 ];
 
 describe ('French Revolutionary calendar spec', () => {
-  let date, expected, actual, julian, decade, jour;
+  let date;
+  let expected;
+  let actual;
+  let julian;
+  let decade;
+  let jour;
 
   it ('should convert a French Revolutionary date to Julian day', () => {
     data3.forEach (dt => {
@@ -55,7 +56,7 @@ describe ('French Revolutionary calendar spec', () => {
       decade = Math.floor ((jour - 1) / 10) + 1;
       jour   = amod (jour, 10);
       actual = cal.toJdn (date.year, date.month, decade, jour);
-      expect (julian).to.be.equal (actual);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -66,25 +67,25 @@ describe ('French Revolutionary calendar spec', () => {
       jour     = date.day;
       decade   = Math.floor ((jour - 1) / 10) + 1;
       jour     = amod (jour, 10);
-      expected = { jdn: julian, year: date.year, month: date.month, decade: decade, day: jour };
+      expected = { jdn: julian, year: date.year, month: date.month, decade, day: jour };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.decade).to.be.equal (actual.decade);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.year).toBe (actual.year);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.decade).toBe (actual.decade);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1, -1, 3, 10)).to.throw ('Invalid mois');
-    expect (() => cal.toJdn (1, 15, 3, 10)).to.throw ('Invalid mois');
-    expect (() => cal.toJdn (1,  7, 0, 10)).to.throw ('Invalid decadi');
-    expect (() => cal.toJdn (1,  7, 4, 10)).to.throw ('Invalid decadi');
-    expect (() => cal.toJdn (1,  7, 3, -5)).to.throw ('Invalid jour');
-    expect (() => cal.toJdn (1,  7, 3, 12)).to.throw ('Invalid jour');
-    expect (() => cal.toJdn (1,  0, 1,  6)).to.throw ('Invalid jour');
-    expect (() => cal.toJdn (3,  0, 1,  7)).to.throw ('Invalid jour');
+    expect (() => cal.toJdn (1, -1, 3, 10)).toThrow (INVALID_MOIS);
+    expect (() => cal.toJdn (1, 15, 3, 10)).toThrow (INVALID_MOIS);
+    expect (() => cal.toJdn (1,  7, 0, 10)).toThrow (INVALID_DECADI);
+    expect (() => cal.toJdn (1,  7, 4, 10)).toThrow (INVALID_DECADI);
+    expect (() => cal.toJdn (1,  7, 3, -5)).toThrow (INVALID_JOUR);
+    expect (() => cal.toJdn (1,  7, 3, 12)).toThrow (INVALID_JOUR);
+    expect (() => cal.toJdn (1,  0, 1,  6)).toThrow (INVALID_JOUR);
+    expect (() => cal.toJdn (3,  0, 1,  7)).toThrow (INVALID_JOUR);
    });
 });
