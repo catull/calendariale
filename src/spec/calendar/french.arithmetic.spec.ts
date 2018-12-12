@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_DAY, INVALID_MONTH } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { FrenchArithmeticCalendar as cal } from '../../calendar/FrenchArithmeticCalendar';
 
 const data3 = [
@@ -44,14 +40,17 @@ const data3 = [
 ];
 
 describe ('French Arithmetic calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let expected;
+  let actual;
+  let julian;
 
   it ('should convert a French Arithmetic date to Julian day', () => {
     data3.forEach (dt => {
       date   = dt.frenchArithmetic;
       julian = dt.rataDie + J0000;
       actual = cal.toJdn (date.year, date.month, date.day);
-      expect (julian).to.be.equal (actual);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -62,29 +61,29 @@ describe ('French Arithmetic calendar spec', () => {
       expected = { jdn: julian, year: date.year, month: date.month, day: date.day, yearLeap: cal.isLeapYear(date.year) };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.year).toBe (actual.year);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 
   it ('should determine whether a French Arithmetic year is leap year', () => {
     [ 4, 20, 1600, 1760, 1840, 1904, 1980, 2000 ].forEach ((year) => {
-      expect (cal.isLeapYear (year)).to.be.equal (true);
+      expect (cal.isLeapYear (year)).toBe (true);
     });
 
     [ 0, 1, 2, 3, 5, 1000, 1599, 1700, 1800, 1900, 1970, 2001, 3000, 4000 ].forEach ((year) => {
-      expect (cal.isLeapYear (year)).to.be.equal (false);
+      expect (cal.isLeapYear (year)).toBe (false);
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1000, -1, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1000, 13, 10)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1000,  7,  0)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1000,  7, -5)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1000,  7, 35)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1000,  0,  6)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1000, -1, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1000, 13, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1000,  7,  0)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1000,  7, -5)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1000,  7, 35)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1000,  0,  6)).toThrow (INVALID_DAY);
    });
 });

@@ -1,6 +1,7 @@
 import { amod, mod } from '../Astro';
+
 import { aztec } from '../Const';
-import { BaseCalendar } from '../Calendar';
+import { BaseCalendar } from './core';
 
 export class AztecTonalpohualliCalendar extends BaseCalendar {
   // Calculate Aztec Tonalpohualli calendar date from Julian day

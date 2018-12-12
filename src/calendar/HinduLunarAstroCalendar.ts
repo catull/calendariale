@@ -1,7 +1,7 @@
 import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
-import { hinduAstroCalendarYear, siderealSolarLongitude, siderealZodiac } from '../HinduAlgorithms';
-import { hindu, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
-import { CalendarValidationException, LeapDayMonthCalendar } from '../Calendar';
+import { hindu, INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR } from '../Const';
+import { CalendarValidationException, LeapDayMonthCalendar } from './core';
+import { hinduAstroCalendarYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 
 export class HinduLunarAstroCalendar extends LeapDayMonthCalendar {
   // Is a given year in the Hindu Lunar Astro calendar a leap year?
@@ -34,32 +34,31 @@ export class HinduLunarAstroCalendar extends LeapDayMonthCalendar {
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     const date: HinduLunarAstroCalendar = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
-      throw new CalendarValidationException('Invalid leap month');
+      throw new CalendarValidationException(INVALID_LEAP_MONTH);
     }
 
     if (dayLeap !== date.isDayLeap()) {
-      throw new CalendarValidationException('Invalid leap day');
+      throw new CalendarValidationException(INVALID_LEAP_DAY);
     }
 
     if (day !== date.day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
   // Determine Julian day number from Hindu Lunar Astro calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + MEAN_SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
-    const s: number = Math.floor(approx - 1 / 360 * MEAN_SIDEREAL_YEAR *
-      (mod(siderealSolarLongitude(approx) - (month - 1) * 30 + 180, 360) - 180));
+    const s: number = Math.floor(approx - (1 / 360) * MEAN_SIDEREAL_YEAR * (mod(siderealSolarLongitude(approx) - (month - 1) * 30 + 180, 360) - 180));
     const k: number = this.astroLunarDayFromMoment(s + 0.25);
     let temp: number;
 
@@ -67,22 +66,21 @@ export class HinduLunarAstroCalendar extends LeapDayMonthCalendar {
       temp = k;
     } else {
       const mid: HinduLunarAstroCalendar = this.fromJdn(s - 15 + J0000);
-
-      if (mid.month !== month || (mid.monthLeap && !monthLeap)) {
-        temp = mod(k + 15, 30) - 15;
-      } else {
-        temp = mod(k - 15, 30) + 15;
-      }
+      temp = mid.month !== month || (mid.monthLeap && !monthLeap) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
     }
 
     const est: number = s + day - temp;
     const tau: number = est - mod(this.astroLunarDayFromMoment(est + 0.25) - day + 15, 30) + 15;
-    const date: number = next(tau - 1, (d: number): boolean => {
-      const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(HinduLunarAstroCalendar.altHinduSunrise(d)),
-        d2: number = amod(day + 1, 30);
+    const date: number =
+      next(
+        tau - 1,
+        (d: number): boolean => {
+          const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(HinduLunarAstroCalendar.altHinduSunrise(d));
+          const d2: number = amod(day + 1, 30);
 
-      return d1 === day || d1 === d2;
-    }) + (dayLeap ? 1 : 0);
+          return d1 === day || d1 === d2;
+        }
+      ) + (dayLeap ? 1 : 0);
 
     return J0000 + date;
   }
@@ -111,5 +109,4 @@ export class HinduLunarAstroCalendar extends LeapDayMonthCalendar {
   constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean) {
     super(jdn, year, month, day, monthLeap, dayLeap);
   }
-
 }

@@ -1,10 +1,6 @@
 /* global describe it require: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { YermCalendar as cal } from '../../calendar/YermCalendar';
+import { INVALID_DAY, INVALID_MONTH, INVALID_YERM } from '../../Const';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'yerm': { 'cycle': -17, 'yerm': 23, 'month':  2, 'day': 10.5 } },
@@ -43,14 +39,16 @@ const data1 = [
 ];
 
 describe ('Yerm calendar spec', () => {
-  let date, expected, actual;
+  let date;
+  let expected;
+  let actual;
 
   it ('should convert an Yerm date to Julian day', () => {
     data1.forEach (dt => {
       date     = dt.yerm;
       actual   = cal.toJdn (date.cycle, date.yerm, date.month, date.day);
 
-      expect (dt.julianDay).to.be.equal (actual);
+      expect (dt.julianDay).toBe (actual);
     });
   });
 
@@ -60,22 +58,22 @@ describe ('Yerm calendar spec', () => {
       expected = { 'jdn': dt.julianDay, 'year': 0, 'cycle': date.cycle, 'yerm': date.yerm, 'month': date.month, 'day': date.day };
       actual   = cal.fromJdn (dt.julianDay);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.cycle).to.be.equal (actual.cycle);
-      // expect (expected.yerm).to.be.equal (actual.yerm);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      expect (expected.cycle).toBe (actual.getCycle());
+      expect (expected.yerm).toBe (actual.getYerm());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1,  0,  1,  1)).to.throw ('Invalid yerm');
-    expect (() => cal.toJdn (1, 53,  1,  1)).to.throw ('Invalid yerm');
-    expect (() => cal.toJdn (1,  1,  0,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  1, 18,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  3, 16,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (1,  1,  1,  0)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1,  1,  1, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1,  1,  2, 30)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1,  0,  1,  1)).toThrow (INVALID_YERM);
+    expect (() => cal.toJdn (1, 53,  1,  1)).toThrow (INVALID_YERM);
+    expect (() => cal.toJdn (1,  1,  0,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  1, 18,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  3, 16,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (1,  1,  1,  0)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1,  1,  1, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1,  1,  2, 30)).toThrow (INVALID_DAY);
    });
 });

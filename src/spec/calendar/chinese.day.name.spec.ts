@@ -1,10 +1,6 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { J0000 } from '../../Const';
+
 import { ChineseDayNameCalendar as cal } from '../../calendar/ChineseDayNameCalendar';
 
 const data4 = [
@@ -44,7 +40,10 @@ const data4 = [
 ];
 
 describe ('Chinese Day Name calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let expected;
+  let actual;
+  let julian;
 
   it ('should convert a Julian day number to a Chinese Day Name date', () => {
     data4.forEach (dt => {
@@ -53,9 +52,9 @@ describe ('Chinese Day Name calendar spec', () => {
       expected = { jdn: julian, stem: date.stem, branch: date.branch };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.stem).to.be.equal (actual.stem);
-      // expect (expected.branch).to.be.equal (actual.branch);
+      expect (expected).toEqual (actual);
+      expect (expected.stem).toBe (actual.getStem());
+      expect (expected.branch).toBe (actual.getBranch());
     });
   });
 });

@@ -1,6 +1,6 @@
 import { mod, phasisOnOrBefore } from '../Astro';
-import { islamic, MEAN_SYNODIC_MONTH } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { islamic, MEAN_SYNODIC_MONTH, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
 export class IslamicObservationalCalendar extends LeapCalendar {
   // Is a given year in the Islamic calendar a leap year?
@@ -19,11 +19,11 @@ export class IslamicObservationalCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

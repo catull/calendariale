@@ -1,10 +1,6 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { IsoWeekCalendar as cal } from '../../calendar/IsoWeekCalendar';
+import { INVALID_DAY, INVALID_WEEK } from '../../Const';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'iso': { 'year': -586, 'week': 29, 'day': 7 } },
@@ -43,36 +39,38 @@ const data1 = [
 ];
 
 describe ('ISO Week calendar spec', () => {
-  let date, expected, actual;
-
+  let date;
+  let expected;
+  let actual;
 
   it ('should convert an ISO Week date to Julian day', () => {
     data1.forEach (dt => {
       date     = dt.iso;
       actual   = cal.toJdn (date.year, date.week, date.day);
 
-      expect (dt.julianDay).to.be.equal (actual);
+      expect (dt.julianDay).toBe (actual);
     });
   });
 
   it ('should convert a Julian day to an ISO Week date', () => {
     data1.forEach (dt => {
       date     = dt.iso;
-      expected = { 'jdn': dt.julianDay, 'year': date.year, 'week': date.week, 'day': date.day };
+      // expected = { 'jdn': dt.julianDay, 'year': date.year, 'week': date.week, 'day': date.day };
+      expected = { 'jdn': dt.julianDay, ...date };
       actual   = cal.fromJdn (dt.julianDay);
 
-      // expect (expected).to.be.equal (actual);
-      expect (expected.year).to.be.equal (actual.year);
-      expect (expected.week).to.be.equal (actual.week);
-      expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.week).toBe (actual.getWeek());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.toJdn (1999,  0, 2)).to.throw ('Invalid week');
-    expect (() => cal.toJdn (1999, -2, 2)).to.throw ('Invalid week');
-    expect (() => cal.toJdn (1999, 54, 1)).to.throw ('Invalid week');
-    expect (() => cal.toJdn (1999, 52, 0)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (1999,  1, 8)).to.throw ('Invalid day');
+    expect (() => cal.toJdn (1999,  0, 2)).toThrow (INVALID_WEEK);
+    expect (() => cal.toJdn (1999, -2, 2)).toThrow (INVALID_WEEK);
+    expect (() => cal.toJdn (1999, 54, 1)).toThrow (INVALID_WEEK);
+    expect (() => cal.toJdn (1999, 52, 0)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (1999,  1, 8)).toThrow (INVALID_DAY);
   });
 });

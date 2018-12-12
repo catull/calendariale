@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
-import { ethiopic } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from '../Calendar';
+import { ethiopic, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class EthiopicCalendar extends YearMonthCalendar {
   // Determine Julian day number from Ethiopic calendar date
@@ -25,16 +25,16 @@ export class EthiopicCalendar extends YearMonthCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     const maxDaysOfMonth13 = this.isLeapYear (year) ? 6 : 5;
     if (month === 13 && day > maxDaysOfMonth13) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     if (day < 1 || day > 30) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 

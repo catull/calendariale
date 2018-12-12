@@ -1,10 +1,7 @@
 /* global describe it: true */
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
+import { J0000, INVALID_VAHID, INVALID_YEAR, INVALID_MONTH, INVALID_DAY } from '../../Const';
 
-import { J0000 } from '../../Const';
 import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
 
 const data2 = [
@@ -44,28 +41,31 @@ const data2 = [
 ];
 
 describe ('Bahai calendar spec', () => {
-  let date, expected, actual, year,
-      julian = 2456435.5;
+  let date;
+  let expected;
+  let actual;
+  let year;
+  let julian = 2456435.5;
 
   it ('should convert a Bahai date to Julian day', () => {
-    // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).to.be.equal (julian);
-    // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).to.be.equal (2457810.5);
+    // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).toBe (julian);
+    // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).toBe (2457810.5);
 
     data2.forEach (dt => {
       expected = dt.rataDie + J0000;
       date = dt.bahai;
       actual = cal.bahaiToJdn (date.kullIShay, date.vahid, date.year, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+      expect (expected).toBe (actual);
 
       year = 361 * (date.kullIShay - 1) + 19 * (date.vahid - 1) + date.year;
       actual = cal.toJdn (year, date.month, date.day);
-      expect (expected).to.be.equal (actual);
+      expect (expected).toEqual (actual);
     });
   });
 
   it ('should convert a Julian day to a Bahai date', () => {
-    // expect (cal.fromJdn (julian)).to.be.eql ([ 1, 9, 18, 6, 1 ]);
-    // expect (cal.fromJdn (2457810.5)).to.be.eql ([ 1, 10,  2,  0,  1 ]);
+    // expect (cal.fromJdn (julian)).toBe ([ 1, 9, 18, 6, 1 ]);
+    // expect (cal.fromJdn (2457810.5)).toBe ([ 1, 10,  2,  0,  1 ]);
 
     data2.forEach (dt => {
       julian = dt.rataDie + J0000;
@@ -73,40 +73,40 @@ describe ('Bahai calendar spec', () => {
       expected = { jdn: julian, kullIShay: date.kullIShay, vahid: date.vahid, year: date.year, month: date.month, day: date.day, yearLeap: cal.isLeapYear(date.year) };
       actual = cal.fromJdn (julian);
 
-      // expect (expected).to.be.equal (actual);
-      expect (expected.kullIShay).to.be.equal (actual.getKullIshay());
-      expect (expected.vahid).to.be.equal (actual.getVahid());
-      expect (expected.year).to.be.equal (actual.getYear());
-      expect (expected.month).to.be.equal (actual.getMonth());
-      expect (expected.day).to.be.equal (actual.getDay());
+      // expect (expected).toBe (actual);
+      expect (expected.kullIShay).toBe (actual.getKullIshay());
+      expect (expected.vahid).toBe (actual.getVahid());
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
 
   it ('should determine whether a Bahai year is leap year', () => {
     // the Bahai years 1 and 169 are the limits of the old leap rule
-    expect (cal.isLeapYear (1)).to.be.equal (true);
-    expect (cal.isLeapYear (168)).to.be.equal (false);
-    expect (cal.isLeapYear (169)).to.be.equal (true);
-    expect (cal.isLeapYear (170)).to.be.equal (false);
+    expect (cal.isLeapYear (1)).toBe (true);
+    expect (cal.isLeapYear (168)).toBe (false);
+    expect (cal.isLeapYear (169)).toBe (true);
+    expect (cal.isLeapYear (170)).toBe (false);
 
     // starting with the Bahai year 172, the new rule is in place
-    expect (cal.isLeapYear (173)).to.be.equal (false);
-    expect (cal.isLeapYear (174)).to.be.equal (true);
-    expect (cal.isLeapYear (220)).to.be.equal (true);
+    expect (cal.isLeapYear (173)).toBe (false);
+    expect (cal.isLeapYear (174)).toBe (true);
+    expect (cal.isLeapYear (220)).toBe (true);
   });
 
   it ('throws validation exceptions', () => {
-    expect (() => cal.bahaiToJdn (1, -9, 10, 10, 10)).to.throw ('Invalid vahid');
-    expect (() => cal.bahaiToJdn (1, 20, 10, 10, 10)).to.throw ('Invalid vahid');
-    expect (() => cal.bahaiToJdn (1,  9,  0, 10, 10)).to.throw ('Invalid year');
-    expect (() => cal.bahaiToJdn (1, 10, 21, 10, 10)).to.throw ('Invalid year');
-    expect (() => cal.bahaiToJdn (1,  9, 10, -1, 10)).to.throw ('Invalid month');
-    expect (() => cal.bahaiToJdn (1, 12, 11, 20, 10)).to.throw ('Invalid month');
-    expect (() => cal.bahaiToJdn (1,  9, 10, 10,  0)).to.throw ('Invalid day');
-    expect (() => cal.bahaiToJdn (1, 16, 11, 12, 22)).to.throw ('Invalid day');
-    expect (() => cal.bahaiToJdn (1,  9, 10,  0,  0)).to.throw ('Invalid day');
-    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  6)).to.throw ('Invalid day');
-    expect (() => cal.bahaiToJdn (1,  9, 16,  0,  6)).to.throw ('Invalid day');
-    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  5)).to.throw ('Invalid day');
+    expect (() => cal.bahaiToJdn (1, -9, 10, 10, 10)).toThrow (INVALID_VAHID);
+    expect (() => cal.bahaiToJdn (1, 20, 10, 10, 10)).toThrow (INVALID_VAHID);
+    expect (() => cal.bahaiToJdn (1,  9,  0, 10, 10)).toThrow (INVALID_YEAR);
+    expect (() => cal.bahaiToJdn (1, 10, 21, 10, 10)).toThrow (INVALID_YEAR);
+    expect (() => cal.bahaiToJdn (1,  9, 10, -1, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.bahaiToJdn (1, 12, 11, 20, 10)).toThrow (INVALID_MONTH);
+    expect (() => cal.bahaiToJdn (1,  9, 10, 10,  0)).toThrow (INVALID_DAY);
+    expect (() => cal.bahaiToJdn (1, 16, 11, 12, 22)).toThrow (INVALID_DAY);
+    expect (() => cal.bahaiToJdn (1,  9, 10,  0,  0)).toThrow (INVALID_DAY);
+    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  6)).toThrow (INVALID_DAY);
+    expect (() => cal.bahaiToJdn (1,  9, 16,  0,  6)).toThrow (INVALID_DAY);
+    expect (() => cal.bahaiToJdn (1, 16, 11,  0,  5)).toThrow (INVALID_DAY);
    });
 });

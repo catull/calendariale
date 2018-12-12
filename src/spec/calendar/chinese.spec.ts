@@ -1,10 +1,6 @@
 /* global describe it: true */
+import { J0000, INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR } from '../../Const';
 
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
-import { J0000 } from '../../Const';
 import { ChineseCalendar as cal } from '../../calendar/ChineseCalendar';
 
 const data4 = [
@@ -44,14 +40,17 @@ const data4 = [
 ];
 
 describe ('Chinese calendar spec', () => {
-  let date, expected, actual, julian;
+  let date;
+  let  expected;
+  let  actual;
+  let  julian;
 
   it ('should convert a Chinese date to Julian day', () => {
     data4.forEach (dt => {
-      date     = dt.chinese;
-      julian   = dt.rataDie + J0000;
-      actual   = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
-      expect (julian).to.be.equal (actual);
+      date   = dt.chinese;
+      julian = dt.rataDie + J0000;
+      actual = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
+      expect (julian).toBe (actual);
     });
   });
 
@@ -59,27 +58,28 @@ describe ('Chinese calendar spec', () => {
     data4.forEach (dt => {
       julian   = dt.rataDie + J0000;
       date     = dt.chinese;
-      expected = { jdn: julian, cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
+      // expected = { jdn: julian, cycle: date.cycle, year: date.year, month: date.month, monthLeap: date.monthLeap, day: date.day };
+      expected = { jdn: julian, ...date };
       actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.cycle).to.be.equal (actual.cycle);
-      // expect (expected.year).to.be.equal (actual.year);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.monthLeap).to.be.equal (actual.monthLeap);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      expect (expected.day).toBe (actual.getDay());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.monthLeap).toBe (actual.isMonthLeap());
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.cycle).toBe (actual.getCycle());
     });
   });
 
   it ('throws a validation exception', () => {
-    expect (() => cal.toJdn (78,  0,  1, false,  1)).to.throw ('Invalid year');
-    expect (() => cal.toJdn (78, 61,  1, false,  1)).to.throw ('Invalid year');
-    expect (() => cal.toJdn (78,  1,  0, false,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (78,  1, 14, false,  1)).to.throw ('Invalid month');
-    expect (() => cal.toJdn (78, 34,  5, true ,  1)).to.throw ('Invalid leap month');
-    expect (() => cal.toJdn (78, 34,  4, false, 31)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (78, 34,  5, false, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (78, 34,  6, false, 30)).to.throw ('Invalid day');
-    expect (() => cal.toJdn (78, 34,  6, true , 30)).not.to.throw ('Invalid day');
+    expect (() => cal.toJdn (78,  0,  1, false,  1)).toThrow (INVALID_YEAR);
+    expect (() => cal.toJdn (78, 61,  1, false,  1)).toThrow (INVALID_YEAR);
+    expect (() => cal.toJdn (78,  1,  0, false,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (78,  1, 14, false,  1)).toThrow (INVALID_MONTH);
+    expect (() => cal.toJdn (78, 34,  5, true ,  1)).toThrow (INVALID_LEAP_MONTH);
+    expect (() => cal.toJdn (78, 34,  4, false, 31)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (78, 34,  5, false, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (78, 34,  6, false, 30)).toThrow (INVALID_DAY);
+    expect (() => cal.toJdn (78, 34,  6, true , 30)).not.toThrow (INVALID_DAY);
   });
 });

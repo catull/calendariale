@@ -1,10 +1,6 @@
 /* global describe it: true */
-
-import { expect } from 'chai';
-import 'dirty-chai';
-import { describe, it } from 'mocha';
-
 import { J0000 } from '../../Const';
+
 import { MayanHaabCalendar as cal } from '../../calendar/MayanHaabCalendar';
 
 const data2 = [
@@ -51,9 +47,9 @@ describe ('Mayan Haab calendar spec', () => {
       const expected = { 'jdn': julian, 'month': date.month, 'day': date.day };
       const actual   = cal.fromJdn (julian);
 
-      expect (expected).to.be.eql (actual);
-      // expect (expected.month).to.be.equal (actual.month);
-      // expect (expected.day).to.be.equal (actual.day);
+      expect (expected).toEqual (actual);
+      // expect (expected.month).toBe (actual.month);
+      // expect (expected.day).toBe (actual.day);
     });
   });
 });

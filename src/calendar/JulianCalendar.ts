@@ -1,8 +1,8 @@
 import { mod } from '../Astro';
-import { Month } from '../Const';
-import { CalendarValidationException, LeapCalendar } from '../Calendar';
+import { Month, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { CalendarValidationException, LeapCalendar } from './core';
 
-export const daysInMonth: Array<number> = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export class JulianCalendar extends LeapCalendar {
   // Is a given year in the Julian calendar a leap year?
@@ -14,7 +14,8 @@ export class JulianCalendar extends LeapCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    let y: number = year, m: number = month;
+    let y: number = year;
+    let m: number = month;
 
     // Adjust negative common era years to the zero-based notation we use.
     if (y < 1) {
@@ -32,11 +33,11 @@ export class JulianCalendar extends LeapCalendar {
 
   public static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
-      throw new CalendarValidationException('Invalid month');
+      throw new CalendarValidationException(INVALID_MONTH);
     }
 
     if (day < 1) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
 
     const febDays: number = this.isLeapYear(year) ? 29 : 28;
@@ -46,7 +47,7 @@ export class JulianCalendar extends LeapCalendar {
     }
 
     if (daysInMonth[month - 1] < day) {
-      throw new CalendarValidationException('Invalid day');
+      throw new CalendarValidationException(INVALID_DAY);
     }
   }
 
