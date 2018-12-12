@@ -1,32 +1,104 @@
 {
   "name": "calendariale",
-  "version": "0.0.1",
-  "description": "Calendrical calculations in JavaScript",
+  "version": "0.5.0",
+  "description": "Calendrical calculations library in TypeScript",
   "repository": "catull/calendariale",
   "main": "index.js",
   "scripts": {
-    "build": "npm run lint && npm run build:dev",
+    "build": "yarn lint && yarn build:dev",
     "build:dev": "tsc",
     "clean": "rm -fr lib spec/lib",
     "clean:dist": "rm -fr .vscode lib spec/lib node_modules spec/typings",
     "flow:check": "flow check --color=always --all --show-all-errors --profile",
     "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
+    "test": "jest",
+    "test:dev": "jest --watch",
+    "test:prod": "jest --silent --coverage --runInBand",
+    "format": "prettier 'src/**/*.[jt]s' --write --list-different --loglevel warn",
     "lint": "tslint -p tslint.json",
     "lint:test": "tslint -p tslint.json src/spec/*/*.ts",
-    "test": "npm run lint:test && mocha -r ts-node/register src/spec/*/*.spec.ts",
     "postinstall": "tsc"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/chai": "4.1.7",
-    "@types/mocha": "2.2.48",
-    "chai": "4.2.0",
-    "dirty-chai": "2.0.1",
+    "@types/jest": "^23.3.10",
     "flow-bin": "0.88.0",
-    "mocha": "4.1.0",
+    "jest": "^23.6.0",
+    "jest-junit": "^5.2.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "prettier": "1.15.3",
+    "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
-    "typescript": "3.2.2"
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-sonarts": "^1.8.0",
+    "typescript": "3.2.2",
+    "yarn": "^1.12.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/spec/**/*.ts",
+      "!src/**/index.ts",
+      "!src/jest*.ts",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "tmp/coverage",
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover",
+      "cobertura",
+      "html"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "preset": "ts-jest",
+    "prettierPath": "node_modules/.bin/prettier",
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "roots": [
+      "src"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.ts"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "verbose": false
+  },
+  "jest-junit": {
+    "ancestorSeparator": " › ",
+    "classNameTemplate": "{classname}",
+    "output": "tmp/reports/jest-junit.xml",
+    "suiteName": "jest tests",
+    "suiteNameTemplate": "{filepath}",
+    "titleTemplate": "{title}",
+    "usePathForSuiteName": "true"
+  },
+  "jestSonar": {
+    "indent": 2,
+    "reportFile": "jest-sonar-report.xml",
+    "reportPath": "tmp/reports",
+    "sonar56x": true
   }
 }
