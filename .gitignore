@@ -1,8 +1,4 @@
 .vscode
 lib
 node_modules
-spec/lib
-spec/typings
-spec/**/*.js
-src/**/*.js
-typings
+tmp
