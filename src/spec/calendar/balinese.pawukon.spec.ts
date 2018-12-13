@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { J0000 } from '../../Const';
 
-import { BalinesePawukonCalendar as cal } from '../../calendar/BalinesePawukonCalendar';
+import { BalinesePawukonCalendarDate as cal } from '../../calendar/BalinesePawukonCalendarDate';
 
 const data3 = [
   {

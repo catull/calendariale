@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { HinduSolarOldCalendar as cal } from '../../calendar/HinduSolarOldCalendar';
+import { HinduSolarOldCalendarDate as cal } from '../../calendar/HinduSolarOldCalendarDate';
 
 const data4 = [
   { 'rataDie': -214193, 'hinduSolarOld': { 'year': 2515, 'month':  5, 'day': 19 } },

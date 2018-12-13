@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR, J0000 } from '../../Const';
 
-import { ChineseCalendar as cal } from '../../calendar/ChineseCalendar';
+import { ChineseCalendarDate as cal } from '../../calendar/ChineseCalendarDate';
 
 const data4 = [
   { 'rataDie': -214193, 'chinese': { 'cycle': 35, 'year': 11, 'month':  6, 'monthLeap': false, 'day': 12 } },

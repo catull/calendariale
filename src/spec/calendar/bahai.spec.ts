@@ -2,7 +2,7 @@
 
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, J0000 } from '../../Const';
 
-import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
+import { BahaiCalendarDate as cal } from '../../calendar/BahaiCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'bahai': { 'kullIShay': -6, 'vahid':  6, 'year':  3, 'month':  7, 'day': 12 } },

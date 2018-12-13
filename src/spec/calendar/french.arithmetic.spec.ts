@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { FrenchArithmeticCalendar as cal } from '../../calendar/FrenchArithmeticCalendar';
+import { FrenchArithmeticCalendarDate as cal } from '../../calendar/FrenchArithmeticCalendarDate';
 
 const data3 = [
   { 'rataDie': -214193, 'frenchArithmetic': { 'year': -2378, 'month': 11, 'day':  4 } },

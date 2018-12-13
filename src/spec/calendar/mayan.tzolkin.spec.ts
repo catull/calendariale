@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { J0000 } from '../../Const';
 
-import { MayanTzolkinCalendar as cal } from '../../calendar/MayanTzolkinCalendar';
+import { MayanTzolkinCalendarDate as cal } from '../../calendar/MayanTzolkinCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'mayanTzolkin': { 'month':  5, 'day':  9 } },
