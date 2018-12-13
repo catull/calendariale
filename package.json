@@ -15,6 +15,7 @@
     "test:dev": "jest --watch",
     "test:prod": "jest --silent --coverage --runInBand",
     "format": "prettier 'src/**/*.[jt]s' --write --list-different --loglevel warn",
+    "format:lib": "prettier 'lib/**/*.[jt]s' --write --list-different --loglevel warn",
     "lint": "tslint -p tslint.json",
     "lint:test": "tslint -p tslint.json src/spec/*/*.ts",
     "postinstall": "tsc"

@@ -29,12 +29,29 @@
       "max-classes-per-file": true,
       "max-line-length": [ true, 180 ],
       "member-access": true,
-      "member-ordering": [ true,
-        "static-field",
-        "instance-field",
-        "static-method",
-        "instance-method"
+      "member-ordering": [
+        true,
+        {
+          "order": [
+            "public-static-field",
+            "protected-static-field",
+            "private-static-field",
+            "public-static-method",
+            "protected-static-method",
+            "private-static-method",
+            "public-instance-field",
+            "protected-instance-field",
+            "private-instance-field",
+            "public-constructor",
+            "protected-constructor",
+            "private-constructor",
+            "public-instance-method",
+            "protected-instance-method",
+            "private-instance-method"
+          ]
+        }
       ],
+
       "newline-before-return": false,
       "newline-per-chained-call": false,
       "no-any": true,
@@ -86,6 +103,15 @@
       "only-arrow-functions": [ true,
           "allow-declarations",
           "allow-named-functions"
+      ],
+      "ordered-imports": [
+        true,
+        {
+          "grouped-imports": "true",
+          "import-sources-order": "lowercase-last",
+          "module-source-path": "full",
+          "named-imports-order": "lowercase-last"
+        }
       ],
       "prefer-const": true,
       "prefer-function-over-method": true,
