@@ -59,14 +59,14 @@ describe('Astro spec', () => {
     let func = (arg: number) => arg;
     let y1 = 1.0;
 
-    const fMinusY = (x0: number, y0: number) => func(x0) - y0;
-    const predicate = (a0: number, b0: number) => Math.abs(fMinusY((a0 + b0) / 2, y1)) <= 1e-5;
-    const discriminator = (x0: number) => fMinusY(x0, y1) >= 0;
+    const fMinusY = (x0: number, y0: number): number => func(x0) - y0;
+    const predicate = (a0: number, b0: number): boolean => Math.abs(fMinusY((a0 + b0) / 2, y1)) <= 1e-5;
+    const discriminator = (x0: number): boolean => fMinusY(x0, y1) >= 0;
 
     expect(binarySearch(0.0, 3.1, predicate, discriminator)).toBeCloseTo(1.0, 1e-4);
 
     y1 = 0.0;
-    func = (x0: number) => x0 * x0 - 4 * x0 + 4;
+    func = (x0: number): number => x0 * x0 - 4 * x0 + 4;
 
     expect(binarySearch(1.5, 2.5, predicate, discriminator)).toBeCloseTo(2.0, 1e-4);
   });
