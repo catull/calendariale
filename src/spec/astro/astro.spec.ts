@@ -56,7 +56,7 @@ describe('Astro spec', () => {
   });
 
   it ('should sort an array with binary search', () => {
-    let func = (arg: number) => arg;
+    let func = (arg: number): number => arg;
     let y1 = 1.0;
 
     const fMinusY = (x0: number, y0: number): number => func(x0) - y0;
