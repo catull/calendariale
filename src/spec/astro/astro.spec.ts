@@ -1,7 +1,3 @@
-/* global describe it: true */
-/* eslint
-  max-params: [ 'error', 4 ] */
-
 import { J0000 } from '../../Const';
 
 import { binarySearch, dynamicalToUniversal, ephemerisCorrection, equationOfTime,
@@ -48,7 +44,7 @@ describe('Astro spec', () => {
   it ('should calculate a sigma of a matrix', () => {
     const matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
 
-    expect(sigma(matrix, (x0, y0, z0) => x0 * y0 * z0)).toBe(780);
+    expect(sigma(matrix, (x0: number, y0: number, z0: number): number => x0 * y0 * z0)).toBe(780);
   });
 
   it ('should calculate a nutation', () => {
