@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { yermEpoch, INVALID_YERM, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, INVALID_YERM, yermEpoch } from '../Const';
+
 import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class YermCalendar extends YearMonthCalendar {

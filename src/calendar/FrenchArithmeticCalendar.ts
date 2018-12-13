@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { french, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, french } from '../Const';
+
 import { CalendarValidationException, LeapCalendar } from './core';
 
 export class FrenchArithmeticCalendar extends LeapCalendar {

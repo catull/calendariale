@@ -1,14 +1,14 @@
 import { GregorianCalendar } from './calendar/GregorianCalendar';
 
 import {
-  gregorian,
-  J0000, J2000,
-  JULIAN_CENTURY,
+  J0000,
+  J2000, JULIAN_CENTURY,
   MEAN_SYNODIC_MONTH,
   MEAN_TROPICAL_YEAR,
   Month,
   MoonPhase,
-  WeekDay
+  WeekDay,
+  gregorian
 } from './Const';
 
 import { Location } from './Location';

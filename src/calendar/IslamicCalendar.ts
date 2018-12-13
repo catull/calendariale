@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { islamic, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, islamic } from '../Const';
+
 import { CalendarValidationException, LeapCalendar } from './core';
 
 export class IslamicCalendar extends LeapCalendar {

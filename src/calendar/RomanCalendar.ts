@@ -1,7 +1,8 @@
 import { amod, mod } from '../Astro';
-import { Month, RomanEvent, INVALID_MONTH, INVALID_COUNT, INVALID_LEAP_DAY } from '../Const';
+import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, RomanEvent } from '../Const';
+
+import { JulianCalendar, daysInMonth } from './JulianCalendar';
 import { CalendarValidationException, YearMonthCalendar } from './core';
-import { daysInMonth, JulianCalendar } from './JulianCalendar';
 
 
 export class RomanCalendar extends YearMonthCalendar {

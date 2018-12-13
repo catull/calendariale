@@ -1,8 +1,8 @@
 import { mod, next } from '../Astro';
+import { INVALID_DAY, INVALID_MONTH, J0000, hindu } from '../Const';
 
-import { hindu, J0000, INVALID_MONTH, INVALID_DAY } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from './core';
 import { hinduCalendarYear, hinduSolarLongitude, hinduSunrise, hinduZodiac } from './HinduAlgorithms';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class HinduSolarModernCalendar extends YearMonthCalendar {
   // Determine Julian day number from Hindu Solar Modern calendar date

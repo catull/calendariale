@@ -1,6 +1,6 @@
 import { amod, mod } from '../Astro';
-
 import { aztec } from '../Const';
+
 import { BaseCalendar } from './core';
 
 export class AztecTonalpohualliCalendar extends BaseCalendar {
