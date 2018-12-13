@@ -1,5 +1,6 @@
 import { amod, mod } from '../Astro';
-import { persian, INVALID_DAY, INVALID_MONTH } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, persian } from '../Const';
+
 import { CalendarValidationException, LeapCalendar } from './core';
 
 export class PersianArithmeticCalendar extends LeapCalendar {

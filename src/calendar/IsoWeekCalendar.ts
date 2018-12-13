@@ -1,7 +1,8 @@
 import { amod, nthKday } from '../Astro';
-import { J0000, Month, WeekDay, INVALID_WEEK, INVALID_DAY } from '../Const';
-import { CalendarValidationException, YearCalendar } from './core';
+import { INVALID_DAY, INVALID_WEEK, J0000, Month, WeekDay } from '../Const';
+
 import { GregorianCalendar } from './GregorianCalendar';
+import { CalendarValidationException, YearCalendar } from './core';
 
 export class IsoWeekCalendar extends YearCalendar {
   // Determine Julian day number from Iso Week calendar date

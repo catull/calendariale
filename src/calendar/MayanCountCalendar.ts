@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { mayan, INVALID_KIN, INVALID_UINAL, INVALID_TUN, INVALID_KATUN, INVALID_BAKTUN } from '../Const';
+import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, mayan } from '../Const';
+
 import { BaseCalendar, CalendarValidationException } from './core';
 
 export class MayanCountCalendar extends BaseCalendar {

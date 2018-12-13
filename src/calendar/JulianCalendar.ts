@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { Month, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, Month } from '../Const';
+
 import { CalendarValidationException, LeapCalendar } from './core';
 
 export const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

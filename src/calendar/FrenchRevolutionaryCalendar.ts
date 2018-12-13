@@ -1,7 +1,8 @@
 import { deltaT, equationOfTime, equinox } from '../Astro';
-import { french, TROPICAL_YEAR, INVALID_MOIS, INVALID_DECADI, INVALID_JOUR } from '../Const';
-import { CalendarValidationException, YearMonthCalendar } from './core';
+import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, TROPICAL_YEAR, french } from '../Const';
+
 import { GregorianCalendar } from './GregorianCalendar';
+import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class FrenchRevolutionaryCalendar extends YearMonthCalendar {
   // Obtain Julian day from a given French Revolutionary calendar date.

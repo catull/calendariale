@@ -1,6 +1,6 @@
 import { mod } from '../Astro';
+import { INVALID_DAY, INVALID_MONTH, armenian } from '../Const';
 
-import { armenian, INVALID_MONTH, INVALID_DAY } from '../Const';
 import { CalendarValidationException, YearMonthCalendar } from './core';
 
 export class ArmenianCalendar extends YearMonthCalendar {

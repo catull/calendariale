@@ -1,5 +1,5 @@
 import { angle, binarySearch, mod, next, precession, sinDeg, solarLongitude } from '../Astro';
-import { hindu, MEAN_SIDEREAL_YEAR } from '../Const';
+import { MEAN_SIDEREAL_YEAR, hindu } from '../Const';
 import { Location } from '../Location';
 
 /**
