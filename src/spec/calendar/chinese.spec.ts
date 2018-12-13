@@ -1,5 +1,5 @@
 /* global describe it: true */
-import { J0000, INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR } from '../../Const';
+import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR, J0000 } from '../../Const';
 
 import { ChineseCalendar as cal } from '../../calendar/ChineseCalendar';
 

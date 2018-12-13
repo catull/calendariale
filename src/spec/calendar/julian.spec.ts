@@ -1,6 +1,6 @@
 /* global describe it: true */
-import { JulianCalendar as cal } from '../../calendar/JulianCalendar';
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
+import { JulianCalendar as cal } from '../../calendar/JulianCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'julianDate': { 'year': -587, 'month':  7, 'day': 30 } },

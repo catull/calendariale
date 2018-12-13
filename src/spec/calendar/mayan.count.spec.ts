@@ -1,5 +1,5 @@
 /* global describe it: true */
-import { J0000, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, INVALID_BAKTUN } from '../../Const';
+import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, J0000 } from '../../Const';
 
 import { MayanCountCalendar as cal } from '../../calendar/MayanCountCalendar';
 

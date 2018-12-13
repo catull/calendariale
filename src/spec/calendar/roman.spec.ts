@@ -1,5 +1,5 @@
 /* global describe it: true */
-import { RomanEvent, INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH } from '../../Const';
+import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, RomanEvent } from '../../Const';
 import { RomanCalendar as cal } from '../../calendar/RomanCalendar';
 
 const data1 = [

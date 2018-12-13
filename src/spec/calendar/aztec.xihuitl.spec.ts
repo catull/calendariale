@@ -2,7 +2,7 @@
 
 import { J0000 } from '../../Const';
 
-import { AztecXihuitlCalendar as cal, AztecXihuitlCalendar } from '../../calendar/AztecXihuitlCalendar';
+import { AztecXihuitlCalendar as cal } from '../../calendar/AztecXihuitlCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecXihuitl': { 'month':  2, 'day':  6 } },
@@ -60,13 +60,13 @@ describe ('Aztec Xihuitl calendar spec', () => {
   });
 
   it ('should calculate an Aztec Xihuitl ordinal', () => {
-    const ordinal = AztecXihuitlCalendar.toOrdinal(10, 10);
+    const ordinal = cal.toOrdinal(10, 10);
     expect(ordinal).toBeLessThan (260);
     expect(ordinal).toBe (189);
   });
 
   it ('should interpolate an Aztec Xihuitl date', () => {
-    const jdn = AztecXihuitlCalendar.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
+    const jdn = cal.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
     expect(jdn).toBe (2451285.5); // gregorian: 1999/04/17
   });
 
