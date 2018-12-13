@@ -2,7 +2,7 @@
 
 import { J0000 } from '../../Const';
 
-import { AztecTonalpohualliCalendar as cal } from '../../calendar/AztecTonalpohualliCalendar';
+import { AztecTonalpohualliCalendarDate as cal } from '../../calendar/AztecTonalpohualliCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecTonalpohualli': { 'num':  5, 'name':  9 } },

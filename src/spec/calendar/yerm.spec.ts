@@ -1,6 +1,6 @@
 /* global describe it require: true */
 import { INVALID_DAY, INVALID_MONTH, INVALID_YERM } from '../../Const';
-import { YermCalendar as cal } from '../../calendar/YermCalendar';
+import { YermCalendarDate as cal } from '../../calendar/YermCalendarDate';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'yerm': { 'cycle': -17, 'yerm': 23, 'month':  2, 'day': 10.5 } },

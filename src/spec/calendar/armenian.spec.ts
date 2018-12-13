@@ -1,7 +1,7 @@
 /* global describe it: true */
 
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
+import { ArmenianCalendarDate as cal } from '../../calendar/ArmenianCalendarDate';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'armenian': { 'year': -1138, 'month':  4, 'day': 10 } },

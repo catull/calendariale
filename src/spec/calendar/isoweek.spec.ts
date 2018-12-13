@@ -1,6 +1,6 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_WEEK } from '../../Const';
-import { IsoWeekCalendar as cal } from '../../calendar/IsoWeekCalendar';
+import { IsoWeekCalendarDate as cal } from '../../calendar/IsoWeekCalendarDate';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'iso': { 'year': -586, 'week': 29, 'day': 7 } },

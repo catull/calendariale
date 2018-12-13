@@ -1,4 +1,4 @@
-import { GregorianCalendar } from './calendar/GregorianCalendar';
+import { GregorianCalendarDate } from './calendar/GregorianCalendarDate';
 
 import {
   J0000,
@@ -446,14 +446,14 @@ function localToStandard(teeEll: number, location: Location): number {
  * @return {float} converted time
  */
 function ephemerisCorrection(tee: number): number {
-  const year = GregorianCalendar.jdnToYear(Math.floor(tee + gregorian.EPOCH));
+  const year = GregorianCalendarDate.jdnToYear(Math.floor(tee + gregorian.EPOCH));
 
   if (year >= 1988 && year <= 2019) {
     return (year - 1933) / 86400;
   }
 
-  const centuries: number = (GregorianCalendar.toJdn(year, Month.JULY, 1) -
-    GregorianCalendar.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY;
+  const centuries: number = (GregorianCalendarDate.toJdn(year, Month.JULY, 1) -
+    GregorianCalendarDate.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY;
 
   if (year >= 1900 && year <= 1987) {
     return poly(centuries, [
@@ -476,8 +476,8 @@ function ephemerisCorrection(tee: number): number {
     return poly(year - 1600, [196.58333, -4.0675, 0.0219167]) / 86400;
   }
 
-  const result: number = 0.5 + GregorianCalendar.toJdn(year, Month.JANUARY, 1) -
-    GregorianCalendar.toJdn(1810, Month.JANUARY, 1);
+  const result: number = 0.5 + GregorianCalendarDate.toJdn(year, Month.JANUARY, 1) -
+    GregorianCalendarDate.toJdn(1810, Month.JANUARY, 1);
 
   return (result * result / 41048480 - 15) / 86400;
 }

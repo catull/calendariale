@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { EthiopicCalendar as cal } from '../../calendar/EthiopicCalendar';
+import { EthiopicCalendarDate as cal } from '../../calendar/EthiopicCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'ethiopic': { 'year': -594, 'month': 12, 'day':  6 } },
