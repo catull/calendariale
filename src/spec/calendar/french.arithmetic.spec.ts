@@ -1,5 +1,5 @@
 /* global describe it: true */
-import { J0000, INVALID_DAY, INVALID_MONTH } from '../../Const';
+import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { FrenchArithmeticCalendar as cal } from '../../calendar/FrenchArithmeticCalendar';
 

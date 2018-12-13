@@ -2,7 +2,7 @@
 
 import { J0000 } from '../../Const';
 
-import { AztecTonalpohualliCalendar as cal, AztecTonalpohualliCalendar } from '../../calendar/AztecTonalpohualliCalendar';
+import { AztecTonalpohualliCalendar as cal } from '../../calendar/AztecTonalpohualliCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecTonalpohualli': { 'num':  5, 'name':  9 } },
@@ -60,13 +60,13 @@ describe ('Aztec Tonalpohualli calendar spec', () => {
   });
 
   it ('should calculate an Aztec Tonalpohualli ordinal', () => {
-    const ordinal = AztecTonalpohualliCalendar.toOrdinal(10, 10);
+    const ordinal = cal.toOrdinal(10, 10);
     expect(ordinal).toBeLessThan (260);
     expect(ordinal).toBe (9);
   });
 
   it ('should interpolate an Aztec Tonalpohualli date', () => {
-    const jdn = AztecTonalpohualliCalendar.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
+    const jdn = cal.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
     expect(jdn).toBe (2451452.5); // gregorian: 1999/10/01
   });
 

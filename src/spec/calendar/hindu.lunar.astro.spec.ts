@@ -1,5 +1,5 @@
 /* global describe it: true */
-import { J0000, INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH } from '../../Const';
+import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
 import { HinduLunarAstroCalendar as cal } from '../../calendar/HinduLunarAstroCalendar';
 
