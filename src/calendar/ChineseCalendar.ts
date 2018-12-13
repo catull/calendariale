@@ -8,8 +8,9 @@ import {
   standardToUniversal,
   universalToStandard
 } from '../Astro';
-import { chinese, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Season, INVALID_YEAR, INVALID_MONTH, INVALID_LEAP_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Season, chinese } from '../Const';
 import { Location } from '../Location';
+
 import { CalendarValidationException, LeapMonthCalendar } from './core';
 
 export class ChineseCalendar extends LeapMonthCalendar {

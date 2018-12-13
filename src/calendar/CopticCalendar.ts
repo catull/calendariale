@@ -1,5 +1,6 @@
 import { mod } from '../Astro';
-import { coptic, INVALID_MONTH, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, coptic } from '../Const';
+
 import { CalendarValidationException, LeapCalendar } from './core';
 
 export class CopticCalendar extends LeapCalendar {

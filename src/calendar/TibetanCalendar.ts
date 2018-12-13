@@ -1,5 +1,6 @@
 import { amod, mod } from '../Astro';
-import { tibetan, INVALID_MONTH, INVALID_LEAP_MONTH, INVALID_LEAP_DAY, INVALID_DAY } from '../Const';
+import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, tibetan } from '../Const';
+
 import { CalendarValidationException, LeapDayMonthCalendar } from './core';
 
 export class TibetanCalendar extends LeapDayMonthCalendar {
