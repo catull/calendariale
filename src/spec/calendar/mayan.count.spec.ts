@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, J0000 } from '../../Const';
 
-import { MayanCountCalendar as cal } from '../../calendar/MayanCountCalendar';
+import { MayanCountCalendarDate as cal } from '../../calendar/MayanCountCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'mayanLong': { 'baktun':  6, 'katun':  8, 'tun':  3, 'uinal': 13, 'kin':  9 } },

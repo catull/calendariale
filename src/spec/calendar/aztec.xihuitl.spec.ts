@@ -2,7 +2,7 @@
 
 import { J0000 } from '../../Const';
 
-import { AztecXihuitlCalendar as cal } from '../../calendar/AztecXihuitlCalendar';
+import { AztecXihuitlCalendarDate as cal } from '../../calendar/AztecXihuitlCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecXihuitl': { 'month':  2, 'day':  6 } },

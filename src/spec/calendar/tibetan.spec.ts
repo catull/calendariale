@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
-import { TibetanCalendar as cal } from '../../calendar/TibetanCalendar';
+import { TibetanCalendarDate as cal } from '../../calendar/TibetanCalendarDate';
 
 const data4 = [
   { 'rataDie': -214193, 'tibetan': { 'year': -459, 'month':  8, 'monthLeap': false, 'day': 11, 'dayLeap': false } },

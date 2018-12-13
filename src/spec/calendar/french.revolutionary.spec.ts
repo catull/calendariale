@@ -2,7 +2,7 @@
 import { amod } from '../../Astro';
 import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, J0000 } from '../../Const';
 
-import { FrenchRevolutionaryCalendar as cal } from '../../calendar/FrenchRevolutionaryCalendar';
+import { FrenchRevolutionaryCalendarDate as cal } from '../../calendar/FrenchRevolutionaryCalendarDate';
 
 const data3 = [
   { 'rataDie': -214193, 'french': { 'year': -2378, 'month': 11, 'day':  5 } },

@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { IslamicObservationalCalendar as cal } from '../../calendar/IslamicObservationalCalendar';
+import { IslamicObservationalCalendarDate as cal } from '../../calendar/IslamicObservationalCalendarDate';
 
 const data2 = [
   { 'rataDie': -214193, 'islamicObs': { 'year': -1245, 'month': 12, 'day': 11 } },

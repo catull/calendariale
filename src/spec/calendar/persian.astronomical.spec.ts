@@ -1,7 +1,7 @@
 /* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { PersianAstronomicalCalendar as cal } from '../../calendar/PersianAstronomicalCalendar';
+import { PersianAstronomicalCalendarDate as cal } from '../../calendar/PersianAstronomicalCalendarDate';
 
 const data3 = [
   { 'rataDie': -214193, 'persianAstro': { 'year': -1208, 'month':  5, 'day':  1 } },
