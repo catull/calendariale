@@ -1,6 +1,6 @@
 /* global describe it: true */
 
-import { J0000, INVALID_VAHID, INVALID_YEAR, INVALID_MONTH, INVALID_DAY } from '../../Const';
+import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, J0000 } from '../../Const';
 
 import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
 

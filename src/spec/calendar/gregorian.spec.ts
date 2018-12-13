@@ -1,6 +1,6 @@
 /* global describe it: true */
+import { INVALID_DAY, INVALID_MONTH } from '../../Const';
 import { GregorianCalendar as cal } from '../../calendar/GregorianCalendar';
-import { INVALID_MONTH, INVALID_DAY } from '../../Const';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'gregorian': { 'year': -586, 'month':  7, 'day': 24  } },

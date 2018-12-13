@@ -1,6 +1,6 @@
 /* global describe it: true */
 import { amod } from '../../Astro';
-import { J0000, INVALID_DECADI, INVALID_JOUR, INVALID_MOIS } from '../../Const';
+import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, J0000 } from '../../Const';
 
 import { FrenchRevolutionaryCalendar as cal } from '../../calendar/FrenchRevolutionaryCalendar';
 
