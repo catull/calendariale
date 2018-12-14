@@ -1,8 +1,8 @@
-import { BaseCalendarDate } from '../../../index';
+import { BaseDate } from '../../../index';
 
 describe ('Base calendar spec', () => {
-  it ('should instantiate a BaseCalendarDate', () => {
-    const cal: BaseCalendarDate = new BaseCalendarDate(0);
+  it ('should instantiate a BaseDate', () => {
+    const cal: BaseDate = new BaseDate(0);
 
     expect (cal.getJdn()).toBe(0);
   });
