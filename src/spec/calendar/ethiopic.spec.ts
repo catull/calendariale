@@ -2,69 +2,62 @@ import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { EthiopicCalendar as cal } from '../../calendar/EthiopicCalendar';
 
-const data2 = [
-  { 'rataDie': -214193, 'ethiopic': { 'year': -594, 'month': 12, 'day':  6 } },
-  { 'rataDie':  -61387, 'ethiopic': { 'year': -175, 'month':  4, 'day': 12 } },
-  { 'rataDie':   25469, 'ethiopic': { 'year':   63, 'month':  1, 'day': 29 } },
-  { 'rataDie':   49217, 'ethiopic': { 'year':  128, 'month':  2, 'day':  5 } },
-  { 'rataDie':  171307, 'ethiopic': { 'year':  462, 'month':  5, 'day': 12 } },
-  { 'rataDie':  210155, 'ethiopic': { 'year':  568, 'month':  9, 'day': 23 } },
-  { 'rataDie':  253427, 'ethiopic': { 'year':  687, 'month':  3, 'day': 11 } },
-  { 'rataDie':  369740, 'ethiopic': { 'year': 1005, 'month':  8, 'day': 24 } },
-  { 'rataDie':  400085, 'ethiopic': { 'year': 1088, 'month':  9, 'day': 23 } },
-  { 'rataDie':  434355, 'ethiopic': { 'year': 1182, 'month':  7, 'day': 20 } },
-  { 'rataDie':  452605, 'ethiopic': { 'year': 1232, 'month':  7, 'day':  7 } },
-  { 'rataDie':  470160, 'ethiopic': { 'year': 1280, 'month':  7, 'day': 30 } },
-  { 'rataDie':  473837, 'ethiopic': { 'year': 1290, 'month':  8, 'day': 25 } },
-  { 'rataDie':  507850, 'ethiopic': { 'year': 1383, 'month': 10, 'day': 10 } },
-  { 'rataDie':  524156, 'ethiopic': { 'year': 1428, 'month':  5, 'day': 29 } },
-  { 'rataDie':  544676, 'ethiopic': { 'year': 1484, 'month':  8, 'day':  5 } },
-  { 'rataDie':  567118, 'ethiopic': { 'year': 1546, 'month':  1, 'day': 12 } },
-  { 'rataDie':  569477, 'ethiopic': { 'year': 1552, 'month':  6, 'day': 29 } },
-  { 'rataDie':  601716, 'ethiopic': { 'year': 1640, 'month': 10, 'day':  6 } },
-  { 'rataDie':  613424, 'ethiopic': { 'year': 1672, 'month': 10, 'day': 26 } },
-  { 'rataDie':  626596, 'ethiopic': { 'year': 1708, 'month': 11, 'day': 19 } },
-  { 'rataDie':  645554, 'ethiopic': { 'year': 1760, 'month': 10, 'day': 14 } },
-  { 'rataDie':  664224, 'ethiopic': { 'year': 1811, 'month': 11, 'day': 27 } },
-  { 'rataDie':  671401, 'ethiopic': { 'year': 1831, 'month':  7, 'day': 19 } },
-  { 'rataDie':  694799, 'ethiopic': { 'year': 1895, 'month':  8, 'day': 11 } },
-  { 'rataDie':  704424, 'ethiopic': { 'year': 1921, 'month': 12, 'day': 19 } },
-  { 'rataDie':  708842, 'ethiopic': { 'year': 1934, 'month':  1, 'day': 19 } },
-  { 'rataDie':  709409, 'ethiopic': { 'year': 1935, 'month':  8, 'day': 11 } },
-  { 'rataDie':  709580, 'ethiopic': { 'year': 1936, 'month':  1, 'day': 26 } },
-  { 'rataDie':  727274, 'ethiopic': { 'year': 1984, 'month':  7, 'day':  8 } },
-  { 'rataDie':  728714, 'ethiopic': { 'year': 1988, 'month':  6, 'day': 17 } },
-  { 'rataDie':  744313, 'ethiopic': { 'year': 2031, 'month':  3, 'day':  1 } },
-  { 'rataDie':  764652, 'ethiopic': { 'year': 2086, 'month': 11, 'day': 11 } }
+const dates = [
+  { rataDie: -214193, date: { year: -594, month: 12, day:  6 } },
+  { rataDie:  -61387, date: { year: -175, month:  4, day: 12 } },
+  { rataDie:   25469, date: { year:   63, month:  1, day: 29 } },
+  { rataDie:   49217, date: { year:  128, month:  2, day:  5 } },
+  { rataDie:  171307, date: { year:  462, month:  5, day: 12 } },
+  { rataDie:  210155, date: { year:  568, month:  9, day: 23 } },
+  { rataDie:  253427, date: { year:  687, month:  3, day: 11 } },
+  { rataDie:  369740, date: { year: 1005, month:  8, day: 24 } },
+  { rataDie:  400085, date: { year: 1088, month:  9, day: 23 } },
+  { rataDie:  434355, date: { year: 1182, month:  7, day: 20 } },
+  { rataDie:  452605, date: { year: 1232, month:  7, day:  7 } },
+  { rataDie:  470160, date: { year: 1280, month:  7, day: 30 } },
+  { rataDie:  473837, date: { year: 1290, month:  8, day: 25 } },
+  { rataDie:  507850, date: { year: 1383, month: 10, day: 10 } },
+  { rataDie:  524156, date: { year: 1428, month:  5, day: 29 } },
+  { rataDie:  544676, date: { year: 1484, month:  8, day:  5 } },
+  { rataDie:  567118, date: { year: 1546, month:  1, day: 12 } },
+  { rataDie:  569477, date: { year: 1552, month:  6, day: 29 } },
+  { rataDie:  601716, date: { year: 1640, month: 10, day:  6 } },
+  { rataDie:  613424, date: { year: 1672, month: 10, day: 26 } },
+  { rataDie:  626596, date: { year: 1708, month: 11, day: 19 } },
+  { rataDie:  645554, date: { year: 1760, month: 10, day: 14 } },
+  { rataDie:  664224, date: { year: 1811, month: 11, day: 27 } },
+  { rataDie:  671401, date: { year: 1831, month:  7, day: 19 } },
+  { rataDie:  694799, date: { year: 1895, month:  8, day: 11 } },
+  { rataDie:  704424, date: { year: 1921, month: 12, day: 19 } },
+  { rataDie:  708842, date: { year: 1934, month:  1, day: 19 } },
+  { rataDie:  709409, date: { year: 1935, month:  8, day: 11 } },
+  { rataDie:  709580, date: { year: 1936, month:  1, day: 26 } },
+  { rataDie:  727274, date: { year: 1984, month:  7, day:  8 } },
+  { rataDie:  728714, date: { year: 1988, month:  6, day: 17 } },
+  { rataDie:  744313, date: { year: 2031, month:  3, day:  1 } },
+  { rataDie:  764652, date: { year: 2086, month: 11, day: 11 } },
 ];
 
 describe ('Ethiopic calendar spec', () => {
-  let date;
-  let  expected;
-  let  actual;
-  let  julian;
-
   it ('should convert an Ethiopic date to Julian day', () => {
-    data2.forEach (dt => {
-      date   = dt.ethiopic;
-      julian = dt.rataDie + J0000;
-      actual = cal.toJdn (date.year, date.month, date.day);
+    dates.forEach (({ rataDie, date }) => {
+      const jdn    = rataDie + J0000;
+      const actual = cal.toJdn (date.year, date.month, date.day);
 
-      expect (julian).toBe (actual);
+      expect (actual).toBe (jdn);
     });
   });
 
   it ('should convert a Julian day to an Ethiopic date', () => {
-    data2.forEach (dt => {
-      julian   = dt.rataDie + J0000;
-      date     = dt.ethiopic;
-      expected = { jdn: julian, year: date.year, month: date.month, day: date.day };
-      actual   = cal.fromJdn (julian);
+    dates.forEach (({ rataDie, date }) => {
+      const jdn      = rataDie + J0000;
+      const expected = { jdn, ...date };
+      const actual   = cal.fromJdn (jdn);
 
-      expect (expected).toEqual (actual);
-      // expect (expected.year).toBe (actual.year);
-      // expect (expected.month).toBe (actual.month);
-      // expect (expected.day).toBe (actual.day);
+      expect (actual).toEqual (expected);
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
 
