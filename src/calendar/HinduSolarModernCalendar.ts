@@ -1,8 +1,8 @@
 import { mod, next } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, J0000, hindu } from '../Const';
 
-import { hinduCalendarDateYear, hinduSolarLongitude, hinduSunrise, hinduZodiac } from './HinduAlgorithms';
-import { HinduSolarModernCalendarDate } from './HinduSolarModernCalendarDate';
+import { hinduDateYear, hinduSolarLongitude, hinduSunrise, hinduZodiac } from './HinduAlgorithms';
+import { HinduSolarModernDate } from './HinduSolarModernDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduSolarModernCalendar {
@@ -32,11 +32,11 @@ export class HinduSolarModernCalendar {
   }
 
   // Calculate Hindu Solar Modern calendar date from Julian day
-  public static fromJdn(jdn: number): HinduSolarModernCalendarDate {
+  public static fromJdn(jdn: number): HinduSolarModernDate {
     const jd0: number = jdn - J0000;
     const critical: number = hinduSunrise(jd0 + 1);
     const month: number = hinduZodiac(critical);
-    const year: number = hinduCalendarDateYear(critical) - hindu.SOLAR_ERA;
+    const year: number = hinduDateYear(critical) - hindu.SOLAR_ERA;
     const approx: number = jd0 - 3 - mod(Math.floor(hinduSolarLongitude(critical)), 30);
 
     const begin: number = next(approx, (index: number): boolean =>
@@ -45,7 +45,7 @@ export class HinduSolarModernCalendar {
 
     const day: number = jd0 - begin + 1;
 
-    return new HinduSolarModernCalendarDate(jdn, year, month, day);
+    return new HinduSolarModernDate(jdn, year, month, day);
   }
 
 }

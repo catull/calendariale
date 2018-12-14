@@ -1,7 +1,7 @@
 import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, TROPICAL_YEAR, bahai } from '../Const';
 
-import { BahaiCalendarDate } from './BahaiCalendarDate';
+import { BahaiDate } from './BahaiDate';
 import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
@@ -101,7 +101,7 @@ export class BahaiCalendar {
   }
 
   // Calculate Bahai calendar date from Julian day
-  public static fromJdn(jdn: number): BahaiCalendarDate {
+  public static fromJdn(jdn: number): BahaiDate {
     const jd0: number = Math.floor(jdn - 0.5) + 0.5;
     const old: boolean = jd0 < bahai.EPOCH172;
 
@@ -144,7 +144,7 @@ export class BahaiCalendar {
       day = days - 18 * 19;
     }
 
-    return new BahaiCalendarDate(jdn, kullIshay, vahid, year, month, day);
+    return new BahaiDate(jdn, kullIshay, vahid, year, month, day);
   }
 
   // Determine the year in the Bahai // astronomical calendar in which a

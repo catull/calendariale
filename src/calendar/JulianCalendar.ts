@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS } from '../Const';
 
-import { JulianCalendarDate } from './JulianCalendarDate';
+import { JulianDate } from './JulianDate';
 import { CalendarDateValidationException } from './core';
 
 export class JulianCalendar {
@@ -52,7 +52,7 @@ export class JulianCalendar {
   }
 
   // Calculate Julian calendar date from Julian day
-  public static fromJdn(jdn: number): JulianCalendarDate {
+  public static fromJdn(jdn: number): JulianDate {
     const b: number = Math.floor(jdn + 0.5) + 1524;
     const c: number = Math.floor((b - 122.1) / 365.25);
     const d: number = Math.floor(365.25 * c);
@@ -69,7 +69,7 @@ export class JulianCalendar {
       year -= 1;
     }
 
-    return new JulianCalendarDate(jdn, year, month, day);
+    return new JulianDate(jdn, year, month, day);
   }
 
 }
