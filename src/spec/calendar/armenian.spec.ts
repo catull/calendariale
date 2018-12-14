@@ -40,8 +40,7 @@ const dates = [
 
 describe ('Armenian calendar spec', () => {
   it ('should convert an Armenian date to Julian day', () => {
-    dates.forEach (dt => {
-      const { jdn, date } = dt;
+    dates.forEach (({ jdn, date}) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
       expect (jdn).toBe (actual);
@@ -49,8 +48,7 @@ describe ('Armenian calendar spec', () => {
   });
 
   it ('should convert a Julian day to an Armenian date', () => {
-    dates.forEach (dt => {
-      const { jdn, date } = dt;
+    dates.forEach (({ jdn, date}) => {
       const actual: ArmenianDate = cal.fromJdn (jdn);
 
       expect ({ jdn, ...date }).toEqual (actual);
