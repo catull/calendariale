@@ -1,5 +1,10 @@
 .flowconfig
+.prettierrc.json
+.rts2_cache_*
 .vscode
-lib
-spec
+jest.config.js
+renovate.json
+src
+tsconfig.json
 tslint.json
+yarn.lock
