@@ -1,8 +1,6 @@
-/* global describe it: true */
-
 import { J0000 } from '../../Const';
 
-import { AztecXihuitlCalendarDate as cal } from '../../calendar/AztecXihuitlCalendarDate';
+import { AztecXihuitlCalendar as cal } from '../../calendar/AztecXihuitlCalendar';
 
 const data2 = [
   { 'rataDie': -214193, 'aztecXihuitl': { 'month':  2, 'day':  6 } },

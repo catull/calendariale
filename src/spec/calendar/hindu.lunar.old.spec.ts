@@ -1,7 +1,6 @@
-/* global describe it: true */
 import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
-import { HinduLunarOldCalendarDate as cal } from '../../calendar/HinduLunarOldCalendarDate';
+import { HinduLunarOldCalendar as cal } from '../../calendar/HinduLunarOldCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'hinduLunarOld': { 'year': 2515, 'month':  6, 'monthLeap': false, 'day': 11 } },

@@ -1,7 +1,6 @@
-/* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
-import { HebrewObservationalCalendarDate as cal } from '../../calendar/HebrewObservationalCalendarDate';
+import { HebrewObservationalCalendar as cal } from '../../calendar/HebrewObservationalCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'hebrewObs': { 'year': 3174, 'month':  5, 'day': 11 } },
