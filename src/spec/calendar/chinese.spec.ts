@@ -35,7 +35,7 @@ const dates = [
   { rataDie:  727274, date: { cycle: 78, year:  9, month:  2, monthLeap: false, day: 14 } },
   { rataDie:  728714, date: { cycle: 78, year: 13, month:  1, monthLeap: false, day:  7 } },
   { rataDie:  744313, date: { cycle: 78, year: 55, month: 10, monthLeap: false, day: 14 } },
-  { rataDie:  764652, date: { cycle: 79, year: 51, month:  6, monthLeap: false, day:  7 } }
+  { rataDie:  764652, date: { cycle: 79, year: 51, month:  6, monthLeap: false, day:  7 } },
 ];
 
 describe ('Chinese calendar spec', () => {
