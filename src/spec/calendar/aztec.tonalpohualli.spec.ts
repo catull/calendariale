@@ -35,7 +35,7 @@ const dates = [
   { rataDie:  727274, date: { num: 12, name: 16 } },
   { rataDie:  728714, date: { num:  9, name: 16 } },
   { rataDie:  744313, date: { num:  8, name: 15 } },
-  { rataDie:  764652, date: { num:  2, name: 14 } }
+  { rataDie:  764652, date: { num:  2, name: 14 } },
 ];
 
 describe ('Aztec Tonalpohualli calendar spec', () => {
