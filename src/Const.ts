@@ -225,6 +225,8 @@ const yermEpoch = {
   EPOCH_RD: 226955.5
 };
 
+const ROMAN_MONTH_MAX_DAYS: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
 enum MoonPhase {
   NEW = 0,
   FIRST_QUARTER = 90,
@@ -294,6 +296,7 @@ export {
   Month,
   MoonPhase,
   RomanEvent,
+  ROMAN_MONTH_MAX_DAYS,
   Season,
   TROPICAL_YEAR,
   WeekDay,
