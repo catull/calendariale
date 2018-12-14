@@ -1,6 +1,6 @@
-import { BaseCalendarDate } from './BaseCalendarDate';
+import { BaseDate } from './BaseDate';
 
-export class YearCalendarDate extends BaseCalendarDate {
+export class YearDate extends BaseDate {
   constructor(jdn: number, protected year: number) {
     super(jdn);
   }
