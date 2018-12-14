@@ -35,7 +35,7 @@ const dates = [
   { rataDie:  727274, date: { year: 2048, month: 12, monthLeap: false, day: 14, dayLeap: false } },
   { rataDie:  728714, date: { year: 2052, month: 12, monthLeap: false, day:  7, dayLeap: false } },
   { rataDie:  744313, date: { year: 2095, month:  8, monthLeap: false, day: 14, dayLeap: false } },
-  { rataDie:  764652, date: { year: 2151, month:  4, monthLeap: false, day:  6, dayLeap: false } }
+  { rataDie:  764652, date: { year: 2151, month:  4, monthLeap: false, day:  6, dayLeap: false } },
 ];
 
 describe ('Hindu Lunar Modern calendar spec', () => {
