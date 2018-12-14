@@ -1,65 +1,60 @@
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
 import { CopticCalendar as cal } from '../../calendar/CopticCalendar';
 
-const data1 = [
-  { 'julianDay': 1507231.5, 'coptic': { 'year': -870, 'month': 12, 'day':  6 } },
-  { 'julianDay': 1660037.5, 'coptic': { 'year': -451, 'month':  4, 'day': 12 } },
-  { 'julianDay': 1746893.5, 'coptic': { 'year': -213, 'month':  1, 'day': 29 } },
-  { 'julianDay': 1770641.5, 'coptic': { 'year': -148, 'month':  2, 'day':  5 } },
-  { 'julianDay': 1892731.5, 'coptic': { 'year':  186, 'month':  5, 'day': 12 } },
-  { 'julianDay': 1931579.5, 'coptic': { 'year':  292, 'month':  9, 'day': 23 } },
-  { 'julianDay': 1974851.5, 'coptic': { 'year':  411, 'month':  3, 'day': 11 } },
-  { 'julianDay': 2091164.5, 'coptic': { 'year':  729, 'month':  8, 'day': 24 } },
-  { 'julianDay': 2121509.5, 'coptic': { 'year':  812, 'month':  9, 'day': 23 } },
-  { 'julianDay': 2155779.5, 'coptic': { 'year':  906, 'month':  7, 'day': 20 } },
-  { 'julianDay': 2174029.5, 'coptic': { 'year':  956, 'month':  7, 'day':  7 } },
-  { 'julianDay': 2191584.5, 'coptic': { 'year': 1004, 'month':  7, 'day': 30 } },
-  { 'julianDay': 2195261.5, 'coptic': { 'year': 1014, 'month':  8, 'day': 25 } },
-  { 'julianDay': 2229274.5, 'coptic': { 'year': 1107, 'month': 10, 'day': 10 } },
-  { 'julianDay': 2245580.5, 'coptic': { 'year': 1152, 'month':  5, 'day': 29 } },
-  { 'julianDay': 2266100.5, 'coptic': { 'year': 1208, 'month':  8, 'day':  5 } },
-  { 'julianDay': 2288542.5, 'coptic': { 'year': 1270, 'month':  1, 'day': 12 } },
-  { 'julianDay': 2290901.5, 'coptic': { 'year': 1276, 'month':  6, 'day': 29 } },
-  { 'julianDay': 2323140.5, 'coptic': { 'year': 1364, 'month': 10, 'day':  6 } },
-  { 'julianDay': 2334848.5, 'coptic': { 'year': 1396, 'month': 10, 'day': 26 } },
-  { 'julianDay': 2348020.5, 'coptic': { 'year': 1432, 'month': 11, 'day': 19 } },
-  { 'julianDay': 2366978.5, 'coptic': { 'year': 1484, 'month': 10, 'day': 14 } },
-  { 'julianDay': 2385648.5, 'coptic': { 'year': 1535, 'month': 11, 'day': 27 } },
-  { 'julianDay': 2392825.5, 'coptic': { 'year': 1555, 'month':  7, 'day': 19 } },
-  { 'julianDay': 2416223.5, 'coptic': { 'year': 1619, 'month':  8, 'day': 11 } },
-  { 'julianDay': 2425848.5, 'coptic': { 'year': 1645, 'month': 12, 'day': 19 } },
-  { 'julianDay': 2430266.5, 'coptic': { 'year': 1658, 'month':  1, 'day': 19 } },
-  { 'julianDay': 2430833.5, 'coptic': { 'year': 1659, 'month':  8, 'day': 11 } },
-  { 'julianDay': 2431004.5, 'coptic': { 'year': 1660, 'month':  1, 'day': 26 } },
-  { 'julianDay': 2448698.5, 'coptic': { 'year': 1708, 'month':  7, 'day':  8 } },
-  { 'julianDay': 2450138.5, 'coptic': { 'year': 1712, 'month':  6, 'day': 17 } },
-  { 'julianDay': 2465737.5, 'coptic': { 'year': 1755, 'month':  3, 'day':  1 } },
-  { 'julianDay': 2486076.5, 'coptic': { 'year': 1810, 'month': 11, 'day': 11 } }
+const dates = [
+  { jdn: 1507231.5, date: { year: -870, month: 12, day:  6 } },
+  { jdn: 1660037.5, date: { year: -451, month:  4, day: 12 } },
+  { jdn: 1746893.5, date: { year: -213, month:  1, day: 29 } },
+  { jdn: 1770641.5, date: { year: -148, month:  2, day:  5 } },
+  { jdn: 1892731.5, date: { year:  186, month:  5, day: 12 } },
+  { jdn: 1931579.5, date: { year:  292, month:  9, day: 23 } },
+  { jdn: 1974851.5, date: { year:  411, month:  3, day: 11 } },
+  { jdn: 2091164.5, date: { year:  729, month:  8, day: 24 } },
+  { jdn: 2121509.5, date: { year:  812, month:  9, day: 23 } },
+  { jdn: 2155779.5, date: { year:  906, month:  7, day: 20 } },
+  { jdn: 2174029.5, date: { year:  956, month:  7, day:  7 } },
+  { jdn: 2191584.5, date: { year: 1004, month:  7, day: 30 } },
+  { jdn: 2195261.5, date: { year: 1014, month:  8, day: 25 } },
+  { jdn: 2229274.5, date: { year: 1107, month: 10, day: 10 } },
+  { jdn: 2245580.5, date: { year: 1152, month:  5, day: 29 } },
+  { jdn: 2266100.5, date: { year: 1208, month:  8, day:  5 } },
+  { jdn: 2288542.5, date: { year: 1270, month:  1, day: 12 } },
+  { jdn: 2290901.5, date: { year: 1276, month:  6, day: 29 } },
+  { jdn: 2323140.5, date: { year: 1364, month: 10, day:  6 } },
+  { jdn: 2334848.5, date: { year: 1396, month: 10, day: 26 } },
+  { jdn: 2348020.5, date: { year: 1432, month: 11, day: 19 } },
+  { jdn: 2366978.5, date: { year: 1484, month: 10, day: 14 } },
+  { jdn: 2385648.5, date: { year: 1535, month: 11, day: 27 } },
+  { jdn: 2392825.5, date: { year: 1555, month:  7, day: 19 } },
+  { jdn: 2416223.5, date: { year: 1619, month:  8, day: 11 } },
+  { jdn: 2425848.5, date: { year: 1645, month: 12, day: 19 } },
+  { jdn: 2430266.5, date: { year: 1658, month:  1, day: 19 } },
+  { jdn: 2430833.5, date: { year: 1659, month:  8, day: 11 } },
+  { jdn: 2431004.5, date: { year: 1660, month:  1, day: 26 } },
+  { jdn: 2448698.5, date: { year: 1708, month:  7, day:  8 } },
+  { jdn: 2450138.5, date: { year: 1712, month:  6, day: 17 } },
+  { jdn: 2465737.5, date: { year: 1755, month:  3, day:  1 } },
+  { jdn: 2486076.5, date: { year: 1810, month: 11, day: 11 } },
 ];
 
 describe ('Coptic calendar spec', () => {
-  let date, expected, actual;
-
   it ('should convert a Coptic date to Julian day', () => {
-    data1.forEach (dt => {
-      date = dt.coptic;
-      expected = dt.julianDay;
-      actual = cal.toJdn (date.year, date.month, date.day);
-
-      expect (expected).toBe (actual);
+    dates.forEach (({ jdn, date }) => {
+      const actual = cal.toJdn (date.year, date.month, date.day);
+      expect (jdn).toBe (actual);
     });
   });
 
   it ('should convert a Julian day to a Coptic date', () => {
-    data1.forEach (dt => {
-      date = dt.coptic;
-      expected = { jdn: dt.julianDay, year: date.year, month: date.month, day: date.day, yearLeap: cal.isLeapYear(date.year) };
-      actual = cal.fromJdn (dt.julianDay);
+    dates.forEach (({ jdn, date }) => {
+      const yearLeap = cal.isLeapYear(date.year);
+      const expected = { jdn, ...date, yearLeap };
+      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
-      // expect (expected.year).toBe (actual.year);
-      // expect (expected.month).toBe (actual.month);
-      // expect (expected.day).toBe (actual.day);
+      expect (expected.year).toBe (actual.getYear());
+      expect (expected.month).toBe (actual.getMonth());
+      expect (expected.day).toBe (actual.getDay());
     });
   });
 
