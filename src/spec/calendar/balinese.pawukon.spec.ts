@@ -1,7 +1,6 @@
-/* global describe it: true */
 import { J0000 } from '../../Const';
 
-import { BalinesePawukonCalendarDate as cal } from '../../calendar/BalinesePawukonCalendarDate';
+import { BalinesePawukonCalendar as cal } from '../../calendar/BalinesePawukonCalendar';
 
 const data3 = [
   {
@@ -521,6 +520,7 @@ describe('Balinese Pawukon calendar spec', () => {
       // };
       const expected = { jdn: julian, ...date };
       const actual = cal.fromJdn(julian);
+
       expect(expected).toEqual(actual);
       expect (expected.luang).toBe (actual.isLuag());
       expect (expected.dwiwara).toBe (actual.getDwiwara());

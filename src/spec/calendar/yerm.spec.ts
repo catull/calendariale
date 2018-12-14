@@ -1,6 +1,5 @@
-/* global describe it require: true */
 import { INVALID_DAY, INVALID_MONTH, INVALID_YERM } from '../../Const';
-import { YermCalendarDate as cal } from '../../calendar/YermCalendarDate';
+import { YermCalendar as cal } from '../../calendar/YermCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'yerm': { 'cycle': -17, 'yerm': 23, 'month':  2, 'day': 10.5 } },
@@ -55,7 +54,8 @@ describe ('Yerm calendar spec', () => {
   it ('should convert a Julian day to an Yerm date', () => {
     data1.forEach (dt => {
       date     = dt.yerm;
-      expected = { 'jdn': dt.julianDay, 'year': 0, 'cycle': date.cycle, 'yerm': date.yerm, 'month': date.month, 'day': date.day };
+      // expected = { 'jdn': dt.julianDay, 'year': 0, 'cycle': date.cycle, 'yerm': date.yerm, 'month': date.month, 'day': date.day };
+      expected = { 'jdn': dt.julianDay, 'year': 0, ...date };
       actual   = cal.fromJdn (dt.julianDay);
 
       expect (expected).toEqual (actual);

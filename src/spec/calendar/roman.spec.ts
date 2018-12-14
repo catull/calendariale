@@ -1,6 +1,5 @@
-/* global describe it: true */
 import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, RomanEvent } from '../../Const';
-import { RomanCalendarDate as cal } from '../../calendar/RomanCalendarDate';
+import { RomanCalendar as cal } from '../../calendar/RomanCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'roman': { 'year': -587, 'month':  8, 'event':  RomanEvent.KALENDS, 'count':  3, 'leap': false } },
