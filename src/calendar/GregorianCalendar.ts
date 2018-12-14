@@ -1,10 +1,8 @@
 import { mod } from '../Astro';
-import { INVALID_DAY, INVALID_MONTH, Month, gregorian } from '../Const';
+import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, gregorian } from '../Const';
 
 import { GregorianCalendarDate } from './GregorianCalendarDate';
 import { CalendarDateValidationException } from './core';
-
-const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export class GregorianCalendar {
   // Determine Julian day number from Gregorian calendar date
@@ -36,7 +34,7 @@ export class GregorianCalendar {
       return;
     }
 
-    if (daysInMonth[month - 1] < day) {
+    if (ROMAN_MONTH_MAX_DAYS[month - 1] < day) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
