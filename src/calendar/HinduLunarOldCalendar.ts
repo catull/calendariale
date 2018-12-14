@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, hindu } from '../Const';
 
 import { hinduDayCount } from './HinduAlgorithms';
-import { HinduLunarOldCalendarDate } from './HinduLunarOldCalendarDate';
+import { HinduLunarOldDate } from './HinduLunarOldDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarOldCalendar {
@@ -12,7 +12,7 @@ export class HinduLunarOldCalendar {
   }
 
   // Calculate Hindu Lunar Old calendar date from Julian day
-  public static fromJdn(jdn: number): HinduLunarOldCalendarDate {
+  public static fromJdn(jdn: number): HinduLunarOldDate {
     const sun: number = hinduDayCount(jdn) + 0.25;
     const newMoon: number = sun - mod(sun, ARYA_LUNAR_MONTH);
     const monthLeap: boolean = ARYA_SOLAR_MONTH - ARYA_LUNAR_MONTH >= mod(newMoon, ARYA_SOLAR_MONTH) &&
@@ -21,7 +21,7 @@ export class HinduLunarOldCalendar {
     const day: number = mod(Math.floor(sun / ARYA_LUNAR_DAY), 30) + 1;
     const year: number = Math.ceil((newMoon + ARYA_SOLAR_MONTH) / ARYA_SOLAR_YEAR) - 1;
 
-    return new HinduLunarOldCalendarDate(jdn, year, month, monthLeap, day);
+    return new HinduLunarOldDate(jdn, year, month, monthLeap, day);
   }
 
   // Determine Julian day number from Hindu Lunar Modern calendar date
@@ -41,7 +41,7 @@ export class HinduLunarOldCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
 
-    const date: HinduLunarOldCalendarDate = this.fromJdn(jdn);
+    const date: HinduLunarOldDate = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
       throw new CalendarDateValidationException(INVALID_LEAP_MONTH);
     }

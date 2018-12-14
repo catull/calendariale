@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, INVALID_YERM, yermEpoch } from '../Const';
 
-import { YermCalendarDate } from './YermCalendarDate';
+import { YermDate } from './YermDate';
 import { CalendarDateValidationException } from './core';
 
 export class YermCalendar {
@@ -20,7 +20,7 @@ export class YermCalendar {
   }
 
   // Calculate Yerm calendar date from Julian day
-  public static fromJdn(jdn: number): YermCalendarDate {
+  public static fromJdn(jdn: number): YermDate {
     let day = jdn - yermEpoch.EPOCH;
 
     const cycle: number = Math.floor(day / 25101) + 1;
@@ -34,7 +34,7 @@ export class YermCalendar {
     month = month + Math.floor(day / 30);
     day = mod(day, 30) + 1;
 
-    return new YermCalendarDate(jdn, cycle, yerm, month, day);
+    return new YermDate(jdn, cycle, yerm, month, day);
   }
 
   public static validate(cycle: number, yerm: number, month: number, day: number): void {

@@ -1,16 +1,16 @@
 import { mod } from '../Astro';
 import { aztec } from '../Const';
 
-import { AztecXihuitlCalendarDate } from './AztecXihuitlCalendarDate';
+import { AztecXihuitlDate } from './AztecXihuitlDate';
 
 export class AztecXihuitlCalendar {
   // Calculate Aztec Xihuitl calendar date from Julian day
-  public static fromJdn(jdn: number): AztecXihuitlCalendarDate {
+  public static fromJdn(jdn: number): AztecXihuitlDate {
     const count: number = mod(jdn - aztec.XIHUITL_CORRELATION, 365);
     const day: number = mod(count, 20) + 1;
     const month: number = Math.floor(count / 20) + 1;
 
-    return new AztecXihuitlCalendarDate(jdn, month, day);
+    return new AztecXihuitlDate(jdn, month, day);
   }
 
   // Return the number of elapsed days into cycle of Aztec Xihuitl date.

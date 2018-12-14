@@ -2,8 +2,8 @@ import { amod, mod } from '../Astro';
 import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, RomanEvent } from '../Const';
 
 import { JulianCalendar } from './JulianCalendar';
-import { JulianCalendarDate } from './JulianCalendarDate';
-import { RomanCalendarDate } from './RomanCalendarDate';
+import { JulianDate } from './JulianDate';
+import { RomanDate } from './RomanDate';
 import { CalendarDateValidationException } from './core';
 
 export class RomanCalendar {
@@ -52,8 +52,8 @@ export class RomanCalendar {
   }
 
   // Calculate Roman calendar date from Julian day
-  public static fromJdn (jdn: number): RomanCalendarDate {
-    const date: JulianCalendarDate = JulianCalendar.fromJdn (jdn);
+  public static fromJdn (jdn: number): RomanDate {
+    const date: JulianDate = JulianCalendar.fromJdn (jdn);
     let year: number  = date.getYear ();
     let month: number = date.getMonth ();
     let count: number = date.getDay ();
@@ -87,7 +87,7 @@ export class RomanCalendar {
       leap  = (count === 25);
     }
 
-    return new RomanCalendarDate (jdn, year, month, event, count, leap);
+    return new RomanDate (jdn, year, month, event, count, leap);
   }
 
   /**

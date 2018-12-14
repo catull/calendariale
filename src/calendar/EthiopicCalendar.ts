@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, ethiopic } from '../Const';
 
-import { EthiopicCalendarDate } from './EthiopicCalendarDate';
+import { EthiopicDate } from './EthiopicDate';
 import { CalendarDateValidationException } from './core';
 
 export class EthiopicCalendar {
@@ -14,12 +14,12 @@ export class EthiopicCalendar {
   }
 
   // Calculate Ethiopic calendar date from Julian day
-  public static fromJdn(jdn: number): EthiopicCalendarDate {
+  public static fromJdn(jdn: number): EthiopicDate {
     const year: number = Math.floor((4 * (jdn - ethiopic.EPOCH) + 1463) / 1461);
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
     const day: number = jdn + 1 - this.toJdn(year, month, 1);
 
-    return new EthiopicCalendarDate(jdn, year, month, day);
+    return new EthiopicDate(jdn, year, month, day);
   }
   public static isLeapYear(year: number): boolean {
     return mod(year, 4) === 0;

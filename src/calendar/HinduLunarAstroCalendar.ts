@@ -1,8 +1,8 @@
 import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR, hindu } from '../Const';
 
-import { hinduAstroCalendarDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
-import { HinduLunarAstroCalendarDate } from './HinduLunarAstroCalendarDate';
+import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
+import { HinduLunarAstroDate } from './HinduLunarAstroDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarAstroCalendar {
@@ -19,7 +19,7 @@ export class HinduLunarAstroCalendar {
   }
 
   // Calculate Hindu Lunar Astro calendar date from Julian day
-  public static fromJdn(jdn: number): HinduLunarAstroCalendarDate {
+  public static fromJdn(jdn: number): HinduLunarAstroDate {
     const jd0: number = jdn - J0000;
     const critical: number = this.altHinduSunrise(jd0);
     const day: number = this.astroLunarDayFromMoment(critical);
@@ -29,9 +29,9 @@ export class HinduLunarAstroCalendar {
     const monthSolar: number = siderealZodiac(lastNewMoon);
     const monthLeap: boolean = monthSolar === siderealZodiac(nextNewMoon);
     const month: number = amod(monthSolar + 1, 12);
-    const year: number = hinduAstroCalendarDateYear(month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
+    const year: number = hinduAstroDateYear(month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
 
-    return new HinduLunarAstroCalendarDate(jdn, year, month, monthLeap, day, dayLeap);
+    return new HinduLunarAstroDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
@@ -43,7 +43,7 @@ export class HinduLunarAstroCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
 
-    const date: HinduLunarAstroCalendarDate = this.fromJdn(jdn);
+    const date: HinduLunarAstroDate = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
       throw new CalendarDateValidationException(INVALID_LEAP_MONTH);
     }
@@ -67,7 +67,7 @@ export class HinduLunarAstroCalendar {
     if (k > 3 && k < 27) {
       temp = k;
     } else {
-      const mid: HinduLunarAstroCalendarDate = this.fromJdn(s - 15 + J0000);
+      const mid: HinduLunarAstroDate = this.fromJdn(s - 15 + J0000);
       temp = mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
     }
 

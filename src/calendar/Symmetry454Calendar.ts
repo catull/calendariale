@@ -1,6 +1,6 @@
 import { INVALID_DAY, INVALID_MONTH, J0000, gregorian } from '../Const';
 
-import { Symmetry454CalendarDate } from './Symmetry454CalendarDate';
+import { Symmetry454Date } from './Symmetry454Date';
 import { CalendarDateValidationException } from './core';
 
 export class Symmetry454Calendar {
@@ -31,7 +31,7 @@ export class Symmetry454Calendar {
   }
 
   // Calculate Symmetry454 calendar date from Julian day
-  public static fromJdn(jdn: number): Symmetry454CalendarDate {
+  public static fromJdn(jdn: number): Symmetry454Date {
     const jd0: number = jdn - J0000;
     let year: number = 1 + Math.floor((293 * jd0) / 107016);
     let yearDay: number = jd0 - 364 * (year - 1) - 7 * Symmetry454Calendar.getLeapYearsBefore(year);
@@ -60,7 +60,7 @@ export class Symmetry454Calendar {
       day -= 28;
     }
 
-    return new Symmetry454CalendarDate(jdn, year, month, day);
+    return new Symmetry454Date(jdn, year, month, day);
   }
 
   private static getLeapYearsBefore(year: number): number {

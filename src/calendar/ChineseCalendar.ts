@@ -11,7 +11,7 @@ import {
 import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR, J0000, MEAN_SYNODIC_MONTH, MEAN_TROPICAL_YEAR, Season, chinese } from '../Const';
 import { Location } from '../Location';
 
-import { ChineseCalendarDate } from './ChineseCalendarDate';
+import { ChineseDate } from './ChineseDate';
 import { CalendarDateValidationException } from './core';
 
 export class ChineseCalendar {
@@ -35,7 +35,7 @@ export class ChineseCalendar {
   }
 
   // Calculate Chinese calendar date from Julian day
-  public static fromJdn(jdn: number): ChineseCalendarDate {
+  public static fromJdn(jdn: number): ChineseDate {
     const jd0: number = jdn - J0000;
     const s1: number = this.chineseWinterSolsticeOnOrBefore(jd0);
     const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
@@ -51,7 +51,7 @@ export class ChineseCalendar {
     const year: number = amod(years, 60);
     const day: number = 1 + jd0 - m;
 
-    return new ChineseCalendarDate(jdn, cycle, year, month, monthLeap, day);
+    return new ChineseDate(jdn, cycle, year, month, monthLeap, day);
   }
 
   private static validate(cycle: number, year: number, month: number, monthLeap: boolean, day: number, jdn: number) {
@@ -63,7 +63,7 @@ export class ChineseCalendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const date: ChineseCalendarDate = this.fromJdn(jdn);
+    const date: ChineseDate = this.fromJdn(jdn);
     if (monthLeap && !date.isMonthLeap()) {
       throw new CalendarDateValidationException(INVALID_LEAP_MONTH);
     }
@@ -82,7 +82,7 @@ export class ChineseCalendar {
   // Return Julian day number of Chinese New Year in given Gregorian year.
   /*
   private static chineseNewYear(gYear: number): number {
-    return this.chineseNewYearOnOrBefore(GregorianCalendarDate.toJdn(gYear, Month.JULY, 1));
+    return this.chineseNewYearOnOrBefore(GregorianDate.toJdn(gYear, Month.JULY, 1));
   }
   */
 

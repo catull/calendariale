@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, gregorian } from '../Const';
 
-import { GregorianCalendarDate } from './GregorianCalendarDate';
+import { GregorianDate } from './GregorianDate';
 import { CalendarDateValidationException } from './core';
 
 export class GregorianCalendar {
@@ -59,7 +59,7 @@ export class GregorianCalendar {
   }
 
   // Calculate Gregorian calendar date from Julian day
-  public static fromJdn(jdn: number): GregorianCalendarDate {
+  public static fromJdn(jdn: number): GregorianDate {
     const jd0: number = Math.floor(jdn - 0.5) + 0.5;
     const year: number = GregorianCalendar.jdnToYear(jd0);
     const yearDay: number = jd0 - GregorianCalendar.toJdn(year, 1, 1);
@@ -67,10 +67,10 @@ export class GregorianCalendar {
     const month: number = Math.floor(((yearDay + leapAdj) * 12 + 373) / 367);
     const day: number = jd0 - GregorianCalendar.toJdn(year, month, 1) + 1;
 
-    return new GregorianCalendarDate(jdn, year, month, day);
+    return new GregorianDate(jdn, year, month, day);
   }
 
-  public static dateDifference(date1: GregorianCalendarDate, date2: GregorianCalendarDate): number {
+  public static dateDifference(date1: GregorianDate, date2: GregorianDate): number {
     return date2.getJdn() - date1.getJdn();
   }
 

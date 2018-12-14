@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, INVALID_DAY, INVALID_MONTH, hindu } from '../Const';
 
 import { hinduDayCount } from './HinduAlgorithms';
-import { HinduSolarOldCalendarDate } from './HinduSolarOldCalendarDate';
+import { HinduSolarOldDate } from './HinduSolarOldDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduSolarOldCalendar {
@@ -26,13 +26,13 @@ export class HinduSolarOldCalendar {
   }
 
   // Calculate Hindu Solar Old calendar date from Julian day
-  public static fromJdn(jdn: number): HinduSolarOldCalendarDate {
+  public static fromJdn(jdn: number): HinduSolarOldDate {
     const sun: number = hinduDayCount(jdn) + 0.25;
     const year: number = Math.floor(sun / ARYA_SOLAR_YEAR);
     const month: number = mod(Math.floor(sun / ARYA_SOLAR_MONTH), 12) + 1;
     const day: number = Math.floor(mod(sun, ARYA_SOLAR_MONTH)) + 1;
 
-    return new HinduSolarOldCalendarDate(jdn, year, month, day);
+    return new HinduSolarOldDate(jdn, year, month, day);
   }
 
 }

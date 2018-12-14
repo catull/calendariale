@@ -1,16 +1,16 @@
 import { amod, mod } from '../Astro';
 import { aztec } from '../Const';
 
-import { AztecTonalpohualliCalendarDate } from './AztecTonalpohualliCalendarDate';
+import { AztecTonalpohualliDate } from './AztecTonalpohualliDate';
 
 export class AztecTonalpohualliCalendar {
   // Calculate Aztec Tonalpohualli calendar date from Julian day
-  public static fromJdn(jdn: number): AztecTonalpohualliCalendarDate {
+  public static fromJdn(jdn: number): AztecTonalpohualliDate {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;
     const num: number = amod(count, 13);
     const name: number = amod(count, 20);
 
-    return new AztecTonalpohualliCalendarDate(jdn, num, name);
+    return new AztecTonalpohualliDate(jdn, num, name);
   }
 
   // Return the number of elapsed days into cycle of Aztec Tonalpohualli date.

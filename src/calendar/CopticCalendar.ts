@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, coptic } from '../Const';
 
-import { CopticCalendarDate } from './CopticCalendarDate';
+import { CopticDate } from './CopticDate';
 import { CalendarDateValidationException } from './core';
 
 export class CopticCalendar {
@@ -24,7 +24,7 @@ export class CopticCalendar {
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
     const day: number = jdn + 1 - this.toJdn(year, month, 1);
 
-    return new CopticCalendarDate(jdn, year, month, day);
+    return new CopticDate(jdn, year, month, day);
   }
 
   public static validate(year: number, month: number, day: number): void {

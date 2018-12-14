@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, mayan } from '../Const';
 
-import { MayanCountCalendarDate } from './MayanCountCalendarDate';
+import { MayanCountDate } from './MayanCountDate';
 import { CalendarDateValidationException } from './core';
 
 export class MayanCountCalendar {
@@ -35,7 +35,7 @@ export class MayanCountCalendar {
   }
 
   // Calculate Mayan Count calendar date from Julian day
-  public static fromJdn(jdn: number): MayanCountCalendarDate {
+  public static fromJdn(jdn: number): MayanCountDate {
     let d: number = Math.floor(jdn) + 0.5 - mayan.EPOCH;
     const baktun: number = Math.floor(d / 144000);
     d = mod(d, 144000);
@@ -46,7 +46,7 @@ export class MayanCountCalendar {
     const uinal: number = Math.floor(d / 20);
     const kin: number = mod(d, 20);
 
-    return new MayanCountCalendarDate(jdn, baktun, katun, tun, uinal, kin);
+    return new MayanCountDate(jdn, baktun, katun, tun, uinal, kin);
   }
 
 }

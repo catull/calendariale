@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, islamic } from '../Const';
 
-import { IslamicCalendarDate } from './IslamicCalendarDate';
+import { IslamicDate } from './IslamicDate';
 import { CalendarDateValidationException } from './core';
 
 export class IslamicCalendar {
@@ -30,13 +30,13 @@ export class IslamicCalendar {
   }
 
   // Calculate Islamic calendar date from Julian day
-  public static fromJdn(jdn: number): IslamicCalendarDate {
+  public static fromJdn(jdn: number): IslamicDate {
     const jd0: number = Math.floor(jdn) + 0.5;
     const year: number = Math.floor((30 * (jd0 - islamic.EPOCH) + 10646) / 10631);
     const month: number = Math.min(12, Math.ceil((jd0 - (29 + this.toJdn(year, 1, 1))) / 29.5) + 1);
     const day: number = jd0 - this.toJdn(year, month, 1) + 1;
 
-    return new IslamicCalendarDate(jdn, year, month, day);
+    return new IslamicDate(jdn, year, month, day);
   }
 
 }

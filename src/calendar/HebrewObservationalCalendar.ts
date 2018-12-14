@@ -3,7 +3,7 @@ import { HebrewMonth, INVALID_DAY, INVALID_MONTH, J0000, Season, hebrew } from '
 
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
-import { HebrewObservationalCalendarDate } from './HebrewObservationalCalendarDate';
+import { HebrewObservationalDate } from './HebrewObservationalDate';
 import { CalendarDateValidationException } from './core';
 
 export class HebrewObservationalCalendar {
@@ -11,7 +11,7 @@ export class HebrewObservationalCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     const jdn: number = this.calculateJdn(year, month, day);
 
-    const date: HebrewObservationalCalendarDate = this.fromJdn(jdn);
+    const date: HebrewObservationalDate = this.fromJdn(jdn);
     if (day < 1 || day !== date.getDay()) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
@@ -35,7 +35,7 @@ export class HebrewObservationalCalendar {
 
   // Convert Julian date to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
-  public static fromJdn(jdn: number): HebrewObservationalCalendarDate {
+  public static fromJdn(jdn: number): HebrewObservationalDate {
     const crescent: number = phasisOnOrBefore(jdn, hebrew.JAFFA_LOCATION);
     const gYear: number = GregorianCalendar.jdnToYear(jdn);
     const newYear: number = this.toNewYear(gYear);
@@ -44,7 +44,7 @@ export class HebrewObservationalCalendar {
     const year: number = HebrewCalendar.fromJdn(newYear2).getYear() + (month >= HebrewMonth.TISHRI ? 1 : 0);
     const day: number = jdn - crescent + 1;
 
-    return new HebrewObservationalCalendarDate(jdn, year, month, day);
+    return new HebrewObservationalDate(jdn, year, month, day);
   }
 
   // Return jdn of Observational (classical) Nisan 1 occurring in Gregorian year.
