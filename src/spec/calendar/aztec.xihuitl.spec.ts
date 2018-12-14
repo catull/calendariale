@@ -35,7 +35,7 @@ const dates = [
   { rataDie:  727274, date: { month:  8, day: 18 } },
   { rataDie:  728714, date: { month:  7, day: 18 } },
   { rataDie:  744313, date: { month:  3, day:  2 } },
-  { rataDie:  764652, date: { month: 16, day:  6 } }
+  { rataDie:  764652, date: { month: 16, day:  6 } },
 ];
 
 describe ('Aztec Xihuitl calendar spec', () => {
