@@ -2,10 +2,10 @@ import { J0000 } from '../../Const';
 
 import { BalinesePawukonCalendar as cal } from '../../calendar/BalinesePawukonCalendar';
 
-const data3 = [
+const dates = [
   {
     rataDie: -214193,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 1,
@@ -20,7 +20,7 @@ const data3 = [
   },
   {
     rataDie: -61387,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -35,7 +35,7 @@ const data3 = [
   },
   {
     rataDie: 25469,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -50,7 +50,7 @@ const data3 = [
   },
   {
     rataDie: 49217,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -65,7 +65,7 @@ const data3 = [
   },
   {
     rataDie: 171307,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 1,
@@ -80,7 +80,7 @@ const data3 = [
   },
   {
     rataDie: 210155,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -95,7 +95,7 @@ const data3 = [
   },
   {
     rataDie: 253427,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -110,7 +110,7 @@ const data3 = [
   },
   {
     rataDie: 369740,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -125,7 +125,7 @@ const data3 = [
   },
   {
     rataDie: 400085,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -140,7 +140,7 @@ const data3 = [
   },
   {
     rataDie: 434355,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 3,
@@ -155,7 +155,7 @@ const data3 = [
   },
   {
     rataDie: 452605,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 1,
@@ -170,7 +170,7 @@ const data3 = [
   },
   {
     rataDie: 470160,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 3,
@@ -185,7 +185,7 @@ const data3 = [
   },
   {
     rataDie: 473837,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -200,7 +200,7 @@ const data3 = [
   },
   {
     rataDie: 507850,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 1,
@@ -215,7 +215,7 @@ const data3 = [
   },
   {
     rataDie: 524156,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -230,7 +230,7 @@ const data3 = [
   },
   {
     rataDie: 544676,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -245,7 +245,7 @@ const data3 = [
   },
   {
     rataDie: 567118,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 1,
@@ -260,7 +260,7 @@ const data3 = [
   },
   {
     rataDie: 569477,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -275,7 +275,7 @@ const data3 = [
   },
   {
     rataDie: 601716,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 3,
@@ -290,7 +290,7 @@ const data3 = [
   },
   {
     rataDie: 613424,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -305,7 +305,7 @@ const data3 = [
   },
   {
     rataDie: 626596,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 1,
@@ -320,7 +320,7 @@ const data3 = [
   },
   {
     rataDie: 645554,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -335,7 +335,7 @@ const data3 = [
   },
   {
     rataDie: 664224,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 3,
@@ -350,7 +350,7 @@ const data3 = [
   },
   {
     rataDie: 671401,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 1,
@@ -365,7 +365,7 @@ const data3 = [
   },
   {
     rataDie: 694799,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -380,7 +380,7 @@ const data3 = [
   },
   {
     rataDie: 704424,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 3,
@@ -395,7 +395,7 @@ const data3 = [
   },
   {
     rataDie: 708842,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -410,7 +410,7 @@ const data3 = [
   },
   {
     rataDie: 709409,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 2,
@@ -425,7 +425,7 @@ const data3 = [
   },
   {
     rataDie: 709580,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -440,7 +440,7 @@ const data3 = [
   },
   {
     rataDie: 727274,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -455,7 +455,7 @@ const data3 = [
   },
   {
     rataDie: 728714,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 2,
@@ -470,7 +470,7 @@ const data3 = [
   },
   {
     rataDie: 744313,
-    balinese: {
+    date: {
       luang: true,
       dwiwara: 2,
       triwara: 1,
@@ -485,7 +485,7 @@ const data3 = [
   },
   {
     rataDie: 764652,
-    balinese: {
+    date: {
       luang: false,
       dwiwara: 1,
       triwara: 3,
@@ -497,31 +497,17 @@ const data3 = [
       sangawara: 6,
       dasawara: 3
     }
-  }
+  },
 ];
 
 describe('Balinese Pawukon calendar spec', () => {
   it ('should convert a Julian day to a Balinese Pawukon date', () => {
-    data3.forEach(dt => {
-      const julian = dt.rataDie + J0000;
-      const date = dt.balinese;
-      // const expected = {
-      //   jdn: julian,
-      //   luang: date.luang,
-      //   dwiwara: date.dwiwara,
-      //   triwara: date.triwara,
-      //   caturwara: date.caturwara,
-      //   pancawara: date.pancawara,
-      //   sadwara: date.sadwara,
-      //   saptawara: date.saptawara,
-      //   asatawara: date.asatawara,
-      //   sangawara: date.sangawara,
-      //   dasawara: date.dasawara
-      // };
-      const expected = { jdn: julian, ...date };
-      const actual = cal.fromJdn(julian);
+    dates.forEach(({ rataDie, date }) => {
+      const jdn = rataDie + J0000;
+      const expected = { jdn, ...date };
+      const actual = cal.fromJdn (jdn);
 
-      expect(expected).toEqual(actual);
+      expect (expected).toEqual (actual);
       expect (expected.luang).toBe (actual.isLuag());
       expect (expected.dwiwara).toBe (actual.getDwiwara());
       expect (expected.triwara).toBe (actual.getTriwara());
