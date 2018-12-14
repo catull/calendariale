@@ -2,6 +2,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.ts",
     "src/spec/**/*.ts",
+    "!src/create-dist-package.json.ts",
     "!src/**/index.ts",
     "!src/jest*.ts",
     "!**/node_modules/**"

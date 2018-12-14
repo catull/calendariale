@@ -4,20 +4,20 @@
     "baseUrl": "",
     "charset": "utf8",
     "declaration": true,
-    "diagnostics": true,
+    "diagnostics": false,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "es2016",
       "es2017",
-      "es2017.object",
+      "es7",
       "esnext.asynciterable",
       "dom"
     ],
     "listFiles": false,
     "mapRoot": "",
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "newLine": "LF",
     "noEmitHelpers": true,
@@ -29,22 +29,27 @@
     "noLib": false,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "outDir": "lib/",
+    "outDir": "dist/",
     "preserveConstEnums": true,
     "pretty": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "rootDir": "./src",
     "skipLibCheck": true,
     "sourceMap": true,
     "sourceRoot": "./src",
     "strict": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
     "stripInternal": true,
-    "target": "es6",
-    "typeRoots": ["node_modules/@types"],
-    "types": ["jest"]
+    "target": "es2018"
   },
-  "exclude": ["lib", "node_modules", "src/jest-*.ts", "src/spec"],
-  "include": ["src/*.ts", "src/calendar/*.ts"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/create-dist-package.json.ts",
+    "src/spec"
+  ],
+  "include": [
+    "src/*.ts",
+    "src/calendar/**/*.ts"
+  ]
 }

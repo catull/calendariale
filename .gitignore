@@ -1,4 +1,5 @@
+.rts2_cache_*
 .vscode
-lib
+dist
 node_modules
 tmp

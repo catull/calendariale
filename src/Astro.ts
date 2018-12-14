@@ -1,4 +1,4 @@
-import { GregorianCalendar } from './calendar';
+import { GregorianCalendar } from './calendar/GregorianCalendar';
 
 import {
   J0000,
