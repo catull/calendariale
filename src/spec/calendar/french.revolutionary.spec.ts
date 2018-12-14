@@ -1,8 +1,7 @@
-/* global describe it: true */
 import { amod } from '../../Astro';
 import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, J0000 } from '../../Const';
 
-import { FrenchRevolutionaryCalendarDate as cal } from '../../calendar/FrenchRevolutionaryCalendarDate';
+import { FrenchRevolutionaryCalendar as cal } from '../../calendar/FrenchRevolutionaryCalendar';
 
 const data3 = [
   { 'rataDie': -214193, 'french': { 'year': -2378, 'month': 11, 'day':  5 } },

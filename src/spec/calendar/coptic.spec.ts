@@ -1,7 +1,7 @@
 /* global describe it: true */
 
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { CopticCalendarDate as cal } from '../../calendar/CopticCalendarDate';
+import { CopticCalendar as cal } from '../../calendar/CopticCalendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'coptic': { 'year': -870, 'month': 12, 'day':  6 } },

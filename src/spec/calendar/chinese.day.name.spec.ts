@@ -1,7 +1,6 @@
-/* global describe it: true */
 import { J0000 } from '../../Const';
 
-import { ChineseDayNameCalendarDate as cal } from '../../calendar/ChineseDayNameCalendarDate';
+import { ChineseDayNameCalendar as cal } from '../../calendar/ChineseDayNameCalendar';
 
 const data4 = [
   { 'rataDie': -214193, 'chineseDayName': { 'stem':  2, 'branch': 10 } },

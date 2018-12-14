@@ -1,6 +1,5 @@
-/* global describe it: true */
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { Symmetry010CalendarDate as cal } from '../../calendar/Symmetry010CalendarDate';
+import { Symmetry010Calendar as cal } from '../../calendar/Symmetry010Calendar';
 
 const data1 = [
   { 'julianDay': 1507231.5, 'symmetry010': { 'year': -586, 'month':  7, 'day': 21 } },
