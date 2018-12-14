@@ -9,8 +9,6 @@
     "build:dev": "tsc",
     "clean": "rm -fr lib spec/lib",
     "clean:dist": "rm -fr .vscode lib spec/lib node_modules spec/typings",
-    "flow:check": "flow check --color=always --all --show-all-errors --profile",
-    "flow:suggest": "flow suggest src/*.ts src/calendar/*.ts",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:prod": "jest --silent --coverage --runInBand",
@@ -24,7 +22,6 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/jest": "23.3.10",
-    "flow-bin": "0.89.0",
     "jest": "23.6.0",
     "jest-junit": "5.2.0",
     "jest-sonar-reporter": "2.0.0",
