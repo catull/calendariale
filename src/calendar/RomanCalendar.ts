@@ -1,7 +1,7 @@
 import { amod, mod } from '../Astro';
-import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, RomanEvent } from '../Const';
+import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, RomanEvent } from '../Const';
 
-import { JulianCalendar, daysInMonth } from './JulianCalendar';
+import { JulianCalendar } from './JulianCalendar';
 import { JulianCalendarDate } from './JulianCalendarDate';
 import { RomanCalendarDate } from './RomanCalendarDate';
 import { CalendarDateValidationException } from './core';
@@ -38,7 +38,7 @@ export class RomanCalendar {
     }
 
     const previousMonth: number = mod (month - 1, 12);
-    const maxKalends: number    = daysInMonth[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
+    const maxKalends: number    = ROMAN_MONTH_MAX_DAYS[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
     const maxCount: number      = (event === RomanEvent.IDES) ? 8 :
       (event === RomanEvent.NONES) ? (this.nonesOfMonth (month) - 1) : maxKalends;
 
