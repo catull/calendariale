@@ -1,5 +1,3 @@
-/* global describe it: true */
-
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
 import { CopticCalendar as cal } from '../../calendar/CopticCalendar';
 
