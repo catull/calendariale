@@ -7,8 +7,8 @@
   "scripts": {
     "build": "yarn lint && yarn build:dev",
     "build:dev": "tsc",
-    "clean": "rm -fr lib spec/lib",
-    "clean:dist": "rm -fr .vscode lib spec/lib node_modules spec/typings",
+    "clean": "rm -fr lib tmp",
+    "clean:dist": "rm -fr lib tmp clean .vscode node_modules spec/typings",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:prod": "jest --silent --coverage --runInBand",
