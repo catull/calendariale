@@ -11,13 +11,12 @@
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "es2017",
-      "es7",
       "esnext.asynciterable",
       "dom"
     ],
     "listFiles": false,
     "mapRoot": "",
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
     "noEmitHelpers": true,
@@ -40,7 +39,7 @@
     "sourceRoot": "./src",
     "strict": true,
     "stripInternal": true,
-    "target": "es2018"
+    "target": "es6"
   },
   "exclude": [
     "dist",
