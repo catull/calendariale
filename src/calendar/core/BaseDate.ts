@@ -1,4 +1,4 @@
-export class BaseCalendarDate {
+export class BaseDate {
   constructor(protected jdn: number) {
   }
 
