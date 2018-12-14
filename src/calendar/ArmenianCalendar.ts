@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, armenian } from '../Const';
 
-import { ArmenianCalendarDate } from './ArmenianCalendarDate';
+import { ArmenianDate } from './ArmenianDate';
 import { CalendarDateValidationException } from './core';
 
 export class ArmenianCalendar {
@@ -13,13 +13,13 @@ export class ArmenianCalendar {
   }
 
   // Calculate Armenian calendar date from Julian day
-  public static fromJdn(jdn: number): ArmenianCalendarDate {
+  public static fromJdn(jdn: number): ArmenianDate {
     const days: number = jdn - armenian.EPOCH;
     const year: number = Math.floor(days / 365) + 1;
     const month: number = Math.floor(mod(days, 365) / 30) + 1;
     const day: number = days - 365 * (year - 1) - 30 * (month - 1) + 1;
 
-    return new ArmenianCalendarDate(jdn, year, month, day);
+    return new ArmenianDate(jdn, year, month, day);
   }
 
   public static validate(year: number, month: number, day: number): void {

@@ -2,19 +2,19 @@ import { amod, mod, next } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, hindu } from '../Const';
 
 import {
-  hinduCalendarDateYear,
+  hinduDateYear,
   hinduLunarDayFromMoment,
   hinduNewMoonBefore,
   hinduSolarLongitude,
   hinduSunrise,
   hinduZodiac
 } from './HinduAlgorithms';
-import { HinduLunarModernCalendarDate } from './HinduLunarModernCalendarDate';
+import { HinduLunarModernDate } from './HinduLunarModernDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarModernCalendar {
   // Calculate Hindu Lunar Modern calendar date from Julian day
-  public static fromJdn(jdn: number): HinduLunarModernCalendarDate {
+  public static fromJdn(jdn: number): HinduLunarModernDate {
     const jd0: number = jdn - J0000;
     const critical: number = hinduSunrise(jd0);
     const day: number = hinduLunarDayFromMoment(critical);
@@ -24,9 +24,9 @@ export class HinduLunarModernCalendar {
     const monthSolar: number = hinduZodiac(lastNewMoon);
     const monthLeap: boolean = monthSolar === hinduZodiac(nextNewMoon);
     const month: number = amod(monthSolar + 1, 12);
-    const year: number = hinduCalendarDateYear(month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
+    const year: number = hinduDateYear(month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
 
-    return new HinduLunarModernCalendarDate(jdn, year, month, monthLeap, day, dayLeap);
+    return new HinduLunarModernDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
   // Determine Julian day number from Hindu Lunar Modern calendar date
@@ -46,7 +46,7 @@ export class HinduLunarModernCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
 
-    const date: HinduLunarModernCalendarDate = this.fromJdn(jdn);
+    const date: HinduLunarModernDate = this.fromJdn(jdn);
     if (monthLeap !== date.isMonthLeap()) {
       throw new CalendarDateValidationException(INVALID_LEAP_MONTH);
     }
@@ -71,7 +71,7 @@ export class HinduLunarModernCalendar {
     if (k > 3 && k < 27) {
       temp = k;
     } else {
-      const mid: HinduLunarModernCalendarDate = this.fromJdn(s - 15 + J0000);
+      const mid: HinduLunarModernDate = this.fromJdn(s - 15 + J0000);
       temp = (mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap)) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
     }
 

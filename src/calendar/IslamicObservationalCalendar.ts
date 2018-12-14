@@ -1,7 +1,7 @@
 import { mod, phasisOnOrBefore } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, MEAN_SYNODIC_MONTH, islamic } from '../Const';
 
-import { IslamicObservationalCalendarDate } from './IslamicObservationalCalendarDate';
+import { IslamicObservationalDate } from './IslamicObservationalDate';
 import { CalendarDateValidationException } from './core';
 
 export class IslamicObservationalCalendar {
@@ -30,14 +30,14 @@ export class IslamicObservationalCalendar {
   }
 
   // Calculate Islamic calendar date from Julian day
-  public static fromJdn(jdn: number): IslamicObservationalCalendarDate {
+  public static fromJdn(jdn: number): IslamicObservationalDate {
     const crescent: number = phasisOnOrBefore(jdn, islamic.CAIRO_LOCATION);
     const elapsedMonths: number = Math.round((crescent - islamic.EPOCH) / MEAN_SYNODIC_MONTH);
     const year: number = Math.floor(elapsedMonths / 12) + 1;
     const month: number = mod(elapsedMonths, 12) + 1;
     const day: number = jdn - crescent + 1;
 
-    return new IslamicObservationalCalendarDate(jdn, year, month, day);
+    return new IslamicObservationalDate(jdn, year, month, day);
   }
 
 }

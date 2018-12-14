@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, hebrew } from '../Const';
 
-import { HebrewCalendarDate } from './HebrewCalendarDate';
+import { HebrewDate } from './HebrewDate';
 import { CalendarDateValidationException } from './core';
 
 export class HebrewCalendar {
@@ -41,7 +41,7 @@ export class HebrewCalendar {
 
   // Convert Julian date to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
-  public static fromJdn(jdn: number): HebrewCalendarDate {
+  public static fromJdn(jdn: number): HebrewDate {
     const jd0: number = Math.floor(jdn) + 0.5;
     const count: number = Math.floor((jd0 - hebrew.EPOCH) * 98496.0 / 35975351.0);
     let year: number = count - 1;
@@ -60,7 +60,7 @@ export class HebrewCalendar {
 
     const day: number = jd0 - this.toJdn(year, month, 1) + 1;
 
-    return new HebrewCalendarDate(jdn, year, month, day);
+    return new HebrewDate(jdn, year, month, day);
   }
 
   // Is a given Hebrew year a leap year?

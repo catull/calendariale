@@ -1,7 +1,7 @@
 import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, tibetan } from '../Const';
 
-import { TibetanCalendarDate } from './TibetanCalendarDate';
+import { TibetanDate } from './TibetanDate';
 import { CalendarDateValidationException } from './core';
 
 export class TibetanCalendar {
@@ -18,7 +18,7 @@ export class TibetanCalendar {
   }
 
   // Calculate Tibetan calendar date from Julian day
-  public static fromJdn(jdn: number): TibetanCalendarDate {
+  public static fromJdn(jdn: number): TibetanDate {
     const capY: number = 365 + 4975 / 18382;
     const years: number = Math.ceil((jdn - tibetan.EPOCH) / capY);
 
@@ -69,7 +69,7 @@ export class TibetanCalendar {
 
     const dayLeap: boolean = jdn === TibetanCalendar.calculateJdn(year, month, monthLeap, day, true);
 
-    return new TibetanCalendarDate(jdn, year, month, monthLeap, day, dayLeap);
+    return new TibetanDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
@@ -81,7 +81,7 @@ export class TibetanCalendar {
       throw new CalendarDateValidationException(INVALID_LEAP_MONTH);
     }
 
-    const date: TibetanCalendarDate = TibetanCalendar.fromJdn(jdn);
+    const date: TibetanDate = TibetanCalendar.fromJdn(jdn);
     if (date.isDayLeap() !== dayLeap) {
       throw new CalendarDateValidationException(INVALID_LEAP_DAY);
     }

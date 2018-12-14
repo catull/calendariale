@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, egyptian } from '../Const';
 
-import { EgyptianCalendarDate } from './EgyptianCalendarDate';
+import { EgyptianDate } from './EgyptianDate';
 import { CalendarDateValidationException } from './core';
 
 export class EgyptianCalendar {
@@ -13,13 +13,13 @@ export class EgyptianCalendar {
   }
 
   // Calculate Egyptian calendar date from Julian day
-  public static fromJdn(jdn: number): EgyptianCalendarDate {
+  public static fromJdn(jdn: number): EgyptianDate {
     const days: number = jdn - egyptian.EPOCH;
     const year: number = Math.floor(days / 365) + 1;
     const month: number = Math.floor(mod(days, 365) / 30) + 1;
     const day: number = days - 365 * (year - 1) - 30 * (month - 1) + 1;
 
-    return new EgyptianCalendarDate(jdn, year, month, day);
+    return new EgyptianDate(jdn, year, month, day);
   }
 
   public static validate(year: number, month: number, day: number): void {

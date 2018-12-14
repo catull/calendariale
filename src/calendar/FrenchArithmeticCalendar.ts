@@ -1,7 +1,7 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, french } from '../Const';
 
-import { FrenchArithmeticCalendarDate } from './FrenchArithmeticCalendarDate';
+import { FrenchArithmeticDate } from './FrenchArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
 export class FrenchArithmeticCalendar {
@@ -32,7 +32,7 @@ export class FrenchArithmeticCalendar {
   }
 
   // Calculate date in the French Arithmetic calendar from Julian day.
-  public static fromJdn(jdn: number): FrenchArithmeticCalendarDate {
+  public static fromJdn(jdn: number): FrenchArithmeticDate {
     const approx: number = Math.floor((jdn - french.EPOCH + 2) / (1460969 / 4000)) + 1;
     const year: number = jdn < this.toJdn(approx, 1, 1) ? approx - 1 : approx;
     let month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
@@ -43,7 +43,7 @@ export class FrenchArithmeticCalendar {
 
     const day: number = jdn - this.toJdn(year, month, 1) + 1;
 
-    return new FrenchArithmeticCalendarDate(jdn, year, month, day);
+    return new FrenchArithmeticDate(jdn, year, month, day);
   }
 
   public static validate(year: number, month: number, day: number): void {

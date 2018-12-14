@@ -26,7 +26,7 @@ function siderealSolarLongitude(tee: number): number {
  * @param {float} tee moment in time
  * @return {int} solar year
  */
-function hinduAstroCalendarDateYear(tee: number): number {
+function hinduAstroDateYear(tee: number): number {
   return Math.round((tee - hindu.EPOCH_RD) / MEAN_SIDEREAL_YEAR -
     siderealSolarLongitude(tee) / 360);
 }
@@ -252,7 +252,7 @@ function hinduLunarDayFromMoment(tee: number): number {
  * @param {float} tee moment in time
  * @return {int} solar year
  */
-function hinduCalendarDateYear(tee: number): number {
+function hinduDateYear(tee: number): number {
   return Math.round((tee - hindu.EPOCH_RD) / hindu.SIDEREAL_YEAR -
     hinduSolarLongitude(tee) / 360);
 }
@@ -276,8 +276,8 @@ function hinduNewMoonBefore(tee: number): number {
 export {
   hinduArcsin,
   hinduAscensionalDifference,
-  hinduAstroCalendarDateYear,
-  hinduCalendarDateYear,
+  hinduAstroDateYear,
+  hinduDateYear,
   hinduDailyMotion,
   hinduDayCount,
   hinduEquationOfTime,

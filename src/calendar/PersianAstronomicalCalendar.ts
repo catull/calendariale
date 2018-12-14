@@ -1,7 +1,7 @@
 import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude, standardToUniversal } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_TROPICAL_YEAR, Season, persian } from '../Const';
 
-import { PersianAstronomicalCalendarDate } from './PersianAstronomicalCalendarDate';
+import { PersianAstronomicalDate } from './PersianAstronomicalDate';
 import { CalendarDateValidationException } from './core';
 
 export class PersianAstronomicalCalendar {
@@ -35,7 +35,7 @@ export class PersianAstronomicalCalendar {
   }
 
   // Calculate Persian Astronomical calendar date from Julian day
-  public static fromJdn(jdn: number): PersianAstronomicalCalendarDate {
+  public static fromJdn(jdn: number): PersianAstronomicalDate {
     const depoch: number = jdn - this.toJdn(475, 1, 1);
     const cycle: number = Math.floor(depoch / 1029983);
     const cyear: number = mod(depoch, 1029983);
@@ -68,7 +68,7 @@ export class PersianAstronomicalCalendar {
       day = amod(yday, 30);
     }
 
-    return new PersianAstronomicalCalendarDate(jdn, year, month, day);
+    return new PersianAstronomicalDate(jdn, year, month, day);
   }
 
   // Return the fixed date of Astronomical Persian New Year on or before fixed date

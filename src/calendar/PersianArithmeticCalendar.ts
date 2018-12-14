@@ -1,7 +1,7 @@
 import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, persian } from '../Const';
 
-import { PersianArithmeticCalendarDate } from './PersianArithmeticCalendarDate';
+import { PersianArithmeticDate } from './PersianArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
 export class PersianArithmeticCalendar {
@@ -39,7 +39,7 @@ export class PersianArithmeticCalendar {
   }
 
   // Calculate Persian Arithmetic calendar date from Julian day
-  public static fromJdn(jdn: number): PersianArithmeticCalendarDate {
+  public static fromJdn(jdn: number): PersianArithmeticDate {
     const year: number = this.jdnToYear(jdn);
 
     let yDay: number = jdn - this.toJdn(year, 1, 1) + 1;
@@ -55,7 +55,7 @@ export class PersianArithmeticCalendar {
       day = amod(yDay, 30);
     }
 
-    return new PersianArithmeticCalendarDate(jdn, year, month, day);
+    return new PersianArithmeticDate(jdn, year, month, day);
   }
 
   // Determine the year in the Persian Arithmetic calendar in which a

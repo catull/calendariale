@@ -1,7 +1,7 @@
 import { deltaT, equationOfTime, equinox } from '../Astro';
 import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, TROPICAL_YEAR, french } from '../Const';
 
-import { FrenchRevolutionaryCalendarDate } from './FrenchRevolutionaryCalendarDate';
+import { FrenchRevolutionaryDate } from './FrenchRevolutionaryDate';
 import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
@@ -27,7 +27,7 @@ export class FrenchRevolutionaryCalendar {
   // Calculate date in the French Revolutionary calendar from Julian day.
   // The five or six "sansculottides" are considered a thirteenth month in the
   // results of this function.
-  public static fromJdn(jdn: number): FrenchRevolutionaryCalendarDate {
+  public static fromJdn(jdn: number): FrenchRevolutionaryDate {
     const jd0: number = Math.floor(jdn) + 0.5;
     const adr: number[] = this.anneeDeLaRevolution(jd0);
     const an: number = adr[0];
@@ -40,7 +40,7 @@ export class FrenchRevolutionaryCalendar {
     const decade: number = Math.floor(jour / 10) + 1;
     jour = jour % 10 + 1;
 
-    return new FrenchRevolutionaryCalendarDate(jdn, an, mois, decade, jour);
+    return new FrenchRevolutionaryDate(jdn, an, mois, decade, jour);
   }
 
   public static isLeapYear(year: number): boolean {
