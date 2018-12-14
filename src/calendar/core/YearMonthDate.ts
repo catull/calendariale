@@ -1,7 +1,7 @@
-import { MonthCalendarDate } from './MonthCalendarDate';
+import { MonthDate } from './MonthDate';
 
-export class YearMonthCalendarDate
- extends MonthCalendarDate {
+export class YearMonthDate
+ extends MonthDate {
   constructor(jdn: number, protected year: number, month: number, day: number) {
     super(jdn, month, day);
   }
