@@ -1,8 +1,8 @@
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
 import { ArmenianDate } from '../../calendar';
+import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
 
-const data1 = [
+const dates = [
   { jdn: 1507231.5, date: { year: -1138, month:  4, day: 10 } },
   { jdn: 1660037.5, date: { year:  -720, month: 12, day:  6 } },
   { jdn: 1746893.5, date: { year:  -482, month: 11, day: 22 } },
@@ -40,7 +40,7 @@ const data1 = [
 
 describe ('Armenian calendar spec', () => {
   it ('should convert an Armenian date to Julian day', () => {
-    data1.forEach (dt => {
+    dates.forEach (dt => {
       const { jdn, date } = dt;
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -49,7 +49,7 @@ describe ('Armenian calendar spec', () => {
   });
 
   it ('should convert a Julian day to an Armenian date', () => {
-    data1.forEach (dt => {
+    dates.forEach (dt => {
       const { jdn, date } = dt;
       const actual: ArmenianDate = cal.fromJdn (jdn);
 
