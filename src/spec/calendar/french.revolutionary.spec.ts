@@ -68,7 +68,7 @@ describe ('French Revolutionary calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1, -1, 3, 10)).toThrow (INVALID_MOIS);
     expect (() => cal.toJdn (1, 15, 3, 10)).toThrow (INVALID_MOIS);
     expect (() => cal.toJdn (1,  7, 0, 10)).toThrow (INVALID_DECADI);
