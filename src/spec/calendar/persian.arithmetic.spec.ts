@@ -83,7 +83,7 @@ describe ('Persian Arithmetic calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1333,  0, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1333, -2, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1333, 13, 10)).toThrow (INVALID_MONTH);

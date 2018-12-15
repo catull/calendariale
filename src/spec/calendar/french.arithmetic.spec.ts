@@ -72,7 +72,7 @@ describe ('French Arithmetic calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1000, -1, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1000, 13, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1000,  7,  0)).toThrow (INVALID_DAY);
