@@ -1,6 +1,6 @@
 {
   "name": "calendariale",
-  "version": "0.5.10",
+  "version": "0.5.11",
   "description": "Calendrical calculations library in TypeScript",
   "repository": "catull/calendariale",
   "files": [
@@ -17,7 +17,7 @@
     "clean": "rm -fr .rts2_cache_* dist tmp",
     "clean:dist": "rm -fr .rts2_cache_* dist tmp node_modules",
     "dist": "yarn build && yarn dist:package.json",
-    "dist:package.json": "mkdir -p dist && ts-node src/create-dist-package.json.ts $npm_package_version > dist/package.json",
+    "dist:package.json": "ts-node src/create-dist-package.json.ts $npm_package_version > dist/package.json",
     "test": "jest",
     "test:dev": "jest --watch",
     "test:prod": "jest --silent --coverage --runInBand",
