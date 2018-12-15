@@ -69,7 +69,7 @@ describe ('Coptic calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1000,  0, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1000, -2, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (1000, 15, 10)).toThrow (INVALID_MONTH);

@@ -58,7 +58,7 @@ describe ('ISO Week calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1999,  0, 2)).toThrow (INVALID_WEEK);
     expect (() => cal.toJdn (1999, -2, 2)).toThrow (INVALID_WEEK);
     expect (() => cal.toJdn (1999, 54, 1)).toThrow (INVALID_WEEK);

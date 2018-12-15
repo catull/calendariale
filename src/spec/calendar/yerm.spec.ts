@@ -59,7 +59,7 @@ describe ('Yerm calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (1,  0,  1,  1)).toThrow (INVALID_YERM);
     expect (() => cal.toJdn (1, 53,  1,  1)).toThrow (INVALID_YERM);
     expect (() => cal.toJdn (1,  1,  0,  1)).toThrow (INVALID_MONTH);

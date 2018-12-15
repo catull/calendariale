@@ -72,7 +72,7 @@ describe ('Hebrew calendar spec', () => {
     });
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.toJdn (5000,  0, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (5000, -2, 10)).toThrow (INVALID_MONTH);
     expect (() => cal.toJdn (5000, 15, 10)).toThrow (INVALID_MONTH);

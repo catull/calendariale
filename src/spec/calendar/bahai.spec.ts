@@ -86,7 +86,7 @@ describe ('Bahai calendar spec', () => {
     expect (cal.isLeapYear (220)).toBe (true);
   });
 
-  it ('throws validation exceptions', () => {
+  it ('should throw validation exceptions', () => {
     expect (() => cal.bahaiToJdn (1, -9, 10, 10, 10)).toThrow (INVALID_VAHID);
     expect (() => cal.bahaiToJdn (1, 20, 10, 10, 10)).toThrow (INVALID_VAHID);
     expect (() => cal.bahaiToJdn (1,  9,  0, 10, 10)).toThrow (INVALID_YEAR);
