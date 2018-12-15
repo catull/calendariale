@@ -49,7 +49,7 @@ describe ('Symmetry010 calendar spec', () => {
   it ('should convert a Julian day to a Symmetry010 date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
-      const yearLeap =  cal.isLeapYear (date.year);
+      const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };
 
       expect (expected).toEqual (actual);
