@@ -40,7 +40,7 @@ const dates = [
 
 describe ('Bahai calendar spec', () => {
   it ('should convert a Bahai date to Julian day', () => {
-    // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).toBe (julian);
+    // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).toBe (jdn);
     // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).toBe (2457810.5);
 
     dates.forEach (({ rataDie, date }) => {
@@ -55,7 +55,7 @@ describe ('Bahai calendar spec', () => {
   });
 
   it ('should convert a Julian day to a Bahai date', () => {
-    // expect (cal.fromJdn (julian)).toBe ([ 1, 9, 18, 6, 1 ]);
+    // expect (cal.fromJdn (jdn)).toBe ([ 1, 9, 18, 6, 1 ]);
     // expect (cal.fromJdn (2457810.5)).toBe ([ 1, 10,  2,  0,  1 ]);
 
     dates.forEach (({ rataDie, date }) => {
