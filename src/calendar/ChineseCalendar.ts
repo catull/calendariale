@@ -23,17 +23,6 @@ export class ChineseCalendar {
     return jdn;
   }
 
-  // Determine Julian day number from Chinese calendar date
-  public static calculateJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
-    const midYear = Math.floor(chinese.EPOCH + ((cycle - 1) * 60 + year - 0.5) * MEAN_TROPICAL_YEAR) - J0000;
-    const newYear = this.chineseNewYearOnOrBefore(midYear);
-    const p = this.chineseNewMoonOnOrAfter(newYear + (month - 1) * 29);
-    const d = this.fromJdn(p + J0000);
-    const priorNewMoon = month === d.getMonth() && monthLeap === d.isMonthLeap() ? p : this.chineseNewMoonOnOrAfter(1 + p);
-
-    return priorNewMoon + J0000 + day - 1;
-  }
-
   // Calculate Chinese calendar date from Julian day
   public static fromJdn(jdn: number): ChineseDate {
     const jd0: number = jdn - J0000;
@@ -52,6 +41,17 @@ export class ChineseCalendar {
     const day: number = 1 + jd0 - m;
 
     return new ChineseDate(jdn, cycle, year, month, monthLeap, day);
+  }
+
+  // Determine Julian day number from Chinese calendar date
+  private static calculateJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
+    const midYear = Math.floor(chinese.EPOCH + ((cycle - 1) * 60 + year - 0.5) * MEAN_TROPICAL_YEAR) - J0000;
+    const newYear = this.chineseNewYearOnOrBefore(midYear);
+    const p = this.chineseNewMoonOnOrAfter(newYear + (month - 1) * 29);
+    const d = this.fromJdn(p + J0000);
+    const priorNewMoon = month === d.getMonth() && monthLeap === d.isMonthLeap() ? p : this.chineseNewMoonOnOrAfter(1 + p);
+
+    return priorNewMoon + J0000 + day - 1;
   }
 
   private static validate(cycle: number, year: number, month: number, monthLeap: boolean, day: number, jdn: number) {
@@ -86,7 +86,7 @@ export class ChineseCalendar {
   }
   */
 
-  // Return Julian day number of Chinese New Year on or before given date,.
+  // Return Julian day number of Chinese New Year on or before given date.
   private static chineseNewYearOnOrBefore(fixed: number): number {
     const newYear: number = this.chineseNewYearInSui(fixed);
 
