@@ -57,7 +57,7 @@ export class RomanCalendar {
     let year: number  = date.getYear ();
     let month: number = date.getMonth ();
     let count: number = date.getDay ();
-    let event: RomanEvent;
+    let event: RomanEvent = RomanEvent.KALENDS;
     let leap = false;
 
     if (count === 1) {
@@ -84,7 +84,7 @@ export class RomanCalendar {
       month = Month.MARCH;
       event = RomanEvent.KALENDS;
       count = 31 - count;
-      leap  = (count === 25);
+      leap  = (count === 6);
     }
 
     return new RomanDate (jdn, year, month, event, count, leap);
