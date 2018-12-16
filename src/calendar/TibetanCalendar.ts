@@ -43,30 +43,12 @@ export class TibetanCalendar {
     }
 
     day0 -= 1;
+
     const monthLeap = day0 > 30;
     const day: number = amod(day0, 30);
-
-    let temp: number;
-
-    if (day > day0) {
-      temp = month0 - 1;
-    } else if (monthLeap) {
-      temp = month0 + 1;
-    } else {
-      temp = month0;
-    }
-
+    const temp: number = (day > day0) ? month0 - 1 : monthLeap ? month0 + 1 : month0;
     const month: number = amod(temp, 12);
-    let year: number;
-
-    if (day > day0 && month0 === 1) {
-      year = year0 - 1;
-    } else if (monthLeap && month0 === 12) {
-      year = year0 + 1;
-    } else {
-      year = year0;
-    }
-
+    const year: number = (day > day0 && month0 === 1) ? year0 - 1 : (monthLeap && month0 === 12) ? year0 + 1 : year0;
     const dayLeap: boolean = jdn === TibetanCalendar.calculateJdn(year, month, monthLeap, day, true);
 
     return new TibetanDate(jdn, year, month, monthLeap, day, dayLeap);
