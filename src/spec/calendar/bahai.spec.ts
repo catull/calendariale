@@ -40,9 +40,6 @@ const dates = [
 
 describe ('Bahai calendar spec', () => {
   it ('should convert a Bahai date to Julian day', () => {
-    // expect (cal.bahaiToJdn ( 1,  9, 18,  6,  1)).toBe (jdn);
-    // expect (cal.bahaiToJdn ( 1, 10,  2,  0,  1)).toBe (2457810.5);
-
     dates.forEach (({ rataDie, date }) => {
       const expected = rataDie + J0000;
       const actual   = cal.bahaiToJdn (date.kullIShay, date.vahid, date.year, date.month, date.day);
@@ -55,16 +52,13 @@ describe ('Bahai calendar spec', () => {
   });
 
   it ('should convert a Julian day to a Bahai date', () => {
-    // expect (cal.fromJdn (jdn)).toBe ([ 1, 9, 18, 6, 1 ]);
-    // expect (cal.fromJdn (2457810.5)).toBe ([ 1, 10,  2,  0,  1 ]);
-
     dates.forEach (({ rataDie, date }) => {
       const jdn = rataDie + J0000;
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
       const actual = cal.fromJdn (jdn);
 
-      // expect (expected).toBe (actual);
+      expect (expected).toEqual (actual);
       expect (expected.kullIShay).toBe (actual.getKullIshay());
       expect (expected.vahid).toBe (actual.getVahid());
       expect (expected.year).toBe (actual.getYear());
