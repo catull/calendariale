@@ -100,4 +100,10 @@ describe ('Bahai calendar spec', () => {
     expect (() => cal.bahaiToJdn (1,  9, 16,  0,  6)).toThrow (INVALID_DAY);
     expect (() => cal.bahaiToJdn (1, 16, 11,  0,  5)).toThrow (INVALID_DAY);
    });
+
+   it ('should determine the Bahai year from a Julian day number', () => {
+     expect (cal.jdnToYear(2394350.5)).toBe(0);
+     expect (cal.jdnToYear(2457810.5)).toBe(173);
+     expect (cal.jdnToYear(2465737.5)).toBe(195);
+   });
 });
