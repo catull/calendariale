@@ -5,8 +5,8 @@ import { binarySearch, dynamicalToUniversal, ephemerisCorrection, equationOfTime
 } from '../../Astro';
 
 describe('Astro spec', () => {
-  const julian = 2456435.5;
-  const fixed = julian - J0000;
+  const jdn = 2456435.5;
+  const fixed = jdn - J0000;
 
   it ('should determine the week-day', () => {
     expect(jwday(fixed)).toBe(4); // Thursday
@@ -28,7 +28,7 @@ describe('Astro spec', () => {
   });
 
   it ('should calculate the obliquity of an ecliptic of a fixed date', () => {
-    expect(obliquity(julian)).toBe(22.877468971740665);
+    expect(obliquity(jdn)).toBe(22.877468971740665);
   });
 
   it ('should calculate an ephemeris correction', () => {
@@ -36,7 +36,7 @@ describe('Astro spec', () => {
   });
 
   it ('should calculate the equation of time', () => {
-    expect(equationOfTime(julian)).toBeCloseTo(-0.007214, 1e-6);
+    expect(equationOfTime(jdn)).toBeCloseTo(-0.007214, 1e-6);
 
     expect(equationOfTime(49203.35716666667 + J0000)).toBeCloseTo( 0.01025589, 1e-8);
   });
