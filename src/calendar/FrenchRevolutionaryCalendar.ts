@@ -80,10 +80,10 @@ export class FrenchRevolutionaryCalendar {
     let guess = GregorianCalendar.fromJdn(jdn).getYear() - 2;
     let lasteq: number = this.parisEquinoxeJd(guess);
 
-    while (lasteq > jdn) {
-      guess -= 1;
-      lasteq = this.parisEquinoxeJd(guess);
-    }
+    // while (lasteq > jdn) {
+    //   guess -= 1;
+    //   lasteq = this.parisEquinoxeJd(guess);
+    // }
 
     let nexteq: number = lasteq - 1;
 
