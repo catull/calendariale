@@ -46,7 +46,20 @@ export class RomanCalendar {
       throw new CalendarDateValidationException (INVALID_COUNT);
     }
 
-    if (leap && (event !== RomanEvent.KALENDS || month !== 3 || count !== 6 || !JulianCalendar.isLeapYear (year))) {
+    // In a leap year, the 6th day before the Kalends of March appears twice, once leap and once non-leap.
+    // The Romans distingiushed them as
+    // - 'a.d.     VI Kal. Mart.', written out  'ante diem     sextum Kalendas Martii' -> non-leap day
+    // - 'a.d. bis VI Kal. Mart.', similarly as 'ante diem bis sextum Kalendas Martii' -> LEAP day
+    // Here is the correspondance to the days in the Julian calendar:
+    // 0004-02-25  [Julian Calendar]  ===  0004 a.d. bis VI  Kal. Mart. [Roman Calendar] LEAP
+    // 0004-02-24  [Julian Calendar]  ===  0004 a.d.     VI  Kal. Mart. [Roman Calendar]
+    // 0004-02-23  [Julian Calendar]  ===  0004 a.d.     VII Kal. Mart. [Roman Calendar]
+    // In a non-leap year, the correspondance is:
+    // 0003-02-24  [Julian Calendar]  ===  0003 a.d.     VI  Kal. Mart. [Roman Calendar]
+    // 0003-02-23  [Julian Calendar]  ===  0003 a.d.     VII Kal. Mart. [Roman Calendar]
+    // In other words, the 6th day before the Kalends of March is the only date that may be used twice IN A LEAP YEAR.
+    // Thus, leap days were inserted between the 6th and 7th day originally (Feb. 25th).
+    if (leap && ((event !== RomanEvent.KALENDS) || (month !== Month.MARCH) || (count !== 6) || !JulianCalendar.isLeapYear(year))) {
       throw new CalendarDateValidationException (INVALID_LEAP_DAY);
     }
   }
