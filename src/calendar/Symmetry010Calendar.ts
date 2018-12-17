@@ -34,19 +34,19 @@ export class Symmetry010Calendar {
   // Calculate Symmetry010 calendar date from Julian day
   public static fromJdn(jdn: number): Symmetry010Date {
     const jd0: number = jdn - J0000;
-    let year: number = 1 + Math.floor((293 * jd0) / 107016);
-    let yearDay: number = jd0 - 364 * (year - 1) - 7 * this.getLeapYearsBefore(year);
+    const year: number = 1 + Math.floor((293 * jd0) / 107016);
+    const yearDay: number = jd0 - 364 * (year - 1) - 7 * this.getLeapYearsBefore(year);
 
-    if (yearDay < 1) {
-      year -= 1;
-      yearDay += this.isLeapYear(year) ? 371 : 364;
-    }
+    // if (yearDay < 1) {
+    //   year -= 1;
+    //   yearDay += this.isLeapYear(year) ? 371 : 364;
+    // }
 
-    const diy: number = this.isLeapYear(year) ? 371 : 364;
-    if (yearDay > diy) {
-      yearDay -= diy;
-      year += 1;
-    }
+    // const diy: number = this.isLeapYear(year) ? 371 : 364;
+    // if (yearDay > diy) {
+    //   yearDay -= diy;
+    //   year += 1;
+    // }
 
     const offset: number = Math.min(yearDay, 364) - 1;
     const quarter: number = Math.floor(offset / 91);
