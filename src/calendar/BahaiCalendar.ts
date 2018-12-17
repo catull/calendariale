@@ -32,7 +32,6 @@ export class BahaiCalendar {
 
     let jd: number;
     let leap: boolean;
-    let yearDays: number;
 
     if (byear < 172) {
       leap = GregorianCalendar.isLeapYear(gy + 1);
@@ -42,13 +41,7 @@ export class BahaiCalendar {
       jd = this.tehranEquinoxJd(gy);
     }
 
-    if (month === 0) {
-      yearDays = 342;
-    } else if (month === 19) {
-      yearDays = 342 + (leap ? 5 : 4);
-    } else {
-      yearDays = (month - 1) * 19;
-    }
+    const yearDays: number = (month === 0) ? 342 : (month === 19) ? 342 + (leap ? 5 : 4) : (month - 1) * 19;
 
     return jd + yearDays + day;
   }
@@ -73,8 +66,6 @@ export class BahaiCalendar {
       if (day < 1 || day > maxDay) {
         throw new CalendarDateValidationException(INVALID_DAY);
       }
-
-      return;
     }
 
     if (day < 1 || day > 19) {
@@ -130,8 +121,8 @@ export class BahaiCalendar {
       jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 :
       jd0 - by[1];
 
-    let month: number;
-    let day: number;
+    let month = 0;
+    let day: number = days - 18 * 19;
 
     if (days <= 18 * 19) {
       month = 1 + Math.floor((days - 1) / 19);
@@ -139,9 +130,9 @@ export class BahaiCalendar {
     } else if (days > 18 * 19 + leapDays) {
       month = 19;
       day = amod(days - leapDays - 1, 19);
-    } else {
-      month = 0;
-      day = days - 18 * 19;
+    // } else {
+    //   month = 0;
+    //   day = days - 18 * 19;
     }
 
     return new BahaiDate(jdn, kullIshay, vahid, year, month, day);
@@ -196,10 +187,10 @@ export class BahaiCalendar {
     let guess: number = GregorianCalendar.fromJdn(jd).getYear() - 2;
     let lasteq: number = this.tehranEquinoxJd(guess);
 
-    while (lasteq > jd) {
-      guess -= 1;
-      lasteq = this.tehranEquinoxJd(guess);
-    }
+    // while (lasteq > jd) {
+    //   guess -= 1;
+    //   lasteq = this.tehranEquinoxJd(guess);
+    // }
 
     let nexteq: number = lasteq - 1;
 
