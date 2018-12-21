@@ -1,11 +1,12 @@
 import { mod } from '../Astro';
 import { ARYA_LUNAR_DAY, ARYA_LUNAR_MONTH, ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, hindu } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { hinduDayCount } from './HinduAlgorithms';
 import { HinduLunarOldDate } from './HinduLunarOldDate';
 import { CalendarDateValidationException } from './core';
 
-export class HinduLunarOldCalendar {
+export class HinduLunarOldCalendar extends BaseCalendar {
   // Is a given year in the Hindu Lunar Old calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(year * ARYA_SOLAR_YEAR - ARYA_SOLAR_MONTH, ARYA_LUNAR_MONTH) >= 23902504679 / 1282400064;
