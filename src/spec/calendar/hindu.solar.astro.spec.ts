@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { HinduSolarAstroCalendar as cal } from '../../calendar/HinduSolarAstroCalendar';
+import { HinduSolarAstroDate } from '../../calendar/HinduSolarAstroDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -664, month:  5, day: 13 } },
@@ -50,9 +51,9 @@ describe ('Hindu Solar Astro calendar spec', () => {
 
   it ('should convert a Julian day to a Hindu Solar Astro date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as HinduSolarAstroDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.year).toBe (actual.getYear());

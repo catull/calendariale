@@ -1,11 +1,12 @@
 import { dusk, mod, next } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR, hindu } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 import { HinduSolarAstroDate } from './HinduSolarAstroDate';
 import { CalendarDateValidationException } from './core';
 
-export class HinduSolarAstroCalendar {
+export class HinduSolarAstroCalendar extends BaseCalendar {
   // Determine Julian day number from Hindu Solar Astro calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -17,16 +18,6 @@ export class HinduSolarAstroCalendar {
     );
 
     return J0000 + begin + day - 1;
-  }
-
-  public static validate(year: number, month: number, day: number): void {
-    if (month < 1 || month > 12) {
-      throw new CalendarDateValidationException(INVALID_MONTH);
-    }
-
-    if (day < 1 || day > 31) {
-      throw new CalendarDateValidationException(INVALID_DAY);
-    }
   }
 
   // Calculate Hindu Solar Astro calendar date from Julian day
@@ -42,6 +33,16 @@ export class HinduSolarAstroCalendar {
     const day: number = jd0 - begin + 1;
 
     return new HinduSolarAstroDate(jdn, year, month, day);
+  }
+
+  private static validate(year: number, month: number, day: number): void {
+    if (month < 1 || month > 12) {
+      throw new CalendarDateValidationException(INVALID_MONTH);
+    }
+
+    if (day < 1 || day > 31) {
+      throw new CalendarDateValidationException(INVALID_DAY);
+    }
   }
 
   /**
