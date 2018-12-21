@@ -1,8 +1,7 @@
-import { J0000 } from '../../Const';
-
 import { binarySearch, dynamicalToUniversal, ephemerisCorrection, equationOfTime,
   julianCenturies, jwday, nutation, obliquity, poly, sigma
 } from '../../Astro';
+import { J0000 } from '../../Const';
 
 describe('Astro spec', () => {
   const jdn = 2456435.5;

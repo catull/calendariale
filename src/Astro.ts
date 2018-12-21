@@ -1,5 +1,3 @@
-import { GregorianCalendar } from './calendar/GregorianCalendar';
-
 import {
   J0000,
   J2000, JULIAN_CENTURY,
@@ -10,8 +8,8 @@ import {
   WeekDay,
   gregorian
 } from './Const';
-
 import { Location } from './Location';
+import { GregorianCalendar } from './calendar/GregorianCalendar';
 
 type Matrix = number[][];
 

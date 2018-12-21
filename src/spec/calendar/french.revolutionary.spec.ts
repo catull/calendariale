@@ -1,6 +1,5 @@
 import { amod } from '../../Astro';
 import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, J0000 } from '../../Const';
-
 import { FrenchRevolutionaryCalendar as cal } from '../../calendar/FrenchRevolutionaryCalendar';
 import { FrenchRevolutionaryDate } from '../../calendar/FrenchRevolutionaryDate';
 

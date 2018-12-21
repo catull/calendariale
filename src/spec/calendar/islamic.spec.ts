@@ -1,5 +1,4 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
-
 import { IslamicCalendar as cal } from '../../calendar/IslamicCalendar';
 import { IslamicDate } from '../../calendar/IslamicDate';
 

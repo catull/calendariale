@@ -1,5 +1,4 @@
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, J0000 } from '../../Const';
-
 import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
 import { BahaiDate } from '../../calendar/BahaiDate';
 
