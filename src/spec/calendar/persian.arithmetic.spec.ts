@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { PersianArithmeticCalendar as cal } from '../../calendar/PersianArithmeticCalendar';
+import { PersianArithmeticDate } from '../../calendar/PersianArithmeticDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -1208, month:  5, day:  1 } },
@@ -60,10 +61,10 @@ describe ('Persian Arithmetic calendar spec', () => {
 
   it ('should convert a Julian day to a Persian Arithmetic date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as PersianArithmeticDate;
+      const jdn      = actual.getJdn();
       const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.year).toBe (actual.getYear());
