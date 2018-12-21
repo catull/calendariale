@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, J0000 } from '../../Const';
 
 import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
+import { BahaiDate } from '../../calendar/BahaiDate';
 
 const dates = [
   { rataDie: -214193, date: { kullIShay: -6, vahid:  6, year:  3, month:  7, day: 12 } },
@@ -53,10 +54,10 @@ describe ('Bahai calendar spec', () => {
 
   it ('should convert a Julian day to a Bahai date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as BahaiDate;
+      const jdn      = actual.getJdn();
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
-      const actual = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.kullIShay).toBe (actual.getKullIshay());

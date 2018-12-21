@@ -2,10 +2,11 @@ import { amod, deltaT, equationOfTime, equinox, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, TROPICAL_YEAR, bahai } from '../Const';
 
 import { BahaiDate } from './BahaiDate';
+import { BaseCalendar } from './BaseCalendar';
 import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
-export class BahaiCalendar {
+export class BahaiCalendar extends BaseCalendar {
   // Determine the year in the Bahai // astronomical calendar in which a
   // given Julian day falls.
   public static jdnToYear(jdn: number): number {
