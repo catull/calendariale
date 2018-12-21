@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { HebrewCalendar as cal } from '../../calendar/HebrewCalendar';
+import { HebrewDate } from '../../calendar/HebrewDate';
 
 const dates = [
   { rataDie: -214193, date: { year: 3174, month:  5, day: 10 } },
@@ -50,10 +51,10 @@ describe ('Hebrew calendar spec', () => {
 
   it ('should convert a Julian day to a Hebrew date', () => {
     dates.forEach (({ rataDie, date }) => {
+      const actual   = cal.fromRd (rataDie) as HebrewDate;
       const jdn      = rataDie + J0000;
       const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.year).toBe (actual.getYear());
