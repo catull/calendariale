@@ -1,11 +1,12 @@
 import { deltaT, equationOfTime, equinox } from '../Astro';
 import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, TROPICAL_YEAR, french } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { FrenchRevolutionaryDate } from './FrenchRevolutionaryDate';
 import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
-export class FrenchRevolutionaryCalendar {
+export class FrenchRevolutionaryCalendar extends BaseCalendar {
   // Obtain Julian day from a given French Revolutionary calendar date.
   public static toJdn(an: number, mois: number, decade: number, jour: number): number {
     this.validate(an, mois, decade, jour);
