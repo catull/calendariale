@@ -1,5 +1,4 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
-
 import { FrenchArithmeticCalendar as cal } from '../../calendar/FrenchArithmeticCalendar';
 import { FrenchArithmeticDate } from '../../calendar/FrenchArithmeticDate';
 

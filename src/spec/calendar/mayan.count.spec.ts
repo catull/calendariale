@@ -1,5 +1,4 @@
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, J0000 } from '../../Const';
-
 import { MayanCountCalendar as cal } from '../../calendar/MayanCountCalendar';
 import { MayanCountDate } from '../../calendar/MayanCountDate';
 
