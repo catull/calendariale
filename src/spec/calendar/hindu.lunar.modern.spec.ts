@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
 import { HinduLunarModernCalendar as cal } from '../../calendar/HinduLunarModernCalendar';
+import { HinduLunarModernDate } from '../../calendar/HinduLunarModernDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -529, month:  6, monthLeap: false, day: 11, dayLeap: false } },
@@ -50,9 +51,9 @@ describe ('Hindu Lunar Modern calendar spec', () => {
 
   it ('should convert a Julian day to a Hindu Lunar Modern date', () => {
     dates.forEach (({ rataDie, date }) => {
+      const actual   = cal.fromRd (rataDie) as HinduLunarModernDate;
       const jdn      = rataDie + J0000;
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.year).toBe (actual.getYear());
@@ -71,5 +72,22 @@ describe ('Hindu Lunar Modern calendar spec', () => {
     expect (() => cal.toJdn (1549,  4, false,  0, false)).toThrow (INVALID_DAY);
     expect (() => cal.toJdn (1549,  4, false, 31, false)).toThrow (INVALID_DAY);
     expect (() => cal.toJdn (1549,  6, false, 17, true )).toThrow (INVALID_LEAP_DAY);
+  });
+
+  it ('should foo', () => {
+    // let day = 18;
+    // for (let index = 2458300.5; index < 2458448.5; index++) {
+    //   const d = cal.fromJdn(index);
+    //   if ((d.getDay() - day) > 1) {
+    //     expect ({}).toEqual(d);
+    //   }
+    //   day = d.getDay();
+    // }
+    const date1 = cal.fromJdn(2458314.5);
+    const date2 = cal.fromJdn(2458313.5);
+
+    expect (date1).toEqual({ jdn: 2458314.5, year: 2075, month: 4, monthLeap: false, day: 3, dayLeap: false });
+    expect (date2).toEqual({ jdn: 2458313.5, year: 2075, month: 4, monthLeap: false, day: 1, dayLeap: false });
+    expect (() => cal.toJdn (2075,  4, false, 2, false)).toThrow (INVALID_DAY);
   });
 });
