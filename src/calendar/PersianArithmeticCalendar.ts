@@ -1,10 +1,11 @@
 import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, persian } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { PersianArithmeticDate } from './PersianArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
-export class PersianArithmeticCalendar {
+export class PersianArithmeticCalendar extends BaseCalendar {
 
   // Is a given year in the Persian Arithmetic calendar a leap year?
   public static isLeapYear(year: number): boolean {
@@ -24,18 +25,6 @@ export class PersianArithmeticCalendar {
 
     return persian.EPOCH - 1 + 1029983 * Math.floor(y0 / 2820) +
       365 * (y1 - 1) + Math.floor((31 * y1 - 5) / 128) + offset + day;
-  }
-
-  public static validate(year: number, month: number, day: number): void {
-    const maxDays: number = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
-
-    if (day < 1 || day > maxDays) {
-      throw new CalendarDateValidationException(INVALID_DAY);
-    }
-
-    if (month < 1 || month > 12) {
-      throw new CalendarDateValidationException(INVALID_MONTH);
-    }
   }
 
   // Calculate Persian Arithmetic calendar date from Julian day
@@ -68,6 +57,18 @@ export class PersianArithmeticCalendar {
     const year: number = 474 + 2820 * n2820 + y2820;
 
     return year > 0 ? year : year - 1;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
+    const maxDays: number = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
+
+    if (day < 1 || day > maxDays) {
+      throw new CalendarDateValidationException(INVALID_DAY);
+    }
+
+    if (month < 1 || month > 12) {
+      throw new CalendarDateValidationException(INVALID_MONTH);
+    }
   }
 
 }
