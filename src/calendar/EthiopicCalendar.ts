@@ -1,10 +1,11 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, ethiopic } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { EthiopicDate } from './EthiopicDate';
 import { CalendarDateValidationException } from './core';
 
-export class EthiopicCalendar {
+export class EthiopicCalendar extends BaseCalendar {
   // Determine Julian day number from Ethiopic calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
