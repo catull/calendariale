@@ -1,6 +1,6 @@
 {
   "name": "calendariale",
-  "version": "0.5.13",
+  "version": "0.5.14",
   "description": "Calendrical calculations library in TypeScript",
   "repository": "catull/calendariale",
   "files": [
