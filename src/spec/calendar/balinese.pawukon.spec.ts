@@ -1,6 +1,5 @@
-import { J0000 } from '../../Const';
-
 import { BalinesePawukonCalendar as cal } from '../../calendar/BalinesePawukonCalendar';
+import { BalinesePawukonDate } from '../../calendar/BalinesePawukonDate';
 
 const dates = [
   {
@@ -503,9 +502,9 @@ const dates = [
 describe('Balinese Pawukon calendar spec', () => {
   it ('should convert a Julian day to a Balinese Pawukon date', () => {
     dates.forEach(({ rataDie, date }) => {
-      const jdn = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as BalinesePawukonDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.luang).toBe (actual.isLuag());
