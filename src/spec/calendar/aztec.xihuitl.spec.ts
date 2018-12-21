@@ -1,6 +1,5 @@
-import { J0000 } from '../../Const';
-
 import { AztecXihuitlCalendar as cal } from '../../calendar/AztecXihuitlCalendar';
+import { AztecXihuitlDate } from '../../calendar/AztecXihuitlDate';
 
 const dates = [
   { rataDie: -214193, date: { month:  2, day:  6 } },
@@ -41,9 +40,9 @@ const dates = [
 describe ('Aztec Xihuitl calendar spec', () => {
   it ('should convert a Julian day to a Aztec Xihuitl', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as AztecXihuitlDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.month).toBe (actual.getMonth());
