@@ -2,8 +2,9 @@ import { amod, mod } from '../Astro';
 import { balinese } from '../Const';
 
 import { BalinesePawukonDate } from './BalinesePawukonDate';
+import { BaseCalendar } from './BaseCalendar';
 
-export class BalinesePawukonCalendar {
+export class BalinesePawukonCalendar extends BaseCalendar {
   public static jdnToBalineseDayCount(jdn: number): number {
     return mod(jdn - balinese.EPOCH, 210);
   }
