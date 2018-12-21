@@ -49,9 +49,9 @@ describe ('Chinese calendar spec', () => {
 
   it ('should convert a Julian day to a Chinese date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie);
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.day).toBe (actual.getDay());
