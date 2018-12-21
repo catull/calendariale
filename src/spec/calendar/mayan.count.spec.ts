@@ -1,6 +1,7 @@
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, J0000 } from '../../Const';
 
 import { MayanCountCalendar as cal } from '../../calendar/MayanCountCalendar';
+import { MayanCountDate } from '../../calendar/MayanCountDate';
 
 const dates = [
   { rataDie: -214193, date: { baktun:  6, katun:  8, tun:  3, uinal: 13, kin:  9 } },
@@ -50,9 +51,9 @@ describe ('Mayan Count calendar spec', () => {
 
   it ('should convert a Julian day to a Mayan Count', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as MayanCountDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.baktun).toBe (actual.getBaktun());
