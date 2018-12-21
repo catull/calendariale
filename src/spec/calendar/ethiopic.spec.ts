@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { EthiopicCalendar as cal } from '../../calendar/EthiopicCalendar';
+import { EthiopicDate } from '../../calendar/EthiopicDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -594, month: 12, day:  6 } },
@@ -50,9 +51,9 @@ describe ('Ethiopic calendar spec', () => {
 
   it ('should convert a Julian day to an Ethiopic date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as EthiopicDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (actual).toEqual (expected);
       expect (expected.year).toBe (actual.getYear());
