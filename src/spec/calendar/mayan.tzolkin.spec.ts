@@ -1,6 +1,5 @@
-import { J0000 } from '../../Const';
-
 import { MayanTzolkinCalendar as cal } from '../../calendar/MayanTzolkinCalendar';
+import { MayanTzolkinDate } from '../../calendar/MayanTzolkinDate';
 
 const dates = [
   { rataDie: -214193, date: { month:  5, day:  9 } },
@@ -41,9 +40,9 @@ const dates = [
 describe ('Mayan Tzolkin calendar spec', () => {
   it ('should convert a Julian day to a Mayan Tzolkin', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as MayanTzolkinDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.month).toBe (actual.getMonth());
