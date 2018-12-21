@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { IslamicCalendar as cal } from '../../calendar/IslamicCalendar';
+import { IslamicDate } from '../../calendar/IslamicDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -1245, month: 12, day:  9 } },
@@ -50,8 +51,8 @@ describe ('Islamic calendar spec', () => {
 
   it ('should convert a Julian day to a Islamic date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
-      const actual   = cal.fromJdn (jdn);
+      const actual   = cal.fromRd (rataDie) as IslamicDate;
+      const jdn      = actual.getJdn();
       const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };
 
