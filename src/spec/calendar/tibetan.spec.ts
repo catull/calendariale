@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
 import { TibetanCalendar as cal } from '../../calendar/TibetanCalendar';
+import { TibetanDate } from '../../calendar/TibetanDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -459, month:  8, monthLeap: false, day: 11, dayLeap: false } },
@@ -50,8 +51,8 @@ describe ('Tibetan calendar spec', () => {
 
   it ('should convert a Julian day to a Tibetan date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
-      const actual   = cal.fromJdn (jdn);
+      const actual   = cal.fromRd (rataDie) as TibetanDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
 
       expect (expected).toEqual (actual);
