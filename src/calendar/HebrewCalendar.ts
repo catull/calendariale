@@ -1,10 +1,11 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, hebrew } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { HebrewDate } from './HebrewDate';
 import { CalendarDateValidationException } from './core';
 
-export class HebrewCalendar {
+export class HebrewCalendar extends BaseCalendar {
   // Determine Julian day number from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
@@ -27,16 +28,6 @@ export class HebrewCalendar {
     }
 
     return jdn;
-  }
-
-  public static validate(year: number, month: number, day: number): void {
-    if (month < 1 || month > this.hebrewYearMonths(year)) {
-      throw new CalendarDateValidationException(INVALID_MONTH);
-    }
-
-    if (day < 1 || day > this.hebrewMonthDays(year, month)) {
-      throw new CalendarDateValidationException(INVALID_DAY);
-    }
   }
 
   // Convert Julian date to Hebrew date
@@ -66,6 +57,16 @@ export class HebrewCalendar {
   // Is a given Hebrew year a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(year * 7 + 1, 19) < 7;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
+    if (month < 1 || month > this.hebrewYearMonths(year)) {
+      throw new CalendarDateValidationException(INVALID_MONTH);
+    }
+
+    if (day < 1 || day > this.hebrewMonthDays(year, month)) {
+      throw new CalendarDateValidationException(INVALID_DAY);
+    }
   }
 
   // How many months are there in a Hebrew year (12 = normal, 13 = leap)
