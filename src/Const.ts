@@ -80,6 +80,12 @@ enum RomanEvent {
   IDES = 3
 }
 
+const akan = {
+  EPOCH: 1721461.5, // 00001/02/08 Julian C.E.
+  EPOCH_RD: 37,
+  DELTA: 7.5, // == (EPOCH % 42)
+};
+
 const armenian = {
   EPOCH: 1922867.5, // 522/07/11 Julian C.E.
   EPOCH_RD: 201443
@@ -305,6 +311,7 @@ export {
   Season,
   TROPICAL_YEAR,
   WeekDay,
+  akan,
   armenian,
   aztec,
   bahai,
