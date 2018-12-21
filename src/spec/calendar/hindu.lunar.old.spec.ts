@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000 } from '../../Const';
 
 import { HinduLunarOldCalendar as cal } from '../../calendar/HinduLunarOldCalendar';
+import { HinduLunarOldDate } from '../../calendar/HinduLunarOldDate';
 
 const dates = [
   { rataDie: -214193, date: { year: 2515, month:  6, monthLeap: false, day: 11 } },
@@ -50,9 +51,9 @@ describe ('Hindu Lunar Old calendar spec', () => {
 
   it ('should convert a Julian day to a Hindu Lunar Old date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as HinduLunarOldDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.day).toBe (actual.getDay());
@@ -82,4 +83,22 @@ describe ('Hindu Lunar Old calendar spec', () => {
     expect (() => cal.toJdn (3570,  4, false,  0)).toThrow (INVALID_DAY);
     expect (() => cal.toJdn (3570,  4, false, 31)).toThrow (INVALID_DAY);
   });
+
+  it ('should foo', () => {
+    // let day = 19;
+    // for (let index = 2458300.5; index < 2458448.5; index++) {
+    //   const d = cal.fromJdn(index);
+    //   if ((d.getDay() - day) > 1) {
+    //     expect ({}).toEqual(d);
+    //   }
+    //   day = d.getDay();
+    // }
+    const date1 = cal.fromJdn(2458354.5);
+    const date2 = cal.fromJdn(2458353.5);
+
+    expect (date1).toEqual({ jdn: 2458354.5, year: 5119, month: 5, monthLeap: false, day: 14, });
+    expect (date2).toEqual({ jdn: 2458353.5, year: 5119, month: 5, monthLeap: false, day: 12, });
+    expect (() => cal.toJdn(5119,  5, false, 13)).toThrow(INVALID_DAY);
+  });
+
 });
