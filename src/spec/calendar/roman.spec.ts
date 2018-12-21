@@ -2,6 +2,7 @@ import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, RomanEvent } fro
 import { RomanCalendar as cal } from '../../calendar/RomanCalendar';
 
 const dates = [
+  { jdn: 1507233.5, date: { year: -587, month:  8, event: RomanEvent.KALENDS, count:  1, leap: false } },
   { jdn: 1507231.5, date: { year: -587, month:  8, event: RomanEvent.KALENDS, count:  3, leap: false } },
   { jdn: 1660037.5, date: { year: -169, month: 12, event: RomanEvent.IDES,    count:  6, leap: false } },
   { jdn: 1722572.5, date: { year:    4, month:  3, event: RomanEvent.KALENDS, count:  6, leap: false } },
