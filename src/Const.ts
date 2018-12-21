@@ -207,6 +207,11 @@ const mayan = {
     'Ix', 'Men', 'Cib', 'Caban', 'Etznab', 'Cauac', 'Ahau' ]
 };
 
+const olympiad = {
+  EPOCH: 1437989.5, // -0776/01/01 Julian B.C.E.
+  EPOCH_JULIAN_YEAR: -776,
+};
+
 const persian = {
   EPOCH: 1948320.5, // 622/03/19 Julian C.E.
   EPOCH_RD: 226896,
@@ -314,6 +319,7 @@ export {
   hindu,
   islamic,
   // julian,
+  olympiad,
   mayan,
   persian,
   tibetan,
