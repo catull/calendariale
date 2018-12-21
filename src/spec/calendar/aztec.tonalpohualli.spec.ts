@@ -1,6 +1,5 @@
-import { J0000 } from '../../Const';
-
 import { AztecTonalpohualliCalendar as cal } from '../../calendar/AztecTonalpohualliCalendar';
+import { AztecTonalpohualliDate } from '../../calendar/AztecTonalpohualliDate';
 
 const dates = [
   { rataDie: -214193, date: { num:  5, name:  9 } },
@@ -41,9 +40,9 @@ const dates = [
 describe ('Aztec Tonalpohualli calendar spec', () => {
   it ('should convert a Julian day to a Aztec Tonalpohualli', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as AztecTonalpohualliDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (date.num).toBe (actual.getNumber());

@@ -2,8 +2,9 @@ import { amod, mod } from '../Astro';
 import { aztec } from '../Const';
 
 import { AztecTonalpohualliDate } from './AztecTonalpohualliDate';
+import { BaseCalendar } from './BaseCalendar';
 
-export class AztecTonalpohualliCalendar {
+export class AztecTonalpohualliCalendar extends BaseCalendar {
   // Calculate Aztec Tonalpohualli calendar date from Julian day
   public static fromJdn(jdn: number): AztecTonalpohualliDate {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;
