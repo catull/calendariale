@@ -24,23 +24,26 @@ export class ChineseCalendar {
   }
 
   // Calculate Chinese calendar date from Julian day
-  public static fromJdn(jdn: number): ChineseDate {
-    const jd0: number = jdn - J0000;
-    const s1: number = this.chineseWinterSolsticeOnOrBefore(jd0);
+  public static fromRd(rataDie: number): ChineseDate {
+    const s1: number = this.chineseWinterSolsticeOnOrBefore(rataDie);
     const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
     const nextM11: number = this.chineseNewMoonBefore(1 + s2);
     const m12: number = this.chineseNewMoonOnOrAfter(1 + s1);
     const yearLeap: boolean = Math.round((nextM11 - m12) / MEAN_SYNODIC_MONTH) === 12;
 
-    const m: number = this.chineseNewMoonBefore(1 + jd0);
+    const m: number = this.chineseNewMoonBefore(1 + rataDie);
     const month: number = amod(Math.round((m - m12) / MEAN_SYNODIC_MONTH) - (yearLeap && this.isChinesePriorLeapMonth(m12, m) ? 1 : 0), 12);
     const monthLeap: boolean = yearLeap && this.isChineseNoMajorSolarTerm(m) && !this.isChinesePriorLeapMonth(m12, this.chineseNewMoonBefore(m));
-    const years: number = Math.floor(1.5 - month / 12 + (jd0 - chinese.EPOCH_RD) / MEAN_TROPICAL_YEAR);
+    const years: number = Math.floor(1.5 - month / 12 + (rataDie - chinese.EPOCH_RD) / MEAN_TROPICAL_YEAR);
     const cycle: number = 1 + Math.floor((years - 1) / 60);
     const year: number = amod(years, 60);
-    const day: number = 1 + jd0 - m;
+    const day: number = 1 + rataDie - m;
 
-    return new ChineseDate(jdn, cycle, year, month, monthLeap, day);
+    return new ChineseDate(rataDie + J0000, cycle, year, month, monthLeap, day);
+  }
+
+  public static fromJdn(jdn: number): ChineseDate {
+    return this.fromRd (jdn - J0000);
   }
 
   // Determine Julian day number from Chinese calendar date
@@ -48,7 +51,7 @@ export class ChineseCalendar {
     const midYear = Math.floor(chinese.EPOCH + ((cycle - 1) * 60 + year - 0.5) * MEAN_TROPICAL_YEAR) - J0000;
     const newYear = this.chineseNewYearOnOrBefore(midYear);
     const p = this.chineseNewMoonOnOrAfter(newYear + (month - 1) * 29);
-    const d = this.fromJdn(p + J0000);
+    const d = this.fromRd(p);
     const priorNewMoon = month === d.getMonth() && monthLeap === d.isMonthLeap() ? p : this.chineseNewMoonOnOrAfter(1 + p);
 
     return priorNewMoon + J0000 + day - 1;
