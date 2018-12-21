@@ -1,6 +1,5 @@
-import { J0000 } from '../../Const';
-
 import { ChineseDayNameCalendar as cal } from '../../calendar/ChineseDayNameCalendar';
+import { ChineseDayNameDate } from '../../calendar/ChineseDayNameDate';
 
 const dates = [
   { rataDie: -214193, date: { stem:  2, branch: 10 } },
@@ -41,9 +40,9 @@ const dates = [
 describe ('Chinese Day Name calendar spec', () => {
   it ('should convert a Julian day number to a Chinese Day Name date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as ChineseDayNameDate;
+      const jdn      = actual.getJdn();
       const expected = { jdn, ...date };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.stem).toBe (actual.getStem());
