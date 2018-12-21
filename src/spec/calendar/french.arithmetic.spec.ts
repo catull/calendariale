@@ -1,6 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 
 import { FrenchArithmeticCalendar as cal } from '../../calendar/FrenchArithmeticCalendar';
+import { FrenchArithmeticDate } from '../../calendar/FrenchArithmeticDate';
 
 const dates = [
   { rataDie: -214193, date: { year: -2378, month: 11, day:  4 } },
@@ -50,10 +51,10 @@ describe ('French Arithmetic calendar spec', () => {
 
   it ('should convert a Julian day to a French Arithmetic date', () => {
     dates.forEach (({ rataDie, date }) => {
-      const jdn      = rataDie + J0000;
+      const actual   = cal.fromRd (rataDie) as FrenchArithmeticDate;
+      const jdn      = actual.getJdn();
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
-      const actual   = cal.fromJdn (jdn);
 
       expect (expected).toEqual (actual);
       expect (expected.year).toBe (actual.getYear());
