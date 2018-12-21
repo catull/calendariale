@@ -1,11 +1,12 @@
 import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR, hindu } from '../Const';
 
+import { BaseCalendar } from './BaseCalendar';
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 import { HinduLunarAstroDate } from './HinduLunarAstroDate';
 import { CalendarDateValidationException } from './core';
 
-export class HinduLunarAstroCalendar {
+export class HinduLunarAstroCalendar extends BaseCalendar {
   // Is a given year in the Hindu Lunar Astro calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return (year * 11 + 14) % 30 < 11;
