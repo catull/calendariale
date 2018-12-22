@@ -60,11 +60,9 @@ function kdayOnOrBefore(k: WeekDay, jdn: number): number {
  * @param {number} jdn julian day number
  * @return {number} resulting julian day number
  */
-/*
 function kdayOnOrAfter(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 6);
 }
-*/
 
 /**
  * Return the julian day number of the k-day nearest the given julian day number.
@@ -128,7 +126,7 @@ function nthKday(n: number, k: WeekDay, jdn: number): number {
  * @param {float} arcs arc seconds
  * @return {float} radians value
  */
-// astro.astor = function (arcs: number): number {
+// astor = function (arcs: number): number {
 //    return arcs * Math.PI / (180.0 * 3600.0);
 // };
 
@@ -175,7 +173,7 @@ function degrees(theta: number): number {
  * @param {float} alpha angle
  * @return {float} degrees
  */
-// astro.fixAngle = function (alpha: number): number {
+// fixAngle = function (alpha: number): number {
 //    return alpha - 360.0 * Math.floor (alpha / 360.0);
 // };
 
@@ -184,7 +182,7 @@ function degrees(theta: number): number {
  * @param {float} alpha angle
  * @return {float} radians
  */
-// astro.fixAngleRadians = function (alpha: number): number {
+// fixAngleRadians = function (alpha: number): number {
 //    return alpha - 2 * Math.PI * Math.floor (alpha / (2 * Math.PI));
 // };
 
@@ -1382,17 +1380,45 @@ function sunset(jdn: number, location: Location): number {
   return dusk(jdn, location, alpha);
 }
 
+/**
+ * Return radix representation of x.
+ * E.g.   num = 1999, radices = [ 4, 25, 4 ]
+ *        results in [ 4, 3, 24, 3 ]
+ *
+ *        1999 =   4 * (4 * 25 * 4) +
+ *                 3 *     (25 * 4) +
+ *                24 *           4  +
+ *                 3
+ *
+ * @param {number} num the number to radicalise
+ * @param {number[]} radices the array of radix numbers
+ * @return {number} moment of sunset
+ */
+function toRadix (num: number, radices: number[]): number[] {
+  if (radices.length !== 0) {
+    const prod = radices.reduce((acc: number, item: number): number => acc * item, 1);
+    const radix = Math.floor (num / prod);
+    const x2 = num - (prod * radix);
+    const [ {}, ...rest ] = radices;
+
+    return [ radix, ...toRadix (x2, rest) ];
+  }
+
+  return [ num ];
+}
+
 export {
   amod, angle, apparentToLocal, binarySearch, cosDeg, dawn, degreesToRadians,
   deltaT, dusk,
   dynamicalToUniversal,   // only to be tested, required for nutation!
   ephemerisCorrection,   // only to be tested!
   equationOfTime, equinox, estimatePriorSolarLongitude, final,
-  // astro.fixAngle,
-  // astro.fixAngleRadians,
+  // fixAngle,
+  // fixAngleRadians,
   jhms,
   julianCenturies,   // only to be tested!
   jwday, lunarPhase, midDay, mod, newMoonAtOrAfter, newMoonBefore, next,
+  kdayOnOrAfter,
   nthKday,
   nutation,   // only to be tested!
   obliquity,   // only to be tested!
@@ -1403,5 +1429,6 @@ export {
   sigma,   // only to be tested!
   sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset,
   tanDeg,
+  toRadix,
   universalToStandard
 };
