@@ -1,7 +1,6 @@
 import { amod, mod, next } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, hindu } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import {
   hinduDateYear,
   hinduLunarDayFromMoment,
@@ -13,7 +12,7 @@ import {
 import { HinduLunarModernDate } from './HinduLunarModernDate';
 import { CalendarDateValidationException } from './core';
 
-export class HinduLunarModernCalendar extends BaseCalendar {
+export class HinduLunarModernCalendar {
   // Calculate Hindu Lunar Modern calendar date from Julian day
   public static fromJdn(jdn: number): HinduLunarModernDate {
     const jd0: number = jdn - J0000;

@@ -1,11 +1,10 @@
 import { mod, phasisOnOrBefore } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, MEAN_SYNODIC_MONTH, islamic } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { IslamicObservationalDate } from './IslamicObservationalDate';
 import { CalendarDateValidationException } from './core';
 
-export class IslamicObservationalCalendar extends BaseCalendar {
+export class IslamicObservationalCalendar {
   // Is a given year in the Islamic calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return (year * 11 + 14) % 30 < 11;

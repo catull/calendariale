@@ -1,6 +1,6 @@
 import { YearDate } from '../../../index';
 
-describe ('Year calendar spec', () => {
+describe ('Year date spec', () => {
   it ('should determine a year of an instance of YearDate', () => {
     let cal: YearDate = new YearDate(-1, 2000);
     expect (cal.getYear()).toBe(2000);

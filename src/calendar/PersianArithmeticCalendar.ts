@@ -1,11 +1,10 @@
 import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, persian } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { PersianArithmeticDate } from './PersianArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
-export class PersianArithmeticCalendar extends BaseCalendar {
+export class PersianArithmeticCalendar {
 
   // Is a given year in the Persian Arithmetic calendar a leap year?
   public static isLeapYear(year: number): boolean {

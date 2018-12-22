@@ -2,9 +2,8 @@ import { mod } from '../Astro';
 import { aztec } from '../Const';
 
 import { AztecXihuitlDate } from './AztecXihuitlDate';
-import { BaseCalendar } from './BaseCalendar';
 
-export class AztecXihuitlCalendar extends BaseCalendar {
+export class AztecXihuitlCalendar {
   // Calculate Aztec Xihuitl calendar date from Julian day
   public static fromJdn(jdn: number): AztecXihuitlDate {
     const count: number = mod(jdn - aztec.XIHUITL_CORRELATION, 365);

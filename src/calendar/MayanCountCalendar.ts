@@ -1,11 +1,10 @@
 import { mod } from '../Astro';
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, mayan } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { MayanCountDate } from './MayanCountDate';
 import { CalendarDateValidationException } from './core';
 
-export class MayanCountCalendar extends BaseCalendar {
+export class MayanCountCalendar {
   // Determine Julian day number from Mayan Count calendar date
   public static toJdn(baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
     this.validate(baktun, katun, tun, uinal, kin);

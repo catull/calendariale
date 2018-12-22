@@ -1,60 +1,57 @@
 import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, J0000 } from '../../Const';
 import { BahaiCalendar as cal } from '../../calendar/BahaiCalendar';
-import { BahaiDate } from '../../calendar/BahaiDate';
 
 const dates = [
-  { rataDie: -214193, date: { kullIShay: -6, vahid:  6, year:  3, month:  7, day: 12 } },
-  { rataDie:  -61387, date: { kullIShay: -5, vahid:  9, year:  3, month: 14, day: 13 } },
-  { rataDie:   25469, date: { kullIShay: -4, vahid:  2, year: 13, month: 10, day: 17 } },
-  { rataDie:   49217, date: { kullIShay: -4, vahid:  6, year:  2, month: 11, day:  6 } },
-  { rataDie:  171307, date: { kullIShay: -3, vahid:  4, year: 13, month: 16, day:  9 } },
-  { rataDie:  210155, date: { kullIShay: -3, vahid: 10, year:  6, month:  4, day:  4 } },
-  { rataDie:  253427, date: { kullIShay: -3, vahid: 16, year: 10, month: 13, day:  7 } },
-  { rataDie:  369740, date: { kullIShay: -2, vahid: 14, year:  6, month:  2, day: 17 } },
-  { rataDie:  400085, date: { kullIShay: -2, vahid: 18, year: 13, month:  4, day:  8 } },
-  { rataDie:  434355, date: { kullIShay: -1, vahid:  4, year: 12, month:  1, day:  3 } },
-  { rataDie:  452605, date: { kullIShay: -1, vahid:  7, year:  4, month: 19, day:  9 } },
-  { rataDie:  470160, date: { kullIShay: -1, vahid:  9, year: 15, month:  1, day: 13 } },
-  { rataDie:  473837, date: { kullIShay: -1, vahid: 10, year:  6, month:  2, day: 19 } },
-  { rataDie:  507850, date: { kullIShay: -1, vahid: 15, year:  4, month:  5, day:  8 } },
-  { rataDie:  524156, date: { kullIShay: -1, vahid: 17, year: 10, month: 17, day: 16 } },
-  { rataDie:  544676, date: { kullIShay:  0, vahid:  1, year: 10, month:  2, day:  1 } },
-  { rataDie:  567118, date: { kullIShay:  0, vahid:  4, year: 14, month: 10, day: 12 } },
-  { rataDie:  569477, date: { kullIShay:  0, vahid:  5, year:  1, month: 19, day:  4 } },
-  { rataDie:  601716, date: { kullIShay:  0, vahid:  9, year: 14, month:  5, day:  6 } },
-  { rataDie:  613424, date: { kullIShay:  0, vahid: 11, year:  8, month:  6, day:  7 } },
-  { rataDie:  626596, date: { kullIShay:  0, vahid: 13, year:  6, month:  7, day: 12 } },
-  { rataDie:  645554, date: { kullIShay:  0, vahid: 16, year:  1, month:  5, day: 15 } },
-  { rataDie:  664224, date: { kullIShay:  0, vahid: 18, year: 14, month:  8, day:  2 } },
-  { rataDie:  671401, date: { kullIShay:  0, vahid: 19, year: 15, month:  1, day:  7 } },
-  { rataDie:  694799, date: { kullIShay:  1, vahid:  4, year:  3, month:  2, day: 11 } },
-  { rataDie:  704424, date: { kullIShay:  1, vahid:  5, year: 10, month:  9, day:  6 } },
-  { rataDie:  708842, date: { kullIShay:  1, vahid:  6, year:  3, month: 11, day:  3 } },
-  { rataDie:  709409, date: { kullIShay:  1, vahid:  6, year:  5, month:  2, day: 11 } },
-  { rataDie:  709580, date: { kullIShay:  1, vahid:  6, year:  5, month: 11, day: 11 } },
-  { rataDie:  727274, date: { kullIShay:  1, vahid:  8, year: 15, month: 19, day: 16 } },
-  { rataDie:  728714, date: { kullIShay:  1, vahid:  8, year: 19, month: 18, day: 19 } },
-  { rataDie:  744313, date: { kullIShay:  1, vahid: 11, year:  5, month: 13, day:  7 } },
-  { rataDie:  764652, date: { kullIShay:  1, vahid: 14, year:  4, month:  7, day:  6 } },
+  { jdn: -214193 + J0000, date: { kullIShay: -6, vahid:  6, year:  3, month:  7, day: 12 } },
+  { jdn:  -61387 + J0000, date: { kullIShay: -5, vahid:  9, year:  3, month: 14, day: 13 } },
+  { jdn:   25469 + J0000, date: { kullIShay: -4, vahid:  2, year: 13, month: 10, day: 17 } },
+  { jdn:   49217 + J0000, date: { kullIShay: -4, vahid:  6, year:  2, month: 11, day:  6 } },
+  { jdn:  171307 + J0000, date: { kullIShay: -3, vahid:  4, year: 13, month: 16, day:  9 } },
+  { jdn:  210155 + J0000, date: { kullIShay: -3, vahid: 10, year:  6, month:  4, day:  4 } },
+  { jdn:  253427 + J0000, date: { kullIShay: -3, vahid: 16, year: 10, month: 13, day:  7 } },
+  { jdn:  369740 + J0000, date: { kullIShay: -2, vahid: 14, year:  6, month:  2, day: 17 } },
+  { jdn:  400085 + J0000, date: { kullIShay: -2, vahid: 18, year: 13, month:  4, day:  8 } },
+  { jdn:  434355 + J0000, date: { kullIShay: -1, vahid:  4, year: 12, month:  1, day:  3 } },
+  { jdn:  452605 + J0000, date: { kullIShay: -1, vahid:  7, year:  4, month: 19, day:  9 } },
+  { jdn:  470160 + J0000, date: { kullIShay: -1, vahid:  9, year: 15, month:  1, day: 13 } },
+  { jdn:  473837 + J0000, date: { kullIShay: -1, vahid: 10, year:  6, month:  2, day: 19 } },
+  { jdn:  507850 + J0000, date: { kullIShay: -1, vahid: 15, year:  4, month:  5, day:  8 } },
+  { jdn:  524156 + J0000, date: { kullIShay: -1, vahid: 17, year: 10, month: 17, day: 16 } },
+  { jdn:  544676 + J0000, date: { kullIShay:  0, vahid:  1, year: 10, month:  2, day:  1 } },
+  { jdn:  567118 + J0000, date: { kullIShay:  0, vahid:  4, year: 14, month: 10, day: 12 } },
+  { jdn:  569477 + J0000, date: { kullIShay:  0, vahid:  5, year:  1, month: 19, day:  4 } },
+  { jdn:  601716 + J0000, date: { kullIShay:  0, vahid:  9, year: 14, month:  5, day:  6 } },
+  { jdn:  613424 + J0000, date: { kullIShay:  0, vahid: 11, year:  8, month:  6, day:  7 } },
+  { jdn:  626596 + J0000, date: { kullIShay:  0, vahid: 13, year:  6, month:  7, day: 12 } },
+  { jdn:  645554 + J0000, date: { kullIShay:  0, vahid: 16, year:  1, month:  5, day: 15 } },
+  { jdn:  664224 + J0000, date: { kullIShay:  0, vahid: 18, year: 14, month:  8, day:  2 } },
+  { jdn:  671401 + J0000, date: { kullIShay:  0, vahid: 19, year: 15, month:  1, day:  7 } },
+  { jdn:  694799 + J0000, date: { kullIShay:  1, vahid:  4, year:  3, month:  2, day: 11 } },
+  { jdn:  704424 + J0000, date: { kullIShay:  1, vahid:  5, year: 10, month:  9, day:  6 } },
+  { jdn:  708842 + J0000, date: { kullIShay:  1, vahid:  6, year:  3, month: 11, day:  3 } },
+  { jdn:  709409 + J0000, date: { kullIShay:  1, vahid:  6, year:  5, month:  2, day: 11 } },
+  { jdn:  709580 + J0000, date: { kullIShay:  1, vahid:  6, year:  5, month: 11, day: 11 } },
+  { jdn:  727274 + J0000, date: { kullIShay:  1, vahid:  8, year: 15, month: 19, day: 16 } },
+  { jdn:  728714 + J0000, date: { kullIShay:  1, vahid:  8, year: 19, month: 18, day: 19 } },
+  { jdn:  744313 + J0000, date: { kullIShay:  1, vahid: 11, year:  5, month: 13, day:  7 } },
+  { jdn:  764652 + J0000, date: { kullIShay:  1, vahid: 14, year:  4, month:  7, day:  6 } },
 ];
 
 describe ('Bahai calendar spec', () => {
   it ('should convert a Bahai date to Julian day', () => {
-    dates.forEach (({ rataDie, date }) => {
-      const expected = rataDie + J0000;
+    dates.forEach (({ jdn, date }) => {
       const actual   = cal.bahaiToJdn (date.kullIShay, date.vahid, date.year, date.month, date.day);
-      expect (expected).toBe (actual);
+      expect (jdn).toBe (actual);
 
       const year    = 361 * (date.kullIShay - 1) + 19 * (date.vahid - 1) + date.year;
       const actual2 = cal.toJdn (year, date.month, date.day);
-      expect (expected).toEqual (actual2);
+      expect (jdn).toEqual (actual2);
     });
   });
 
   it ('should convert a Julian day to a Bahai date', () => {
-    dates.forEach (({ rataDie, date }) => {
-      const actual   = cal.fromRd (rataDie) as BahaiDate;
-      const jdn      = actual.getJdn();
+    dates.forEach (({ jdn, date }) => {
+      const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
 

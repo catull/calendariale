@@ -1,11 +1,10 @@
 import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude, standardToUniversal } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_TROPICAL_YEAR, Season, persian } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { PersianAstronomicalDate } from './PersianAstronomicalDate';
 import { CalendarDateValidationException } from './core';
 
-export class PersianAstronomicalCalendar extends BaseCalendar {
+export class PersianAstronomicalCalendar {
   // Is a given year in the Persian Astronomical calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return this.toJdn(year + 1, 1, 1) - this.toJdn(year, 1, 1) > 365;

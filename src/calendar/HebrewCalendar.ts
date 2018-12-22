@@ -1,11 +1,10 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, hebrew } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { HebrewDate } from './HebrewDate';
 import { CalendarDateValidationException } from './core';
 
-export class HebrewCalendar extends BaseCalendar {
+export class HebrewCalendar {
   // Determine Julian day number from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
