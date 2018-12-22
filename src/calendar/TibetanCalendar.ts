@@ -1,11 +1,10 @@
 import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, tibetan } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { TibetanDate } from './TibetanDate';
 import { CalendarDateValidationException } from './core';
 
-export class TibetanCalendar extends BaseCalendar {
+export class TibetanCalendar {
   public static isLeapMonth(year: number, month: number): boolean {
     return month === TibetanCalendar.fromJdn(TibetanCalendar.calculateJdn(year, month, true, 2, false)).getMonth();
   }

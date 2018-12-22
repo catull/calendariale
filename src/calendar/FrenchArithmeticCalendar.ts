@@ -1,11 +1,10 @@
 import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, french } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { FrenchArithmeticDate } from './FrenchArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
-export class FrenchArithmeticCalendar extends BaseCalendar {
+export class FrenchArithmeticCalendar {
   // Is the given year a leap year in the French Arithmetic calendar ?
   public static isLeapYear(year: number): boolean {
     const m400: number = (mod(year, 400));

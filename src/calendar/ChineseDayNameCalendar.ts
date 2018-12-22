@@ -1,10 +1,9 @@
 import { amod } from '../Astro';
 import { chinese } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { ChineseDayNameDate } from './ChineseDayNameDate';
 
-export class ChineseDayNameCalendar extends BaseCalendar {
+export class ChineseDayNameCalendar {
   // Calculate Chinese Day Name calendar date from Julian day
   public static fromJdn(jdn: number): ChineseDayNameDate {
     const count: number = jdn - chinese.DAY_NAME_EPOCH - 1;

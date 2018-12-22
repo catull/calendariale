@@ -1,47 +1,45 @@
 import { INVALID_DAY, INVALID_MONTH, J0000 } from '../../Const';
 import { IslamicCalendar as cal } from '../../calendar/IslamicCalendar';
-import { IslamicDate } from '../../calendar/IslamicDate';
 
 const dates = [
-  { rataDie: -214193, date: { year: -1245, month: 12, day:  9 } },
-  { rataDie:  -61387, date: { year:  -813, month:  2, day: 23 } },
-  { rataDie:   25469, date: { year:  -568, month:  4, day:  1 } },
-  { rataDie:   49217, date: { year:  -501, month:  4, day:  6 } },
-  { rataDie:  171307, date: { year:  -157, month: 10, day: 17 } },
-  { rataDie:  210155, date: { year:   -47, month:  6, day:  3 } },
-  { rataDie:  253427, date: { year:    75, month:  7, day: 13 } },
-  { rataDie:  369740, date: { year:   403, month: 10, day:  5 } },
-  { rataDie:  400085, date: { year:   489, month:  5, day: 22 } },
-  { rataDie:  434355, date: { year:   586, month:  2, day:  7 } },
-  { rataDie:  452605, date: { year:   637, month:  8, day:  7 } },
-  { rataDie:  470160, date: { year:   687, month:  2, day: 20 } },
-  { rataDie:  473837, date: { year:   697, month:  7, day:  7 } },
-  { rataDie:  507850, date: { year:   793, month:  7, day:  1 } },
-  { rataDie:  524156, date: { year:   839, month:  7, day:  6 } },
-  { rataDie:  544676, date: { year:   897, month:  6, day:  1 } },
-  { rataDie:  567118, date: { year:   960, month:  9, day: 30 } },
-  { rataDie:  569477, date: { year:   967, month:  5, day: 27 } },
-  { rataDie:  601716, date: { year:  1058, month:  5, day: 18 } },
-  { rataDie:  613424, date: { year:  1091, month:  6, day:  2 } },
-  { rataDie:  626596, date: { year:  1128, month:  8, day:  4 } },
-  { rataDie:  645554, date: { year:  1182, month:  2, day:  3 } },
-  { rataDie:  664224, date: { year:  1234, month: 10, day: 10 } },
-  { rataDie:  671401, date: { year:  1255, month:  1, day: 11 } },
-  { rataDie:  694799, date: { year:  1321, month:  1, day: 21 } },
-  { rataDie:  704424, date: { year:  1348, month:  3, day: 19 } },
-  { rataDie:  708842, date: { year:  1360, month:  9, day:  8 } },
-  { rataDie:  709409, date: { year:  1362, month:  4, day: 13 } },
-  { rataDie:  709580, date: { year:  1362, month: 10, day:  7 } },
-  { rataDie:  727274, date: { year:  1412, month:  9, day: 13 } },
-  { rataDie:  728714, date: { year:  1416, month: 10, day:  5 } },
-  { rataDie:  744313, date: { year:  1460, month: 10, day: 12 } },
-  { rataDie:  764652, date: { year:  1518, month:  3, day:  5 } },
+  { jdn: -214193 + J0000, date: { year: -1245, month: 12, day:  9 } },
+  { jdn:  -61387 + J0000, date: { year:  -813, month:  2, day: 23 } },
+  { jdn:   25469 + J0000, date: { year:  -568, month:  4, day:  1 } },
+  { jdn:   49217 + J0000, date: { year:  -501, month:  4, day:  6 } },
+  { jdn:  171307 + J0000, date: { year:  -157, month: 10, day: 17 } },
+  { jdn:  210155 + J0000, date: { year:   -47, month:  6, day:  3 } },
+  { jdn:  253427 + J0000, date: { year:    75, month:  7, day: 13 } },
+  { jdn:  369740 + J0000, date: { year:   403, month: 10, day:  5 } },
+  { jdn:  400085 + J0000, date: { year:   489, month:  5, day: 22 } },
+  { jdn:  434355 + J0000, date: { year:   586, month:  2, day:  7 } },
+  { jdn:  452605 + J0000, date: { year:   637, month:  8, day:  7 } },
+  { jdn:  470160 + J0000, date: { year:   687, month:  2, day: 20 } },
+  { jdn:  473837 + J0000, date: { year:   697, month:  7, day:  7 } },
+  { jdn:  507850 + J0000, date: { year:   793, month:  7, day:  1 } },
+  { jdn:  524156 + J0000, date: { year:   839, month:  7, day:  6 } },
+  { jdn:  544676 + J0000, date: { year:   897, month:  6, day:  1 } },
+  { jdn:  567118 + J0000, date: { year:   960, month:  9, day: 30 } },
+  { jdn:  569477 + J0000, date: { year:   967, month:  5, day: 27 } },
+  { jdn:  601716 + J0000, date: { year:  1058, month:  5, day: 18 } },
+  { jdn:  613424 + J0000, date: { year:  1091, month:  6, day:  2 } },
+  { jdn:  626596 + J0000, date: { year:  1128, month:  8, day:  4 } },
+  { jdn:  645554 + J0000, date: { year:  1182, month:  2, day:  3 } },
+  { jdn:  664224 + J0000, date: { year:  1234, month: 10, day: 10 } },
+  { jdn:  671401 + J0000, date: { year:  1255, month:  1, day: 11 } },
+  { jdn:  694799 + J0000, date: { year:  1321, month:  1, day: 21 } },
+  { jdn:  704424 + J0000, date: { year:  1348, month:  3, day: 19 } },
+  { jdn:  708842 + J0000, date: { year:  1360, month:  9, day:  8 } },
+  { jdn:  709409 + J0000, date: { year:  1362, month:  4, day: 13 } },
+  { jdn:  709580 + J0000, date: { year:  1362, month: 10, day:  7 } },
+  { jdn:  727274 + J0000, date: { year:  1412, month:  9, day: 13 } },
+  { jdn:  728714 + J0000, date: { year:  1416, month: 10, day:  5 } },
+  { jdn:  744313 + J0000, date: { year:  1460, month: 10, day: 12 } },
+  { jdn:  764652 + J0000, date: { year:  1518, month:  3, day:  5 } },
 ];
 
 describe ('Islamic calendar spec', () => {
   it ('should convert a Islamic date to Julian day', () => {
-    dates.forEach (({ rataDie, date }) => {
-      const jdn    = rataDie + J0000;
+    dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
       expect (actual).toBe (jdn);
@@ -49,9 +47,8 @@ describe ('Islamic calendar spec', () => {
   });
 
   it ('should convert a Julian day to a Islamic date', () => {
-    dates.forEach (({ rataDie, date }) => {
-      const actual   = cal.fromRd (rataDie) as IslamicDate;
-      const jdn      = actual.getJdn();
+    dates.forEach (({ jdn, date }) => {
+      const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };
 
