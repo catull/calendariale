@@ -188,6 +188,11 @@ const hindu = {
   MONTHS: [ 'Caitra', 'Vaisakha', 'Jyaistha', 'Asadha', 'Sravana', 'Bhadra', 'Asvina', 'Kartika', 'Agrahayana', 'Pausa', 'Magha', 'Phalguna' ]
 };
 
+const icelandic = {
+  EPOCH: 1721533.5, // 0001/04/21 Julian C.E.  /  0001-Apr-19 Gregorian A.D.
+  EPOCH_RD: 109,
+};
+
 const islamic = {
   EPOCH: 1948439.5, // 622/07/16 Julian C.E.
   EPOCH_RD: 227015,
@@ -266,6 +271,8 @@ const INVALID_BAKTUN = 'Invalid baktun';
 
 const INVALID_COUNT = 'Invalid count';
 
+const INVALID_SEASON = 'Invalid season';
+
 export {
   ARYA_LUNAR_DAY,
   ARYA_LUNAR_MONTH,
@@ -285,6 +292,7 @@ export {
   INVALID_LEAP_MONTH,
   INVALID_MOIS,
   INVALID_MONTH,
+  INVALID_SEASON,
   INVALID_TUN,
   INVALID_UINAL,
   INVALID_VAHID,
@@ -324,6 +332,7 @@ export {
   gregorian,
   hebrew,
   hindu,
+  icelandic,
   islamic,
   // julian,
   olympiad,
