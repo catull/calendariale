@@ -1,13 +1,12 @@
 import { phasisOnOrAfter, phasisOnOrBefore, solarLongitudeAfter, standardToUniversal, sunset } from '../Astro';
 import { HebrewMonth, INVALID_DAY, INVALID_MONTH, J0000, Season, hebrew } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 import { HebrewObservationalDate } from './HebrewObservationalDate';
 import { CalendarDateValidationException } from './core';
 
-export class HebrewObservationalCalendar extends BaseCalendar {
+export class HebrewObservationalCalendar {
   // Determine Julian day number from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     const jdn: number = this.calculateJdn(year, month, day);

@@ -1,6 +1,6 @@
 import { BaseDate } from '../../../index';
 
-describe ('Base calendar spec', () => {
+describe ('Base date spec', () => {
   it ('should instantiate a BaseDate', () => {
     const cal: BaseDate = new BaseDate(0);
 

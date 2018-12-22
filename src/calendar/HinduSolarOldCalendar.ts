@@ -1,12 +1,11 @@
 import { mod } from '../Astro';
 import { ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, INVALID_DAY, INVALID_MONTH, hindu } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { hinduDayCount } from './HinduAlgorithms';
 import { HinduSolarOldDate } from './HinduSolarOldDate';
 import { CalendarDateValidationException } from './core';
 
-export class HinduSolarOldCalendar extends BaseCalendar {
+export class HinduSolarOldCalendar {
   // Determine Julian day number from Hindu Solar Old calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);

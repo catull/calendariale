@@ -1,12 +1,11 @@
 import { amod } from '../Astro';
 import { INVALID_YEAR, olympiad } from '../Const';
 
-import { BaseCalendar } from './BaseCalendar';
 import { JulianCalendar } from './JulianCalendar';
 import { OlympiadDate } from './OlympiadDate';
 import { CalendarDateValidationException } from './core';
 
-export class OlympiadCalendar extends BaseCalendar {
+export class OlympiadCalendar {
   // Determine Julian day number from Olympiad cycle and year
   public static toJdn(cycle: number, year: number): number {
     this.validate(cycle, year);
