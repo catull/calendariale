@@ -16,7 +16,8 @@
     "build:dev": "tsc",
     "clean": "rm -fr .rts2_cache_* dist tmp",
     "clean:dist": "rm -fr .rts2_cache_* dist tmp node_modules",
-    "dist": "yarn build && yarn dist:package.json",
+    "dist": "yarn dist:index.ts && yarn build && yarn dist:package.json",
+    "dist:index.ts": "barrelsby -D -q -l all -d src -e src/spec -e HinduAlgorithms -e create-dist",
     "dist:package.json": "ts-node src/create-dist-package.json.ts $npm_package_version > dist/package.json",
     "test": "jest",
     "test:dev": "jest --watch",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/jest": "23.3.10",
     "@types/node": "10.12.18",
+    "barrelsby": "1.0.2",
     "jest": "23.6.0",
     "jest-junit": "5.2.0",
     "jest-sonar-reporter": "2.0.0",
