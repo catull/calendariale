@@ -1,5 +1,12 @@
-import { amod, mod, next } from '../Astro';
-import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, hindu } from '../Const';
+import { amod, mod3, next, } from '../Astro';
+import {
+  INVALID_DAY,
+  INVALID_LEAP_DAY,
+  INVALID_LEAP_MONTH,
+  INVALID_MONTH,
+  J0000,
+  hindu,
+} from '../Const';
 
 import {
   hinduDateYear,
@@ -62,9 +69,8 @@ export class HinduLunarModernCalendar {
 
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + hindu.SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
-    const s: number = Math.floor(approx + 180 - hindu.SIDEREAL_YEAR *
-      mod(hinduSolarLongitude(approx) - (month - 1) * 30 + 180, 360) / 360);
-    const k: number = hinduLunarDayFromMoment(s + 0.25);
+    const s: number = Math.floor(approx - hindu.SIDEREAL_YEAR * mod3(hinduSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5));
+      const k: number = hinduLunarDayFromMoment(s + 0.25);
 
     let temp: number;
 
@@ -72,11 +78,11 @@ export class HinduLunarModernCalendar {
       temp = k;
     } else {
       const mid: HinduLunarModernDate = this.fromJdn(s - 15 + J0000);
-      temp = (mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap)) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
-    }
+      temp = mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap) ? mod3(k, -15, 15) : mod3(k, 15, 45);
+     }
 
     const est: number = s + day - temp;
-    const tau: number = est - mod(hinduLunarDayFromMoment(est + 0.25) - day + 15, 30) + 15;
+    const tau: number = est - mod3(hinduLunarDayFromMoment(est + 0.25) - day, -15, 15);
 
     const date: number = next(tau - 1, (d: number): boolean => {
       const d1: number = hinduLunarDayFromMoment(hinduSunrise(d));

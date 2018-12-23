@@ -1,5 +1,21 @@
-import { amod, dawn, lunarPhase, mod, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
-import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR, hindu } from '../Const';
+import {
+  amod,
+  dawn,
+  lunarPhase,
+  mod3,
+  newMoonAtOrAfter,
+  newMoonBefore,
+  next,
+} from '../Astro';
+import {
+  INVALID_DAY,
+  INVALID_LEAP_DAY,
+  INVALID_LEAP_MONTH,
+  INVALID_MONTH,
+  J0000,
+  MEAN_SIDEREAL_YEAR,
+  hindu,
+} from '../Const';
 
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 import { HinduLunarAstroDate } from './HinduLunarAstroDate';
@@ -60,7 +76,7 @@ export class HinduLunarAstroCalendar {
   // Determine Julian day number from Hindu Lunar Astro calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + MEAN_SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
-    const s: number = Math.floor(approx - (1 / 360) * MEAN_SIDEREAL_YEAR * (mod(siderealSolarLongitude(approx) - (month - 1) * 30 + 180, 360) - 180));
+    const s: number = Math.floor(approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5));
     const k: number = this.astroLunarDayFromMoment(s + 0.25);
     let temp: number;
 
@@ -68,11 +84,12 @@ export class HinduLunarAstroCalendar {
       temp = k;
     } else {
       const mid: HinduLunarAstroDate = this.fromJdn(s - 15 + J0000);
-      temp = mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap) ? mod(k + 15, 30) - 15 : mod(k - 15, 30) + 15;
+      temp = mid.getMonth() !== month || (mid.isMonthLeap() && !monthLeap) ? mod3(k, -15, 15) : mod3(k, 15, 45);
     }
 
     const est: number = s + day - temp;
-    const tau: number = est - mod(this.astroLunarDayFromMoment(est + 0.25) - day + 15, 30) + 15;
+    const tau: number = est - mod3(this.astroLunarDayFromMoment(est + 0.25) - day, -15, 15);
+
     const date: number =
       next(
         tau - 1,

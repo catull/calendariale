@@ -1,4 +1,4 @@
-import { angle, binarySearch, mod, next, precession, sinDeg, solarLongitude } from '../Astro';
+import { angle, binarySearch, mod, mod3, next, precession, sinDeg, solarLongitude } from '../Astro';
 import { MEAN_SIDEREAL_YEAR, hindu } from '../Const';
 import { Location } from '../Location';
 
@@ -17,8 +17,7 @@ function hinduDayCount(jdn: number): number {
  * @return {float} longitude
  */
 function siderealSolarLongitude(tee: number): number {
-  return mod(solarLongitude(tee) - precession(tee) +
-    hindu.SIDEREAL_START, 360);
+  return mod(solarLongitude(tee) - precession(tee) + hindu.SIDEREAL_START, 360);
 }
 
 /**
@@ -130,7 +129,7 @@ function hinduSolarLongitude(tee: number): number {
  */
 function hinduTropicalLongitude(jdn: number): number {
   const days: number = Math.floor(jdn - hindu.EPOCH_RD);
-  const precession2: number = 27 - Math.abs(54 - mod(27 + 108 * 600 / 1577917828 * days, 108));
+  const precession2: number = 27 - Math.abs(108 * mod3(600 / 1577917828 * days - 0.25, -0.5, 0.5));
 
   return mod(hinduSolarLongitude(jdn) - precession2, 360);
 }

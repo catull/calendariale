@@ -1,4 +1,4 @@
-import { kdayOnOrAfter, mod, sigma, toRadix } from '../Astro';
+import { jdnToWeekDay, kdayOnOrAfter, mod, sigma, toRadix } from '../Astro';
 import { INVALID_DAY, INVALID_SEASON, INVALID_WEEK, Season, WeekDay, icelandic } from '../Const';
 
 import { IcelandicDate } from './IcelandicDate';
@@ -42,7 +42,7 @@ export class IcelandicCalendar {
     const season = jdn < this.winter(year) ? Season.SUMMER : Season.WINTER;
     const start = season === Season.SUMMER ? this.summer(year) : this.winter(year);
     const week = 1 + Math.floor((jdn - start) / 7);
-    const day = mod(jdn + 1.5, 7);
+    const day = jdnToWeekDay(jdn);
 
     return new IcelandicDate(jdn, year, season, week, day);
   }

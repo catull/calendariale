@@ -34,11 +34,26 @@ function amod(amount: number, numerator: number): number {
 }
 
 /**
+ * Modulus function which returns value in range [a, a + b]
+ * @param {number} x dividend
+ * @param {number} a numerator
+ * @param {number} b numerator
+ * @return {number} the value of x shifted into the range [a..b). Returns x if a==b.
+ */
+function mod3(x: number, a: number, b: number): number {
+  if (a === b) {
+    return x;
+  }
+
+  return a + mod ((x - a), (b - a));
+}
+
+/**
  * Return day of the week from a julian day number
  * @param {float} jdn Julian Day Number
  * @return {float} day of week
  */
-function jdnToDayOfWeek(jdn: number): WeekDay {
+function jdnToWeekDay(jdn: number): WeekDay {
   return mod(jdn - J0000, 7);
 }
 
@@ -50,7 +65,7 @@ function jdnToDayOfWeek(jdn: number): WeekDay {
  * @return {number} resulting julian day number
  */
 function kdayOnOrBefore(k: WeekDay, jdn: number): number {
-  return jdn - jdnToDayOfWeek(jdn - k);
+  return jdn - jdnToWeekDay(jdn - k);
 }
 
 /**
@@ -357,11 +372,11 @@ function invertAngular(f: (n: number) => number, y: number, low: number, high: n
 }
 
 /**
- * Return fixed momentToFixed
+ * Return fixed momentToRd
  * @param {float} tee moment in time
- * @return {int} fixed momentToFixed
+ * @return {int} fixed momentToRd
  */
-function momentToFixed(tee: number): number {
+function momentToRd(tee: number): number {
   return Math.floor(tee);
 }
 
@@ -598,13 +613,15 @@ function jhms(jdn: number): number[] {
 }
 
 /**
- * Calculate day of week from fixed day
- * @param {float} jdn Julian day number
- * @return {int} week day
+ * Calculate day of week from rata die
+ * @param {number} rataDie the rata die number
+ * @return {WeekDay} week day
  */
-function jwday(fixed: number): number {
-  return mod(fixed, 7);
+/*
+function jwday(rataDie: number): WeekDay {
+  return mod(rataDie, 7);
 }
+*/
 
 /**
  * Return the longitudinal nutation at moment tee
@@ -916,18 +933,15 @@ function sineOffset(tee: number, location: Location, alpha: number): number {
  * @return {float} moment of depression
  */
 function approxMomentOfDepression(tee: number, location: Location, alpha: number, early: boolean): number {
-  const ttry: number = sineOffset(tee, location, alpha);
-  const date: number = momentToFixed(tee);
-
-  const alt: number = (alpha >= 0) ? (early ? date : date + 1) : date + 0.5;
-  const value: number = (Math.abs(ttry) > 1) ? sineOffset(alt, location, alpha) : ttry;
+  const ttry = sineOffset(tee, location, alpha);
+  const date = momentToRd(tee);
+  const alt = alpha >= 0 ? (early ? date : date + 1) : date + 0.5;
+  const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry;
 
   if (Math.abs(value) <= 1) {
-    let temp: number = early ? -1 : 1;
-    temp *= mod(0.5 + arcSinDeg(value) / 360, 1) - 0.25;
-    temp += date + 0.5;
+      const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
 
-    return apparentToLocal(temp, location);
+      return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
   }
 
   return -1;
@@ -1165,9 +1179,34 @@ function lunarLongitude(tee: number): number {
   return mod(capLprime + correction + venus + jupiter + flatEarth + nutation(tee), 360);
 }
 
-/**
+const lunarElongationArgs2: number[] = [
+  0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 0, 0,
+  1, 0, 0, 0, 1, 0, 4, 4, 0, 4, 2, 2, 2, 2, 0, 2, 2, 2, 2, 4, 2, 2,
+  0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2];
+const solarAnomalyArgs2: number[] = [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, -1, -1, -1, 1, 0, 1,
+  0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 1,
+  0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2];
+const lunarAnomalyArgs2: number[] = [
+  0, 1, 1, 0, -1, -1, 0, 2, 1, 2, 0, -2, 1, 0, -1, 0, -1, -1, -1,
+  0, 0, -1, 0, 1, 1, 0, 0, 3, 0, -1, 1, -2, 0, 2, 1, -2, 3, 2, -3,
+  -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0];
+const moonNodeArgs2: number[] = [
+  1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 3, 1,
+  1, 1, -1, -1, -1, 1, -1, 1, -3, 1, -3, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1,
+  3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1];
+const sineCoefficients2: number[] = [
+  5128122, 280602, 277693, 173237, 55413, 46271, 32573, 17198, 9266, 8822, 8216,
+  4324, 4200, -3359, 2463, 2211, 2065, -1870, 1828, -1794, -1749, -1565, -1491,
+  -1475, -1410, -1344, -1335, 1107, 1021, 833, 777, 671, 607, 596, 491, -451,
+  439, 422, 421, -366, -351, 331, 315, 302, -283, -229, 223, 223, -220, -220,
+  -185, 181, -177, 176, 166, -164, 132, -119, 115, 107];
+
+  /**
  * Return the latitude of moon (in degrees) at moment tee.
  * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann_Bell, Inc., 1998.
+ * @param {float} tee moment in time
+ * @return {float} lunar latitude
  */
 function lunarLatitude(tee: number): number {
   const c: number = julianCenturies(tee);
@@ -1177,30 +1216,6 @@ function lunarLatitude(tee: number): number {
   const capMprime: number = lunarAnomaly(c);
   const capF: number = moonNode(c);
   const capE: number = poly(c, [1, -0.002516, -0.0000074]);
-  const lunarElongationArgs2: number[] = [
-    0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 0, 0,
-    1, 0, 0, 0, 1, 0, 4, 4, 0, 4, 2, 2, 2, 2, 0, 2, 2, 2, 2, 4, 2, 2,
-    0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2];
-  const solarAnomalyArgs2: number[] = [
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, -1, -1, -1, 1, 0, 1,
-    0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 1,
-    0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2];
-  const lunarAnomalyArgs2: number[] = [
-    0, 1, 1, 0, -1, -1, 0, 2, 1, 2, 0, -2, 1, 0, -1, 0, -1, -1, -1,
-    0, 0, -1, 0, 1, 1, 0, 0, 3, 0, -1, 1, -2, 0, 2, 1, -2, 3, 2, -3,
-    -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0];
-  const moonNodeArgs2: number[] = [
-    1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1,
-    -1, 1, 3, 1, 1, 1, -1, -1, -1, 1, -1, 1, -3, 1, -3, -1, -1, 1,
-    -1, 1, -1, 1, 1, 1, 1, -1, 3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1];
-  const sineCoefficients2: number[] = [
-    5128122, 280602, 277693, 173237, 55413, 46271, 32573,
-    17198, 9266, 8822, 8216, 4324, 4200, -3359, 2463, 2211,
-    2065, -1870, 1828, -1794, -1749, -1565, -1491, -1475,
-    -1410, -1344, -1335, 1107, 1021, 833, 777, 671, 607,
-    596, 491, -451, 439, 422, 421, -366, -351, 331, 315,
-    302, -283, -229, 223, 223, -220, -220, -185, 181,
-    -177, 176, 166, -164, 132, -119, 115, 107];
   const beta: number = 1 / 1000000 *
     sigma([sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
       (v: number, w: number, x: number, y: number, z: number): number =>
@@ -1213,6 +1228,55 @@ function lunarLatitude(tee: number): number {
   const extra: number = 382 / 1000000 * sinDeg(313.45 + c * 481266.484);
 
   return beta + venus + flatEarth + extra;
+}
+
+const lunarElongationArgs3 = [
+  0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4,
+  2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0,
+  1, 3, 4, 2, 0, 1, 2, 2
+];
+const solarAnomalyArgs3 = [
+  0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0,
+  0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1,
+  0, 1, 0, 1, 0, 0, -1, 2, 1, 0, 0
+];
+const lunarAnomalyArgs3 = [
+  1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0,
+  1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0, -1, 2, -1, 1, -2, -1, -1, -2,
+  0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3, -1
+];
+const moonNodeArgs3 = [
+  0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0,
+  -2, -2, 0, 0, 0, 0, 0, 0, 0, -2
+];
+const cosineCoeff = [
+  -20905355, -3699111, -2955968, -569925, 48888, -3149, 246158, -152138, -170733,
+  -204586, -129620, 108743, 104755, 10321, 0, 79661, -34782, -23210, -21636,
+  24208, 30824, -8379, -16675, -12831, -10445, -11650, 14403, -7003, 0, 10056,
+  6322, -9884, 5751, 0, -4950, 4130, 0, -3958, 0, 3258, 2616, -1897, -2117, 2354,
+  0, 0, -1423, -1117, -1571, -1739, 0, -4421, 0, 0, 0, 0, 1165, 0, 0, 8752
+];
+
+/**
+ * Return the distance to the moon (in metres) at moment tee.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann_Bell, Inc., 1998, pp. 338-342.
+ * @param {number} tee moment in time
+ * @return {number} lunar distance
+ */
+function lunarDistance(tee: number): number {
+  const c = julianCenturies(tee);
+  const capD = lunarElongation(c);
+  const capM = solarAnomaly(c);
+  const capMPrime = lunarAnomaly(c);
+  const capF = moonNode(c);
+  const capE = poly(c, [1, -0.002516, -0.0000074]);
+  const correction = sigma([cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
+    (v: number, w: number, x: number, y: number, z: number): number =>
+    v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
+  );
+
+  return 385000560 + correction;
 }
 
 /**
@@ -1236,6 +1300,64 @@ function lunarPhase(tee: number): number {
   }
 
   return phi;
+}
+
+/**
+ * Parallax of moon at tee at location.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd edn., 1998.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} moon parallax
+ */
+function lunarParallax(tee: number, location: Location): number {
+  const geo = lunarAltitude(tee, location);
+  const capDelta = lunarDistance(tee);
+  const alt = 6378140 / capDelta;
+  const arg = alt * cosDeg(geo);
+
+  return arcSinDeg(arg);
+}
+/**
+ * Topocentric altitude of moon at tee at location, as a small positive/negative
+ * angle in degrees, ignoring refraction.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} topocentric lunar altitude
+ */
+function topocentricLunarAltitude(tee: number, location: Location): number {
+  return lunarAltitude(tee, location) - lunarParallax(tee, location);
+}
+
+/**
+ * Geocentric apparent lunar diameter (in degrees) at moment tee at location.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd ed, 1998.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} observed lunar altitude
+ */
+function observedLunarAltitude(tee: number, location: Location): number {
+  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + (16 / 60);
+}
+
+/**
+ * Standard time of moonset on fixed date at location.
+ * Returns -1 if there is no moonset on date.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} time of moonset or -1
+ */
+function moonset(date: number, location: Location): number {
+  const tee = standardToUniversal(date, location);
+  const waxing = lunarPhase(tee) < 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset - -0.5;
+  const set = binarySearch(approx - 0.25, approx + 0.25,
+    (x: number): boolean => observedLunarAltitude (x, location) < 0,
+    (x: number): boolean => x < 1 / 60);
+
+  return (set < tee + 1) ? Math.max(universalToStandard(set, location), date) : -1;
 }
 
 /**
@@ -1289,10 +1411,9 @@ function lunarAltitude(tee: number, location: Location): number {
   const delta: number = declination(tee, beta, lambda);
   const theta0: number = momentToSidereal(tee);
   const capH: number = mod(theta0 + psi - alpha, 360);
-  const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) +
-    cosDeg(phi) * cosDeg(delta) * cosDeg(capH));
+  const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) + cosDeg(phi) * cosDeg(delta) * cosDeg(capH));
 
-  return mod(altitude + 180, 360) - 180;
+  return mod3 (altitude, -180, 180);
 }
 
 /**
@@ -1342,16 +1463,29 @@ function phasisOnOrAfter(jdn: number, location: Location): number {
 }
 
 /**
+ * Return the time at moon phase phi at tee or before.
+ * @param {number} phi phase of the moon
+ * @return {number} time
+ */
+function lunarPhaseAtOrBefore(phi: number, tee: number): number {
+  const tau = tee - MEAN_SYNODIC_MONTH * (1 / 360) * mod ((lunarPhase(tee) - phi), 360);
+  const low = tau - 2;
+  const high = Math.min(tee, tau + 2);
+
+  return invertAngular(lunarPhase, phi, low, high);
+}
+
+/**
  * Return the moment UT of the first time at or after moment tee, when the solar
  * longitude will be lambda degrees.
  */
 function solarLongitudeAfter(lambda: number, tee: number): number {
   const rate: number = MEAN_TROPICAL_YEAR / 360;
   const tau: number = tee + rate * mod(lambda - solarLongitude(tee), 360);
-  const a: number = Math.max(tee, tau - 5);
-  const b: number = tau + 5;
+  const low: number = Math.max(tee, tau - 5);
+  const high: number = tau + 5;
 
-  return invertAngular(solarLongitude, lambda, a, b);
+  return invertAngular(solarLongitude, lambda, low, high);
 }
 
 /**
@@ -1378,6 +1512,28 @@ function sunset(jdn: number, location: Location): number {
   const alpha: number = refraction(jd0, location);
 
   return dusk(jdn, location, alpha);
+}
+
+/**
+ * Time between sunset and moonset on tee at location.
+ * Returns -1 if there is no sunset on tee.
+ * @param {number} tee moment in time
+ * @param {Location} location geo-location
+ * @return {number} moment of moon lag
+ */
+function moonlag(tee: number, location: Location): number {
+  const sun = sunset(tee, location);
+  const moon = moonset(tee, location);
+
+  if (sun === -1) {
+      return -1;
+  }
+
+  if (moon === -1) {
+      return 1;
+  }
+
+  return moon - sun;
 }
 
 /**
@@ -1408,17 +1564,35 @@ function toRadix (num: number, radices: number[]): number[] {
 }
 
 export {
-  amod, angle, apparentToLocal, binarySearch, cosDeg, dawn, degreesToRadians,
+  amod,
+  angle,
+  apparentToLocal,
+  binarySearch,
+  cosDeg,
+  dawn,
+  degreesToRadians,
   deltaT, dusk,
   dynamicalToUniversal,   // only to be tested, required for nutation!
   ephemerisCorrection,   // only to be tested!
-  equationOfTime, equinox, estimatePriorSolarLongitude, final,
+  equationOfTime,
+  equinox,
+  estimatePriorSolarLongitude,
+  final,
   // fixAngle,
   // fixAngleRadians,
+  jdnToWeekDay,
   jhms,
   julianCenturies,   // only to be tested!
-  jwday, lunarPhase, midDay, mod, newMoonAtOrAfter, newMoonBefore, next,
   kdayOnOrAfter,
+  lunarPhase,
+  lunarPhaseAtOrBefore,
+  midDay,
+  mod,
+  mod3,
+  moonlag,
+  newMoonAtOrAfter,
+  newMoonBefore,
+  next,
   nthKday,
   nutation,   // only to be tested!
   obliquity,   // only to be tested!
@@ -1427,8 +1601,12 @@ export {
   poly,   // only to be tested!
   precession, radiansToDegrees,
   sigma,   // only to be tested!
-  sinDeg, solarLongitude, solarLongitudeAfter, standardToUniversal, sunset,
+  sinDeg,
+  solarLongitude,
+  solarLongitudeAfter,
+  standardToUniversal,
+  sunset,
   tanDeg,
   toRadix,
-  universalToStandard
+  universalToStandard,
 };
