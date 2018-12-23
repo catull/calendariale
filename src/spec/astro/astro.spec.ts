@@ -1,14 +1,22 @@
-import { binarySearch, dynamicalToUniversal, ephemerisCorrection, equationOfTime,
-  julianCenturies, jwday, nutation, obliquity, poly, sigma
+import {
+  binarySearch,
+  dynamicalToUniversal,
+  ephemerisCorrection,
+  equationOfTime,
+  jdnToWeekDay,
+  julianCenturies,
+  nutation,
+  obliquity,
+  poly,
+  sigma
 } from '../../Astro';
-import { J0000 } from '../../Const';
+import { WeekDay } from '../../Const';
 
 describe('Astro spec', () => {
   const jdn = 2456435.5;
-  const fixed = jdn - J0000;
 
   it ('should determine the week-day', () => {
-    expect(jwday(fixed)).toBe(4); // Thursday
+    expect(jdnToWeekDay(jdn)).toBe(WeekDay.THURSDAY);
   });
 
   it ('should calculate a polynomial', () => {
@@ -26,7 +34,7 @@ describe('Astro spec', () => {
     expect(julianCenturies(584023)).toBeCloseTo(-4.0, 1e-4);
   });
 
-  it ('should calculate the obliquity of an ecliptic of a fixed date', () => {
+  it ('should calculate the obliquity of an ecliptic of a rataDie date', () => {
     expect(obliquity(jdn)).toBe(22.877468971740665);
   });
 
@@ -37,7 +45,7 @@ describe('Astro spec', () => {
   it ('should calculate the equation of time', () => {
     expect(equationOfTime(jdn)).toBeCloseTo(-0.007214, 1e-6);
 
-    expect(equationOfTime(49203.35716666667 + J0000)).toBeCloseTo( 0.01025589, 1e-8);
+    expect(equationOfTime(10623767.143 / 6)).toBeCloseTo( 0.01025589, 1e-8);
   });
 
   it ('should calculate a sigma of a matrix', () => {
@@ -47,8 +55,7 @@ describe('Astro spec', () => {
   });
 
   it ('should calculate a nutation', () => {
-    const jd = 727300 + J0000;
-    const tee = dynamicalToUniversal(jd);
+    const tee = dynamicalToUniversal(2448724.5);
     const actual = nutation(tee);
 
     expect(actual).toBeCloseTo(0.00154264, 1e-8);
