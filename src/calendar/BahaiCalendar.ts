@@ -6,13 +6,60 @@ import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
 export class BahaiCalendar {
+  // Calculate Bahai calendar date from Julian day number (JDN)
+  public static fromJdn(jdn: number): BahaiDate {
+    const jd0: number = Math.floor(jdn - 0.5) + 0.5;
+    const old: boolean = jd0 < bahai.EPOCH172;
+
+    let bys: number;
+    let by: number[];
+    let leap: boolean;
+
+    if (old) {
+      const gy: number = GregorianCalendar.fromJdn(jd0).getYear();
+      leap = GregorianCalendar.isLeapYear(gy + 1);
+      const bstarty: number = GregorianCalendar.fromJdn(bahai.EPOCH).getYear();
+      bys =
+        gy -
+        (bstarty + (GregorianCalendar.toJdn(gy, 1, 1) <= jd0 && jd0 <= GregorianCalendar.toJdn(gy, 3, 20) ? 1 : 0)) +
+        1;
+      by = [0, 0];
+    } else {
+      by = this.jdnToYearAndOffset(jd0);
+      bys = by[0];
+      leap = this.isLeapYear(bys);
+    }
+
+    const kullIshay: number = Math.floor(bys / 361) + 1;
+    const vahid: number = Math.floor(mod(bys - 1, 361) / 19) + 1;
+    const year: number = amod(bys, 19);
+    const leapDays: number = leap ? 5 : 4;
+    const days: number = old ? jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 : jd0 - by[1];
+
+    let month = 0;
+    let day: number = days - 18 * 19;
+
+    if (days <= 18 * 19) {
+      month = 1 + Math.floor((days - 1) / 19);
+      day = amod(days, 19);
+    } else if (days > 18 * 19 + leapDays) {
+      month = 19;
+      day = amod(days - leapDays - 1, 19);
+      // } else {
+      //   month = 0;
+      //   day = days - 18 * 19;
+    }
+
+    return new BahaiDate(jdn, kullIshay, vahid, year, month, day);
+  }
+
   // Determine the year in the Bahai // astronomical calendar in which a
-  // given Julian day falls.
+  // given Julian day number (JDN) falls.
   public static jdnToYear(jdn: number): number {
     return this.jdnToYearAndOffset(jdn)[0];
   }
 
-  // Determine Julian day number from Bahai calendar date, where the year is
+  // Determine Julian day number (JDN) from Bahai calendar date, where the year is
   // pre-calculated as
   //    1844 + 361 * (kull-i-shay - 1) + 19 * (vahid - 1) + year - 1
   public static toJdn(year: number, month: number, day: number): number {
@@ -23,7 +70,7 @@ export class BahaiCalendar {
     return this.bahaiToJdn(kullIshay, vahid, y, month, day);
   }
 
-  // Determine Julian day from Bahai date
+  // Determine Julian day number (JDN) from Bahai date
   public static bahaiToJdn(kullIshay: number, vahid: number, year: number, month: number, day: number) {
     this.validate(kullIshay, vahid, year, month, day);
 
@@ -41,12 +88,30 @@ export class BahaiCalendar {
       jd = this.tehranEquinoxJd(gy);
     }
 
-    const yearDays: number = (month === 0) ? 342 : (month === 19) ? 342 + (leap ? 5 : 4) : (month - 1) * 19;
+    const yearDays: number = month === 0 ? 342 : month === 19 ? 342 + (leap ? 5 : 4) : (month - 1) * 19;
 
     return jd + yearDays + day;
   }
 
-  public static validate(kullIshay: number, vahid: number, year: number, month: number, day: number): void {
+  // Is a given year in the Bahai calendar a leap year?
+  // Bahai uses same leap rule as Gregorian until 171 Bahai Era
+  // From 172 onwards, it uses the Bahai leap year algorithm
+  // The year 171 of the Bahai Era corresponds to Gregorian year 2015
+  public static isLeapYear(year: number): boolean {
+    const gy: number = 1843 + year;
+
+    if (gy < 2015) {
+      return GregorianCalendar.isLeapYear(gy);
+    }
+
+    const eq1: number = Math.floor(equinox(gy, 0) - 0.115192) + 0.5;
+    const eq2: number = Math.floor(equinox(gy + 1, 0) - 0.115192) + 0.5;
+    const days: number = eq2 - eq1;
+
+    return days > 365;
+  }
+
+  private static validate(kullIshay: number, vahid: number, year: number, month: number, day: number): void {
     if (vahid < 1 || vahid > 19) {
       throw new CalendarDateValidationException(INVALID_VAHID);
     }
@@ -73,82 +138,17 @@ export class BahaiCalendar {
     }
   }
 
-  // Is a given year in the Bahai calendar a leap year?
-  // Bahai uses same leap rule as Gregorian until 171 Bahai Era
-  // From 172 onwards, it uses the Bahai leap year algorithm
-  // The year 171 of the Bahai Era corresponds to Gregorian year 2015
-  public static isLeapYear(year: number): boolean {
-    const gy: number = 1843 + year;
-
-    if (gy < 2015) {
-      return GregorianCalendar.isLeapYear(gy);
-    }
-
-    const eq1: number = Math.floor(equinox(gy, 0) - 0.115192) + 0.5;
-    const eq2: number = Math.floor(equinox(gy + 1, 0) - 0.115192) + 0.5;
-    const days: number = eq2 - eq1;
-
-    return days > 365;
-  }
-
-  // Calculate Bahai calendar date from Julian day
-  public static fromJdn(jdn: number): BahaiDate {
-    const jd0: number = Math.floor(jdn - 0.5) + 0.5;
-    const old: boolean = jd0 < bahai.EPOCH172;
-
-    let bys: number;
-    let by: number[];
-    let leap: boolean;
-
-    if (old) {
-      const gy: number = GregorianCalendar.fromJdn(jd0).getYear();
-      leap = GregorianCalendar.isLeapYear(gy + 1);
-      const bstarty: number = GregorianCalendar.fromJdn(bahai.EPOCH).getYear();
-      bys = gy - (bstarty + (GregorianCalendar.toJdn(gy, 1, 1) <= jd0 &&
-        jd0 <= GregorianCalendar.toJdn(gy, 3, 20) ? 1 : 0)) + 1;
-      by = [0, 0];
-    } else {
-      by = this.jdnToYearAndOffset(jd0);
-      bys = by[0];
-      leap = this.isLeapYear(bys);
-    }
-
-    const kullIshay: number = Math.floor(bys / 361) + 1;
-    const vahid: number = Math.floor(mod(bys - 1, 361) / 19) + 1;
-    const year: number = amod(bys, 19);
-    const leapDays: number = leap ? 5 : 4;
-    const days: number = old ?
-      jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 :
-      jd0 - by[1];
-
-    let month = 0;
-    let day: number = days - 18 * 19;
-
-    if (days <= 18 * 19) {
-      month = 1 + Math.floor((days - 1) / 19);
-      day = amod(days, 19);
-    } else if (days > 18 * 19 + leapDays) {
-      month = 19;
-      day = amod(days - leapDays - 1, 19);
-    // } else {
-    //   month = 0;
-    //   day = days - 18 * 19;
-    }
-
-    return new BahaiDate(jdn, kullIshay, vahid, year, month, day);
-  }
-
   // Determine the year in the Bahai // astronomical calendar in which a
-  // given Julian day falls.
+  // given Julian day number (JDN) falls.
   // Returns an array of two elements:
   //
   // **[0]** Bahai year
-  // **[1]** Julian day number containing equinox for this year.
+  // **[1]** Julian day number (JDN) containing equinox for this year.
   private static jdnToYearAndOffset(jdn: number): number[] {
     return this.lastTehranEquinox(jdn, bahai.EPOCH);
   }
 
-  // Determine Julian day and fraction of the
+  // Determine Julian day number (JDN) and fraction of the
   // March equinox at the Tehran meridian in
   // a given Gregorian year.
   private static tehranEquinox(year: number): number {
@@ -167,7 +167,7 @@ export class BahaiCalendar {
     return equAPP + 52.5 / 360;
   }
 
-  // Calculate Julian day during which the
+  // Calculate Julian day number (JDN) during which the
   // March equinox, reckoned from the Tehran
   // meridian, occurred for a given Gregorian year.
   private static tehranEquinoxJd(year: number): number {
@@ -178,11 +178,11 @@ export class BahaiCalendar {
   }
 
   // Determine the year in the astronomical calendar in which a
-  // given Julian day falls, given the epoch.
+  // given Julian day number (JDN) falls, given the epoch.
   // Returns an array of two elements:
   //
   // **[0]** Persian year
-  // **[1]** Julian day number containing equinox for this year.
+  // **[1]** Julian day number (JDN) containing equinox for this year.
   private static lastTehranEquinox(jd: number, epoch: number): number[] {
     let guess: number = GregorianCalendar.fromJdn(jd).getYear() - 2;
     let lasteq: number = this.tehranEquinoxJd(guess);
@@ -204,5 +204,4 @@ export class BahaiCalendar {
 
     return [adr, lasteq];
   }
-
 }

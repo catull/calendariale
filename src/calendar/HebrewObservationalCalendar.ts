@@ -7,7 +7,21 @@ import { HebrewObservationalDate } from './HebrewObservationalDate';
 import { CalendarDateValidationException } from './core';
 
 export class HebrewObservationalCalendar {
-  // Determine Julian day number from Hebrew calendar date
+  // Convert Julian day number (JDN) to Hebrew date
+  // This works by making multiple calls to the inverse function, performing slowly.
+  public static fromJdn(jdn: number): HebrewObservationalDate {
+    const crescent: number = phasisOnOrBefore(jdn, hebrew.JAFFA_LOCATION);
+    const gYear: number = GregorianCalendar.jdnToYear(jdn);
+    const newYear: number = this.toNewYear(gYear);
+    const newYear2: number = (jdn < newYear) ? this.toNewYear(gYear - 1) : newYear;
+    const month: number = Math.round((crescent - newYear2) / 29.5) + 1;
+    const year: number = HebrewCalendar.fromJdn(newYear2).getYear() + (month >= HebrewMonth.TISHRI ? 1 : 0);
+    const day: number = jdn - crescent + 1;
+
+    return new HebrewObservationalDate(jdn, year, month, day);
+  }
+
+  // Determine Julian day number (JDN) from Hebrew calendar date
   public static toJdn(year: number, month: number, day: number): number {
     const jdn: number = this.calculateJdn(year, month, day);
 
@@ -22,21 +36,7 @@ export class HebrewObservationalCalendar {
     return jdn;
   }
 
-  // Convert Julian date to Hebrew date
-  // This works by making multiple calls to the inverse function, performing slowly.
-  public static fromJdn(jdn: number): HebrewObservationalDate {
-    const crescent: number = phasisOnOrBefore(jdn, hebrew.JAFFA_LOCATION);
-    const gYear: number = GregorianCalendar.jdnToYear(jdn);
-    const newYear: number = this.toNewYear(gYear);
-    const newYear2: number = (jdn < newYear) ? this.toNewYear(gYear - 1) : newYear;
-    const month: number = Math.round((crescent - newYear2) / 29.5) + 1;
-    const year: number = HebrewCalendar.fromJdn(newYear2).getYear() + (month >= HebrewMonth.TISHRI ? 1 : 0);
-    const day: number = jdn - crescent + 1;
-
-    return new HebrewObservationalDate(jdn, year, month, day);
-  }
-
-  // Determine Julian day number from Hebrew calendar date
+  // Determine Julian day number (JDN) from Hebrew calendar date
   private static calculateJdn(year: number, month: number, day: number): number {
     const year1: number = (month >= HebrewMonth.TISHRI) ? (year - 1) : year;
     const start: number = HebrewCalendar.toJdn(year1, HebrewMonth.NISAN, 1);

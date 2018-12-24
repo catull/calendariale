@@ -41,7 +41,7 @@ const dates = [
 ];
 
 describe ('Roman calendar spec', () => {
-  it ('should convert a Roman date to Julian day', () => {
+  it ('should convert a Roman date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.event, date.count, date.leap);
 
@@ -49,7 +49,7 @@ describe ('Roman calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Roman date', () => {
+  it ('should convert a Julian day number (JDN) to a Roman date', () => {
     dates.forEach (({ jdn, date }) => {
       const expected = { jdn, day: -1, ...date };
       const actual   = cal.fromJdn (jdn);

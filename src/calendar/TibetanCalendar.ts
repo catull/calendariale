@@ -5,19 +5,7 @@ import { TibetanDate } from './TibetanDate';
 import { CalendarDateValidationException } from './core';
 
 export class TibetanCalendar {
-  public static isLeapMonth(year: number, month: number): boolean {
-    return month === TibetanCalendar.fromJdn(TibetanCalendar.calculateJdn(year, month, true, 2, false)).getMonth();
-  }
-
-  // Determine Julian day number from Tibetan calendar date
-  public static toJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
-    const jdn: number = TibetanCalendar.calculateJdn(year, month, monthLeap, day, dayLeap);
-    TibetanCalendar.validate(year, month, monthLeap, day, dayLeap, jdn);
-
-    return jdn;
-  }
-
-  // Calculate Tibetan calendar date from Julian day
+  // Calculate Tibetan calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): TibetanDate {
     const capY: number = 365 + 4975 / 18382;
     const years: number = Math.ceil((jdn - tibetan.EPOCH) / capY);
@@ -54,6 +42,18 @@ export class TibetanCalendar {
     return new TibetanDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
+  // Determine Julian day number (JDN) from Tibetan calendar date
+  public static toJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
+    const jdn: number = TibetanCalendar.calculateJdn(year, month, monthLeap, day, dayLeap);
+    TibetanCalendar.validate(year, month, monthLeap, day, dayLeap, jdn);
+
+    return jdn;
+  }
+
+  public static isLeapMonth(year: number, month: number): boolean {
+    return month === TibetanCalendar.fromJdn(TibetanCalendar.calculateJdn(year, month, true, 2, false)).getMonth();
+  }
+
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH);
@@ -72,7 +72,7 @@ export class TibetanCalendar {
     }
   }
 
-  // Determine Julian day number from Tibetan calendar date
+  // Determine Julian day number (JDN) from Tibetan calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const months: number = Math.floor(804 / 65 * (year - 1) + 67 / 65 * month + (monthLeap ? -1 : 0) + 64 / 65);
     const days: number = 30 * months + day;

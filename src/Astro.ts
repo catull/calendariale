@@ -11,6 +11,8 @@ import {
 import { Location } from './Location';
 import { GregorianCalendar } from './calendar/GregorianCalendar';
 
+// const captains = console;
+
 type Matrix = number[][];
 
 /**
@@ -49,8 +51,8 @@ function mod3(x: number, a: number, b: number): number {
 }
 
 /**
- * Return day of the week from a julian day number
- * @param {float} jdn Julian Day Number
+ * Return day of the week from a Julian day number (JDN)
+ * @param {float} jdn Julian day number (JDN)
  * @return {float} day of week
  */
 function jdnToWeekDay(jdn: number): WeekDay {
@@ -58,33 +60,33 @@ function jdnToWeekDay(jdn: number): WeekDay {
 }
 
 /**
- * Return the julian day number of the k-day on or before a given julian day number
+ * Return the Julian day number (JDN) of the k-day on or before a given Julian day number (JDN)
  * k=0 means Sunday, k=1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 function kdayOnOrBefore(k: WeekDay, jdn: number): number {
   return jdn - jdnToWeekDay(jdn - k);
 }
 
 /**
- * Return the julian day number of the k-day on or after a given julian day number
+ * Return the Julian day number (JDN) of the k-day on or after a given Julian day number (JDN)
  * k=0 means Sunday, k=1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 function kdayOnOrAfter(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 6);
 }
 
 /**
- * Return the julian day number of the k-day nearest the given julian day number.
+ * Return the Julian day number (JDN) of the k-day nearest the given Julian day number (JDN).
  * k=0 means Sunday, k=1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 /*
 function kdayNearest(k: WeekDay, jdn: number): number {
@@ -93,36 +95,36 @@ function kdayNearest(k: WeekDay, jdn: number): number {
 */
 
 /**
- * Return the julian day number of the k-day after the given julian day number.
+ * Return the Julian day number (JDN) of the k-day after the given Julian day number (JDN).
  * k=0 means Sunday, k=1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 function kdayAfter(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 7);
 }
 
 /**
- * Return the julian day number of the k-day before the given julian day number.
+ * Return the Julian day number (JDN) of the k-day before the given Julian day number (JDN).
  * k=0 means Sunday, k=1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 function kdayBefore(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn - 1);
 }
 
 /**
- * Return the fixed date of n-th k-day after julian day number.
+ * Return the fixed date of n-th k-day after Julian day number (JDN).
  * If n > 0, return the n-th k-day on or after  jdn.
  * If n < 0, return the n-th k-day on or before jdn.
  * If n = 0, return -1.
  * A k-day of 0 means Sunday, 1 means Monday, and so on.
  * @param {WeekDay} k a wek day
- * @param {number} jdn julian day number
- * @return {number} resulting julian day number
+ * @param {number} jdn Julian day number (JDN)
+ * @return {number} resulting Julian day number (JDN)
  */
 function nthKday(n: number, k: WeekDay, jdn: number): number {
   if (n === 0) {
@@ -347,14 +349,14 @@ function binarySearch(
   low: number,
   high: number,
   predicate: (l: number, h: number) => boolean,
-  discriminator: (n: number) => boolean): number {
+  discriminator: (lo: number, hi: number) => boolean): number {
   const x: number = (low + high) / 2;
 
   if (predicate(low, high)) {
     return x;
   }
 
-  if (discriminator(x)) {
+  if (discriminator(low, high)) {
     return binarySearch(low, x, predicate, discriminator);
   }
 
@@ -368,7 +370,7 @@ function binarySearch(
 function invertAngular(f: (n: number) => number, y: number, low: number, high: number): number {
   return binarySearch(low, high,
     (l: number, h: number): boolean => h - l <= 1e-5,
-    (x: number): boolean => mod(f(x) - y, 360) < 180 );
+    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180);
 }
 
 /**
@@ -521,14 +523,14 @@ function julianCenturies(tee: number): number {
 }
 
 /**
- * Calculate the obliquity of the ecliptic for a given Julian date.
+ * Calculate the obliquity of the ecliptic for a given Julian day number (JDN).
  * This uses Laskar's tenth-degree polynomial fit (*J.
  * Laskar, **Astronomy and Astrophysics**, Vol. 157, page 68 [1986]*) which is
  * accurate to within 0.01 arc second between AD 1000 and AD 3000, and within
  * a few seconds of arc for +/-10000 years around AD 2000. If we're outside the
  * range in which this fit is valid (deep time) we simply return the J2000
  * value of the obliquity, which happens to be almost precisely the mean.
- * @param {float} jdn Julian day number
+ * @param {float} jdn Julian day number (JDN)
  * @return {float} obliquity at moment jd
  */
 function obliquity(jdn: number): number {
@@ -597,9 +599,10 @@ function midDay(date: number, location: Location): number {
 
 /**
  * Convert Julian time to hour, minutes, and seconds, returned as a three-element array
- * @param {float} jdn Julian day number
- * @return {float[]} day portion of Julian day number, as array [ hours, minutes, seconds ]
+ * @param {float} jdn Julian day number (JDN)
+ * @return {float[]} day portion of Julian day number (JDN), as array [ hours, minutes, seconds ]
  */
+/*
 function jhms(jdn: number): number[] {
   // Astronomical to civil
   const j2: number = jdn + 0.5;
@@ -611,6 +614,7 @@ function jhms(jdn: number): number[] {
     Math.floor(ij % 60)
   ];
 }
+*/
 
 /**
  * Calculate day of week from rata die
@@ -1275,6 +1279,7 @@ function lunarDistance(tee: number): number {
     (v: number, w: number, x: number, y: number, z: number): number =>
     v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
   );
+  // captains.log(c, capD, capM, capMPrime, capF, capE, correction);
 
   return 385000560 + correction;
 }
@@ -1340,24 +1345,51 @@ function observedLunarAltitude(tee: number, location: Location): number {
 }
 
 /**
- * Standard time of moonset on fixed date at location.
- * Returns -1 if there is no moonset on date.
+ * Standard time of moon-set on fixed date at location.
+ * Returns -1 if there is no moon-set on date.
  * @param {number} tee moment in time
  * @param {Location} location Geo-location
- * @return {number} time of moonset or -1
+ * @return {number} time of moon-set or -1
  */
-function moonset(date: number, location: Location): number {
+function moonSet(date: number, location: Location): number {
   const tee = standardToUniversal(date, location);
   const waxing = lunarPhase(tee) < 180;
   const alt = observedLunarAltitude(tee, location);
   const lat = location.getLatitude();
   const offset = alt / (4 * (90 - Math.abs(lat)));
-  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset - -0.5;
+  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset + 0.5;
+
+  // captains.log(tee, waxing, alt, lat, offset, approx);
+
   const set = binarySearch(approx - 0.25, approx + 0.25,
-    (x: number): boolean => observedLunarAltitude (x, location) < 0,
-    (x: number): boolean => x < 1 / 60);
+    (low: number, high: number): boolean => observedLunarAltitude ((high + low) / 2, location) < 0,
+    (lo: number, hi: number): boolean => ((hi - lo) / 2) < (1 / 1440));
 
   return (set < tee + 1) ? Math.max(universalToStandard(set, location), date) : -1;
+}
+
+/**
+ * Standard time of moon-rise on fixed date at location.
+ * Returns -1 if there is no moon-rise on date.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} time of moon-rise or -1
+ */
+function moonRise(date: number, location: Location): number {
+  const tee = standardToUniversal(date, location);
+  const waning = lunarPhase(tee) > 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = waning ? (offset > 0 ? tee + 1 - offset : tee - offset) : tee + offset + 0.5;
+
+  // captains.log(tee, waning, alt, lat, offset, approx);
+
+  const rise = binarySearch(approx - 0.25, approx + 0.25,
+    (low: number, high: number): boolean => observedLunarAltitude ((high + low) / 2, location) > 0,
+    (lo: number, hi: number): boolean => ((hi - lo) / 2) < (1 / 1440));
+
+  return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
 }
 
 /**
@@ -1419,7 +1451,7 @@ function lunarAltitude(tee: number, location: Location): number {
 /**
  * Return S. K. Shaukat's criterion for likely visibility of crescent moon on
  * eve of jdn at given location.
- * @param {float} jdn Julian day number
+ * @param {float} jdn Julian day number (JDN)
  * @param {Location} location geo-location
  * @return {float} visibility
  */
@@ -1436,7 +1468,7 @@ function visibleCrescent(jdn: number, location: Location): boolean {
 /**
  * Return the closest fixed date on or before jdn, when crescent moon first
  * became visible at location.
- * @param {float} jdn Julian day number
+ * @param {float} jdn Julian day number (JDN)
  * @param {Location} location geo-location
  * @return {float} phasis
  */
@@ -1451,7 +1483,7 @@ function phasisOnOrBefore(jdn: number, location: Location): number {
 /**
  * Return the closest fixed date on or after jdn, when crescent moon first
  * became visible at location.
- * @param {float} jdn Julian day number
+ * @param {float} jdn Julian day number (JDN)
  * @param {Location} location geo-location
  * @return {float} phasis
  */
@@ -1503,7 +1535,7 @@ function refraction(tee: number, location: Location): number {
 
 /**
  * Return standard time of sunset on jdn at given location.
- * @param {float} jdn Julian day number
+ * @param {float} jdn Julian day number (JDN)
  * @param {Location} location geo-location
  * @return {float} moment of sunset
  */
@@ -1515,15 +1547,15 @@ function sunset(jdn: number, location: Location): number {
 }
 
 /**
- * Time between sunset and moonset on tee at location.
+ * Time between sunset and moon-set on tee at location.
  * Returns -1 if there is no sunset on tee.
  * @param {number} tee moment in time
  * @param {Location} location geo-location
  * @return {number} moment of moon lag
  */
-function moonlag(tee: number, location: Location): number {
+function moonLag(tee: number, location: Location): number {
   const sun = sunset(tee, location);
-  const moon = moonset(tee, location);
+  const moon = moonSet(tee, location);
 
   if (sun === -1) {
       return -1;
@@ -1581,15 +1613,18 @@ export {
   // fixAngle,
   // fixAngleRadians,
   jdnToWeekDay,
-  jhms,
-  julianCenturies,   // only to be tested!
+  // jhms,
+  julianCenturies, // only to be tested!
   kdayOnOrAfter,
+  lunarDistance, // only to be tested!
   lunarPhase,
   lunarPhaseAtOrBefore,
   midDay,
   mod,
   mod3,
-  moonlag,
+  moonLag,
+  moonRise, // only to be tested!
+  moonSet, // only to be tested!
   newMoonAtOrAfter,
   newMoonBefore,
   next,

@@ -5,28 +5,7 @@ import { PersianArithmeticDate } from './PersianArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
 export class PersianArithmeticCalendar {
-
-  // Is a given year in the Persian Arithmetic calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    const y0: number = year > 0 ? year - 474 : year - 473;
-    const y1: number = mod(y0, 2820) + 474;
-
-    return mod((y1 + 38) * 31, 128) < 31;
-  }
-
-  // Determine Julian day number from Persian Arithmetic calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    const y0: number = year > 0 ? year - 474 : year - 473;
-    const y1: number = mod(y0, 2820) + 474;
-    const offset: number = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
-
-    return persian.EPOCH - 1 + 1029983 * Math.floor(y0 / 2820) +
-      365 * (y1 - 1) + Math.floor((31 * y1 - 5) / 128) + offset + day;
-  }
-
-  // Calculate Persian Arithmetic calendar date from Julian day
+  // Calculate Persian Arithmetic calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): PersianArithmeticDate {
     const year: number = this.jdnToYear(jdn);
 
@@ -46,8 +25,28 @@ export class PersianArithmeticCalendar {
     return new PersianArithmeticDate(jdn, year, month, day);
   }
 
+  // Is a given year in the Persian Arithmetic calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    const y0: number = year > 0 ? year - 474 : year - 473;
+    const y1: number = mod(y0, 2820) + 474;
+
+    return mod((y1 + 38) * 31, 128) < 31;
+  }
+
+  // Determine Julian day number (JDN) from Persian Arithmetic calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    const y0: number = year > 0 ? year - 474 : year - 473;
+    const y1: number = mod(y0, 2820) + 474;
+    const offset: number = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
+
+    return persian.EPOCH - 1 + 1029983 * Math.floor(y0 / 2820) +
+      365 * (y1 - 1) + Math.floor((31 * y1 - 5) / 128) + offset + day;
+  }
+
   // Determine the year in the Persian Arithmetic calendar in which a
-  // given Julian day falls.
+  // given Julian day number (JDN) falls.
   public static jdnToYear(jdn: number): number {
     const d0: number = jdn - this.toJdn(475, 1, 1);
     const n2820: number = Math.floor(d0 / 1029983);

@@ -8,7 +8,7 @@ export class BalinesePawukonCalendar {
     return mod(jdn - balinese.EPOCH, 210);
   }
 
-  // Calculate Balinese calendar date from Julian day
+  // Calculate Balinese calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): BalinesePawukonDate {
     const count: number = this.jdnToBalineseDayCount(jdn);
     const triwara: number = mod(count, 3) + 1;

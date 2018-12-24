@@ -5,16 +5,22 @@ import { FrenchArithmeticDate } from './FrenchArithmeticDate';
 import { CalendarDateValidationException } from './core';
 
 export class FrenchArithmeticCalendar {
-  // Is the given year a leap year in the French Arithmetic calendar ?
-  public static isLeapYear(year: number): boolean {
-    const m400: number = (mod(year, 400));
+  // Calculate date in the French Arithmetic calendar from Julian day number (JDN).
+  public static fromJdn(jdn: number): FrenchArithmeticDate {
+    const approx: number = Math.floor((jdn - french.EPOCH + 2) / (1460969 / 4000)) + 1;
+    const year: number = jdn < this.toJdn(approx, 1, 1) ? approx - 1 : approx;
+    let month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
 
-    return (mod(year, 4) === 0) &&
-      (m400 !== 100 && m400 !== 200 && m400 !== 300) &&
-      (mod(year, 4000) !== 0);
+    if (13 === month) {
+      month = 0;
+    }
+
+    const day: number = jdn - this.toJdn(year, month, 1) + 1;
+
+    return new FrenchArithmeticDate(jdn, year, month, day);
   }
 
-  // Determine Julian day number from French Arithmetic calendar date
+  // Determine Julian day number (JDN) from French Arithmetic calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
@@ -31,22 +37,16 @@ export class FrenchArithmeticCalendar {
       day;
   }
 
-  // Calculate date in the French Arithmetic calendar from Julian day.
-  public static fromJdn(jdn: number): FrenchArithmeticDate {
-    const approx: number = Math.floor((jdn - french.EPOCH + 2) / (1460969 / 4000)) + 1;
-    const year: number = jdn < this.toJdn(approx, 1, 1) ? approx - 1 : approx;
-    let month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
+  // Is the given year a leap year in the French Arithmetic calendar ?
+  public static isLeapYear(year: number): boolean {
+    const m400: number = (mod(year, 400));
 
-    if (13 === month) {
-      month = 0;
-    }
-
-    const day: number = jdn - this.toJdn(year, month, 1) + 1;
-
-    return new FrenchArithmeticDate(jdn, year, month, day);
+    return (mod(year, 4) === 0) &&
+      (m400 !== 100 && m400 !== 200 && m400 !== 300) &&
+      (mod(year, 4000) !== 0);
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  private static validate(year: number, month: number, day: number): void {
     if (month < 0 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }

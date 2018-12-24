@@ -6,20 +6,7 @@ import { HinduSolarAstroDate } from './HinduSolarAstroDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduSolarAstroCalendar {
-  // Determine Julian day number from Hindu Solar Astro calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    const approx: number = hindu.EPOCH - 3 + Math.floor((year + hindu.SOLAR_ERA +
-      (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
-    const begin: number = next(approx, (i: number): boolean =>
-      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
-    );
-
-    return J0000 + begin + day - 1;
-  }
-
-  // Calculate Hindu Solar Astro calendar date from Julian day
+  // Calculate Hindu Solar Astro calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduSolarAstroDate {
     const jd0: number = jdn - J0000;
     const critical: number = this.hinduAstroSunset(jd0);
@@ -32,6 +19,19 @@ export class HinduSolarAstroCalendar {
     const day: number = jd0 - begin + 1;
 
     return new HinduSolarAstroDate(jdn, year, month, day);
+  }
+
+  // Determine Julian day number (JDN) from Hindu Solar Astro calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    const approx: number = hindu.EPOCH - 3 + Math.floor((year + hindu.SOLAR_ERA +
+      (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
+    const begin: number = next(approx, (i: number): boolean =>
+      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
+    );
+
+    return J0000 + begin + day - 1;
   }
 
   private static validate(year: number, month: number, day: number): void {

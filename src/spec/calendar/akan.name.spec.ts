@@ -39,7 +39,7 @@ const dates = [
   { jdn: 2486076.5, date: { prefix: 5, stem: 5 } },
 ];
 describe ('Akan Name calendar spec', () => {
-  it ('should convert a Julian day number to a Akan Name date', () => {
+  it ('should convert a Julian day number (JDN) to a Akan Name date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

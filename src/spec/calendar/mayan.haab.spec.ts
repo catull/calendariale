@@ -37,7 +37,7 @@ const dates = [
 ];
 
 describe ('Mayan Haab calendar spec', () => {
-  it ('should convert a Julian day to a Mayan Haab', () => {
+  it ('should convert a Julian day number (JDN) to a Mayan Haab', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

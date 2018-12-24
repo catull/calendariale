@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Julian calendar spec', () => {
-  it ('should convert a Julian date to Julian day', () => {
+  it ('should convert a Julian date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Julian calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Julian date', () => {
+  it ('should convert a Julian day number (JDN) to a Julian date', () => {
     dates.forEach (({ jdn, date }) => {
       const yearLeap = cal.isLeapYear (date.year);
       const expected = { jdn, ...date, yearLeap };

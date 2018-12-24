@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('ISO Week calendar spec', () => {
-  it ('should convert an ISO Week date to Julian day', () => {
+  it ('should convert an ISO Week date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.week, date.day);
 
@@ -46,7 +46,7 @@ describe ('ISO Week calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to an ISO Week date', () => {
+  it ('should convert a Julian day number (JDN) to an ISO Week date', () => {
     dates.forEach (({ jdn, date }) => {
       const expected = { jdn, ...date };
       const actual   = cal.fromJdn (jdn);

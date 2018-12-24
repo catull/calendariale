@@ -38,14 +38,14 @@ const dates = [
 ];
 
 describe ('Coptic calendar spec', () => {
-  it ('should convert a Coptic date to Julian day', () => {
+  it ('should convert a Coptic date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
       expect (jdn).toBe (actual);
     });
   });
 
-  it ('should convert a Julian day to a Coptic date', () => {
+  it ('should convert a Julian day number (JDN) to a Coptic date', () => {
     dates.forEach (({ jdn, date }) => {
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };

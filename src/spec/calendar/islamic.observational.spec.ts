@@ -38,14 +38,14 @@ const dates = [
 ];
 
 describe ('Islamic Observational calendar spec', () => {
-  it ('should convert a Islamic Observational date to Julian day', () => {
+  it ('should convert a Islamic Observational date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
       expect (actual).toBe (jdn);
     });
   });
 
-  it ('should convert a Julian day to a Islamic Observational date', () => {
+  it ('should convert a Julian day number (JDN) to a Islamic Observational date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const yearLeap =  cal.isLeapYear (date.year);
