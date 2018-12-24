@@ -5,24 +5,7 @@ import { PersianAstronomicalDate } from './PersianAstronomicalDate';
 import { CalendarDateValidationException } from './core';
 
 export class PersianAstronomicalCalendar {
-  // Is a given year in the Persian Astronomical calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return this.toJdn(year + 1, 1, 1) - this.toJdn(year, 1, 1) > 365;
-  }
-
-  // Determine day number from Persian Astronomical calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    const temp: number = year > 0 ? year - 1 : year;
-    const nowRuz: number = this.persianNewYearOnOrBefore(persian.EPOCH_RD + 180 +
-      Math.floor(MEAN_TROPICAL_YEAR * temp));
-
-    return nowRuz - 1 + day +
-      ((month <= 7) ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
-  }
-
-  // Calculate Persian Astronomical calendar date from Julian day
+  // Calculate Persian Astronomical calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): PersianAstronomicalDate {
     const depoch: number = jdn - this.toJdn(475, 1, 1);
     const cycle: number = Math.floor(depoch / 1029983);
@@ -59,7 +42,24 @@ export class PersianAstronomicalCalendar {
     return new PersianAstronomicalDate(jdn, year, month, day);
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  // Determine day number from Persian Astronomical calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    const temp: number = year > 0 ? year - 1 : year;
+    const nowRuz: number = this.persianNewYearOnOrBefore(persian.EPOCH_RD + 180 +
+      Math.floor(MEAN_TROPICAL_YEAR * temp));
+
+    return nowRuz - 1 + day +
+      ((month <= 7) ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
+  }
+
+  // Is a given year in the Persian Astronomical calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return this.toJdn(year + 1, 1, 1) - this.toJdn(year, 1, 1) > 365;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
     const maxDays = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
 
     if (day < 1 || day > maxDays) {

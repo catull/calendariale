@@ -37,7 +37,7 @@ const dates = [
 ];
 
 describe ('Chinese Day Name calendar spec', () => {
-  it ('should convert a Julian day number to a Chinese Day Name date', () => {
+  it ('should convert a Julian day number (JDN) to a Chinese Day Name date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

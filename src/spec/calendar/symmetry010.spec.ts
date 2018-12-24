@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Symmetry010 calendar spec', () => {
-  it ('should convert a Symmetry010 date to Julian day', () => {
+  it ('should convert a Symmetry010 date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Symmetry010 calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Symmetry010 date', () => {
+  it ('should convert a Julian day number (JDN) to a Symmetry010 date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear (date.year);

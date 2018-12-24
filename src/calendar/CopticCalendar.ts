@@ -5,20 +5,7 @@ import { CopticDate } from './CopticDate';
 import { CalendarDateValidationException } from './core';
 
 export class CopticCalendar {
-  // Is a given year in the Coptic calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return mod(year, 4) === 3;
-  }
-
-  // Determine Julian day number from Coptic calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    return coptic.EPOCH - 1 + 365 * (year - 1) +
-      Math.floor(year / 4) + 30 * (month - 1) + day;
-  }
-
-  // Calculate Coptic calendar date from Julian day
+  // Calculate Coptic calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number) {
     const year: number = Math.floor((4 * (jdn - coptic.EPOCH) + 1463) / 1461);
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
@@ -27,7 +14,20 @@ export class CopticCalendar {
     return new CopticDate(jdn, year, month, day);
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  // Is a given year in the Coptic calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return mod(year, 4) === 3;
+  }
+
+  // Determine Julian day number (JDN) from Coptic calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    return coptic.EPOCH - 1 + 365 * (year - 1) +
+      Math.floor(year / 4) + 30 * (month - 1) + day;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }

@@ -5,21 +5,7 @@ import { YermDate } from './YermDate';
 import { CalendarDateValidationException } from './core';
 
 export class YermCalendar {
-  // Determine Julian day number from Yerm calendar date
-  public static toJdn(cycle: number, yerm: number, month: number, day: number): number {
-    this.validate(cycle, yerm, month, day);
-
-    const c1: number = cycle - 1;
-    const y1: number = yerm - 1;
-    const m1: number = month - 1;
-
-    return yermEpoch.EPOCH + 25101 * c1 +
-      1447 * Math.floor(y1 / 3) + (y1 % 3) * 502 +
-      59 * Math.floor(m1 / 2) + (m1 % 2) * 30 +
-      day - 1;
-  }
-
-  // Calculate Yerm calendar date from Julian day
+  // Calculate Yerm calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): YermDate {
     let day = jdn - yermEpoch.EPOCH;
 
@@ -37,7 +23,21 @@ export class YermCalendar {
     return new YermDate(jdn, cycle, yerm, month, day);
   }
 
-  public static validate(cycle: number, yerm: number, month: number, day: number): void {
+  // Determine Julian day number (JDN) from Yerm calendar date
+  public static toJdn(cycle: number, yerm: number, month: number, day: number): number {
+    this.validate(cycle, yerm, month, day);
+
+    const c1: number = cycle - 1;
+    const y1: number = yerm - 1;
+    const m1: number = month - 1;
+
+    return yermEpoch.EPOCH + 25101 * c1 +
+      1447 * Math.floor(y1 / 3) + (y1 % 3) * 502 +
+      59 * Math.floor(m1 / 2) + (m1 % 2) * 30 +
+      day - 1;
+  }
+
+  private static validate(cycle: number, yerm: number, month: number, day: number): void {
     if (yerm < 1 || yerm > 52) {
       throw new CalendarDateValidationException(INVALID_YERM);
     }

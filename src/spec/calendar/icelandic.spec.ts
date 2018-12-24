@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe('Icelandic calendar spec', () => {
-  it('should convert a Icelandic date to Julian day', () => {
+  it('should convert a Icelandic date to Julian day number (JDN)', () => {
     dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.year, date.season, date.week, date.day);
 
@@ -46,7 +46,7 @@ describe('Icelandic calendar spec', () => {
     });
   });
 
-  it('should convert a Julian day to a Icelandic date', () => {
+  it('should convert a Julian day number (JDN) to a Icelandic date', () => {
     dates.forEach(({ jdn, date }) => {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn(jdn);

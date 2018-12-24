@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Mayan Count calendar spec', () => {
-  it ('should convert a Mayan Count to Julian day', () => {
+  it ('should convert a Mayan Count to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.baktun, date.katun, date.tun, date.uinal, date.kin);
 
@@ -46,7 +46,7 @@ describe ('Mayan Count calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Mayan Count', () => {
+  it ('should convert a Julian day number (JDN) to a Mayan Count', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

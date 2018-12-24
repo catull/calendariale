@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Bahai calendar spec', () => {
-  it ('should convert a Bahai date to Julian day', () => {
+  it ('should convert a Bahai date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.bahaiToJdn (date.kullIShay, date.vahid, date.year, date.month, date.day);
       expect (jdn).toBe (actual);
@@ -49,7 +49,7 @@ describe ('Bahai calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Bahai date', () => {
+  it ('should convert a Julian day number (JDN) to a Bahai date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear(date.year);
@@ -92,7 +92,7 @@ describe ('Bahai calendar spec', () => {
     expect (() => cal.bahaiToJdn (1, 16, 11,  0,  5)).toThrow (INVALID_DAY);
    });
 
-   it ('should determine the Bahai year from a Julian day number', () => {
+   it ('should determine the Bahai year from a Julian day number (JDN)', () => {
      expect (cal.jdnToYear(2394350.5)).toBe(0);
      expect (cal.jdnToYear(2457810.5)).toBe(173);
      expect (cal.jdnToYear(2465737.5)).toBe(195);

@@ -38,14 +38,14 @@ const dates = [
 ];
 
 describe ('Chinese calendar spec', () => {
-  it ('should convert a Chinese date to Julian day', () => {
+  it ('should convert a Chinese date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.cycle, date.year, date.month, date.monthLeap, date.day);
       expect (jdn).toBe (actual);
     });
   });
 
-  it ('should convert a Julian day to a Chinese date', () => {
+  it ('should convert a Julian day number (JDN) to a Chinese date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

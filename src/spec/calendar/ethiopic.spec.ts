@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Ethiopic calendar spec', () => {
-  it ('should convert an Ethiopic date to Julian day', () => {
+  it ('should convert an Ethiopic date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Ethiopic calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to an Ethiopic date', () => {
+  it ('should convert a Julian day number (JDN) to an Ethiopic date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

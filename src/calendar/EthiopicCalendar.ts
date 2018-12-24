@@ -5,15 +5,7 @@ import { EthiopicDate } from './EthiopicDate';
 import { CalendarDateValidationException } from './core';
 
 export class EthiopicCalendar {
-  // Determine Julian day number from Ethiopic calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    return ethiopic.EPOCH - 1 + 365 * (year - 1) +
-      Math.floor(year / 4) + 30 * (month - 1) + day;
-  }
-
-  // Calculate Ethiopic calendar date from Julian day
+  // Calculate Ethiopic calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): EthiopicDate {
     const year: number = Math.floor((4 * (jdn - ethiopic.EPOCH) + 1463) / 1461);
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
@@ -21,11 +13,20 @@ export class EthiopicCalendar {
 
     return new EthiopicDate(jdn, year, month, day);
   }
+
+  // Determine Julian day number (JDN) from Ethiopic calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    return ethiopic.EPOCH - 1 + 365 * (year - 1) +
+      Math.floor(year / 4) + 30 * (month - 1) + day;
+  }
+
   public static isLeapYear(year: number): boolean {
     return mod(year, 4) === 0;
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }

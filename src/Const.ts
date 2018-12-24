@@ -9,13 +9,13 @@ const JULIAN_CENTURY = 36525;
 // *Astronomical unit in kilometres*
 // const ASTRONOMICAL_UNIT = 149597870.0;
 
-// *Julian date of Gregorian epoch: 0000-01-01*
+// *Julian day number (JDN) of Gregorian epoch: 0000-01-01*
 const J0000 = 1721424.5;
 
-// *Julian date at Unix epoch: 1970-01-01*
+// *Julian day number (JDN) at Unix epoch: 1970-01-01*
 const J1970 = 2440587.5;
 
-// *Epoch of Modified Julian Date system*
+// *Epoch of Modified Julian day number (JDN) system*
 const JMJD = 2400000.5;
 
 // *Epoch (day 1) of Excel 1900 date system (PC)*
@@ -27,7 +27,7 @@ const J1904 = 2416480.5;
 // *Gregorian date: 02000-01-01
 const J2000 = 730120.5;
 
-// *Julian day of J2000 epoch*
+// *Julian day number (JDN) of J2000 epoch*
 // const J2000_JDN = 2451545.0;
 
 const ARYA_LUNAR_MONTH: number = 1577917500 / 53433336; // 29.5305818076,
@@ -108,7 +108,8 @@ const bahai  = {
   MONTHS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat',
     'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
   DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat',
-    'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ]
+    'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ],
+  LOCATION_TEHERAN: new Location(35.696111, 51.423056, 0, 3.5 / 24),
 };
 
 const balinese = {
@@ -198,7 +199,8 @@ const islamic = {
   EPOCH_RD: 227015,
   WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
   MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ],
-  CAIRO_LOCATION: new Location (30.1, 31.3, 200, 1 / 12)
+  CAIRO_LOCATION: new Location (30.1, 31.3, 200, 1 / 12),
+  MECCA_LOCATION: new Location (6427 / 300, 11947 / 300, 298, 0.125),
 };
 
 /*

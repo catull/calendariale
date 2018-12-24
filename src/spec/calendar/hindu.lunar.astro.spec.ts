@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Hindu Lunar Astro calendar spec', () => {
-  it ('should convert a Hindu Lunar Astro date to Julian day', () => {
+  it ('should convert a Hindu Lunar Astro date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.monthLeap, date.day, date.dayLeap);
 
@@ -46,7 +46,7 @@ describe ('Hindu Lunar Astro calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Hindu Lunar Astro date', () => {
+  it ('should convert a Julian day number (JDN) to a Hindu Lunar Astro date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

@@ -20,7 +20,7 @@ import { HinduLunarModernDate } from './HinduLunarModernDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarModernCalendar {
-  // Calculate Hindu Lunar Modern calendar date from Julian day
+  // Calculate Hindu Lunar Modern calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduLunarModernDate {
     const jd0: number = jdn - J0000;
     const critical: number = hinduSunrise(jd0);
@@ -36,7 +36,7 @@ export class HinduLunarModernCalendar {
     return new HinduLunarModernDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
-  // Determine Julian day number from Hindu Lunar Modern calendar date
+  // Determine Julian day number (JDN) from Hindu Lunar Modern calendar date
   public static toJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const jdn: number = this.calculateJdn(year, month, monthLeap, day, dayLeap);
     this.validate(year, month, monthLeap, day, dayLeap, jdn);

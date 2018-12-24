@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Hindu Solar Modern calendar spec', () => {
-  it ('should convert a Hindu Solar Modern date to Julian day', () => {
+  it ('should convert a Hindu Solar Modern date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Hindu Solar Modern calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Hindu Solar Modern date', () => {
+  it ('should convert a Julian day number (JDN) to a Hindu Solar Modern date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

@@ -5,7 +5,19 @@ import { GregorianDate } from './GregorianDate';
 import { CalendarDateValidationException } from './core';
 
 export class GregorianCalendar {
-  // Determine Julian day number from Gregorian calendar date
+  // Calculate Gregorian calendar date from Julian day number (JDN)
+  public static fromJdn(jdn: number): GregorianDate {
+    const jd0: number = Math.floor(jdn - 0.5) + 0.5;
+    const year: number = GregorianCalendar.jdnToYear(jd0);
+    const yearDay: number = jd0 - GregorianCalendar.toJdn(year, 1, 1);
+    const leapAdj: number = jd0 < GregorianCalendar.toJdn(year, 3, 1) ? 0 : GregorianCalendar.isLeapYear(year) ? 1 : 2;
+    const month: number = Math.floor(((yearDay + leapAdj) * 12 + 373) / 367);
+    const day: number = jd0 - GregorianCalendar.toJdn(year, month, 1) + 1;
+
+    return new GregorianDate(jdn, year, month, day);
+  }
+
+  // Determine Julian day number (JDN) from Gregorian calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
@@ -17,26 +29,6 @@ export class GregorianCalendar {
       Math.floor(y1 / 400) +
       Math.floor((367 * month - 362) / 12 +
         (month <= 2 ? 0 : GregorianCalendar.isLeapYear(year) ? -1 : -2) + day);
-  }
-
-  public static validate(year: number, month: number, day: number): void {
-    if (month < 1 || month > 12) {
-      throw new CalendarDateValidationException(INVALID_MONTH);
-    }
-
-    if (day < 1) {
-      throw new CalendarDateValidationException(INVALID_DAY);
-    }
-
-    const febDays: number = this.isLeapYear(year) ? 29 : 28;
-
-    if (month === Month.FEBRUARY && day <= febDays) {
-      return;
-    }
-
-    if (ROMAN_MONTH_MAX_DAYS[month - 1] < day) {
-      throw new CalendarDateValidationException(INVALID_DAY);
-    }
   }
 
   // Is a given year in the Gregorian calendar a leap year?
@@ -58,20 +50,28 @@ export class GregorianCalendar {
     return quadricent * 400 + cent * 100 + quad * 4 + yindex + ((cent !== 4 && yindex !== 4) ? 1 : 0);
   }
 
-  // Calculate Gregorian calendar date from Julian day
-  public static fromJdn(jdn: number): GregorianDate {
-    const jd0: number = Math.floor(jdn - 0.5) + 0.5;
-    const year: number = GregorianCalendar.jdnToYear(jd0);
-    const yearDay: number = jd0 - GregorianCalendar.toJdn(year, 1, 1);
-    const leapAdj: number = jd0 < GregorianCalendar.toJdn(year, 3, 1) ? 0 : GregorianCalendar.isLeapYear(year) ? 1 : 2;
-    const month: number = Math.floor(((yearDay + leapAdj) * 12 + 373) / 367);
-    const day: number = jd0 - GregorianCalendar.toJdn(year, month, 1) + 1;
-
-    return new GregorianDate(jdn, year, month, day);
-  }
-
   public static dateDifference(date1: GregorianDate, date2: GregorianDate): number {
     return date2.getJdn() - date1.getJdn();
+  }
+
+  private static validate(year: number, month: number, day: number): void {
+    if (month < 1 || month > 12) {
+      throw new CalendarDateValidationException(INVALID_MONTH);
+    }
+
+    if (day < 1) {
+      throw new CalendarDateValidationException(INVALID_DAY);
+    }
+
+    const febDays: number = this.isLeapYear(year) ? 29 : 28;
+
+    if (month === Month.FEBRUARY && day <= febDays) {
+      return;
+    }
+
+    if (ROMAN_MONTH_MAX_DAYS[month - 1] < day) {
+      throw new CalendarDateValidationException(INVALID_DAY);
+    }
   }
 
 }

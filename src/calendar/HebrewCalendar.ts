@@ -5,31 +5,7 @@ import { HebrewDate } from './HebrewDate';
 import { CalendarDateValidationException } from './core';
 
 export class HebrewCalendar {
-  // Determine Julian day number from Hebrew calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    const months: number = this.hebrewYearMonths(year);
-    let jdn: number = hebrew.EPOCH + this.hebrewDelay1(year) + this.hebrewDelay2(year) + day + 1;
-    let mon: number;
-
-    if (month < 7) {
-      for (mon = 7; mon <= months; mon += 1) {
-        jdn += this.hebrewMonthDays(year, mon);
-      }
-      for (mon = 1; mon < month; mon += 1) {
-        jdn += this.hebrewMonthDays(year, mon);
-      }
-    } else {
-      for (mon = 7; mon < month; mon += 1) {
-        jdn += this.hebrewMonthDays(year, mon);
-      }
-    }
-
-    return jdn;
-  }
-
-  // Convert Julian date to Hebrew date
+  // Convert Julian day number (JDN) to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
   public static fromJdn(jdn: number): HebrewDate {
     const jd0: number = Math.floor(jdn) + 0.5;
@@ -51,6 +27,30 @@ export class HebrewCalendar {
     const day: number = jd0 - this.toJdn(year, month, 1) + 1;
 
     return new HebrewDate(jdn, year, month, day);
+  }
+
+  // Determine Julian day number (JDN) from Hebrew calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    const months: number = this.hebrewYearMonths(year);
+    let jdn: number = hebrew.EPOCH + this.hebrewDelay1(year) + this.hebrewDelay2(year) + day + 1;
+    let mon: number;
+
+    if (month < 7) {
+      for (mon = 7; mon <= months; mon += 1) {
+        jdn += this.hebrewMonthDays(year, mon);
+      }
+      for (mon = 1; mon < month; mon += 1) {
+        jdn += this.hebrewMonthDays(year, mon);
+      }
+    } else {
+      for (mon = 7; mon < month; mon += 1) {
+        jdn += this.hebrewMonthDays(year, mon);
+      }
+    }
+
+    return jdn;
   }
 
   // Is a given Hebrew year a leap year?
