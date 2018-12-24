@@ -5,12 +5,28 @@ import { JulianDate } from './JulianDate';
 import { CalendarDateValidationException } from './core';
 
 export class JulianCalendar {
-  // Is a given year in the Julian calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return mod(year, 4) === (year > 0 ? 0 : 3);
+  // Calculate Julian calendar date from Julian day number (JDN)
+  public static fromJdn(jdn: number): JulianDate {
+    const b: number = Math.floor(jdn + 0.5) + 1524;
+    const c: number = Math.floor((b - 122.1) / 365.25);
+    const d: number = Math.floor(365.25 * c);
+    const e: number = Math.floor((b - d) / 30.6001);
+
+    const month: number = Math.floor(e < 14 ? e - 1 : e - 13);
+    let year: number = Math.floor(month > 2 ? c - 4716 : c - 4715);
+    const day: number = b - d - Math.floor(30.6001 * e);
+
+    // If year is less than 1, subtract one to convert from
+    // a zero based date system to the common era system in
+    // which the year -1 (1 B.C.E) is followed by year 1 (1 C.E.).
+    if (year < 1) {
+      year -= 1;
+    }
+
+    return new JulianDate(jdn, year, month, day);
   }
 
-  // Determine Julian day number from Julian calendar date
+  // Determine Julian day number (JDN) from Julian calendar date
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
@@ -31,7 +47,12 @@ export class JulianCalendar {
     return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day - 1524.5;
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  // Is a given year in the Julian calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return mod(year, 4) === (year > 0 ? 0 : 3);
+  }
+
+  private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
@@ -49,27 +70,6 @@ export class JulianCalendar {
     if (ROMAN_MONTH_MAX_DAYS[month - 1] < day) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
-  }
-
-  // Calculate Julian calendar date from Julian day
-  public static fromJdn(jdn: number): JulianDate {
-    const b: number = Math.floor(jdn + 0.5) + 1524;
-    const c: number = Math.floor((b - 122.1) / 365.25);
-    const d: number = Math.floor(365.25 * c);
-    const e: number = Math.floor((b - d) / 30.6001);
-
-    const month: number = Math.floor(e < 14 ? e - 1 : e - 13);
-    let year: number = Math.floor(month > 2 ? c - 4716 : c - 4715);
-    const day: number = b - d - Math.floor(30.6001 * e);
-
-    // If year is less than 1, subtract one to convert from
-    // a zero based date system to the common era system in
-    // which the year -1 (1 B.C.E) is followed by year 1 (1 C.E.).
-    if (year < 1) {
-      year -= 1;
-    }
-
-    return new JulianDate(jdn, year, month, day);
   }
 
 }

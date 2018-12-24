@@ -37,7 +37,7 @@ const dates = [
 ];
 
 describe('Aztec Xihuitl calendar spec', () => {
-  it('should convert a Julian day to a Aztec Xihuitl', () => {
+  it('should convert a Julian day number (JDN) to a Aztec Xihuitl', () => {
     dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };

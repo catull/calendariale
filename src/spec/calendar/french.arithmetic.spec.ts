@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('French Arithmetic calendar spec', () => {
-  it ('should convert a French Arithmetic date to Julian day', () => {
+  it ('should convert a French Arithmetic date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('French Arithmetic calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a French Arithmetic date', () => {
+  it ('should convert a Julian day number (JDN) to a French Arithmetic date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear(date.year);

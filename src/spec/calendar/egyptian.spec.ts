@@ -38,14 +38,14 @@ const dates = [
 ];
 
 describe ('Egyptian calendar spec', () => {
-  it ('should convert an Egyptian date to Julian day', () => {
+  it ('should convert an Egyptian date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
       expect (jdn).toBe (actual);
     });
   });
 
-  it ('should convert a Julian day to an Egyptian date', () => {
+  it ('should convert a Julian day number (JDN) to an Egyptian date', () => {
     dates.forEach (({ jdn, date }) => {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn (jdn);

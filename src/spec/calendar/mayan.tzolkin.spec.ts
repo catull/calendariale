@@ -37,7 +37,7 @@ const dates = [
 ];
 
 describe ('Mayan Tzolkin calendar spec', () => {
-  it ('should convert a Julian day to a Mayan Tzolkin', () => {
+  it ('should convert a Julian day number (JDN) to a Mayan Tzolkin', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

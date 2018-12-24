@@ -37,7 +37,7 @@ const dates = [
 ];
 
 describe('Balinese Pawukon calendar spec', () => {
-  it ('should convert a Julian day to a Balinese Pawukon date', () => {
+  it ('should convert a Julian day number (JDN) to a Balinese Pawukon date', () => {
     dates.forEach(({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

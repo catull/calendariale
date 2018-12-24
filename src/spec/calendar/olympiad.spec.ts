@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe('Olympiad calendar spec', () => {
-  it('should convert a Olympiad to Julian day', () => {
+  it('should convert a Olympiad to Julian day number (JDN)', () => {
     dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.cycle, date.year) - jdn;
 
@@ -46,7 +46,7 @@ describe('Olympiad calendar spec', () => {
     });
   });
 
-  it('should convert a Julian day to a Olympiad', () => {
+  it('should convert a Julian day number (JDN) to a Olympiad', () => {
     dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };

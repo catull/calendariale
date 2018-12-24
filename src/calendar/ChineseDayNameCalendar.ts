@@ -4,7 +4,7 @@ import { chinese } from '../Const';
 import { ChineseDayNameDate } from './ChineseDayNameDate';
 
 export class ChineseDayNameCalendar {
-  // Calculate Chinese Day Name calendar date from Julian day
+  // Calculate Chinese Day Name calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): ChineseDayNameDate {
     const count: number = jdn - chinese.DAY_NAME_EPOCH - 1;
 

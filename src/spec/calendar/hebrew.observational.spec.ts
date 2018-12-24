@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Hebrew Observational calendar spec', () => {
-  it ('should convert a Hebrew Observational date to Julian day', () => {
+  it ('should convert a Hebrew Observational date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Hebrew Observational calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Hebrew Observational date', () => {
+  it ('should convert a Julian day number (JDN) to a Hebrew Observational date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, ...date };

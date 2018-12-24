@@ -4,7 +4,7 @@ import { aztec } from '../Const';
 import { AztecTonalpohualliDate } from './AztecTonalpohualliDate';
 
 export class AztecTonalpohualliCalendar {
-  // Calculate Aztec Tonalpohualli calendar date from Julian day
+  // Calculate Aztec Tonalpohualli calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): AztecTonalpohualliDate {
     const count: number = jdn - aztec.TONALPOHUALLI_CORRELATION + 1;
     const num: number = amod(count, 13);
@@ -18,7 +18,7 @@ export class AztecTonalpohualliCalendar {
     return mod(num - 1 + 39 * (num - name), 260);
   }
 
-  // Return Julian day number of latest date on or before an Aztec Tonalpohualli date
+  // Return Julian day number (JDN) of latest date on or before an Aztec Tonalpohualli date
   public static onOrBefore(num: number, name: number, jdn: number): number {
     return jdn - mod(jdn - aztec.TONALPOHUALLI_CORRELATION - this.toOrdinal(num, name), 260);
   }

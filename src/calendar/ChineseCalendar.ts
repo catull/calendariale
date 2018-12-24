@@ -15,15 +15,7 @@ import { ChineseDate } from './ChineseDate';
 import { CalendarDateValidationException } from './core';
 
 export class ChineseCalendar {
-  // Determine Julian day number from Chinese calendar date
-  public static toJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
-    const jdn = this.calculateJdn(cycle, year, month, monthLeap, day);
-    this.validate(cycle, year, month, monthLeap, day, jdn);
-
-    return jdn;
-  }
-
-  // Calculate Chinese calendar date from Julian day
+  // Calculate Chinese calendar date from rata die
   public static fromRd(rataDie: number): ChineseDate {
     const s1: number = this.chineseWinterSolsticeOnOrBefore(rataDie);
     const s2: number = this.chineseWinterSolsticeOnOrBefore(s1 + 370);
@@ -46,7 +38,15 @@ export class ChineseCalendar {
     return this.fromRd (jdn - J0000);
   }
 
-  // Determine Julian day number from Chinese calendar date
+  // Determine Julian day number (JDN) from Chinese calendar date
+  public static toJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
+    const jdn = this.calculateJdn(cycle, year, month, monthLeap, day);
+    this.validate(cycle, year, month, monthLeap, day, jdn);
+
+    return jdn;
+  }
+
+  // Determine Julian day number (JDN) from Chinese calendar date
   private static calculateJdn(cycle: number, year: number, month: number, monthLeap: boolean, day: number): number {
     const midYear = Math.floor(chinese.EPOCH + ((cycle - 1) * 60 + year - 0.5) * MEAN_TROPICAL_YEAR) - J0000;
     const newYear = this.chineseNewYearOnOrBefore(midYear);
@@ -77,26 +77,26 @@ export class ChineseCalendar {
   }
 
   // Return True if there is a Chinese leap month on or after lunar month starting on
-  // Julian day number m_prime and at or before lunar month starting at m.
+  // Julian day number (JDN) m_prime and at or before lunar month starting at m.
   private static isChinesePriorLeapMonth(mPrime: number, m: number): boolean {
     return m >= mPrime && (this.isChineseNoMajorSolarTerm(m) || this.isChinesePriorLeapMonth(mPrime, this.chineseNewMoonBefore(m)));
   }
 
-  // Return Julian day number of Chinese New Year in given Gregorian year.
+  // Return Julian day number (JDN) of Chinese New Year in given Gregorian year.
   /*
   private static chineseNewYear(gYear: number): number {
     return this.chineseNewYearOnOrBefore(GregorianDate.toJdn(gYear, Month.JULY, 1));
   }
   */
 
-  // Return Julian day number of Chinese New Year on or before given date.
+  // Return Julian day number (JDN) of Chinese New Year on or before given date.
   private static chineseNewYearOnOrBefore(fixed: number): number {
     const newYear: number = this.chineseNewYearInSui(fixed);
 
     return fixed >= newYear ? newYear : this.chineseNewYearInSui(fixed - 180);
   }
 
-  // Return Julian day number of Chinese New Year in sui (period from solstice
+  // Return Julian day number (JDN) of Chinese New Year in sui (period from solstice
   // to solstice) containing given date.
   private static chineseNewYearInSui(fixed: number): number {
     const s1: number = this.chineseWinterSolsticeOnOrBefore(fixed);
@@ -113,21 +113,21 @@ export class ChineseCalendar {
     return m13;
   }
 
-  // Return Julian day number (Beijing) of first new moon before given date.
+  // Return Julian day number (JDN) (Beijing) of first new moon before given date.
   private static chineseNewMoonBefore(fixed: number): number {
     const tee: number = newMoonBefore(this.midnightInChina(fixed));
 
     return Math.floor(universalToStandard(tee, this.chineseLocation(tee)));
   }
 
-  // Return Julian day number (Beijing) of first new moon on or aftergiven date.
+  // Return Julian day number (JDN) (Beijing) of first new moon on or aftergiven date.
   private static chineseNewMoonOnOrAfter(fixed: number): number {
     const tee: number = newMoonAtOrAfter(this.midnightInChina(fixed));
 
     return Math.floor(universalToStandard(tee, this.chineseLocation(tee)));
   }
 
-  // Return Julian day number in the Chinese zone, of winter solstice on or before given date.
+  // Return Julian day number (JDN) in the Chinese zone, of winter solstice on or before given date.
   private static chineseWinterSolsticeOnOrBefore(fixed: number): number {
     const approx: number = estimatePriorSolarLongitude(Season.WINTER, this.midnightInChina(fixed + 1));
 

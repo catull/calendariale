@@ -6,15 +6,7 @@ import { HinduSolarOldDate } from './HinduSolarOldDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduSolarOldCalendar {
-  // Determine Julian day number from Hindu Solar Old calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    return Math.ceil(hindu.EPOCH + year * ARYA_SOLAR_YEAR +
-      (month - 1) * ARYA_SOLAR_MONTH + day - 0.75) - 0.5;
-  }
-
-  // Calculate Hindu Solar Old calendar date from Julian day
+  // Calculate Hindu Solar Old calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduSolarOldDate {
     const sun: number = hinduDayCount(jdn) + 0.25;
     const year: number = Math.floor(sun / ARYA_SOLAR_YEAR);
@@ -22,6 +14,14 @@ export class HinduSolarOldCalendar {
     const day: number = Math.floor(mod(sun, ARYA_SOLAR_MONTH)) + 1;
 
     return new HinduSolarOldDate(jdn, year, month, day);
+  }
+
+  // Determine Julian day number (JDN) from Hindu Solar Old calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    return Math.ceil(hindu.EPOCH + year * ARYA_SOLAR_YEAR +
+      (month - 1) * ARYA_SOLAR_MONTH + day - 0.75) - 0.5;
   }
 
   private static validate(year: number, month: number, day: number): void {

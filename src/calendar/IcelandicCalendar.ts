@@ -5,7 +5,19 @@ import { IcelandicDate } from './IcelandicDate';
 import { CalendarDateValidationException } from './core';
 
 export class IcelandicCalendar {
-  // Determine Julian day number from Icelandic calendar date
+  // Calculate Icelandic calendar date from Julian day number (JDN)
+  public static fromJdn(jdn: number): IcelandicDate {
+    const approx = Math.floor((jdn - icelandic.EPOCH + 369) / 365.2425);
+    const year = jdn >= this.summer(approx) ? approx : approx - 1;
+    const season = jdn < this.winter(year) ? Season.SUMMER : Season.WINTER;
+    const start = season === Season.SUMMER ? this.summer(year) : this.winter(year);
+    const week = 1 + Math.floor((jdn - start) / 7);
+    const day = jdnToWeekDay(jdn);
+
+    return new IcelandicDate(jdn, year, season, week, day);
+  }
+
+  // Determine Julian day number (JDN) from Icelandic calendar date
   public static toJdn(year: number, season: Season, week: number, day: WeekDay): number {
     this.validate(year, season, week, day);
 
@@ -15,7 +27,12 @@ export class IcelandicCalendar {
     return start + 7 * (week - 1) + mod(day - shift, 7);
   }
 
-  public static validate(year: number, season: Season, week: number, day: number): void {
+  // Is a given year in the Icelandic calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return this.summer(year + 1) - this.summer(year) !== 364;
+  }
+
+  private static validate(year: number, season: Season, week: number, day: number): void {
     if (![Season.SUMMER, Season.WINTER].includes(season)) {
       throw new CalendarDateValidationException(INVALID_SEASON);
     }
@@ -28,23 +45,6 @@ export class IcelandicCalendar {
     if (1 > week || maxWeeks < week) {
       throw new CalendarDateValidationException(INVALID_WEEK);
     }
-  }
-
-  // Is a given year in the Icelandic calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return this.summer(year + 1) - this.summer(year) !== 364;
-  }
-
-  // Calculate Icelandic calendar date from Julian day number
-  public static fromJdn(jdn: number): IcelandicDate {
-    const approx = Math.floor((jdn - icelandic.EPOCH + 369) / 365.2425);
-    const year = jdn >= this.summer(approx) ? approx : approx - 1;
-    const season = jdn < this.winter(year) ? Season.SUMMER : Season.WINTER;
-    const start = season === Season.SUMMER ? this.summer(year) : this.winter(year);
-    const week = 1 + Math.floor((jdn - start) / 7);
-    const day = jdnToWeekDay(jdn);
-
-    return new IcelandicDate(jdn, year, season, week, day);
   }
 
   // Identify the date of beginning of Icelandic summer.

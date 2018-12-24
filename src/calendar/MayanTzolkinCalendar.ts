@@ -4,7 +4,7 @@ import { mayan } from '../Const';
 import { MayanTzolkinDate } from './MayanTzolkinDate';
 
 export class MayanTzolkinCalendar {
-  // Calculate Mayan Tzolkin calendar date from Julian day
+  // Calculate Mayan Tzolkin calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): MayanTzolkinDate {
     const count: number = Math.floor(jdn - 0.5) + 0.5 - mayan.EPOCH;
 

@@ -5,14 +5,7 @@ import { EgyptianDate } from './EgyptianDate';
 import { CalendarDateValidationException } from './core';
 
 export class EgyptianCalendar {
-  // Determine Julian day number from Egyptian calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    return egyptian.EPOCH + 365 * (year - 1) + 30 * (month - 1) + day - 1.0;
-  }
-
-  // Calculate Egyptian calendar date from Julian day
+  // Calculate Egyptian calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): EgyptianDate {
     const days: number = jdn - egyptian.EPOCH;
     const year: number = Math.floor(days / 365) + 1;
@@ -22,7 +15,14 @@ export class EgyptianCalendar {
     return new EgyptianDate(jdn, year, month, day);
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  // Determine Julian day number (JDN) from Egyptian calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    return egyptian.EPOCH + 365 * (year - 1) + 30 * (month - 1) + day - 1.0;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }

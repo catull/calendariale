@@ -6,25 +6,7 @@ import { GregorianCalendar } from './GregorianCalendar';
 import { CalendarDateValidationException } from './core';
 
 export class FrenchRevolutionaryCalendar {
-  // Obtain Julian day from a given French Revolutionary calendar date.
-  public static toJdn(an: number, mois: number, decade: number, jour: number): number {
-    this.validate(an, mois, decade, jour);
-
-    let guess: number = french.EPOCH + TROPICAL_YEAR * (an - 2);
-    let adr: number[] = [an - 1, 0];
-
-    while (adr[0] < an) {
-      adr = this.anneeDeLaRevolution(guess);
-      guess = adr[1] + TROPICAL_YEAR + 2;
-    }
-
-    const equinoxe: number = adr[1];
-    const m: number = mois === 0 ? 12 : mois - 1;
-
-    return equinoxe + 30 * m + 10 * (decade - 1) + jour - 1;
-  }
-
-  // Calculate date in the French Revolutionary calendar from Julian day.
+  // Calculate date in the French Revolutionary calendar from Julian day number (JDN).
   // The five or six "sansculottides" are considered a thirteenth month in the
   // results of this function.
   public static fromJdn(jdn: number): FrenchRevolutionaryDate {
@@ -43,6 +25,24 @@ export class FrenchRevolutionaryCalendar {
     return new FrenchRevolutionaryDate(jdn, an, mois, decade, jour);
   }
 
+  // Obtain Julian day number (JDN) from a given French Revolutionary calendar date.
+  public static toJdn(an: number, mois: number, decade: number, jour: number): number {
+    this.validate(an, mois, decade, jour);
+
+    let guess: number = french.EPOCH + TROPICAL_YEAR * (an - 2);
+    let adr: number[] = [an - 1, 0];
+
+    while (adr[0] < an) {
+      adr = this.anneeDeLaRevolution(guess);
+      guess = adr[1] + TROPICAL_YEAR + 2;
+    }
+
+    const equinoxe: number = adr[1];
+    const m: number = mois === 0 ? 12 : mois - 1;
+
+    return equinoxe + 30 * m + 10 * (decade - 1) + jour - 1;
+  }
+
   public static isLeapYear(year: number): boolean {
     const equinox0: number = this.parisEquinoxeJd(year + 1791);
     const equinox1: number = this.parisEquinoxeJd(year + 1792);
@@ -50,7 +50,7 @@ export class FrenchRevolutionaryCalendar {
     return equinox1 - equinox0 > 365;
   }
 
-  public static validate(an: number, mois: number, decade: number, jour: number): void {
+  private static validate(an: number, mois: number, decade: number, jour: number): void {
     if (mois < 0 || mois > 12) {
       throw new CalendarDateValidationException(INVALID_MOIS);
     }
@@ -71,11 +71,11 @@ export class FrenchRevolutionaryCalendar {
   }
 
   // Determine the year in the French
-  // revolutionary calendar in which a given Julian day falls.
+  // revolutionary calendar in which a given Julian day number (JDN) falls.
   // Returns an array of two elements:
   //
   // **[0]** Année de la Révolution
-  // **[1]** Julian day number containing equinox for this year.
+  // **[1]** Julian day number (JDN) containing equinox for this year.
   private static anneeDeLaRevolution(jdn: number): number[] {
     let guess = GregorianCalendar.fromJdn(jdn).getYear() - 2;
     let lasteq: number = this.parisEquinoxeJd(guess);
@@ -98,7 +98,7 @@ export class FrenchRevolutionaryCalendar {
     return [adr, lasteq];
   }
 
-  // Calculate Julian day during which the September equinox, reckoned from
+  // Calculate Julian day number (JDN) during which the September equinox, reckoned from
   // the Paris meridian, occurred for a given Gregorian year.
   private static parisEquinoxeJd(year: number): number {
     const ep: number = this.equinoxeAParis(year);
@@ -106,7 +106,7 @@ export class FrenchRevolutionaryCalendar {
     return Math.floor(ep - 0.5) + 0.5;
   }
 
-  // Determine Julian day and fraction of the September equinox at the Paris
+  // Determine Julian day number (JDN) and fraction of the September equinox at the Paris
   // meridian in a given Gregorian year.
   private static equinoxeAParis(year: number): number {
     // September equinox in dynamical time

@@ -15,12 +15,7 @@ import { HinduLunarOldDate } from './HinduLunarOldDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarOldCalendar {
-  // Is a given year in the Hindu Lunar Old calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return mod(year * ARYA_SOLAR_YEAR - ARYA_SOLAR_MONTH, ARYA_LUNAR_MONTH) >= 23902504679 / 1282400064;
-  }
-
-  // Calculate Hindu Lunar Old calendar date from Julian day
+  // Calculate Hindu Lunar Old calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduLunarOldDate {
     const sun: number = hinduDayCount(jdn) + 0.25;
     const newMoon: number = sun - mod(sun, ARYA_LUNAR_MONTH);
@@ -33,12 +28,17 @@ export class HinduLunarOldCalendar {
     return new HinduLunarOldDate(jdn, year, month, monthLeap, day);
   }
 
-  // Determine Julian day number from Hindu Lunar Modern calendar date
+  // Determine Julian day number (JDN) from Hindu Lunar Modern calendar date
   public static toJdn(year: number, month: number, monthLeap: boolean, day: number): number {
     const jdn: number = this.calculateJdn(year, month, monthLeap, day);
     this.validate(year, month, monthLeap, day, jdn);
 
     return jdn;
+  }
+
+  // Is a given year in the Hindu Lunar Old calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return mod(year * ARYA_SOLAR_YEAR - ARYA_SOLAR_MONTH, ARYA_LUNAR_MONTH) >= 23902504679 / 1282400064;
   }
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, jdn: number): void {
@@ -60,7 +60,7 @@ export class HinduLunarOldCalendar {
     }
   }
 
-  // Determine Julian day number from Hindu Lunar Old calendar date
+  // Determine Julian day number (JDN) from Hindu Lunar Old calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number): number {
     const mina: number = (12 * year - 1) * ARYA_SOLAR_MONTH;
     const lunarNewYear: number = ARYA_LUNAR_MONTH * Math.ceil(mina / ARYA_LUNAR_MONTH);

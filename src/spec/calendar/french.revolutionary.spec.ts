@@ -39,7 +39,7 @@ const dates = [
 ];
 
 describe ('French Revolutionary calendar spec', () => {
-  it ('should convert a French Revolutionary date to Julian day', () => {
+  it ('should convert a French Revolutionary date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       let jour     = date.day;
       const decade = Math.floor ((jour - 1) / 10) + 1;
@@ -49,7 +49,7 @@ describe ('French Revolutionary calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a French Revolutionary date', () => {
+  it ('should convert a Julian day number (JDN) to a French Revolutionary date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const jour     = date.day;

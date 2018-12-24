@@ -6,7 +6,7 @@ import { OlympiadDate } from './OlympiadDate';
 import { CalendarDateValidationException } from './core';
 
 export class OlympiadCalendar {
-  // Determine Julian day number from Olympiad cycle and year
+  // Determine Julian day number (JDN) from Olympiad cycle and year
   public static toJdn(cycle: number, year: number): number {
     this.validate(cycle, year);
     let julianYear = olympiad.EPOCH_JULIAN_YEAR + (cycle - 1) * 4 + year - 1;
@@ -18,7 +18,7 @@ export class OlympiadCalendar {
     return JulianCalendar.toJdn(julianYear, 1, 1);
   }
 
-  // Calculate Olympiad calendar date from Julian day
+  // Calculate Olympiad calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): OlympiadDate {
     const olympiadYears = Math.floor ((jdn - olympiad.EPOCH) / 365.25) + 1;
     const cycle = 1 + Math.floor((olympiadYears - 1) / 4);

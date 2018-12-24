@@ -5,14 +5,14 @@ import { MayanCountDate } from './MayanCountDate';
 import { CalendarDateValidationException } from './core';
 
 export class MayanCountCalendar {
-  // Determine Julian day number from Mayan Count calendar date
+  // Determine Julian day number (JDN) from Mayan Count calendar date
   public static toJdn(baktun: number, katun: number, tun: number, uinal: number, kin: number): number {
     this.validate(baktun, katun, tun, uinal, kin);
 
     return mayan.EPOCH + baktun * 144000 + katun * 7200 + tun * 360 + uinal * 20 + kin;
   }
 
-  // Calculate Mayan Count calendar date from Julian day
+  // Calculate Mayan Count calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): MayanCountDate {
     let d: number = Math.floor(jdn) + 0.5 - mayan.EPOCH;
     const baktun: number = Math.floor(d / 144000);

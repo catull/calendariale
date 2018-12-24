@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Islamic calendar spec', () => {
-  it ('should convert a Islamic date to Julian day', () => {
+  it ('should convert a Islamic date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.year, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Islamic calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to a Islamic date', () => {
+  it ('should convert a Julian day number (JDN) to a Islamic date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const yearLeap = cal.isLeapYear (date.year);

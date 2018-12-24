@@ -22,19 +22,7 @@ import { HinduLunarAstroDate } from './HinduLunarAstroDate';
 import { CalendarDateValidationException } from './core';
 
 export class HinduLunarAstroCalendar {
-  // Is a given year in the Hindu Lunar Astro calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return (year * 11 + 14) % 30 < 11;
-  }
-
-  public static toJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
-    const jdn: number = this.calculateJdn(year, month, monthLeap, day, dayLeap);
-    this.validate(year, month, monthLeap, day, dayLeap, jdn);
-
-    return jdn;
-  }
-
-  // Calculate Hindu Lunar Astro calendar date from Julian day
+  // Calculate Hindu Lunar Astro calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduLunarAstroDate {
     const jd0: number = jdn - J0000;
     const critical: number = this.altHinduSunrise(jd0);
@@ -48,6 +36,18 @@ export class HinduLunarAstroCalendar {
     const year: number = hinduAstroDateYear(month <= 2 ? jd0 + 180 : jd0) - hindu.LUNAR_ERA;
 
     return new HinduLunarAstroDate(jdn, year, month, monthLeap, day, dayLeap);
+  }
+
+  // Is a given year in the Hindu Lunar Astro calendar a leap year?
+  public static isLeapYear(year: number): boolean {
+    return (year * 11 + 14) % 30 < 11;
+  }
+
+  public static toJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
+    const jdn: number = this.calculateJdn(year, month, monthLeap, day, dayLeap);
+    this.validate(year, month, monthLeap, day, dayLeap, jdn);
+
+    return jdn;
   }
 
   private static validate(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean, jdn: number) {
@@ -73,7 +73,7 @@ export class HinduLunarAstroCalendar {
     }
   }
 
-  // Determine Julian day number from Hindu Lunar Astro calendar date
+  // Determine Julian day number (JDN) from Hindu Lunar Astro calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + MEAN_SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
     const s: number = Math.floor(approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5));

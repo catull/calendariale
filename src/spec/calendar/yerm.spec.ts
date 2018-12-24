@@ -38,7 +38,7 @@ const dates = [
 ];
 
 describe ('Yerm calendar spec', () => {
-  it ('should convert an Yerm date to Julian day', () => {
+  it ('should convert an Yerm date to Julian day number (JDN)', () => {
     dates.forEach (({ jdn, date }) => {
       const actual = cal.toJdn (date.cycle, date.yerm, date.month, date.day);
 
@@ -46,7 +46,7 @@ describe ('Yerm calendar spec', () => {
     });
   });
 
-  it ('should convert a Julian day to an Yerm date', () => {
+  it ('should convert a Julian day number (JDN) to an Yerm date', () => {
     dates.forEach (({ jdn, date }) => {
       const actual   = cal.fromJdn (jdn);
       const expected = { jdn, year: 0, ...date };

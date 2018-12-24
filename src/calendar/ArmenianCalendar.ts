@@ -5,14 +5,7 @@ import { ArmenianDate } from './ArmenianDate';
 import { CalendarDateValidationException } from './core';
 
 export class ArmenianCalendar {
-  // Determine Julian day number from Armenian calendar date
-  public static toJdn(year: number, month: number, day: number): number {
-    this.validate(year, month, day);
-
-    return armenian.EPOCH + 365 * (year - 1) + 30 * (month - 1) + day - 1.0;
-  }
-
-  // Calculate Armenian calendar date from Julian day
+  // Calculate Armenian calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): ArmenianDate {
     const days: number = jdn - armenian.EPOCH;
     const year: number = Math.floor(days / 365) + 1;
@@ -22,7 +15,14 @@ export class ArmenianCalendar {
     return new ArmenianDate(jdn, year, month, day);
   }
 
-  public static validate(year: number, month: number, day: number): void {
+  // Determine Julian day number (JDN) from Armenian calendar date
+  public static toJdn(year: number, month: number, day: number): number {
+    this.validate(year, month, day);
+
+    return armenian.EPOCH + 365 * (year - 1) + 30 * (month - 1) + day - 1.0;
+  }
+
+  private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
