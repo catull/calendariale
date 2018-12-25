@@ -102,6 +102,7 @@ const aztec = {
 
 const bahai  = {
   EPOCH: 2394646.5,    // 1844/03/21 Gregorian C.E.
+  EPOCH_RD: 673222,
   EPOCH172: 2457102.5, // 2015/03/21 Gregorian C.E.
   WEEKDAYS: [ 'Jamál', 'Kamál', 'Fidál', 'Idál', 'Istijlál', 'Istiqlál', 'Jalál' ],
   YEARS: [ 'Alif', 'Bá', 'Ab', 'Dál', 'Báb', 'Váv', 'Abad', 'Jád', 'Bahá', 'Hubb', 'Bahháj', 'Javáb', 'Ahad', 'Vahháb', 'Vidád', 'Badí', 'Bahí', 'Abhá', 'Vahíd' ],
