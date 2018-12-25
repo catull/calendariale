@@ -17,7 +17,7 @@
     "clean": "rm -fr .rts2_cache_* dist tmp",
     "clean:dist": "rm -fr .rts2_cache_* dist tmp node_modules",
     "dist": "yarn dist:index.ts && yarn build && yarn dist:package.json",
-    "dist:index.ts": "barrelsby -D -q -l all -d src -e src/spec -e HinduAlgorithms -e create-dist",
+    "dist:index.ts": "barrelsby -D -q -l all -d src -e src/spec -e create-dist",
     "dist:package.json": "ts-node src/create-dist-package.json.ts $npm_package_version > dist/package.json",
     "test": "jest",
     "test:dev": "jest --watch",
