@@ -11,8 +11,6 @@ import {
 import { Location } from './Location';
 import { GregorianCalendar } from './calendar/GregorianCalendar';
 
-// const captains = console;
-
 type Matrix = number[][];
 
 /**
@@ -1116,40 +1114,32 @@ function moonNode(centuries: number): number {
   return degrees(poly(centuries, [93.2720950, 483202.0175233, -0.0036539, -1 / 3526000, 1 / 863310000]));
 }
 
-const lunarElongationArgs: number[] = [
-  0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1,
-  1, 2, 2, 4, 2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2,
-  2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2
+const lunarElongationArgs = [
+  0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4,
+  2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0,
+  1, 3, 4, 2, 0, 1, 2
 ];
-
-const solarAnomalyArgs: number[] = [
-  0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1,
-  0, 1, -1, 0, 0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1,
-  -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0
+const solarAnomalyArgs = [
+  0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0,
+  0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0,
+  -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0
 ];
-
-const lunarAnomalyArgs: number[] = [
-  1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2,
-  -1, 0, -1, 0, 1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0,
-  -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3,
-  2, 1, -1, 3
+const lunarAnomalyArgs = [
+  1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0,
+  1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0, -1, 2, -1, 1, -2, -1, -1, -2,
+  0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3
 ];
-
-const moonNodeArgs: number[] = [
-  0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0,
-  0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0
+const moonNodeArgs = [
+  0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0,
+  -2, -2, 0, 0, 0, 0, 0, 0, 0
 ];
-
-const sineCoeff: number[] = [
-  6288774, 1274027, 658314, 213618, -185116, -114332,
-  58793, 57066, 53322, 45758, -40923, -34720, -30383,
-  15327, -12528, 10980, 10675, 10034, 8548, -7888,
-  -6766, -5163, 4987, 4036, 3994, 3861, 3665, -2689,
-  -2602, 2390, -2348, 2236, -2120, -2069, 2048, -1773,
-  -1595, 1215, -1110, -892, -810, 759, -713, -700, 691,
-  596, 549, 537, 520, -487, -399, -381, 351, -340, 330,
-  327, -323, 299, 294
+const sineCoeff = [
+  6288774, 1274027, 658314, 213618, -185116, -114332, 58793, 57066, 53322, 45758,
+  -40923, -34720, -30383, 15327, -12528, 10980, 10675, 10034, 8548, -7888, -6766,
+  -5163, 4987, 4036, 3994, 3861, 3665, -2689, -2602, 2390, -2348, 2236, -2120,
+  -2069, 2048, -1773, -1595, 1215, -1110, -892, -810, 759, -713, -700, 691, 596,
+  549, 537, 520, -487, -399, -381, 351, -340, 330, 327, -323, 299, 294
 ];
 
 /**
@@ -1279,7 +1269,6 @@ function lunarDistance(tee: number): number {
     (v: number, w: number, x: number, y: number, z: number): number =>
     v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
   );
-  // captains.log(c, capD, capM, capMPrime, capF, capE, correction);
 
   return 385000560 + correction;
 }
@@ -1341,31 +1330,34 @@ function topocentricLunarAltitude(tee: number, location: Location): number {
  * @return {number} observed lunar altitude
  */
 function observedLunarAltitude(tee: number, location: Location): number {
-  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + (16 / 60);
+  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + (4 / 15);
 }
 
 /**
  * Standard time of moon-set on fixed date at location.
  * Returns -1 if there is no moon-set on date.
- * @param {number} tee moment in time
+ * @param {number} rataDie moment in time
  * @param {Location} location Geo-location
  * @return {number} time of moon-set or -1
  */
-function moonSet(date: number, location: Location): number {
-  const tee = standardToUniversal(date, location);
+function moonSet(rataDie: number, location: Location): number {
+  const tee = standardToUniversal(rataDie, location);
   const waxing = lunarPhase(tee) < 180;
   const alt = observedLunarAltitude(tee, location);
   const lat = location.getLatitude();
   const offset = alt / (4 * (90 - Math.abs(lat)));
   const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset + 0.5;
 
-  // captains.log(tee, waxing, alt, lat, offset, approx);
+  const set = binarySearch(
+    approx - 0.25,
+    approx + 0.25,
+    (lo: number, hi: number): boolean =>
+      (hi - lo) / 2 < (1 / 1440),
+    (low: number, high: number): boolean =>
+      observedLunarAltitude ((high + low) / 2, location) < 0
+  );
 
-  const set = binarySearch(approx - 0.25, approx + 0.25,
-    (low: number, high: number): boolean => observedLunarAltitude ((high + low) / 2, location) < 0,
-    (lo: number, hi: number): boolean => ((hi - lo) / 2) < (1 / 1440));
-
-  return (set < tee + 1) ? Math.max(universalToStandard(set, location), date) : -1;
+  return (set < tee + 1) ? Math.max(universalToStandard(set, location), rataDie) : -1;
 }
 
 /**
@@ -1383,11 +1375,14 @@ function moonRise(date: number, location: Location): number {
   const offset = alt / (4 * (90 - Math.abs(lat)));
   const approx = waning ? (offset > 0 ? tee + 1 - offset : tee - offset) : tee + offset + 0.5;
 
-  // captains.log(tee, waning, alt, lat, offset, approx);
-
-  const rise = binarySearch(approx - 0.25, approx + 0.25,
-    (low: number, high: number): boolean => observedLunarAltitude ((high + low) / 2, location) > 0,
-    (lo: number, hi: number): boolean => ((hi - lo) / 2) < (1 / 1440));
+  const rise = binarySearch(
+    approx - 0.25,
+    approx + 0.25,
+    (lo: number, hi: number): boolean =>
+      ((hi - lo) / 2) < (1 / 1440),
+    (low: number, high: number): boolean =>
+      observedLunarAltitude ((high + low) / 2, location) > 0
+  );
 
   return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
 }
@@ -1527,23 +1522,22 @@ function solarLongitudeAfter(lambda: number, tee: number): number {
  */
 function refraction(tee: number, location: Location): number {
   const h: number = Math.max(0, location.getElevation());
-  const capR = 6.372e6;
+  const capR = 6372000;
   const dip: number = arcCosDeg(capR / (capR + h));
 
-  return angle(0, 50, 0) + dip + 19 * Math.sqrt(h) / 3600;
+  return (17 / 30) + dip + 19 * Math.sqrt(h) / 3600;
 }
 
 /**
  * Return standard time of sunset on jdn at given location.
- * @param {float} jdn Julian day number (JDN)
+ * @param {number} rataDie Julian day number (JDN)
  * @param {Location} location geo-location
- * @return {float} moment of sunset
+ * @return {number} moment of sunset
  */
-function sunset(jdn: number, location: Location): number {
-  const jd0: number = jdn - J0000;
-  const alpha: number = refraction(jd0, location);
+function sunset(rataDie: number, location: Location): number {
+  const alpha: number = refraction(rataDie, location);
 
-  return dusk(jdn, location, alpha);
+  return dusk(rataDie, location, alpha);
 }
 
 /**
@@ -1603,7 +1597,8 @@ export {
   cosDeg,
   dawn,
   degreesToRadians,
-  deltaT, dusk,
+  deltaT,
+  dusk,
   dynamicalToUniversal,   // only to be tested, required for nutation!
   ephemerisCorrection,   // only to be tested!
   equationOfTime,
@@ -1616,6 +1611,7 @@ export {
   // jhms,
   julianCenturies, // only to be tested!
   kdayOnOrAfter,
+  lunarAltitude, // only to be tested!
   lunarDistance, // only to be tested!
   lunarPhase,
   lunarPhaseAtOrBefore,
