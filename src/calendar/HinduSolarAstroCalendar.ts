@@ -25,8 +25,8 @@ export class HinduSolarAstroCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    const approx: number = hindu.EPOCH - 3 + Math.floor((year + hindu.SOLAR_ERA +
-      (month - 1) / 12) * MEAN_SIDEREAL_YEAR) - J0000;
+    const approx: number = hindu.EPOCH_RD - 3 + Math.floor((year + hindu.SOLAR_ERA +
+      (month - 1) / 12) * MEAN_SIDEREAL_YEAR);
     const begin: number = next(approx, (i: number): boolean =>
       siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
     );
@@ -46,11 +46,11 @@ export class HinduSolarAstroCalendar {
 
   /**
    * Return the geometrical sunset at Hindu location on date.
-   * @param {float} date moment in time
-   * @return {float} sunset of that date
+   * @param {number} rataDie moment in time
+   * @return {number} sunset of that date
    */
-  private static hinduAstroSunset(jdn: number): number {
-    return dusk(jdn, hindu.UJJAIN_LOCATION, 0);
+  private static hinduAstroSunset(rataDie: number): number {
+    return dusk(rataDie, hindu.UJJAIN_LOCATION, 0);
   }
 
 }
