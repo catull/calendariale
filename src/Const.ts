@@ -100,6 +100,12 @@ const aztec = {
   XIHUITL_CORRELATION_RD: 555203
 };
 
+const babylonian = {
+  EPOCH: 1607922.5, // 0311/04/03 Julian B.C.E.  /  -310/Apr/29 Gregorian
+  EPOCH_RD: -113502,
+  LOCATION_BABYLON: new Location (32.4794, 44.4328, 26, 7 / 48),
+};
+
 const bahai  = {
   EPOCH: 2394646.5,    // 1844/03/21 Gregorian C.E.
   EPOCH_RD: 673222,
@@ -325,6 +331,7 @@ export {
   akan,
   armenian,
   aztec,
+  babylonian,
   bahai,
   balinese,
   chinese,
