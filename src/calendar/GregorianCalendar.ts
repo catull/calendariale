@@ -2,6 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, gregorian } from '../Const';
 
 import { GregorianDate } from './GregorianDate';
+import { JulianCalendar } from './JulianCalendar';
 import { CalendarDateValidationException } from './core';
 
 export class GregorianCalendar {
@@ -52,6 +53,16 @@ export class GregorianCalendar {
 
   public static dateDifference(date1: GregorianDate, date2: GregorianDate): number {
     return date2.getJdn() - date1.getJdn();
+  }
+
+  public static julianDateInGregorian (julianMonth: number, julianDay: number, gregorianYear: number): number[] {
+    const gregorianJan1 = this.toJdn(gregorianYear, Month.JANUARY, 1);
+    const y = JulianCalendar.fromJdn(gregorianJan1).getYear();
+    const yPrime = y === -1 ? 1 : y + 1;
+    const date1 = JulianCalendar.toJdn(y, julianMonth, julianDay);
+    const date2 = JulianCalendar.toJdn(yPrime, julianMonth, julianDay);
+
+    return [ date1, date2 ];
   }
 
   private static validate(year: number, month: number, day: number): void {
