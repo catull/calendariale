@@ -82,7 +82,7 @@ export class PersianAstronomicalCalendar {
 
   // Return  Universal time of midday on fixed date, date, in Tehran
   private static midDayInTehran(jdn: number): number {
-    return standardToUniversal(midDay(jdn, persian.TEHRAN_LOCATION), persian.TEHRAN_LOCATION);
+    return standardToUniversal(midDay(jdn, persian.LOCATION_TEHRAN), persian.LOCATION_TEHRAN);
   }
 
 }
