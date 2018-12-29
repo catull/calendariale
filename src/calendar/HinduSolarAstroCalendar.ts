@@ -50,7 +50,7 @@ export class HinduSolarAstroCalendar {
    * @return {number} sunset of that date
    */
   private static hinduAstroSunset(rataDie: number): number {
-    return dusk(rataDie, hindu.UJJAIN_LOCATION, 0);
+    return dusk(rataDie, hindu.LOCATION_UJJAIN, 0);
   }
 
 }
