@@ -7,7 +7,7 @@ import { CalendarDateValidationException } from './core';
 export class IslamicObservationalCalendar {
   // Calculate Islamic calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): IslamicObservationalDate {
-    const crescent: number = phasisOnOrBefore(jdn, islamic.CAIRO_LOCATION);
+    const crescent: number = phasisOnOrBefore(jdn, islamic.LOCATION_CAIRO);
     const elapsedMonths: number = Math.round((crescent - islamic.EPOCH) / MEAN_SYNODIC_MONTH);
     const year: number = Math.floor(elapsedMonths / 12) + 1;
     const month: number = mod(elapsedMonths, 12) + 1;
@@ -22,7 +22,7 @@ export class IslamicObservationalCalendar {
 
     const midMonth = islamic.EPOCH + Math.floor(((year - 1) * 12 + month - 0.5) * MEAN_SYNODIC_MONTH);
 
-    return phasisOnOrBefore(midMonth, islamic.CAIRO_LOCATION) + day - 1;
+    return phasisOnOrBefore(midMonth, islamic.LOCATION_CAIRO) + day - 1;
   }
 
   // Is a given year in the Islamic calendar a leap year?
