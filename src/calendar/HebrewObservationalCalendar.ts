@@ -10,7 +10,7 @@ export class HebrewObservationalCalendar {
   // Convert Julian day number (JDN) to Hebrew date
   // This works by making multiple calls to the inverse function, performing slowly.
   public static fromJdn(jdn: number): HebrewObservationalDate {
-    const crescent: number = phasisOnOrBefore(jdn, hebrew.JAFFA_LOCATION);
+    const crescent: number = phasisOnOrBefore(jdn, hebrew.LOCATION_JAFFA);
     const gYear: number = GregorianCalendar.jdnToYear(jdn);
     const newYear: number = this.toNewYear(gYear);
     const newYear2: number = (jdn < newYear) ? this.toNewYear(gYear - 1) : newYear;
@@ -44,16 +44,16 @@ export class HebrewObservationalCalendar {
     const newYear: number = this.toNewYear(gYear) + 0.5;
     const midMonth: number = newYear + Math.round(29.5 * (month - 1)) + 15;
 
-    return phasisOnOrBefore(midMonth, hebrew.JAFFA_LOCATION) + day - 0.5;
+    return phasisOnOrBefore(midMonth, hebrew.LOCATION_JAFFA) + day - 0.5;
   }
 
   // Return jdn of Observational (classical) Nisan 1 occurring in Gregorian year.
   private static toNewYear(year: number): number {
     const jan1: number = GregorianCalendar.toJdn(year, 1, 1) - J0000;
     const equinox: number = solarLongitudeAfter(Season.SPRING, jan1);
-    const sset: number = standardToUniversal(sunset(Math.floor(equinox), hebrew.JAFFA_LOCATION), hebrew.JAFFA_LOCATION);
+    const sset: number = standardToUniversal(sunset(Math.floor(equinox), hebrew.LOCATION_JAFFA), hebrew.LOCATION_JAFFA);
 
-    return phasisOnOrAfter(Math.floor(equinox) - ((equinox < sset) ? 14 : 13), hebrew.JAFFA_LOCATION);
+    return phasisOnOrAfter(Math.floor(equinox) - ((equinox < sset) ? 14 : 13), hebrew.LOCATION_JAFFA);
   }
 
 }
