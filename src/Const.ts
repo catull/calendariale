@@ -116,7 +116,7 @@ const bahai  = {
     'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', 'Ayyám-i-Há', '`Alá\'' ],
   DAYS: [ 'Bahá', 'Jalál', 'Jamál', '`Azamat', 'Núr', 'Rahmat', 'Kalimát', 'Kamál', 'Asmá', '`Izzat',
     'Mashíyyat', '`Ilm', 'Qudrat', 'Qawl', 'Masáil', 'Sharaf', 'Sultán', 'Mulk', '`Alá\'' ],
-  LOCATION_TEHERAN: new Location(35.696111, 51.423056, 0, 3.5 / 24),
+  LOCATION_TEHRAN: new Location(35.696111, 51.423056, 1100, 7 / 48),
 };
 
 const balinese = {
@@ -176,7 +176,7 @@ const hebrew = {
   EPOCH_RD: -1373428,
   MONTHS: [ 'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri', 'Marẖeshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Veadar' ],
   H_MONTHS: [ 'נִיסָן', 'אייר', 'סיוון', 'תַּמּוּז', 'אָב', 'אֱלוּל', 'תִּשׁרִי', 'מרחשוון', 'כסליו', 'טֵבֵת', 'שְׁבָט', 'אֲדָר א׳', 'אֲדָר א׳' ],
-  JAFFA_LOCATION: new Location (961 / 30, 139 / 4, 0, 1 / 12)
+  LOCATION_JAFFA: new Location (961 / 30, 139 / 4, 0, 1 / 12)
 };
 
 const hindu = {
@@ -190,7 +190,7 @@ const hindu = {
   ANOMALISTIC_MONTH: 1577917828 / (57753336 - 488199),
   SOLAR_ERA: 3179,
   LUNAR_ERA: 3044,
-  UJJAIN_LOCATION: new Location (23.15, 75 + 461 / 600, 0, (5 + 461 / 9000) / 24),
+  LOCATION_UJJAIN: new Location (23.15, 75 + 461 / 600, 0, (5 + 461 / 9000) / 24),
   SIDEREAL_START: 336.13605090692613,
   WEEKDAYS: [ 'ravivara', 'somavara', 'mangalavara', 'budhavara', 'brahaspativara', 'sukravara', 'sanivara' ],
   MONTHS: [ 'Caitra', 'Vaisakha', 'Jyaistha', 'Asadha', 'Sravana', 'Bhadra', 'Asvina', 'Kartika', 'Agrahayana', 'Pausa', 'Magha', 'Phalguna' ]
@@ -206,8 +206,8 @@ const islamic = {
   EPOCH_RD: 227015,
   WEEKDAYS: [ 'al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt' ],
   MONTHS: [ 'Muharram', 'Safar', 'Rabi`al-Awwal', 'Rabi`ath-Thani', 'Jumada l-Ula', 'Jumada t-Tania', 'Rajab', 'Sha`ban', 'Ramadan', 'Shawwal', 'Dhu l-Qa`da', 'Dhu l-Hijja' ],
-  CAIRO_LOCATION: new Location (30.1, 31.3, 200, 1 / 12),
-  MECCA_LOCATION: new Location (6427 / 300, 11947 / 300, 298, 0.125),
+  LOCATION_CAIRO: new Location (30.1, 31.3, 200, 1 / 12),
+  LOCATION_MECCA: new Location (6427 / 300, 11947 / 300, 298, 0.125),
 };
 
 /*
@@ -235,9 +235,15 @@ const olympiad = {
 const persian = {
   EPOCH: 1948320.5, // 622/03/19 Julian C.E.
   EPOCH_RD: 226896,
-  TEHRAN_LOCATION: new Location (35.68, 51.42, 1100, 7 / 48),
+  LOCATION_TEHRAN: bahai.LOCATION_TEHRAN,
   WEEKDAYS: [ 'Yekshanbeh', 'Doshanbeh', 'Seshhanbeh', 'Chaharshanbeh', 'Panjshanbeh', 'Jomeh', 'Shanbeh' ],
   MONTHS: [ 'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar', 'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand' ]
+};
+
+const samaritan = {
+  EPOCH: 2319775.5, // 1639/03/15 Julian B.C.E.
+  EPOCH_RD: 598351,
+  LOCATION_SAMARITAN: new Location (32.1994, 35.2728, 881, 1 / 12),
 };
 
 const tibetan = {
@@ -348,6 +354,7 @@ export {
   olympiad,
   mayan,
   persian,
+  samaritan,
   tibetan,
   yermEpoch
 };
