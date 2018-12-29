@@ -205,7 +205,7 @@ function hinduSolarSiderealDifference(jdn: number): number {
  */
 function hinduSunrise(jdn: number): number {
   return jdn + 0.25 - hinduEquationOfTime(jdn) + 1577917828 / 1582237828 / 360 *
-    (hinduAscensionalDifference(jdn, hindu.UJJAIN_LOCATION) +
+    (hinduAscensionalDifference(jdn, hindu.LOCATION_UJJAIN) +
       hinduSolarSiderealDifference(jdn) / 4);
 }
 
