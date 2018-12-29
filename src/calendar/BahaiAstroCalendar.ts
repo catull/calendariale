@@ -105,7 +105,7 @@ export class BahaiAstroCalendar {
   }
 
   private static bahaiSunset(rataDie: number): number {
-    return standardToUniversal(sunset(rataDie, bahai.LOCATION_TEHERAN), bahai.LOCATION_TEHERAN);
+    return standardToUniversal(sunset(rataDie, bahai.LOCATION_TEHRAN), bahai.LOCATION_TEHRAN);
   }
 
   private static newYearOnOrBefore(rataDie: number): number {
