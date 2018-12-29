@@ -120,7 +120,7 @@ export class HinduLunarAstroCalendar {
    * @return {float} sunrise on that day
    */
   private static altHinduSunrise(tee: number): number {
-    const rise: number = dawn(tee, hindu.UJJAIN_LOCATION, 47 / 60);
+    const rise: number = dawn(tee, hindu.LOCATION_UJJAIN, 47 / 60);
 
     return Math.round(rise * 24 * 60) / 24 / 60;
   }
