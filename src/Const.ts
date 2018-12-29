@@ -241,8 +241,8 @@ const persian = {
 };
 
 const samaritan = {
-  EPOCH: 2319775.5, // 1639/03/15 Julian B.C.E.
-  EPOCH_RD: 598351,
+  EPOCH: 1122851.5, // 1639/03/15 Julian B.C.E.
+  EPOCH_RD: -598573,
   LOCATION_SAMARITAN: new Location (32.1994, 35.2728, 881, 1 / 12),
 };
 
