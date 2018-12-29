@@ -50,11 +50,11 @@ export class IslamicUmmAlQuraCalendar {
   }
 
   private static saudiCriterion(rataDie: number): boolean {
-    const set = sunset(rataDie - 1, islamic.MECCA_LOCATION);
-    const tee = standardToUniversal(set, islamic.MECCA_LOCATION);
+    const set = sunset(rataDie - 1, islamic.LOCATION_MECCA);
+    const tee = standardToUniversal(set, islamic.LOCATION_MECCA);
     const phase = lunarPhase(tee);
 
-    return MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER && moonLag(rataDie - 1, islamic.MECCA_LOCATION) > 0;
+    return MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER && moonLag(rataDie - 1, islamic.LOCATION_MECCA) > 0;
   }
 
 }
