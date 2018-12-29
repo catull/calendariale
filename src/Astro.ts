@@ -416,9 +416,9 @@ function longitudeToZone(phi: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function universalToLocal (teeRomU: number, location: Location): number {
-//   return teeRomU + longitudeToZone (location.getLongitude());
-// }
+function universalToLocal (teeRomU: number, location: Location): number {
+  return teeRomU + longitudeToZone (location.getLongitude());
+}
 
 /**
  * Return universal time from teeEll in local time at location
@@ -571,9 +571,9 @@ function equationOfTime(tee: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-// function localToApparent (tee: number, location: Location): number {
-//   return tee + equationOfTime (localToUniversal (tee, location));
-// }
+function localToApparent (tee: number, location: Location): number {
+  return tee + equationOfTime (localToUniversal (tee, location));
+}
 
 /**
  * Return local time from sundial time tee at given location
@@ -584,6 +584,32 @@ function equationOfTime(tee: number): number {
 function apparentToLocal(tee: number, location: Location): number {
   return tee - equationOfTime(localToUniversal(tee, location));
 }
+
+/**
+ * Return apparent time from universal time tee at given location
+ * @param {float} tee moment in time
+ * @param {Location} location geographic location
+ * @return {float} converted time
+ */
+function universalToApparent(tee: number, location: Location): number {
+  return localToApparent(universalToLocal(tee, location), location);
+}
+/**
+ * Return local time from sundial time tee at given location
+ * @param {float} tee moment in time
+ * @param {Location} location geographic location
+ * @return {float} converted time
+ */
+
+/**
+ * Return apparent time from universal time tee at given location
+ * @param {float} tee moment in time
+ * @param {Location} location geographic location
+ * @return {float} converted time
+ */
+// function apparentToUniversal(tee: number, location: Location): number {
+//   return localToUniversal(apparentToLocal(tee, location), location);
+// }
 
 /**
  * Return standard time on fixed date date, of midday at given location
@@ -1639,5 +1665,6 @@ export {
   sunset,
   tanDeg,
   toRadix,
+  universalToApparent,
   universalToStandard,
 };
