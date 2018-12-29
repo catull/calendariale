@@ -55,7 +55,7 @@ describe('Astro spec', () => {
   it ('should calculate moon-rise for rata die', () => {
     // const misses: number[] = [];
     dates.forEach (({ rataDie, rise }) => {
-      const actual = moonRise (rataDie, islamic.MECCA_LOCATION);
+      const actual = moonRise (rataDie, islamic.LOCATION_MECCA);
 
       expect (actual).toBeCloseTo (rataDie + rise.tee, .00001);
     });
@@ -63,7 +63,7 @@ describe('Astro spec', () => {
 
   it ('should calculate moon-set for rata die', () => {
      dates.forEach (({ rataDie, set }) => {
-      const actual = moonSet (rataDie, islamic.MECCA_LOCATION);
+      const actual = moonSet (rataDie, islamic.LOCATION_MECCA);
 
       if (actual !== -1) {
         expect (actual).toBeCloseTo (rataDie + set.tee, .00001);
