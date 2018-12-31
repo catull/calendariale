@@ -30,7 +30,7 @@
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/jest": "23.3.10",
+    "@types/jest": "23.3.11",
     "@types/node": "10.12.18",
     "barrelsby": "1.0.2",
     "jest": "23.6.0",
