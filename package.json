@@ -44,7 +44,7 @@
     "tslint-eslint-rules": "5.4.0",
     "tslint-sonarts": "1.8.0",
     "typescript": "3.2.2",
-    "yarn": "1.12.3"
+    "yarn": "1.13.0"
   },
   "jest-junit": {
     "ancestorSeparator": " › ",
