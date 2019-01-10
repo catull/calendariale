@@ -34,7 +34,7 @@
     "@types/node": "10.12.18",
     "barrelsby": "1.0.2",
     "jest": "23.6.0",
-    "jest-junit": "5.2.0",
+    "jest-junit": "6.0.0",
     "jest-sonar-reporter": "2.0.0",
     "prettier": "1.15.3",
     "ts-jest": "23.10.5",
