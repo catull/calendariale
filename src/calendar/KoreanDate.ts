@@ -1,8 +1,8 @@
-import { LeapMonthDate } from './core';
+import { ChineseDate } from './ChineseDate';
 
-export class ChineseDate extends LeapMonthDate {
+export class KoreanDate extends ChineseDate {
   constructor(jdn: number, protected cycle: number, year: number, month: number, monthLeap: boolean, day: number) {
-    super(jdn, year, month, day, monthLeap);
+    super(jdn, cycle, year, month, monthLeap, day);
   }
 
   public getCycle(): number {
