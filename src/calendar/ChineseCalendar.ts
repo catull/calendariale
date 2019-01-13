@@ -45,7 +45,7 @@ export class ChineseCalendar {
     const year: number = amod(years, 60);
     const day: number = 1 + rataDie - m;
 
-    return new ChineseDate(rataDie + J0000, cycle, year, month, monthLeap, day);
+    return this.createDate(rataDie + J0000, cycle, year, month, monthLeap, day);
   }
 
   public static fromJdn(jdn: number): ChineseDate {
@@ -58,6 +58,10 @@ export class ChineseCalendar {
     this.validate(cycle, year, month, monthLeap, day, jdn);
 
     return jdn;
+  }
+
+  protected static createDate(jdn: number, cycle: number, year: number, month: number, monthLeap: boolean, day: number): ChineseDate {
+    return new ChineseDate(jdn, cycle, year, month, monthLeap, day);
   }
 
   protected static getEpochRD(): number {
