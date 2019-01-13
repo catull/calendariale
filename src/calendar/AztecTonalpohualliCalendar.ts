@@ -22,5 +22,4 @@ export class AztecTonalpohualliCalendar {
   public static onOrBefore(num: number, name: number, jdn: number): number {
     return jdn - mod(jdn - aztec.TONALPOHUALLI_CORRELATION - this.toOrdinal(num, name), 260);
   }
-
 }

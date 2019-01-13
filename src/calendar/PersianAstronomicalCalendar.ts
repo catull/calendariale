@@ -47,11 +47,11 @@ export class PersianAstronomicalCalendar {
     this.validate(year, month, day);
 
     const temp: number = year > 0 ? year - 1 : year;
-    const nowRuz: number = this.persianNewYearOnOrBefore(persian.EPOCH_RD + 180 +
-      Math.floor(MEAN_TROPICAL_YEAR * temp));
+    const nowRuz: number = this.persianNewYearOnOrBefore(
+      persian.EPOCH_RD + 180 + Math.floor(MEAN_TROPICAL_YEAR * temp)
+    );
 
-    return nowRuz - 1 + day +
-      ((month <= 7) ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
+    return nowRuz - 1 + day + (month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
   }
 
   // Is a given year in the Persian Astronomical calendar a leap year?
@@ -60,7 +60,7 @@ export class PersianAstronomicalCalendar {
   }
 
   private static validate(year: number, month: number, day: number): void {
-    const maxDays = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
+    const maxDays = month < 7 ? 31 : !this.isLeapYear(year) && month === 12 ? 29 : 30;
 
     if (day < 1 || day > maxDays) {
       throw new CalendarDateValidationException(INVALID_DAY);
@@ -75,8 +75,9 @@ export class PersianAstronomicalCalendar {
   private static persianNewYearOnOrBefore(jdn: number): number {
     const approx: number = estimatePriorSolarLongitude(Season.SPRING, this.midDayInTehran(jdn));
 
-    return next(Math.floor(approx) - 1, (day: number): boolean =>
-      solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2
+    return next(
+      Math.floor(approx) - 1,
+      (day: number): boolean => solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2
     );
   }
 
@@ -84,5 +85,4 @@ export class PersianAstronomicalCalendar {
   private static midDayInTehran(jdn: number): number {
     return standardToUniversal(midDay(jdn, persian.LOCATION_TEHRAN), persian.LOCATION_TEHRAN);
   }
-
 }

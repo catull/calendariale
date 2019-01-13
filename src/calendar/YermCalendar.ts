@@ -31,10 +31,16 @@ export class YermCalendar {
     const y1: number = yerm - 1;
     const m1: number = month - 1;
 
-    return yermEpoch.EPOCH + 25101 * c1 +
-      1447 * Math.floor(y1 / 3) + (y1 % 3) * 502 +
-      59 * Math.floor(m1 / 2) + (m1 % 2) * 30 +
-      day - 1;
+    return (
+      yermEpoch.EPOCH +
+      25101 * c1 +
+      1447 * Math.floor(y1 / 3) +
+      (y1 % 3) * 502 +
+      59 * Math.floor(m1 / 2) +
+      (m1 % 2) * 30 +
+      day -
+      1
+    );
   }
 
   private static validate(cycle: number, yerm: number, month: number, day: number): void {
@@ -42,15 +48,14 @@ export class YermCalendar {
       throw new CalendarDateValidationException(INVALID_YERM);
     }
 
-    const monthMax: number = (yerm % 3 === 0) ? 15 : 17;
+    const monthMax: number = yerm % 3 === 0 ? 15 : 17;
     if (month < 1 || month > monthMax) {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const dayMax: number = (month % 2 === 1) ? 30 : 29;
+    const dayMax: number = month % 2 === 1 ? 30 : 29;
     if (day < 1 || day > dayMax) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

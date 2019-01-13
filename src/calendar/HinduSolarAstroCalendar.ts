@@ -13,8 +13,9 @@ export class HinduSolarAstroCalendar {
     const month: number = siderealZodiac(critical);
     const year: number = hinduAstroDateYear(critical) - hindu.SOLAR_ERA;
     const approx: number = jd0 - 3 - mod(Math.floor(siderealSolarLongitude(critical)), 30);
-    const begin: number = next(approx, (index: number): boolean =>
-      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month
+    const begin: number = next(
+      approx,
+      (index: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month
     );
     const day: number = jd0 - begin + 1;
 
@@ -25,10 +26,11 @@ export class HinduSolarAstroCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    const approx: number = hindu.EPOCH_RD - 3 + Math.floor((year + hindu.SOLAR_ERA +
-      (month - 1) / 12) * MEAN_SIDEREAL_YEAR);
-    const begin: number = next(approx, (i: number): boolean =>
-      siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
+    const approx: number =
+      hindu.EPOCH_RD - 3 + Math.floor((year + hindu.SOLAR_ERA + (month - 1) / 12) * MEAN_SIDEREAL_YEAR);
+    const begin: number = next(
+      approx,
+      (i: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
     );
 
     return J0000 + begin + day - 1;
@@ -52,5 +54,4 @@ export class HinduSolarAstroCalendar {
   private static hinduAstroSunset(rataDie: number): number {
     return dusk(rataDie, hindu.LOCATION_UJJAIN, 0);
   }
-
 }

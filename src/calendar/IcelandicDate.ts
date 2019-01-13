@@ -3,7 +3,6 @@ import { Season } from '../Const';
 import { YearDate } from './core';
 
 export class IcelandicDate extends YearDate {
-
   constructor(jdn: number, year: number, private season: Season, private week: number, private day: number) {
     super(jdn, year);
   }
@@ -19,5 +18,4 @@ export class IcelandicDate extends YearDate {
   public getDay(): number {
     return this.day;
   }
-
 }

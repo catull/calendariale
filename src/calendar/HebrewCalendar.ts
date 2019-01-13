@@ -9,7 +9,7 @@ export class HebrewCalendar {
   // This works by making multiple calls to the inverse function, performing slowly.
   public static fromJdn(jdn: number): HebrewDate {
     const jd0: number = Math.floor(jdn) + 0.5;
-    const count: number = Math.floor((jd0 - hebrew.EPOCH) * 98496.0 / 35975351.0);
+    const count: number = Math.floor(((jd0 - hebrew.EPOCH) * 98496.0) / 35975351.0);
     let year: number = count - 1;
     let index: number;
 
@@ -126,5 +126,4 @@ export class HebrewCalendar {
     // Nope, it's a 30 day month
     return 30;
   }
-
 }

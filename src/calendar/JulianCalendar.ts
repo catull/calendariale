@@ -71,5 +71,4 @@ export class JulianCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

@@ -42,13 +42,20 @@ export class Symmetry454Calendar {
     Symmetry454Calendar.validate(year, month, day);
     const y1: number = year - 1;
 
-    return gregorian.EPOCH + 364 * y1 + 7 * Math.floor((52 * y1 + 146) / 293) +
-      28 * (month - 1) + 7 * Math.floor(month / 3) + day - 1;
+    return (
+      gregorian.EPOCH +
+      364 * y1 +
+      7 * Math.floor((52 * y1 + 146) / 293) +
+      28 * (month - 1) +
+      7 * Math.floor(month / 3) +
+      day -
+      1
+    );
   }
 
   // Is a given year in the Symmetry454 calendar a leap year?
   public static isLeapYear(year: number): boolean {
-    return 52 > ((52 * year + 146) % 293);
+    return 52 > (52 * year + 146) % 293;
   }
 
   private static validate(year: number, month: number, day: number): void {
@@ -56,7 +63,7 @@ export class Symmetry454Calendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const maxDays: number = ((month % 3) === 2) || (month === 12 && Symmetry454Calendar.isLeapYear(year)) ? 35 : 28;
+    const maxDays: number = month % 3 === 2 || (month === 12 && Symmetry454Calendar.isLeapYear(year)) ? 35 : 28;
 
     if (day < 1 || day > maxDays) {
       throw new CalendarDateValidationException(INVALID_DAY);
@@ -66,5 +73,4 @@ export class Symmetry454Calendar {
   private static getLeapYearsBefore(year: number): number {
     return Math.floor((52 * (year - 1) + 146) / 293);
   }
-
 }

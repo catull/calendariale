@@ -18,8 +18,7 @@ export class EthiopicCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    return ethiopic.EPOCH - 1 + 365 * (year - 1) +
-      Math.floor(year / 4) + 30 * (month - 1) + day;
+    return ethiopic.EPOCH - 1 + 365 * (year - 1) + Math.floor(year / 4) + 30 * (month - 1) + day;
   }
 
   public static isLeapYear(year: number): boolean {
@@ -31,7 +30,7 @@ export class EthiopicCalendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const maxDaysOfMonth13 = this.isLeapYear (year) ? 6 : 5;
+    const maxDaysOfMonth13 = this.isLeapYear(year) ? 6 : 5;
     if (month === 13 && day > maxDaysOfMonth13) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
@@ -40,5 +39,4 @@ export class EthiopicCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

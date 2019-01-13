@@ -1,16 +1,15 @@
 import { BaseDate } from './core';
 
 export class AztecTonalpohualliDate extends BaseDate {
-
   constructor(jdn: number, private num: number, private name: number) {
     super(jdn);
   }
 
-  public getNumber (): number {
+  public getNumber(): number {
     return this.num;
   }
 
-  public getName (): number {
+  public getName(): number {
     return this.name;
   }
 }

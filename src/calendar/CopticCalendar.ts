@@ -23,8 +23,7 @@ export class CopticCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    return coptic.EPOCH - 1 + 365 * (year - 1) +
-      Math.floor(year / 4) + 30 * (month - 1) + day;
+    return coptic.EPOCH - 1 + 365 * (year - 1) + Math.floor(year / 4) + 30 * (month - 1) + day;
   }
 
   private static validate(year: number, month: number, day: number): void {
@@ -42,5 +41,4 @@ export class CopticCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

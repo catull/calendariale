@@ -28,8 +28,17 @@ export class BalinesePawukonCalendar {
     const dwiwara: number = amod(dasawara, 2);
 
     return new BalinesePawukonDate(
-      jdn, luang, dwiwara, triwara, caturwara, pancawara,
-      sadwara, saptawara, asatawara, sangawara, dasawara);
+      jdn,
+      luang,
+      dwiwara,
+      triwara,
+      caturwara,
+      pancawara,
+      sadwara,
+      saptawara,
+      asatawara,
+      sangawara,
+      dasawara
+    );
   }
-
 }

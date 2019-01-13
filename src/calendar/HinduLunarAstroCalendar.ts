@@ -1,12 +1,4 @@
-import {
-  amod,
-  dawn,
-  lunarPhase,
-  mod3,
-  newMoonAtOrAfter,
-  newMoonBefore,
-  next,
-} from '../Astro';
+import { amod, dawn, lunarPhase, mod3, newMoonAtOrAfter, newMoonBefore, next } from '../Astro';
 import {
   INVALID_DAY,
   INVALID_LEAP_DAY,
@@ -76,7 +68,9 @@ export class HinduLunarAstroCalendar {
   // Determine Julian day number (JDN) from Hindu Lunar Astro calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + MEAN_SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
-    const s: number = Math.floor(approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5));
+    const s: number = Math.floor(
+      approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5)
+    );
     const k: number = this.astroLunarDayFromMoment(s + 0.25);
     let temp: number;
 
@@ -94,7 +88,9 @@ export class HinduLunarAstroCalendar {
       next(
         tau - 1,
         (d: number): boolean => {
-          const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(HinduLunarAstroCalendar.altHinduSunrise(d));
+          const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(
+            HinduLunarAstroCalendar.altHinduSunrise(d)
+          );
           const d2: number = amod(day + 1, 30);
 
           return d1 === day || d1 === d2;
@@ -124,5 +120,4 @@ export class HinduLunarAstroCalendar {
 
     return Math.round(rise * 24 * 60) / 24 / 60;
   }
-
 }

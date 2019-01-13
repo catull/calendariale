@@ -1,5 +1,5 @@
-import { final, midDay, mod, newMoonAtOrAfter, newMoonBefore, universalToApparent, } from '../Astro';
-import { INVALID_DAY, INVALID_MONTH, J0000, Month, samaritan, } from '../Const';
+import { final, midDay, mod, newMoonAtOrAfter, newMoonBefore, universalToApparent } from '../Astro';
+import { INVALID_DAY, INVALID_MONTH, J0000, Month, samaritan } from '../Const';
 
 import { GregorianCalendar } from './GregorianCalendar';
 import { SamaritanDate } from './SamaritanDate';
@@ -23,7 +23,9 @@ export class SamaritanCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    const ny = this.newYearOnOrBefore(Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - Math.ceil((month - 5) / 8))));
+    const ny = this.newYearOnOrBefore(
+      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - Math.ceil((month - 5) / 8)))
+    );
     const nm = this.newMoonAtOrBefore(ny + 29.5 * (month - 1) + 15);
 
     return J0000 + nm + day - 1;
@@ -49,8 +51,8 @@ export class SamaritanCalendar {
   private static newYearOnOrBefore(rataDie: number): number {
     const gYear = GregorianCalendar.jdnToYear(rataDie + J0000);
     const dates = [
-      ...GregorianCalendar.julianDateInGregorian (Month.MARCH, 11, gYear - 1),
-      ...GregorianCalendar.julianDateInGregorian (Month.MARCH, 11, gYear),
+      ...GregorianCalendar.julianDateInGregorian(Month.MARCH, 11, gYear - 1),
+      ...GregorianCalendar.julianDateInGregorian(Month.MARCH, 11, gYear),
     ].map((jdn: number) => jdn - J0000); // .sort();
     dates.push(rataDie + 1);
 
@@ -105,5 +107,4 @@ export class SamaritanCalendar {
     // Nope, it's a 30 day month
     return 30;
   }
-
 }

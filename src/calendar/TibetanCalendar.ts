@@ -34,9 +34,9 @@ export class TibetanCalendar {
 
     const monthLeap = day0 > 30;
     const day: number = amod(day0, 30);
-    const temp: number = (day > day0) ? month0 - 1 : monthLeap ? month0 + 1 : month0;
+    const temp: number = day > day0 ? month0 - 1 : monthLeap ? month0 + 1 : month0;
     const month: number = amod(temp, 12);
-    const year: number = (day > day0 && month0 === 1) ? year0 - 1 : (monthLeap && month0 === 12) ? year0 + 1 : year0;
+    const year: number = day > day0 && month0 === 1 ? year0 - 1 : monthLeap && month0 === 12 ? year0 + 1 : year0;
     const dayLeap: boolean = jdn === TibetanCalendar.calculateJdn(year, month, monthLeap, day, true);
 
     return new TibetanDate(jdn, year, month, monthLeap, day, dayLeap);
@@ -74,11 +74,11 @@ export class TibetanCalendar {
 
   // Determine Julian day number (JDN) from Tibetan calendar date
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
-    const months: number = Math.floor(804 / 65 * (year - 1) + 67 / 65 * month + (monthLeap ? -1 : 0) + 64 / 65);
+    const months: number = Math.floor((804 / 65) * (year - 1) + (67 / 65) * month + (monthLeap ? -1 : 0) + 64 / 65);
     const days: number = 30 * months + day;
-    const mean: number = days * 11135 / 11312 - 30 + (dayLeap ? 0 : -1) + 1071 / 1616;
-    const solAnomaly: number = mod(days * 13 / 4824 + 2117 / 4824, 1);
-    const lunAnomaly: number = mod(days * 3781 / 105840 + 2837 / 15120, 1);
+    const mean: number = (days * 11135) / 11312 - 30 + (dayLeap ? 0 : -1) + 1071 / 1616;
+    const solAnomaly: number = mod((days * 13) / 4824 + 2117 / 4824, 1);
+    const lunAnomaly: number = mod((days * 3781) / 105840 + 2837 / 15120, 1);
     const sun: number = TibetanCalendar.tibetanSunEquation(12 * solAnomaly);
     const moon: number = TibetanCalendar.tibetanMoonEquation(28 * lunAnomaly);
 
@@ -114,8 +114,10 @@ export class TibetanCalendar {
       return [0, 5, 10, 15, 19, 22, 24, 25][alphaInt] / 60;
     }
 
-    return mod(alpha, 1) * TibetanCalendar.tibetanMoonEquation(Math.ceil(alpha)) +
-      mod(-alpha, 1) * TibetanCalendar.tibetanMoonEquation(alphaInt);
+    return (
+      mod(alpha, 1) * TibetanCalendar.tibetanMoonEquation(Math.ceil(alpha)) +
+      mod(-alpha, 1) * TibetanCalendar.tibetanMoonEquation(alphaInt)
+    );
   }
 
   /**
@@ -138,8 +140,9 @@ export class TibetanCalendar {
       return [0, 6, 10, 11][alphaInt] / 60;
     }
 
-    return mod(alpha, 1) * TibetanCalendar.tibetanSunEquation(Math.ceil(alpha)) +
-      mod(-alpha, 1) * TibetanCalendar.tibetanSunEquation(alphaInt);
+    return (
+      mod(alpha, 1) * TibetanCalendar.tibetanSunEquation(Math.ceil(alpha)) +
+      mod(-alpha, 1) * TibetanCalendar.tibetanSunEquation(alphaInt)
+    );
   }
-
 }

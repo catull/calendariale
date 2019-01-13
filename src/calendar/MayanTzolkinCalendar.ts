@@ -10,5 +10,4 @@ export class MayanTzolkinCalendar {
 
     return new MayanTzolkinDate(jdn, amod(count + 4, 13), amod(count, 20));
   }
-
 }

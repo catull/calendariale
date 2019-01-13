@@ -1,4 +1,3 @@
-
 import { YearMonthDate } from './YearMonthDate';
 
 export class LeapDate extends YearMonthDate {
