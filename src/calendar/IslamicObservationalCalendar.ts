@@ -39,5 +39,4 @@ export class IslamicObservationalCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

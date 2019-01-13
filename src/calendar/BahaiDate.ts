@@ -2,22 +2,15 @@ import { BahaiCalendar } from './BahaiCalendar';
 import { LeapDate } from './core';
 
 export class BahaiDate extends LeapDate {
-
-  constructor(
-    jdn: number,
-    private kullIShay: number,
-    private vahid: number,
-    year: number,
-    month: number,
-    day: number) {
+  constructor(jdn: number, private kullIShay: number, private vahid: number, year: number, month: number, day: number) {
     super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
   }
 
-  public getKullIshay (): number {
+  public getKullIshay(): number {
     return this.kullIShay;
   }
 
-  public getVahid (): number {
+  public getVahid(): number {
     return this.vahid;
   }
 }

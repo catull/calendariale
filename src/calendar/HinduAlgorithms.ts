@@ -26,8 +26,7 @@ function siderealSolarLongitude(tee: number): number {
  * @return {int} solar year
  */
 function hinduAstroDateYear(tee: number): number {
-  return Math.round((tee - hindu.EPOCH_RD) / MEAN_SIDEREAL_YEAR -
-    siderealSolarLongitude(tee) / 360);
+  return Math.round((tee - hindu.EPOCH_RD) / MEAN_SIDEREAL_YEAR - siderealSolarLongitude(tee) / 360);
 }
 
 /**
@@ -61,8 +60,7 @@ function hinduSine(theta: number): number {
   const entry: number = theta / angle(0, 225, 0);
   const fraction = mod(entry, 1);
 
-  return fraction * hinduSineTable(Math.ceil(entry)) +
-    (1 - fraction) * hinduSineTable(Math.floor(entry));
+  return fraction * hinduSineTable(Math.ceil(entry)) + (1 - fraction) * hinduSineTable(Math.floor(entry));
 }
 
 /**
@@ -78,8 +76,7 @@ function hinduArcsin(amp: number): number {
   const pos: number = next(0, (index: number): boolean => amp <= hinduSineTable(index));
   const below: number = hinduSineTable(pos - 1);
 
-  return angle(0, 225, 0) *
-    (pos - 1 + (amp - below) / (hinduSineTable(pos) - below));
+  return angle(0, 225, 0) * (pos - 1 + (amp - below) / (hinduSineTable(pos) - below));
 }
 
 /**
@@ -116,8 +113,7 @@ function hinduTruePosition(tee: number, period: number, size: number, anomalisti
  * @return {float} solar longitude
  */
 function hinduSolarLongitude(tee: number): number {
-  return hinduTruePosition(tee, hindu.SIDEREAL_YEAR, 14 / 360,
-    hindu.ANOMALISTIC_YEAR, 1 / 42);
+  return hinduTruePosition(tee, hindu.SIDEREAL_YEAR, 14 / 360, hindu.ANOMALISTIC_YEAR, 1 / 42);
 }
 
 /**
@@ -129,7 +125,7 @@ function hinduSolarLongitude(tee: number): number {
  */
 function hinduTropicalLongitude(jdn: number): number {
   const days: number = Math.floor(jdn - hindu.EPOCH_RD);
-  const precession2: number = 27 - Math.abs(108 * mod3(600 / 1577917828 * days - 0.25, -0.5, 0.5));
+  const precession2: number = 27 - Math.abs(108 * mod3((600 / 1577917828) * days - 0.25, -0.5, 0.5));
 
   return mod(hinduSolarLongitude(jdn) - precession2, 360);
 }
@@ -141,7 +137,7 @@ function hinduTropicalLongitude(jdn: number): number {
  * @return {float} difference
  */
 function hinduAscensionalDifference(jdn: number, location: Location): number {
-  const sinDelta: number = 1397 / 3438 * hinduSine(hinduTropicalLongitude(jdn));
+  const sinDelta: number = (1397 / 3438) * hinduSine(hinduTropicalLongitude(jdn));
   const phi: number = location.getLatitude();
   const diurnal: number = hinduSine(90 + hinduArcsin(sinDelta));
   const tanPhi: number = hinduSine(phi) / hinduSine(90 + phi);
@@ -172,7 +168,7 @@ function hinduDailyMotion(jdn: number): number {
   const epicycle: number = 14 / 360 - Math.abs(hinduSine(anomaly)) / 1080;
   const entry: number = Math.floor(anomaly / angle(0, 225, 0));
   const step: number = hinduSineTable(entry + 1) - hinduSineTable(entry);
-  const factor: number = -3438 / 225 * step * epicycle;
+  const factor: number = (-3438 / 225) * step * epicycle;
 
   return motion * (factor + 1);
 }
@@ -186,7 +182,7 @@ function hinduEquationOfTime(jdn: number): number {
   const offset: number = hinduSine(hinduMeanPosition(jdn, hindu.ANOMALISTIC_YEAR));
   const equationSun: number = offset * angle(57, 18, 0) * (14 / 360 - Math.abs(offset) / 1080);
 
-  return hinduDailyMotion(jdn) / 360 * equationSun / 360 * hindu.SIDEREAL_YEAR;
+  return (((hinduDailyMotion(jdn) / 360) * equationSun) / 360) * hindu.SIDEREAL_YEAR;
 }
 
 /**
@@ -204,9 +200,13 @@ function hinduSolarSiderealDifference(jdn: number): number {
  * @return {float} time
  */
 function hinduSunrise(jdn: number): number {
-  return jdn + 0.25 - hinduEquationOfTime(jdn) + 1577917828 / 1582237828 / 360 *
-    (hinduAscensionalDifference(jdn, hindu.LOCATION_UJJAIN) +
-      hinduSolarSiderealDifference(jdn) / 4);
+  return (
+    jdn +
+    0.25 -
+    hinduEquationOfTime(jdn) +
+    (1577917828 / 1582237828 / 360) *
+      (hinduAscensionalDifference(jdn, hindu.LOCATION_UJJAIN) + hinduSolarSiderealDifference(jdn) / 4)
+  );
 }
 
 /**
@@ -224,8 +224,7 @@ function hinduZodiac(tee: number): number {
  * @return {float} longitude
  */
 function hinduLunarLongitude(tee: number): number {
-  return hinduTruePosition(tee, hindu.SIDEREAL_MONTH, 32 / 360,
-    hindu.ANOMALISTIC_MONTH, 1 / 96);
+  return hinduTruePosition(tee, hindu.SIDEREAL_MONTH, 32 / 360, hindu.ANOMALISTIC_MONTH, 1 / 96);
 }
 
 /**
@@ -252,8 +251,7 @@ function hinduLunarDayFromMoment(tee: number): number {
  * @return {int} solar year
  */
 function hinduDateYear(tee: number): number {
-  return Math.round((tee - hindu.EPOCH_RD) / hindu.SIDEREAL_YEAR -
-    hinduSolarLongitude(tee) / 360);
+  return Math.round((tee - hindu.EPOCH_RD) / hindu.SIDEREAL_YEAR - hinduSolarLongitude(tee) / 360);
 }
 
 /**
@@ -264,12 +262,14 @@ function hinduDateYear(tee: number): number {
  */
 function hinduNewMoonBefore(tee: number): number {
   const eps = 7.888609052210118e-31;
-  const tau: number = tee - hinduLunarPhase(tee) * hindu.SYNODIC_MONTH / 360;
+  const tau: number = tee - (hinduLunarPhase(tee) * hindu.SYNODIC_MONTH) / 360;
 
-  return binarySearch(tau - 1, Math.min(tee, tau + 1),
-    (lower: number, upper: number): boolean =>
-      hinduZodiac(lower) === hinduZodiac(upper) || upper - lower < eps,
-    (lo: number, hi: number): boolean => hinduLunarPhase((lo + hi) / 2) < 180);
+  return binarySearch(
+    tau - 1,
+    Math.min(tee, tau + 1),
+    (lower: number, upper: number): boolean => hinduZodiac(lower) === hinduZodiac(upper) || upper - lower < eps,
+    (lo: number, hi: number): boolean => hinduLunarPhase((lo + hi) / 2) < 180
+  );
 }
 
 export {
@@ -295,5 +295,5 @@ export {
   hinduTruePosition,
   hinduZodiac,
   siderealSolarLongitude,
-  siderealZodiac
+  siderealZodiac,
 };

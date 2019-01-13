@@ -20,8 +20,7 @@ export class HinduSolarOldCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    return Math.ceil(hindu.EPOCH + year * ARYA_SOLAR_YEAR +
-      (month - 1) * ARYA_SOLAR_MONTH + day - 0.75) - 0.5;
+    return Math.ceil(hindu.EPOCH + year * ARYA_SOLAR_YEAR + (month - 1) * ARYA_SOLAR_MONTH + day - 0.75) - 0.5;
   }
 
   private static validate(year: number, month: number, day: number): void {
@@ -29,10 +28,9 @@ export class HinduSolarOldCalendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const maxDays: number = (month < 7) ? 31 : 30;
+    const maxDays: number = month < 7 ? 31 : 30;
     if (day < 1 || day > maxDays) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

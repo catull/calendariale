@@ -10,9 +10,9 @@ const content = {
   main: 'index.js',
   types: 'index.d.ts',
   'umd:main': 'index.umd.js',
-  module: 'index.mjs'
+  module: 'index.mjs',
 };
 
 const captains = console;
 
-captains.log (JSON.stringify (content, undefined, '  '));
+captains.log(JSON.stringify(content, undefined, '  '));

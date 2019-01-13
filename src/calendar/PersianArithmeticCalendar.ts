@@ -41,8 +41,15 @@ export class PersianArithmeticCalendar {
     const y1: number = mod(y0, 2820) + 474;
     const offset: number = month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6;
 
-    return persian.EPOCH - 1 + 1029983 * Math.floor(y0 / 2820) +
-      365 * (y1 - 1) + Math.floor((31 * y1 - 5) / 128) + offset + day;
+    return (
+      persian.EPOCH -
+      1 +
+      1029983 * Math.floor(y0 / 2820) +
+      365 * (y1 - 1) +
+      Math.floor((31 * y1 - 5) / 128) +
+      offset +
+      day
+    );
   }
 
   // Determine the year in the Persian Arithmetic calendar in which a
@@ -58,7 +65,7 @@ export class PersianArithmeticCalendar {
   }
 
   private static validate(year: number, month: number, day: number): void {
-    const maxDays: number = month < 7 ? 31 : (!this.isLeapYear(year) && month === 12) ? 29 : 30;
+    const maxDays: number = month < 7 ? 31 : !this.isLeapYear(year) && month === 12 ? 29 : 30;
 
     if (day < 1 || day > maxDays) {
       throw new CalendarDateValidationException(INVALID_DAY);
@@ -68,5 +75,4 @@ export class PersianArithmeticCalendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
   }
-
 }

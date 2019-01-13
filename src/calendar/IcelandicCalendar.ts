@@ -41,7 +41,7 @@ export class IcelandicCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
 
-    const maxWeeks = 26 + (Season.SUMMER === season && this.isLeapYear (year) ? 1 : 0);
+    const maxWeeks = 26 + (Season.SUMMER === season && this.isLeapYear(year) ? 1 : 0);
     if (1 > week || maxWeeks < week) {
       throw new CalendarDateValidationException(INVALID_WEEK);
     }

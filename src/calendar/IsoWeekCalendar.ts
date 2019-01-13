@@ -9,7 +9,7 @@ export class IsoWeekCalendar {
   // Calculate Iso Week calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): IsoWeekDate {
     const approx: number = GregorianCalendar.jdnToYear(jdn - 3);
-    const year: number = jdn >= this.toJdn(approx + 1, 1, 1) ? (approx + 1) : approx;
+    const year: number = jdn >= this.toJdn(approx + 1, 1, 1) ? approx + 1 : approx;
     const week: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 7);
     const day: number = amod(jdn - J0000, 7);
 
@@ -32,5 +32,4 @@ export class IsoWeekCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

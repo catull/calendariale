@@ -8,27 +8,27 @@ import { CalendarDateValidationException } from './core';
 
 export class RomanCalendar {
   // Calculate Roman calendar date from Julian day number (JDN)
-  public static fromJdn (jdn: number): RomanDate {
-    const date: JulianDate = JulianCalendar.fromJdn (jdn);
-    let year: number  = date.getYear ();
-    let month: number = date.getMonth ();
-    let count: number = date.getDay ();
+  public static fromJdn(jdn: number): RomanDate {
+    const date: JulianDate = JulianCalendar.fromJdn(jdn);
+    let year: number = date.getYear();
+    let month: number = date.getMonth();
+    let count: number = date.getDay();
     let event: RomanEvent = RomanEvent.KALENDS;
     let leap = false;
 
     if (count === 1) {
       event = RomanEvent.KALENDS;
-    } else if (count <= this.nonesOfMonth (month)) {
+    } else if (count <= this.nonesOfMonth(month)) {
       event = RomanEvent.NONES;
-      count = this.nonesOfMonth (month) - count + 1;
-    } else if (count <= this.idesOfMonth (month)) {
+      count = this.nonesOfMonth(month) - count + 1;
+    } else if (count <= this.idesOfMonth(month)) {
       event = RomanEvent.IDES;
-      count = this.idesOfMonth (month) - count + 1;
-    } else if (month !== Month.FEBRUARY || !JulianCalendar.isLeapYear (year)) {
-      const m = amod (month + 1, 12);
-      const y  = m !== 1 ? year : year !== -1 ? year + 1 : 1;
-      const kalends1 = this.toJdn (y, m, RomanEvent.KALENDS, 1, false);
-      year  = y;
+      count = this.idesOfMonth(month) - count + 1;
+    } else if (month !== Month.FEBRUARY || !JulianCalendar.isLeapYear(year)) {
+      const m = amod(month + 1, 12);
+      const y = m !== 1 ? year : year !== -1 ? year + 1 : 1;
+      const kalends1 = this.toJdn(y, m, RomanEvent.KALENDS, 1, false);
+      year = y;
       month = m;
       event = RomanEvent.KALENDS;
       count = kalends1 - jdn + 1;
@@ -40,31 +40,35 @@ export class RomanCalendar {
       month = Month.MARCH;
       event = RomanEvent.KALENDS;
       count = 31 - count;
-      leap  = (count === 6);
+      leap = count === 6;
     }
 
-    return new RomanDate (jdn, year, month, event, count, leap);
+    return new RomanDate(jdn, year, month, event, count, leap);
   }
 
   // Determine Julian day number (JDN) from Roman calendar date
-  public static toJdn (year: number, month: number, event: RomanEvent, count: number, leap: boolean): number {
-    this.validate (year, month, event, count, leap);
+  public static toJdn(year: number, month: number, event: RomanEvent, count: number, leap: boolean): number {
+    this.validate(year, month, event, count, leap);
 
     const day: number =
-      event === RomanEvent.KALENDS ? 1 :
-        event === RomanEvent.NONES ? this.nonesOfMonth (month) :
-          this.idesOfMonth (month);
-    let jdn: number = JulianCalendar.toJdn (year, month, day) - count;
+      event === RomanEvent.KALENDS
+        ? 1
+        : event === RomanEvent.NONES
+        ? this.nonesOfMonth(month)
+        : this.idesOfMonth(month);
+    let jdn: number = JulianCalendar.toJdn(year, month, day) - count;
 
     if (leap) {
       jdn += 1;
     }
 
-    if (!JulianCalendar.isLeapYear (year) ||
-       month !== Month.MARCH ||
-       event !== RomanEvent.KALENDS ||
-       count < 6 ||
-       count > 16) {
+    if (
+      !JulianCalendar.isLeapYear(year) ||
+      month !== Month.MARCH ||
+      event !== RomanEvent.KALENDS ||
+      count < 6 ||
+      count > 16
+    ) {
       jdn += 1;
     }
 
@@ -76,11 +80,8 @@ export class RomanCalendar {
    * @param {number} month the month
    * @result {number} either the 15th or 13th
    */
-  private static idesOfMonth (month: number): number {
-    if (month === Month.MARCH ||
-      month === Month.MAY ||
-      month === Month.JULY ||
-      month === Month.OCTOBER) {
+  private static idesOfMonth(month: number): number {
+    if (month === Month.MARCH || month === Month.MAY || month === Month.JULY || month === Month.OCTOBER) {
       return 15;
     }
 
@@ -92,22 +93,22 @@ export class RomanCalendar {
    * @param {number} month the month
    * @result {number} either the 7th or 5th
    */
-  private static nonesOfMonth (month: number): number {
-    return this.idesOfMonth (month) - 8;
+  private static nonesOfMonth(month: number): number {
+    return this.idesOfMonth(month) - 8;
   }
 
-  private static validate (year: number, month: number, event: RomanEvent, count: number, leap: boolean): void {
+  private static validate(year: number, month: number, event: RomanEvent, count: number, leap: boolean): void {
     if (month < 1 || month > 12) {
-      throw new CalendarDateValidationException (INVALID_MONTH);
+      throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const previousMonth: number = mod (month - 1, 12);
-    const maxKalends: number    = ROMAN_MONTH_MAX_DAYS[mod (month - 2, 12)] - this.idesOfMonth (previousMonth) + 1;
-    const maxCount: number      = (event === RomanEvent.IDES) ? 8 :
-      (event === RomanEvent.NONES) ? (this.nonesOfMonth (month) - 1) : maxKalends;
+    const previousMonth: number = mod(month - 1, 12);
+    const maxKalends: number = ROMAN_MONTH_MAX_DAYS[mod(month - 2, 12)] - this.idesOfMonth(previousMonth) + 1;
+    const maxCount: number =
+      event === RomanEvent.IDES ? 8 : event === RomanEvent.NONES ? this.nonesOfMonth(month) - 1 : maxKalends;
 
     if (count < 1 || count > maxCount) {
-      throw new CalendarDateValidationException (INVALID_COUNT);
+      throw new CalendarDateValidationException(INVALID_COUNT);
     }
 
     // In a leap year, the 6th day before the Kalends of March appears twice, once leap and once non-leap.
@@ -123,9 +124,11 @@ export class RomanCalendar {
     // 0003-02-23  [Julian Calendar]  ===  0003 a.d.     VII Kal. Mart. [Roman Calendar]
     // In other words, the 6th day before the Kalends of March is the only date that may be used twice IN A LEAP YEAR.
     // Thus, leap days were inserted between the 6th and 7th day originally (Feb. 25th).
-    if (leap && ((event !== RomanEvent.KALENDS) || (month !== Month.MARCH) || (count !== 6) || !JulianCalendar.isLeapYear(year))) {
-      throw new CalendarDateValidationException (INVALID_LEAP_DAY);
+    if (
+      leap &&
+      (event !== RomanEvent.KALENDS || month !== Month.MARCH || count !== 6 || !JulianCalendar.isLeapYear(year))
+    ) {
+      throw new CalendarDateValidationException(INVALID_LEAP_DAY);
     }
   }
-
 }

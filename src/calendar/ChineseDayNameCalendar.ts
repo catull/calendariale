@@ -10,5 +10,4 @@ export class ChineseDayNameCalendar {
 
     return new ChineseDayNameDate(jdn, amod(count, 10), amod(count, 12));
   }
-
 }

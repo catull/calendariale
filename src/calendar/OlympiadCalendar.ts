@@ -20,17 +20,16 @@ export class OlympiadCalendar {
 
   // Calculate Olympiad calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): OlympiadDate {
-    const olympiadYears = Math.floor ((jdn - olympiad.EPOCH) / 365.25) + 1;
+    const olympiadYears = Math.floor((jdn - olympiad.EPOCH) / 365.25) + 1;
     const cycle = 1 + Math.floor((olympiadYears - 1) / 4);
     const year = amod(olympiadYears, 4);
 
     return new OlympiadDate(jdn, cycle, year);
   }
 
-  private  static validate(cycle: number, year: number): void {
+  private static validate(cycle: number, year: number): void {
     if (year < 1 || year > 4) {
       throw new CalendarDateValidationException(INVALID_YEAR);
     }
   }
-
 }

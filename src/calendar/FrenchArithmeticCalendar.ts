@@ -27,23 +27,24 @@ export class FrenchArithmeticCalendar {
     const y1: number = year - 1;
     const m = 0 === month ? 12 : month - 1;
 
-    return french.EPOCH - 1 +
+    return (
+      french.EPOCH -
+      1 +
       365 * y1 +
       Math.floor(y1 / 4) -
       Math.floor(y1 / 100) +
       Math.floor(y1 / 400) -
       Math.floor(y1 / 4000) +
       30 * m +
-      day;
+      day
+    );
   }
 
   // Is the given year a leap year in the French Arithmetic calendar ?
   public static isLeapYear(year: number): boolean {
-    const m400: number = (mod(year, 400));
+    const m400: number = mod(year, 400);
 
-    return (mod(year, 4) === 0) &&
-      (m400 !== 100 && m400 !== 200 && m400 !== 300) &&
-      (mod(year, 4000) !== 0);
+    return mod(year, 4) === 0 && (m400 !== 100 && m400 !== 200 && m400 !== 300) && mod(year, 4000) !== 0;
   }
 
   private static validate(year: number, month: number, day: number): void {
@@ -61,5 +62,4 @@ export class FrenchArithmeticCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

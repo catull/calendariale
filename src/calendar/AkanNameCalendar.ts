@@ -11,5 +11,4 @@ export class AkanNameCalendar {
 
     return new AkanNameDate(jdn, amod(count, 6), amod(count, 7));
   }
-
 }

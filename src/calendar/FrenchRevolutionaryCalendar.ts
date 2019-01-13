@@ -20,7 +20,7 @@ export class FrenchRevolutionaryCalendar {
     }
     let jour: number = (jd0 - equinoxe) % 30;
     const decade: number = Math.floor(jour / 10) + 1;
-    jour = jour % 10 + 1;
+    jour = (jour % 10) + 1;
 
     return new FrenchRevolutionaryDate(jdn, an, mois, decade, jour);
   }
@@ -125,5 +125,4 @@ export class FrenchRevolutionaryCalendar {
 
     return equParis;
   }
-
 }

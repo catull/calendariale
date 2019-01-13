@@ -56,5 +56,4 @@ export class IslamicUmmAlQuraCalendar {
 
     return MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER && moonLag(rataDie - 1, islamic.LOCATION_MECCA) > 0;
   }
-
 }

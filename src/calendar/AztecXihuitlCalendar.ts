@@ -22,5 +22,4 @@ export class AztecXihuitlCalendar {
   public static onOrBefore(month: number, day: number, jdn: number): number {
     return jdn - mod(jdn - aztec.XIHUITL_CORRELATION - this.toOrdinal(month, day), 365);
   }
-
 }

@@ -152,7 +152,7 @@ const bahai = {
     'Sultán',
     'Mulk',
     'Ayyám-i-Há',
-    "`Alá'",
+    '`Alá\'',
   ],
   DAYS: [
     'Bahá',
@@ -173,7 +173,7 @@ const bahai = {
     'Sharaf',
     'Sultán',
     'Mulk',
-    "`Alá'",
+    '`Alá\'',
   ],
   LOCATION_TEHRAN: new Location(35.696111, 51.423056, 1100, 7 / 48),
 };
@@ -243,7 +243,7 @@ const french = {
     'de la Vertu (1)',
     'du Génie (2)',
     'du Travail (3)',
-    "de l'Opinion (4)",
+    'de l\'Opinion (4)',
     'des Récompenses (5)',
     'de la Révolution (6)',
   ],
@@ -358,7 +358,7 @@ const icelandic = {
 const islamic = {
   EPOCH: 1948439.5, // 622/07/16 Julian C.E.
   EPOCH_RD: 227015,
-  WEEKDAYS: ["al-'ahad", "al-'ithnayn", "ath-thalatha'", "al-'arb`a'", 'al-khamis', 'al-jum`a', 'as-sabt'],
+  WEEKDAYS: ['al-\'ahad', 'al-\'ithnayn', 'ath-thalatha\'', 'al-\'arb`a\'', 'al-khamis', 'al-jum`a', 'as-sabt'],
   MONTHS: [
     'Muharram',
     'Safar',
