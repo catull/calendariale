@@ -13,7 +13,7 @@ export class HebrewObservationalCalendar {
     const crescent: number = phasisOnOrBefore(jdn, hebrew.LOCATION_JAFFA);
     const gYear: number = GregorianCalendar.jdnToYear(jdn);
     const newYear: number = this.toNewYear(gYear);
-    const newYear2: number = (jdn < newYear) ? this.toNewYear(gYear - 1) : newYear;
+    const newYear2: number = jdn < newYear ? this.toNewYear(gYear - 1) : newYear;
     const month: number = Math.round((crescent - newYear2) / 29.5) + 1;
     const year: number = HebrewCalendar.fromJdn(newYear2).getYear() + (month >= HebrewMonth.TISHRI ? 1 : 0);
     const day: number = jdn - crescent + 1;
@@ -38,7 +38,7 @@ export class HebrewObservationalCalendar {
 
   // Determine Julian day number (JDN) from Hebrew calendar date
   private static calculateJdn(year: number, month: number, day: number): number {
-    const year1: number = (month >= HebrewMonth.TISHRI) ? (year - 1) : year;
+    const year1: number = month >= HebrewMonth.TISHRI ? year - 1 : year;
     const start: number = HebrewCalendar.toJdn(year1, HebrewMonth.NISAN, 1);
     const gYear: number = GregorianCalendar.jdnToYear(start + 60);
     const newYear: number = this.toNewYear(gYear) + 0.5;
@@ -53,7 +53,6 @@ export class HebrewObservationalCalendar {
     const equinox: number = solarLongitudeAfter(Season.SPRING, jan1);
     const sset: number = standardToUniversal(sunset(Math.floor(equinox), hebrew.LOCATION_JAFFA), hebrew.LOCATION_JAFFA);
 
-    return phasisOnOrAfter(Math.floor(equinox) - ((equinox < sset) ? 14 : 13), hebrew.LOCATION_JAFFA);
+    return phasisOnOrAfter(Math.floor(equinox) - (equinox < sset ? 14 : 13), hebrew.LOCATION_JAFFA);
   }
-
 }

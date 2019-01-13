@@ -35,5 +35,4 @@ export class ArmenianCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

@@ -11,5 +11,4 @@ export class MayanHaabCalendar {
 
     return new MayanHaabDate(jdn, Math.floor(day / 20) + 1, mod(day, 20));
   }
-
 }

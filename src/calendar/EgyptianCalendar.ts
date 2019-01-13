@@ -35,5 +35,4 @@ export class EgyptianCalendar {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

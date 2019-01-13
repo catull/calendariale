@@ -19,8 +19,9 @@ export class IslamicCalendar {
   public static toJdn(year: number, month: number, day: number): number {
     this.validate(year, month, day);
 
-    return day + Math.ceil(29.5 * (month - 1)) + (year - 1) * 354 +
-      Math.floor((3 + 11 * year) / 30) + islamic.EPOCH - 1;
+    return (
+      day + Math.ceil(29.5 * (month - 1)) + (year - 1) * 354 + Math.floor((3 + 11 * year) / 30) + islamic.EPOCH - 1
+    );
   }
 
   // Is a given year in the Islamic calendar a leap year?
@@ -33,10 +34,9 @@ export class IslamicCalendar {
       throw new CalendarDateValidationException(INVALID_MONTH);
     }
 
-    const maxDay: number = ((mod(month, 2) === 1) || (this.isLeapYear(year) && month === 12)) ? 30 : 29;
+    const maxDay: number = mod(month, 2) === 1 || (this.isLeapYear(year) && month === 12) ? 30 : 29;
     if (day < 1 || day > maxDay) {
       throw new CalendarDateValidationException(INVALID_DAY);
     }
   }
-
 }

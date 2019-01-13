@@ -1,4 +1,4 @@
-import { mod, } from '../Astro';
+import { mod } from '../Astro';
 import {
   ARYA_LUNAR_DAY,
   ARYA_LUNAR_MONTH,
@@ -19,8 +19,8 @@ export class HinduLunarOldCalendar {
   public static fromJdn(jdn: number): HinduLunarOldDate {
     const sun: number = hinduDayCount(jdn) + 0.25;
     const newMoon: number = sun - mod(sun, ARYA_LUNAR_MONTH);
-    const monthLeap: boolean = ARYA_SOLAR_MONTH - ARYA_LUNAR_MONTH >= mod(newMoon, ARYA_SOLAR_MONTH) &&
-      mod(newMoon, ARYA_SOLAR_MONTH) > 0;
+    const monthLeap: boolean =
+      ARYA_SOLAR_MONTH - ARYA_LUNAR_MONTH >= mod(newMoon, ARYA_SOLAR_MONTH) && mod(newMoon, ARYA_SOLAR_MONTH) > 0;
     const month: number = mod(Math.ceil(newMoon / ARYA_SOLAR_MONTH), 12) + 1;
     const day: number = mod(Math.floor(sun / ARYA_LUNAR_DAY), 30) + 1;
     const year: number = Math.ceil((newMoon + ARYA_SOLAR_MONTH) / ARYA_SOLAR_YEAR) - 1;
@@ -66,10 +66,8 @@ export class HinduLunarOldCalendar {
     const lunarNewYear: number = ARYA_LUNAR_MONTH * Math.ceil(mina / ARYA_LUNAR_MONTH);
 
     let temp: number = Math.ceil((lunarNewYear - mina) / (ARYA_SOLAR_MONTH - ARYA_LUNAR_MONTH));
-    temp = (monthLeap || temp > month) ? month - 1 : month;
+    temp = monthLeap || temp > month ? month - 1 : month;
 
-    return Math.ceil(hindu.EPOCH + lunarNewYear + ARYA_LUNAR_MONTH * temp +
-      (day - 1) * ARYA_LUNAR_DAY - 0.75) + 0.5;
+    return Math.ceil(hindu.EPOCH + lunarNewYear + ARYA_LUNAR_MONTH * temp + (day - 1) * ARYA_LUNAR_DAY - 0.75) + 0.5;
   }
-
 }

@@ -1,7 +1,6 @@
 import { BaseDate } from './core';
 
 export class BalinesePawukonDate extends BaseDate {
-
   constructor(
     jdn: number,
     private luang: boolean,
@@ -13,47 +12,48 @@ export class BalinesePawukonDate extends BaseDate {
     private saptawara: number,
     private asatawara: number,
     private sangawara: number,
-    private dasawara: number) {
+    private dasawara: number
+  ) {
     super(jdn);
   }
 
-  public isLuag (): boolean {
+  public isLuag(): boolean {
     return this.luang;
   }
 
-  public getDwiwara (): number {
+  public getDwiwara(): number {
     return this.dwiwara;
   }
 
-  public getTriwara (): number {
+  public getTriwara(): number {
     return this.triwara;
   }
 
-  public getCaturwara (): number {
+  public getCaturwara(): number {
     return this.caturwara;
   }
 
-  public getPancawara (): number {
+  public getPancawara(): number {
     return this.pancawara;
   }
 
-  public getSadwara (): number {
+  public getSadwara(): number {
     return this.sadwara;
   }
 
-  public getSaptawara (): number {
+  public getSaptawara(): number {
     return this.saptawara;
   }
 
-  public getAsatawara (): number {
+  public getAsatawara(): number {
     return this.asatawara;
   }
 
-  public getSangawara (): number {
+  public getSangawara(): number {
     return this.sangawara;
   }
 
-  public getDasawara (): number {
+  public getDasawara(): number {
     return this.dasawara;
   }
 }

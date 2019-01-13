@@ -27,7 +27,7 @@ export class MayanCountCalendar {
     return new MayanCountDate(jdn, baktun, katun, tun, uinal, kin);
   }
 
-  private  static validate(baktun: number, katun: number, tun: number, uinal: number, kin: number): void {
+  private static validate(baktun: number, katun: number, tun: number, uinal: number, kin: number): void {
     if (baktun < 0) {
       throw new CalendarDateValidationException(INVALID_BAKTUN);
     }
@@ -48,5 +48,4 @@ export class MayanCountCalendar {
       throw new CalendarDateValidationException(INVALID_KATUN);
     }
   }
-
 }

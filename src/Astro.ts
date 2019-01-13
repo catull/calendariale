@@ -1,12 +1,13 @@
 import {
   J0000,
-  J2000, JULIAN_CENTURY,
+  J2000,
+  JULIAN_CENTURY,
   MEAN_SYNODIC_MONTH,
   MEAN_TROPICAL_YEAR,
   Month,
   MoonPhase,
   WeekDay,
-  gregorian
+  gregorian,
 } from './Const';
 import { Location } from './Location';
 import { GregorianCalendar } from './calendar/GregorianCalendar';
@@ -45,7 +46,7 @@ function mod3(x: number, a: number, b: number): number {
     return x;
   }
 
-  return a + mod ((x - a), (b - a));
+  return a + mod(x - a, b - a);
 }
 
 /**
@@ -151,7 +152,7 @@ function nthKday(n: number, k: WeekDay, jdn: number): number {
  * @return {float} radians value
  */
 function degreesToRadians(degree: number): number {
-  return degree * Math.PI / 180.0;
+  return (degree * Math.PI) / 180.0;
 }
 
 /**
@@ -160,7 +161,7 @@ function degreesToRadians(degree: number): number {
  * @return {float} degrees value
  */
 function radiansToDegrees(radians: number): number {
-  return radians * 180.0 / Math.PI;
+  return (radians * 180.0) / Math.PI;
 }
 
 /**
@@ -266,7 +267,6 @@ function arcCosDeg(alpha: number): number {
   return radiansToDegrees(Math.acos(alpha));
 }
 
-
 /**
  * Return first integer greater or equal to initial index iter,
  * such that condition predicate holds.
@@ -315,9 +315,9 @@ function poly(term: number, array: number[]): number {
  * @return {float} zipped array
  */
 function zip(matrix: Matrix): Matrix {
-  return matrix.length === 0 ? [] : matrix[0].map((ignore: number, index: number): number[] =>
-    matrix.map((array: number[]): number => array[index])
-  );
+  return matrix.length === 0
+    ? []
+    : matrix[0].map((ignore: number, index: number): number[] => matrix.map((array: number[]): number => array[index]));
 }
 
 /**
@@ -329,8 +329,8 @@ function zip(matrix: Matrix): Matrix {
  * @return {float} sum of products
  */
 function sigma(matrix: Matrix, func: (...n: number[]) => number): number {
-  return zip(matrix).map((v: number[]): number =>
-    func.apply(undefined, v))
+  return zip(matrix)
+    .map((v: number[]): number => func.apply(undefined, v))
     .reduce((memo: number, n: number): number => memo + n, 0);
 }
 
@@ -347,7 +347,8 @@ function binarySearch(
   low: number,
   high: number,
   predicate: (l: number, h: number) => boolean,
-  discriminator: (lo: number, hi: number) => boolean): number {
+  discriminator: (lo: number, hi: number) => boolean
+): number {
   const x: number = (low + high) / 2;
 
   if (predicate(low, high)) {
@@ -366,9 +367,12 @@ function binarySearch(
  * Default precision is 0.00001.
  */
 function invertAngular(f: (n: number) => number, y: number, low: number, high: number): number {
-  return binarySearch(low, high,
+  return binarySearch(
+    low,
+    high,
     (l: number, h: number): boolean => h - l <= 1e-5,
-    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180);
+    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180
+  );
 }
 
 /**
@@ -416,8 +420,8 @@ function longitudeToZone(phi: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-function universalToLocal (teeRomU: number, location: Location): number {
-  return teeRomU + longitudeToZone (location.getLongitude());
+function universalToLocal(teeRomU: number, location: Location): number {
+  return teeRomU + longitudeToZone(location.getLongitude());
 }
 
 /**
@@ -463,34 +467,41 @@ function ephemerisCorrection(tee: number): number {
     return (year - 1933) / 86400;
   }
 
-  const centuries: number = (GregorianCalendar.toJdn(year, Month.JULY, 1) -
-    GregorianCalendar.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY;
+  const centuries: number =
+    (GregorianCalendar.toJdn(year, Month.JULY, 1) - GregorianCalendar.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY;
 
   if (year >= 1900 && year <= 1987) {
-    return poly(centuries, [
-      -0.00002, 0.000297, 0.025184, -0.181133,
-      0.553040, -0.861938, 0.677066, -0.212591]);
+    return poly(centuries, [-0.00002, 0.000297, 0.025184, -0.181133, 0.55304, -0.861938, 0.677066, -0.212591]);
   }
 
   if (year >= 1800 && year <= 1899) {
     return poly(centuries, [
-      -0.000009, 0.003844, 0.083563, 0.865736, 4.867575,
-      15.845535, 31.332267, 38.291999, 28.316289, 11.636204, 2.043794]);
+      -0.000009,
+      0.003844,
+      0.083563,
+      0.865736,
+      4.867575,
+      15.845535,
+      31.332267,
+      38.291999,
+      28.316289,
+      11.636204,
+      2.043794,
+    ]);
   }
 
   if (year >= 1700 && year <= 1799) {
-    return poly(year - 1700, [
-      8.118780842, -0.005092142, 0.003336121, -0.0000266484]) / 86400;
+    return poly(year - 1700, [8.118780842, -0.005092142, 0.003336121, -0.0000266484]) / 86400;
   }
 
   if (year >= 1620 && year <= 1699) {
     return poly(year - 1600, [196.58333, -4.0675, 0.0219167]) / 86400;
   }
 
-  const result: number = 0.5 + GregorianCalendar.toJdn(year, Month.JANUARY, 1) -
-    GregorianCalendar.toJdn(1810, Month.JANUARY, 1);
+  const result: number =
+    0.5 + GregorianCalendar.toJdn(year, Month.JANUARY, 1) - GregorianCalendar.toJdn(1810, Month.JANUARY, 1);
 
-  return (result * result / 41048480 - 15) / 86400;
+  return ((result * result) / 41048480 - 15) / 86400;
 }
 
 /**
@@ -534,12 +545,9 @@ function julianCenturies(tee: number): number {
 function obliquity(jdn: number): number {
   const centuries: number = julianCenturies(jdn);
 
-  return angle(23, 26, 21.448) +
-    poly(centuries, [
-      0,
-      angle(0, 0, -46.8150),
-      angle(0, 0, -0.00059),
-      angle(0, 0, 0.001813)]);
+  return (
+    angle(23, 26, 21.448) + poly(centuries, [0, angle(0, 0, -46.815), angle(0, 0, -0.00059), angle(0, 0, 0.001813)])
+  );
 }
 
 /**
@@ -552,15 +560,17 @@ function obliquity(jdn: number): number {
 function equationOfTime(tee: number): number {
   const centuries: number = julianCenturies(tee);
   const lambda: number = poly(centuries, [280.46645, 36000.76983, 0.0003032]);
-  const anomaly: number = poly(centuries, [357.52910, 35999.05030, -0.0001559, -0.00000048]);
+  const anomaly: number = poly(centuries, [357.5291, 35999.0503, -0.0001559, -0.00000048]);
   const eccentricity: number = poly(centuries, [0.016708617, -0.000042037, -0.0000001236]);
   const epsilon: number = obliquity(tee);
   const y0: number = Math.pow(tanDeg(epsilon / 2), 2);
-  const equation: number = 0.5 / Math.PI * (y0 * sinDeg(2 * lambda) +
-    -2 * eccentricity * sinDeg(anomaly) +
-    4 * eccentricity * y0 * sinDeg(anomaly) * cosDeg(2 * lambda) +
-    -0.5 * y0 * y0 * sinDeg(4 * lambda) +
-    -1.25 * eccentricity * eccentricity * sinDeg(2 * anomaly));
+  const equation: number =
+    (0.5 / Math.PI) *
+    (y0 * sinDeg(2 * lambda) +
+      -2 * eccentricity * sinDeg(anomaly) +
+      4 * eccentricity * y0 * sinDeg(anomaly) * cosDeg(2 * lambda) +
+      -0.5 * y0 * y0 * sinDeg(4 * lambda) +
+      -1.25 * eccentricity * eccentricity * sinDeg(2 * anomaly));
 
   return Math.sign(equation) * Math.min(Math.abs(equation), 0.5);
 }
@@ -571,8 +581,8 @@ function equationOfTime(tee: number): number {
  * @param {Location} location geographic location
  * @return {float} converted time
  */
-function localToApparent (tee: number, location: Location): number {
-  return tee + equationOfTime (localToUniversal (tee, location));
+function localToApparent(tee: number, location: Location): number {
+  return tee + equationOfTime(localToUniversal(tee, location));
 }
 
 /**
@@ -658,7 +668,7 @@ function jwday(rataDie: number): WeekDay {
  */
 function nutation(tee: number): number {
   const centuries: number = julianCenturies(tee);
-  const capA: number = poly(centuries, [124.90, -1934.134, 0.002063]);
+  const capA: number = poly(centuries, [124.9, -1934.134, 0.002063]);
   const capB: number = poly(centuries, [201.11, 72001.5377, 0.00057]);
 
   return -0.004778 * sinDeg(capA) + -0.0003667 * sinDeg(capB);
@@ -667,22 +677,198 @@ function nutation(tee: number): number {
 // *Table of observed Delta T values at the beginning of
 // even numbered years from 1620 through 2002.*
 const DELTA_T_TAB: number[] = [
-  121, 112, 103, 95, 88, 82, 77, 72, 68, 63, 60, 56,
-  53, 51, 48, 46, 44, 42, 40, 38, 35, 33, 31, 29,
-  26, 24, 22, 20, 18, 16, 14, 12, 11, 10, 9, 8,
-  7, 7, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9,
-  9, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11,
-  11, 11, 12, 12, 12, 12, 13, 13, 13, 14, 14, 14,
-  14, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16,
-  16, 16, 15, 15, 14, 13, 13.1, 12.5, 12.2, 12, 12, 12,
-  12, 12, 12, 11.9, 11.6, 11, 10.2, 9.2, 8.2, 7.1, 6.2, 5.6,
-  5.4, 5.3, 5.4, 5.6, 5.9, 6.2, 6.5, 6.8, 7.1, 7.3, 7.5, 7.6,
-  7.7, 7.3, 6.2, 5.2, 2.7, 1.4, -1.2, -2.8, -3.8, -4.8, -5.5, -5.3,
-  -5.6, -5.7, -5.9, -6, -6.3, -6.5, -6.2, -4.7, -2.8, -0.1, 2.6, 5.3,
-  7.7, 10.4, 13.3, 16, 18.2, 20.2, 21.1, 22.4, 23.5, 23.8, 24.3, 24,
-  23.9, 23.9, 23.7, 24, 24.3, 25.3, 26.2, 27.3, 28.2, 29.1, 30, 30.7,
-  31.4, 32.2, 33.1, 34, 35, 36.5, 38.3, 40.2, 42.2, 44.5, 46.5, 48.5,
-  50.5, 52.2, 53.8, 54.9, 55.8, 56.9, 58.3, 60, 61.6, 63, 65, 66.6
+  121,
+  112,
+  103,
+  95,
+  88,
+  82,
+  77,
+  72,
+  68,
+  63,
+  60,
+  56,
+  53,
+  51,
+  48,
+  46,
+  44,
+  42,
+  40,
+  38,
+  35,
+  33,
+  31,
+  29,
+  26,
+  24,
+  22,
+  20,
+  18,
+  16,
+  14,
+  12,
+  11,
+  10,
+  9,
+  8,
+  7,
+  7,
+  7,
+  7,
+  7,
+  7,
+  8,
+  8,
+  9,
+  9,
+  9,
+  9,
+  9,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  10,
+  11,
+  11,
+  11,
+  11,
+  11,
+  12,
+  12,
+  12,
+  12,
+  13,
+  13,
+  13,
+  14,
+  14,
+  14,
+  14,
+  15,
+  15,
+  15,
+  15,
+  15,
+  16,
+  16,
+  16,
+  16,
+  16,
+  16,
+  16,
+  16,
+  15,
+  15,
+  14,
+  13,
+  13.1,
+  12.5,
+  12.2,
+  12,
+  12,
+  12,
+  12,
+  12,
+  12,
+  11.9,
+  11.6,
+  11,
+  10.2,
+  9.2,
+  8.2,
+  7.1,
+  6.2,
+  5.6,
+  5.4,
+  5.3,
+  5.4,
+  5.6,
+  5.9,
+  6.2,
+  6.5,
+  6.8,
+  7.1,
+  7.3,
+  7.5,
+  7.6,
+  7.7,
+  7.3,
+  6.2,
+  5.2,
+  2.7,
+  1.4,
+  -1.2,
+  -2.8,
+  -3.8,
+  -4.8,
+  -5.5,
+  -5.3,
+  -5.6,
+  -5.7,
+  -5.9,
+  -6,
+  -6.3,
+  -6.5,
+  -6.2,
+  -4.7,
+  -2.8,
+  -0.1,
+  2.6,
+  5.3,
+  7.7,
+  10.4,
+  13.3,
+  16,
+  18.2,
+  20.2,
+  21.1,
+  22.4,
+  23.5,
+  23.8,
+  24.3,
+  24,
+  23.9,
+  23.9,
+  23.7,
+  24,
+  24.3,
+  25.3,
+  26.2,
+  27.3,
+  28.2,
+  29.1,
+  30,
+  30.7,
+  31.4,
+  32.2,
+  33.1,
+  34,
+  35,
+  36.5,
+  38.3,
+  40.2,
+  42.2,
+  44.5,
+  46.5,
+  48.5,
+  50.5,
+  52.2,
+  53.8,
+  54.9,
+  55.8,
+  56.9,
+  58.3,
+  60,
+  61.6,
+  63,
+  65,
+  66.6,
 ];
 
 /**
@@ -696,9 +882,7 @@ function deltaT(year: number): number {
     // Fractional part of year
     const fraction: number = (year - 1620) / 2 - index;
 
-    return DELTA_T_TAB[index] +
-      (DELTA_T_TAB[index + 1] -
-        DELTA_T_TAB[index]) * fraction;
+    return DELTA_T_TAB[index] + (DELTA_T_TAB[index + 1] - DELTA_T_TAB[index]) * fraction;
   }
 
   const t: number = (year - 2000) / 100;
@@ -717,45 +901,93 @@ function deltaT(year: number): number {
 }
 
 const JDE0_TAB_1000: Matrix = [
-  [1721139.29189, 365242.13740, 0.06134, 0.00111, -0.00071],
+  [1721139.29189, 365242.1374, 0.06134, 0.00111, -0.00071],
   [1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025],
   [1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074],
-  [1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006]
+  [1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006],
 ];
 
 const JDE0_TAB_2000: Matrix = [
   [2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057],
-  [2451716.56767, 365241.62603, 0.00325, 0.00888, -0.00030],
+  [2451716.56767, 365241.62603, 0.00325, 0.00888, -0.0003],
   [2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078],
-  [2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032]
+  [2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032],
 ];
 
 // *Periodic terms to obtain true time*
 const EQUINOX_P_TERMS: number[] = [
-  485, 324.96, 1934.136,
-  203, 337.23, 32964.467,
-  199, 342.08, 20.186,
-  182, 27.85, 445267.112,
-  156, 73.14, 45036.886,
-  136, 171.52, 22518.443,
-  77, 222.54, 65928.934,
-  74, 296.72, 3034.906,
-  70, 243.58, 9037.513,
-  58, 119.81, 33718.147,
-  52, 297.17, 150.678,
-  50, 21.02, 2281.226,
-  45, 247.54, 29929.562,
-  44, 325.15, 31555.956,
-  29, 60.93, 4443.417,
-  18, 155.12, 67555.328,
-  17, 288.79, 4562.452,
-  16, 198.04, 62894.029,
-  14, 199.76, 31436.921,
-  12, 95.39, 14577.848,
-  12, 287.11, 31931.756,
-  12, 320.81, 34777.259,
-  9, 227.73, 1222.114,
-  8, 15.45, 16859.074
+  485,
+  324.96,
+  1934.136,
+  203,
+  337.23,
+  32964.467,
+  199,
+  342.08,
+  20.186,
+  182,
+  27.85,
+  445267.112,
+  156,
+  73.14,
+  45036.886,
+  136,
+  171.52,
+  22518.443,
+  77,
+  222.54,
+  65928.934,
+  74,
+  296.72,
+  3034.906,
+  70,
+  243.58,
+  9037.513,
+  58,
+  119.81,
+  33718.147,
+  52,
+  297.17,
+  150.678,
+  50,
+  21.02,
+  2281.226,
+  45,
+  247.54,
+  29929.562,
+  44,
+  325.15,
+  31555.956,
+  29,
+  60.93,
+  4443.417,
+  18,
+  155.12,
+  67555.328,
+  17,
+  288.79,
+  4562.452,
+  16,
+  198.04,
+  62894.029,
+  14,
+  199.76,
+  31436.921,
+  12,
+  95.39,
+  14577.848,
+  12,
+  287.11,
+  31931.756,
+  12,
+  320.81,
+  34777.259,
+  9,
+  227.73,
+  1222.114,
+  8,
+  15.45,
+  16859.074,
 ];
 
 /**
@@ -784,7 +1016,8 @@ function equinox(year: number, which: number): number {
     y0 = (year - 2000) / 1000;
   }
 
-  const JDE0: number = JDE0tab[which][0] +
+  const JDE0: number =
+    JDE0tab[which][0] +
     JDE0tab[which][1] * y0 +
     JDE0tab[which][2] * Math.pow(y0, 2) +
     JDE0tab[which][3] * Math.pow(y0, 3) +
@@ -804,7 +1037,7 @@ function equinox(year: number, which: number): number {
     index += 1;
   }
 
-  return JDE0 + sum * 0.00001 / deltaL;
+  return JDE0 + (sum * 0.00001) / deltaL;
 }
 
 /**
@@ -819,40 +1052,159 @@ function aberration(tee: number): number {
 }
 
 const SOLAR_LONGITUDE_COEFFICIENTS: number[] = [
-  403406, 195207, 119433, 112392, 3891, 2819, 1721,
-  660, 350, 334, 314, 268, 242, 234, 158, 132, 129, 114,
-  99, 93, 86, 78, 72, 68, 64, 46, 38, 37, 32, 29, 28, 27, 27,
-  25, 24, 21, 21, 20, 18, 17, 14, 13, 13, 13, 12, 10, 10, 10, 10
+  403406,
+  195207,
+  119433,
+  112392,
+  3891,
+  2819,
+  1721,
+  660,
+  350,
+  334,
+  314,
+  268,
+  242,
+  234,
+  158,
+  132,
+  129,
+  114,
+  99,
+  93,
+  86,
+  78,
+  72,
+  68,
+  64,
+  46,
+  38,
+  37,
+  32,
+  29,
+  28,
+  27,
+  27,
+  25,
+  24,
+  21,
+  21,
+  20,
+  18,
+  17,
+  14,
+  13,
+  13,
+  13,
+  12,
+  10,
+  10,
+  10,
+  10,
 ];
 
 const SOLAR_LONGITUDE_MULTIPLIERS: number[] = [
-  0.9287892, 35999.1376958, 35999.4089666,
-  35998.7287385, 71998.20261, 71998.4403,
-  36000.35726, 71997.4812, 32964.4678,
-  -19.4410, 445267.1117, 45036.8840, 3.1008,
-  22518.4434, -19.9739, 65928.9345,
-  9038.0293, 3034.7684, 33718.148, 3034.448,
-  -2280.773, 29929.992, 31556.493, 149.588,
-  9037.750, 107997.405, -4444.176, 151.771,
-  67555.316, 31556.080, -4561.540,
-  107996.706, 1221.655, 62894.167,
-  31437.369, 14578.298, -31931.757,
-  34777.243, 1221.999, 62894.511,
-  -4442.039, 107997.909, 119.066, 16859.071,
-  -4.578, 26895.292, -39.127, 12297.536, 90073.778
+  0.9287892,
+  35999.1376958,
+  35999.4089666,
+  35998.7287385,
+  71998.20261,
+  71998.4403,
+  36000.35726,
+  71997.4812,
+  32964.4678,
+  -19.441,
+  445267.1117,
+  45036.884,
+  3.1008,
+  22518.4434,
+  -19.9739,
+  65928.9345,
+  9038.0293,
+  3034.7684,
+  33718.148,
+  3034.448,
+  -2280.773,
+  29929.992,
+  31556.493,
+  149.588,
+  9037.75,
+  107997.405,
+  -4444.176,
+  151.771,
+  67555.316,
+  31556.08,
+  -4561.54,
+  107996.706,
+  1221.655,
+  62894.167,
+  31437.369,
+  14578.298,
+  -31931.757,
+  34777.243,
+  1221.999,
+  62894.511,
+  -4442.039,
+  107997.909,
+  119.066,
+  16859.071,
+  -4.578,
+  26895.292,
+  -39.127,
+  12297.536,
+  90073.778,
 ];
 
 const SOLAR_LONGITUDE_ADDENDS: number[] = [
-  270.54861, 340.19128, 63.91854, 331.26220,
-  317.843, 86.631, 240.052, 310.26, 247.23,
-  260.87, 297.82, 343.14, 166.79, 81.53,
-  3.50, 132.75, 182.95, 162.03, 29.8,
-  266.4, 249.2, 157.6, 257.8, 185.1,
-  69.9, 8.0, 197.1, 250.4, 65.3,
-  162.7, 341.5, 291.6, 98.5, 146.7,
-  110.0, 5.2, 342.6, 230.9, 256.1,
-  45.3, 242.9, 115.2, 151.8, 285.3,
-  53.3, 126.6, 205.7, 85.9, 146.1
+  270.54861,
+  340.19128,
+  63.91854,
+  331.2622,
+  317.843,
+  86.631,
+  240.052,
+  310.26,
+  247.23,
+  260.87,
+  297.82,
+  343.14,
+  166.79,
+  81.53,
+  3.5,
+  132.75,
+  182.95,
+  162.03,
+  29.8,
+  266.4,
+  249.2,
+  157.6,
+  257.8,
+  185.1,
+  69.9,
+  8.0,
+  197.1,
+  250.4,
+  65.3,
+  162.7,
+  341.5,
+  291.6,
+  98.5,
+  146.7,
+  110.0,
+  5.2,
+  342.6,
+  230.9,
+  256.1,
+  45.3,
+  242.9,
+  115.2,
+  151.8,
+  285.3,
+  53.3,
+  126.6,
+  205.7,
+  85.9,
+  146.1,
 ];
 
 /**
@@ -866,10 +1218,14 @@ const SOLAR_LONGITUDE_ADDENDS: number[] = [
  */
 function solarLongitude(tee: number): number {
   const centuries: number = julianCenturies(tee);
-  const lambda: number = 282.7771834 + 36000.76953744 * centuries + 0.000005729577951308232 *
-    sigma([SOLAR_LONGITUDE_COEFFICIENTS, SOLAR_LONGITUDE_ADDENDS, SOLAR_LONGITUDE_MULTIPLIERS],
-      (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries)
-    );
+  const lambda: number =
+    282.7771834 +
+    36000.76953744 * centuries +
+    0.000005729577951308232 *
+      sigma(
+        [SOLAR_LONGITUDE_COEFFICIENTS, SOLAR_LONGITUDE_ADDENDS, SOLAR_LONGITUDE_MULTIPLIERS],
+        (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries)
+      );
 
   return mod(lambda + aberration(tee) + nutation(tee), 360);
 }
@@ -897,7 +1253,7 @@ function estimatePriorSolarLongitude(lambda: number, tee: number): number {
  */
 function precession(tee: number): number {
   const centuries: number = julianCenturies(tee);
-  const eta: number = mod(poly(centuries, [0, 47.0029 / 3600, -0.03302 / 3600, 0.000060 / 3600]), 360);
+  const eta: number = mod(poly(centuries, [0, 47.0029 / 3600, -0.03302 / 3600, 0.00006 / 3600]), 360);
   const capP: number = mod(poly(centuries, [174.876384, -869.8089 / 3600, 0.03536 / 3600]), 360);
   const p0: number = mod(poly(centuries, [0, 5029.0966 / 3600, 1.11113 / 3600, 0.000006 / 3600]), 360);
   const capA: number = cosDeg(eta) * sinDeg(capP);
@@ -967,9 +1323,9 @@ function approxMomentOfDepression(tee: number, location: Location, alpha: number
   const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry;
 
   if (Math.abs(value) <= 1) {
-      const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
+    const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
 
-      return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
+    return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
   }
 
   return -1;
@@ -1043,10 +1399,30 @@ const solarCoeff: number[] = [0, 1, 0, 0, -1, 1, 2, 0, 0, 1, 0, 1, 1, -1, 2, 0, 
 const lunarCoeff: number[] = [1, 0, 2, 0, 1, 1, 0, 1, 1, 2, 3, 0, 0, 2, 1, 2, 0, 1, 2, 1, 1, 1, 3, 4];
 const moonCoeff: number[] = [0, 0, 0, 2, 0, 0, 0, -2, 2, 0, 0, 2, -2, 0, 0, -2, 0, -2, 2, 2, 2, -2, 0, 0];
 const sineCoeff2: number[] = [
-  -0.40720, 0.17241, 0.01608, 0.01039, 0.00739, -0.00514,
-  0.00208, -0.00111, -0.00057, 0.00056, -0.00042, 0.00042,
-  0.00038, -0.00024, -0.00007, 0.00004, 0.00004, 0.00003,
-  0.00003, -0.00003, 0.00003, -0.00002, -0.00002, 0.00002
+  -0.4072,
+  0.17241,
+  0.01608,
+  0.01039,
+  0.00739,
+  -0.00514,
+  0.00208,
+  -0.00111,
+  -0.00057,
+  0.00056,
+  -0.00042,
+  0.00042,
+  0.00038,
+  -0.00024,
+  -0.00007,
+  0.00004,
+  0.00004,
+  0.00003,
+  0.00003,
+  -0.00003,
+  0.00003,
+  -0.00002,
+  -0.00002,
+  0.00002,
 ];
 
 /**
@@ -1058,24 +1434,70 @@ const sineCoeff2: number[] = [
 function nthNewMoon(n: number): number {
   const k: number = n - 24724;
   const c: number = k / 1236.85;
-  const approx: number = J2000 + poly(c, [5.09766, MEAN_SYNODIC_MONTH * 1236.85, 0.0001437, -0.000000150, 0.00000000073]);
+  const approx: number =
+    J2000 + poly(c, [5.09766, MEAN_SYNODIC_MONTH * 1236.85, 0.0001437, -0.00000015, 0.00000000073]);
   const capE: number = poly(c, [1, -0.002516, -0.0000074]);
   const solarAnomaly2: number = poly(c, [2.5534, 1236.85 * 29.10535669, -0.0000014, -0.00000011]);
   const lunarAnomaly2: number = poly(c, [201.5643, 385.81693528 * 1236.85, 0.0107582, 0.00001238, -0.000000058]);
   const moonArg: number = poly(c, [160.7108, 390.67050284 * 1236.85, -0.0016118, -0.00000227, 0.000000011]);
   const capO: number = poly(c, [124.7746, -1.56375588 * 1236.85, 0.0020672, 0.00000215]);
-  const correction: number = -0.00017 * sinDeg(capO) +
-    sigma([sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
+  const correction: number =
+    -0.00017 * sinDeg(capO) +
+    sigma(
+      [sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, w) *
-          sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
-      );
-  const addConst: number[] = [251.88, 251.83, 349.42, 84.66, 141.74, 207.14, 154.84, 34.52, 207.19, 291.34, 161.72, 239.56, 331.55];
-  const addCoeff: number[] = [0.016321, 26.651886, 36.412478, 18.206239, 53.303771, 2.453732, 7.306860, 27.261239, 0.121824, 1.844379, 24.198154, 25.513099, 3.592518];
-  const addFactor: number[] = [0.000165, 0.000164, 0.000126, 0.000110, 0.000062, 0.000060, 0.000056, 0.000047, 0.000042, 0.000040, 0.000037, 0.000035, 0.000023];
+        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
+    );
+  const addConst: number[] = [
+    251.88,
+    251.83,
+    349.42,
+    84.66,
+    141.74,
+    207.14,
+    154.84,
+    34.52,
+    207.19,
+    291.34,
+    161.72,
+    239.56,
+    331.55,
+  ];
+  const addCoeff: number[] = [
+    0.016321,
+    26.651886,
+    36.412478,
+    18.206239,
+    53.303771,
+    2.453732,
+    7.30686,
+    27.261239,
+    0.121824,
+    1.844379,
+    24.198154,
+    25.513099,
+    3.592518,
+  ];
+  const addFactor: number[] = [
+    0.000165,
+    0.000164,
+    0.000126,
+    0.00011,
+    0.000062,
+    0.00006,
+    0.000056,
+    0.000047,
+    0.000042,
+    0.00004,
+    0.000037,
+    0.000035,
+    0.000023,
+  ];
   const extra: number = 0.000325 * sinDeg(poly(c, [299.77, 132.8475848, -0.009173]));
-  const additional: number = sigma([addConst, addCoeff, addFactor],
-    (i: number, j: number, l: number): number => l * sinDeg(i + j * k) );
+  const additional: number = sigma(
+    [addConst, addCoeff, addFactor],
+    (i: number, j: number, l: number): number => l * sinDeg(i + j * k)
+  );
 
   return dynamicalToUniversal(approx + correction + extra + additional);
 }
@@ -1089,8 +1511,7 @@ function nthNewMoon(n: number): number {
  * @return {float} mean lunar longitude
  */
 function meanLunarLongitude(centuries: number): number {
-  return degrees(poly(centuries,
-    [218.3164477, 481267.88123421, -0.0015786, 1 / 538841, -1 / 65194000]));
+  return degrees(poly(centuries, [218.3164477, 481267.88123421, -0.0015786, 1 / 538841, -1 / 65194000]));
 }
 
 /**
@@ -1101,8 +1522,7 @@ function meanLunarLongitude(centuries: number): number {
  * @return {float} lunar elongation
  */
 function lunarElongation(centuries: number): number {
-  return degrees(poly(centuries,
-    [297.8501921, 445267.1114034, -0.0018819, 1 / 545868, -1 / 113065000]));
+  return degrees(poly(centuries, [297.8501921, 445267.1114034, -0.0018819, 1 / 545868, -1 / 113065000]));
 }
 
 /**
@@ -1113,8 +1533,7 @@ function lunarElongation(centuries: number): number {
  * @return {float} solar anomaly
  */
 function solarAnomaly(centuries: number): number {
-  return degrees(poly(centuries,
-    [357.5291092, 35999.0502909, -0.0001536, 1 / 24490000]));
+  return degrees(poly(centuries, [357.5291092, 35999.0502909, -0.0001536, 1 / 24490000]));
 }
 
 /**
@@ -1125,8 +1544,7 @@ function solarAnomaly(centuries: number): number {
  * @return {float} lunar anomaly
  */
 function lunarAnomaly(centuries: number): number {
-  return degrees(poly(centuries,
-    [134.9633964, 477198.8675055, 0.0087414, 1 / 69699, -1 / 14712000]));
+  return degrees(poly(centuries, [134.9633964, 477198.8675055, 0.0087414, 1 / 69699, -1 / 14712000]));
 }
 
 /**
@@ -1137,35 +1555,313 @@ function lunarAnomaly(centuries: number): number {
  * @return {float} moon node
  */
 function moonNode(centuries: number): number {
-  return degrees(poly(centuries, [93.2720950, 483202.0175233, -0.0036539, -1 / 3526000, 1 / 863310000]));
+  return degrees(poly(centuries, [93.272095, 483202.0175233, -0.0036539, -1 / 3526000, 1 / 863310000]));
 }
 
 const lunarElongationArgs = [
-  0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4,
-  2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0,
-  1, 3, 4, 2, 0, 1, 2
+  0,
+  2,
+  2,
+  0,
+  0,
+  0,
+  2,
+  2,
+  2,
+  2,
+  0,
+  1,
+  0,
+  2,
+  0,
+  0,
+  4,
+  0,
+  4,
+  2,
+  2,
+  1,
+  1,
+  2,
+  2,
+  4,
+  2,
+  0,
+  2,
+  2,
+  1,
+  2,
+  0,
+  0,
+  2,
+  2,
+  2,
+  4,
+  0,
+  3,
+  2,
+  4,
+  0,
+  2,
+  2,
+  2,
+  4,
+  0,
+  4,
+  1,
+  2,
+  0,
+  1,
+  3,
+  4,
+  2,
+  0,
+  1,
+  2,
 ];
 const solarAnomalyArgs = [
-  0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0,
-  0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0,
-  -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  -1,
+  0,
+  -1,
+  1,
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  0,
+  1,
+  -1,
+  0,
+  0,
+  0,
+  1,
+  0,
+  -1,
+  0,
+  -2,
+  1,
+  2,
+  -2,
+  0,
+  0,
+  -1,
+  0,
+  0,
+  1,
+  -1,
+  2,
+  2,
+  1,
+  -1,
+  0,
+  0,
+  -1,
+  0,
+  1,
+  0,
+  1,
+  0,
+  0,
+  -1,
+  2,
+  1,
+  0,
 ];
 const lunarAnomalyArgs = [
-  1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0,
-  1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0, -1, 2, -1, 1, -2, -1, -1, -2,
-  0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3
+  1,
+  -1,
+  0,
+  2,
+  0,
+  0,
+  -2,
+  -1,
+  1,
+  0,
+  -1,
+  0,
+  1,
+  0,
+  1,
+  1,
+  -1,
+  3,
+  -2,
+  -1,
+  0,
+  -1,
+  0,
+  1,
+  2,
+  0,
+  -3,
+  -2,
+  -1,
+  -2,
+  1,
+  0,
+  2,
+  0,
+  -1,
+  1,
+  0,
+  -1,
+  2,
+  -1,
+  1,
+  -2,
+  -1,
+  -1,
+  -2,
+  0,
+  1,
+  4,
+  0,
+  -2,
+  0,
+  2,
+  1,
+  -2,
+  -3,
+  2,
+  1,
+  -1,
+  3,
 ];
 const moonNodeArgs = [
-  0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0,
-  -2, -2, 0, 0, 0, 0, 0, 0, 0
+  0,
+  0,
+  0,
+  0,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  2,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  2,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
 ];
 const sineCoeff = [
-  6288774, 1274027, 658314, 213618, -185116, -114332, 58793, 57066, 53322, 45758,
-  -40923, -34720, -30383, 15327, -12528, 10980, 10675, 10034, 8548, -7888, -6766,
-  -5163, 4987, 4036, 3994, 3861, 3665, -2689, -2602, 2390, -2348, 2236, -2120,
-  -2069, 2048, -1773, -1595, 1215, -1110, -892, -810, 759, -713, -700, 691, 596,
-  549, 537, 520, -487, -399, -381, 351, -340, 330, 327, -323, 299, 294
+  6288774,
+  1274027,
+  658314,
+  213618,
+  -185116,
+  -114332,
+  58793,
+  57066,
+  53322,
+  45758,
+  -40923,
+  -34720,
+  -30383,
+  15327,
+  -12528,
+  10980,
+  10675,
+  10034,
+  8548,
+  -7888,
+  -6766,
+  -5163,
+  4987,
+  4036,
+  3994,
+  3861,
+  3665,
+  -2689,
+  -2602,
+  2390,
+  -2348,
+  2236,
+  -2120,
+  -2069,
+  2048,
+  -1773,
+  -1595,
+  1215,
+  -1110,
+  -892,
+  -810,
+  759,
+  -713,
+  -700,
+  691,
+  596,
+  549,
+  537,
+  520,
+  -487,
+  -399,
+  -381,
+  351,
+  -340,
+  330,
+  327,
+  -323,
+  299,
+  294,
 ];
 
 /**
@@ -1184,45 +1880,334 @@ function lunarLongitude(tee: number): number {
   // see eq. 47.6 in Meeus
   const capE: number = poly(centuries, [1, -0.002516, -0.0000074]);
 
-  const correction: number = sigma([sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
-    (v: number, w: number, x: number, y: number, z: number): number =>
-      v * Math.pow(capE, Math.abs(x)) *
-        sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+  const correction: number =
+    sigma(
+      [sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
+      (v: number, w: number, x: number, y: number, z: number): number =>
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
     ) / 1000000;
 
   const A1: number = 119.75 + centuries * 131.849;
-  const venus: number = 3958 / 1000000 * sinDeg(A1);
+  const venus: number = (3958 / 1000000) * sinDeg(A1);
   const A2: number = 53.09 + centuries * 479264.29;
-  const jupiter: number = 318 / 1000000 * sinDeg(A2);
-  const flatEarth: number = 1962 / 1000000 * sinDeg(capLprime - capF);
+  const jupiter: number = (318 / 1000000) * sinDeg(A2);
+  const flatEarth: number = (1962 / 1000000) * sinDeg(capLprime - capF);
 
   return mod(capLprime + correction + venus + jupiter + flatEarth + nutation(tee), 360);
 }
 
 const lunarElongationArgs2: number[] = [
-  0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 0, 0,
-  1, 0, 0, 0, 1, 0, 4, 4, 0, 4, 2, 2, 2, 2, 0, 2, 2, 2, 2, 4, 2, 2,
-  0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2];
+  0,
+  0,
+  0,
+  2,
+  2,
+  2,
+  2,
+  0,
+  2,
+  0,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  0,
+  4,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  0,
+  1,
+  0,
+  4,
+  4,
+  0,
+  4,
+  2,
+  2,
+  2,
+  2,
+  0,
+  2,
+  2,
+  2,
+  2,
+  4,
+  2,
+  2,
+  0,
+  2,
+  1,
+  1,
+  0,
+  2,
+  1,
+  2,
+  0,
+  4,
+  4,
+  1,
+  4,
+  1,
+  4,
+  2,
+];
 const solarAnomalyArgs2: number[] = [
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, -1, -1, -1, 1, 0, 1,
-  0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 1,
-  0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2];
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -1,
+  0,
+  0,
+  1,
+  -1,
+  -1,
+  -1,
+  1,
+  0,
+  1,
+  0,
+  1,
+  0,
+  1,
+  1,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -1,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  0,
+  -1,
+  -2,
+  0,
+  1,
+  1,
+  1,
+  1,
+  1,
+  0,
+  -1,
+  1,
+  0,
+  -1,
+  0,
+  0,
+  0,
+  -1,
+  -2,
+];
 const lunarAnomalyArgs2: number[] = [
-  0, 1, 1, 0, -1, -1, 0, 2, 1, 2, 0, -2, 1, 0, -1, 0, -1, -1, -1,
-  0, 0, -1, 0, 1, 1, 0, 0, 3, 0, -1, 1, -2, 0, 2, 1, -2, 3, 2, -3,
-  -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0];
+  0,
+  1,
+  1,
+  0,
+  -1,
+  -1,
+  0,
+  2,
+  1,
+  2,
+  0,
+  -2,
+  1,
+  0,
+  -1,
+  0,
+  -1,
+  -1,
+  -1,
+  0,
+  0,
+  -1,
+  0,
+  1,
+  1,
+  0,
+  0,
+  3,
+  0,
+  -1,
+  1,
+  -2,
+  0,
+  2,
+  1,
+  -2,
+  3,
+  2,
+  -3,
+  -1,
+  0,
+  0,
+  1,
+  0,
+  1,
+  1,
+  0,
+  0,
+  -2,
+  -1,
+  1,
+  -2,
+  2,
+  -2,
+  -1,
+  1,
+  1,
+  -2,
+  0,
+  0,
+];
 const moonNodeArgs2: number[] = [
-  1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 3, 1,
-  1, 1, -1, -1, -1, 1, -1, 1, -3, 1, -3, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1,
-  3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1];
+  1,
+  1,
+  -1,
+  -1,
+  1,
+  -1,
+  1,
+  1,
+  -1,
+  -1,
+  -1,
+  -1,
+  1,
+  -1,
+  1,
+  1,
+  -1,
+  -1,
+  -1,
+  1,
+  3,
+  1,
+  1,
+  1,
+  -1,
+  -1,
+  -1,
+  1,
+  -1,
+  1,
+  -3,
+  1,
+  -3,
+  -1,
+  -1,
+  1,
+  -1,
+  1,
+  -1,
+  1,
+  1,
+  1,
+  1,
+  -1,
+  3,
+  -1,
+  -1,
+  1,
+  -1,
+  -1,
+  1,
+  -1,
+  1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  -1,
+  1,
+];
 const sineCoefficients2: number[] = [
-  5128122, 280602, 277693, 173237, 55413, 46271, 32573, 17198, 9266, 8822, 8216,
-  4324, 4200, -3359, 2463, 2211, 2065, -1870, 1828, -1794, -1749, -1565, -1491,
-  -1475, -1410, -1344, -1335, 1107, 1021, 833, 777, 671, 607, 596, 491, -451,
-  439, 422, 421, -366, -351, 331, 315, 302, -283, -229, 223, 223, -220, -220,
-  -185, 181, -177, 176, 166, -164, 132, -119, 115, 107];
+  5128122,
+  280602,
+  277693,
+  173237,
+  55413,
+  46271,
+  32573,
+  17198,
+  9266,
+  8822,
+  8216,
+  4324,
+  4200,
+  -3359,
+  2463,
+  2211,
+  2065,
+  -1870,
+  1828,
+  -1794,
+  -1749,
+  -1565,
+  -1491,
+  -1475,
+  -1410,
+  -1344,
+  -1335,
+  1107,
+  1021,
+  833,
+  777,
+  671,
+  607,
+  596,
+  491,
+  -451,
+  439,
+  422,
+  421,
+  -366,
+  -351,
+  331,
+  315,
+  302,
+  -283,
+  -229,
+  223,
+  223,
+  -220,
+  -220,
+  -185,
+  181,
+  -177,
+  176,
+  166,
+  -164,
+  132,
+  -119,
+  115,
+  107,
+];
 
-  /**
+/**
  * Return the latitude of moon (in degrees) at moment tee.
  * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann_Bell, Inc., 1998.
  * @param {float} tee moment in time
@@ -1236,46 +2221,333 @@ function lunarLatitude(tee: number): number {
   const capMprime: number = lunarAnomaly(c);
   const capF: number = moonNode(c);
   const capE: number = poly(c, [1, -0.002516, -0.0000074]);
-  const beta: number = 1 / 1000000 *
-    sigma([sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
+  const beta: number =
+    (1 / 1000000) *
+    sigma(
+      [sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
       (v: number, w: number, x: number, y: number, z: number): number =>
         v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
-      );
+    );
 
-  const venus: number = 175 / 1000000 * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF));
-  const flatEarth: number = -2235 / 1000000 * sinDeg(capLprime) + 127 / 1000000 * sinDeg(capLprime - capMprime) +
-    -115 / 1000000 * sinDeg(capLprime + capMprime);
-  const extra: number = 382 / 1000000 * sinDeg(313.45 + c * 481266.484);
+  const venus: number = (175 / 1000000) * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF));
+  const flatEarth: number =
+    (-2235 / 1000000) * sinDeg(capLprime) +
+    (127 / 1000000) * sinDeg(capLprime - capMprime) +
+    (-115 / 1000000) * sinDeg(capLprime + capMprime);
+  const extra: number = (382 / 1000000) * sinDeg(313.45 + c * 481266.484);
 
   return beta + venus + flatEarth + extra;
 }
 
 const lunarElongationArgs3 = [
-  0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4,
-  2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0, 3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0,
-  1, 3, 4, 2, 0, 1, 2, 2
+  0,
+  2,
+  2,
+  0,
+  0,
+  0,
+  2,
+  2,
+  2,
+  2,
+  0,
+  1,
+  0,
+  2,
+  0,
+  0,
+  4,
+  0,
+  4,
+  2,
+  2,
+  1,
+  1,
+  2,
+  2,
+  4,
+  2,
+  0,
+  2,
+  2,
+  1,
+  2,
+  0,
+  0,
+  2,
+  2,
+  2,
+  4,
+  0,
+  3,
+  2,
+  4,
+  0,
+  2,
+  2,
+  2,
+  4,
+  0,
+  4,
+  1,
+  2,
+  0,
+  1,
+  3,
+  4,
+  2,
+  0,
+  1,
+  2,
+  2,
 ];
 const solarAnomalyArgs3 = [
-  0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0,
-  0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0, -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1,
-  0, 1, 0, 1, 0, 0, -1, 2, 1, 0, 0
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  -1,
+  0,
+  -1,
+  1,
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  0,
+  1,
+  -1,
+  0,
+  0,
+  0,
+  1,
+  0,
+  -1,
+  0,
+  -2,
+  1,
+  2,
+  -2,
+  0,
+  0,
+  -1,
+  0,
+  0,
+  1,
+  -1,
+  2,
+  2,
+  1,
+  -1,
+  0,
+  0,
+  -1,
+  0,
+  1,
+  0,
+  1,
+  0,
+  0,
+  -1,
+  2,
+  1,
+  0,
+  0,
 ];
 const lunarAnomalyArgs3 = [
-  1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0,
-  1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1, 1, 0, -1, 2, -1, 1, -2, -1, -1, -2,
-  0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3, -1
+  1,
+  -1,
+  0,
+  2,
+  0,
+  0,
+  -2,
+  -1,
+  1,
+  0,
+  -1,
+  0,
+  1,
+  0,
+  1,
+  1,
+  -1,
+  3,
+  -2,
+  -1,
+  0,
+  -1,
+  0,
+  1,
+  2,
+  0,
+  -3,
+  -2,
+  -1,
+  -2,
+  1,
+  0,
+  2,
+  0,
+  -1,
+  1,
+  0,
+  -1,
+  2,
+  -1,
+  1,
+  -2,
+  -1,
+  -1,
+  -2,
+  0,
+  1,
+  4,
+  0,
+  -2,
+  0,
+  2,
+  1,
+  -2,
+  -3,
+  2,
+  1,
+  -1,
+  3,
+  -1,
 ];
 const moonNodeArgs3 = [
-  0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0, 2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0,
-  -2, -2, 0, 0, 0, 0, 0, 0, 0, -2
+  0,
+  0,
+  0,
+  0,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  2,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  2,
+  0,
+  2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  -2,
+  -2,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  -2,
 ];
 const cosineCoeff = [
-  -20905355, -3699111, -2955968, -569925, 48888, -3149, 246158, -152138, -170733,
-  -204586, -129620, 108743, 104755, 10321, 0, 79661, -34782, -23210, -21636,
-  24208, 30824, -8379, -16675, -12831, -10445, -11650, 14403, -7003, 0, 10056,
-  6322, -9884, 5751, 0, -4950, 4130, 0, -3958, 0, 3258, 2616, -1897, -2117, 2354,
-  0, 0, -1423, -1117, -1571, -1739, 0, -4421, 0, 0, 0, 0, 1165, 0, 0, 8752
+  -20905355,
+  -3699111,
+  -2955968,
+  -569925,
+  48888,
+  -3149,
+  246158,
+  -152138,
+  -170733,
+  -204586,
+  -129620,
+  108743,
+  104755,
+  10321,
+  0,
+  79661,
+  -34782,
+  -23210,
+  -21636,
+  24208,
+  30824,
+  -8379,
+  -16675,
+  -12831,
+  -10445,
+  -11650,
+  14403,
+  -7003,
+  0,
+  10056,
+  6322,
+  -9884,
+  5751,
+  0,
+  -4950,
+  4130,
+  0,
+  -3958,
+  0,
+  3258,
+  2616,
+  -1897,
+  -2117,
+  2354,
+  0,
+  0,
+  -1423,
+  -1117,
+  -1571,
+  -1739,
+  0,
+  -4421,
+  0,
+  0,
+  0,
+  0,
+  1165,
+  0,
+  0,
+  8752,
 ];
 
 /**
@@ -1291,9 +2563,10 @@ function lunarDistance(tee: number): number {
   const capMPrime = lunarAnomaly(c);
   const capF = moonNode(c);
   const capE = poly(c, [1, -0.002516, -0.0000074]);
-  const correction = sigma([cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
+  const correction = sigma(
+    [cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
     (v: number, w: number, x: number, y: number, z: number): number =>
-    v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
+      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
   );
 
   return 385000560 + correction;
@@ -1356,7 +2629,7 @@ function topocentricLunarAltitude(tee: number, location: Location): number {
  * @return {number} observed lunar altitude
  */
 function observedLunarAltitude(tee: number, location: Location): number {
-  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + (4 / 15);
+  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + 4 / 15;
 }
 
 /**
@@ -1377,13 +2650,11 @@ function moonSet(rataDie: number, location: Location): number {
   const set = binarySearch(
     approx - 0.25,
     approx + 0.25,
-    (lo: number, hi: number): boolean =>
-      (hi - lo) / 2 < (1 / 1440),
-    (low: number, high: number): boolean =>
-      observedLunarAltitude ((high + low) / 2, location) < 0
+    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0
   );
 
-  return (set < tee + 1) ? Math.max(universalToStandard(set, location), rataDie) : -1;
+  return set < tee + 1 ? Math.max(universalToStandard(set, location), rataDie) : -1;
 }
 
 /**
@@ -1404,10 +2675,8 @@ function moonRise(date: number, location: Location): number {
   const rise = binarySearch(
     approx - 0.25,
     approx + 0.25,
-    (lo: number, hi: number): boolean =>
-      ((hi - lo) / 2) < (1 / 1440),
-    (low: number, high: number): boolean =>
-      observedLunarAltitude ((high + low) / 2, location) > 0
+    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0
   );
 
   return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
@@ -1446,8 +2715,7 @@ function newMoonAtOrAfter(tee: number): number {
 function momentToSidereal(tee: number): number {
   const centuries: number = (tee - J2000) / JULIAN_CENTURY;
 
-  return mod(poly(centuries,
-    [280.46061837, JULIAN_CENTURY * 360.98564736629, 0.000387933, -1 / 38710000]), 360);
+  return mod(poly(centuries, [280.46061837, JULIAN_CENTURY * 360.98564736629, 0.000387933, -1 / 38710000]), 360);
 }
 
 /**
@@ -1466,7 +2734,7 @@ function lunarAltitude(tee: number, location: Location): number {
   const capH: number = mod(theta0 + psi - alpha, 360);
   const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) + cosDeg(phi) * cosDeg(delta) * cosDeg(capH));
 
-  return mod3 (altitude, -180, 180);
+  return mod3(altitude, -180, 180);
 }
 
 /**
@@ -1482,8 +2750,12 @@ function visibleCrescent(jdn: number, location: Location): boolean {
   const altitude: number = lunarAltitude(tee, location);
   const arcOfLight: number = arcCosDeg(cosDeg(lunarLatitude(tee)) * cosDeg(phase));
 
-  return (MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER) &&
-    (arcOfLight >= 10.6 && arcOfLight <= 90) && (altitude > 4.1);
+  return (
+    MoonPhase.NEW < phase &&
+    phase < MoonPhase.FIRST_QUARTER &&
+    (arcOfLight >= 10.6 && arcOfLight <= 90) &&
+    altitude > 4.1
+  );
 }
 
 /**
@@ -1495,8 +2767,8 @@ function visibleCrescent(jdn: number, location: Location): boolean {
  */
 function phasisOnOrBefore(jdn: number, location: Location): number {
   const jd0: number = jdn - J0000;
-  const mean: number = jd0 - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
-  const tau: number = ((jd0 - mean) <= 3 && !visibleCrescent(jd0, location)) ? mean - 30 : mean - 2;
+  const mean: number = jd0 - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH);
+  const tau: number = jd0 - mean <= 3 && !visibleCrescent(jd0, location) ? mean - 30 : mean - 2;
 
   return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
@@ -1509,8 +2781,8 @@ function phasisOnOrBefore(jdn: number, location: Location): number {
  * @return {float} phasis
  */
 function phasisOnOrAfter(jdn: number, location: Location): number {
-  const mean: number = jdn - Math.floor(lunarPhase(jdn + 1) / 360 * MEAN_SYNODIC_MONTH);
-  const tau: number = ((jdn - mean) <= 3 && !visibleCrescent(jdn - 1, location)) ? jdn : mean + 29;
+  const mean: number = jdn - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH);
+  const tau: number = jdn - mean <= 3 && !visibleCrescent(jdn - 1, location) ? jdn : mean + 29;
 
   return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
@@ -1521,7 +2793,7 @@ function phasisOnOrAfter(jdn: number, location: Location): number {
  * @return {number} time
  */
 function lunarPhaseAtOrBefore(phi: number, tee: number): number {
-  const tau = tee - MEAN_SYNODIC_MONTH * (1 / 360) * mod ((lunarPhase(tee) - phi), 360);
+  const tau = tee - MEAN_SYNODIC_MONTH * (1 / 360) * mod(lunarPhase(tee) - phi, 360);
   const low = tau - 2;
   const high = Math.min(tee, tau + 2);
 
@@ -1551,7 +2823,7 @@ function refraction(tee: number, location: Location): number {
   const capR = 6372000;
   const dip: number = arcCosDeg(capR / (capR + h));
 
-  return (17 / 30) + dip + 19 * Math.sqrt(h) / 3600;
+  return 17 / 30 + dip + (19 * Math.sqrt(h)) / 3600;
 }
 
 /**
@@ -1578,11 +2850,11 @@ function moonLag(tee: number, location: Location): number {
   const moon = moonSet(tee, location);
 
   if (sun === -1) {
-      return -1;
+    return -1;
   }
 
   if (moon === -1) {
-      return 1;
+    return 1;
   }
 
   return moon - sun;
@@ -1602,17 +2874,17 @@ function moonLag(tee: number, location: Location): number {
  * @param {number[]} radices the array of radix numbers
  * @return {number} moment of sunset
  */
-function toRadix (num: number, radices: number[]): number[] {
+function toRadix(num: number, radices: number[]): number[] {
   if (radices.length !== 0) {
     const prod = radices.reduce((acc: number, item: number): number => acc * item, 1);
-    const radix = Math.floor (num / prod);
-    const x2 = num - (prod * radix);
-    const [ {}, ...rest ] = radices;
+    const radix = Math.floor(num / prod);
+    const x2 = num - prod * radix;
+    const [{}, ...rest] = radices;
 
-    return [ radix, ...toRadix (x2, rest) ];
+    return [radix, ...toRadix(x2, rest)];
   }
 
-  return [ num ];
+  return [num];
 }
 
 export {
@@ -1625,8 +2897,8 @@ export {
   degreesToRadians,
   deltaT,
   dusk,
-  dynamicalToUniversal,   // only to be tested, required for nutation!
-  ephemerisCorrection,   // only to be tested!
+  dynamicalToUniversal, // only to be tested, required for nutation!
+  ephemerisCorrection, // only to be tested!
   equationOfTime,
   equinox,
   estimatePriorSolarLongitude,
@@ -1651,13 +2923,14 @@ export {
   newMoonBefore,
   next,
   nthKday,
-  nutation,   // only to be tested!
-  obliquity,   // only to be tested!
+  nutation, // only to be tested!
+  obliquity, // only to be tested!
   phasisOnOrAfter,
   phasisOnOrBefore,
-  poly,   // only to be tested!
-  precession, radiansToDegrees,
-  sigma,   // only to be tested!
+  poly, // only to be tested!
+  precession,
+  radiansToDegrees,
+  sigma, // only to be tested!
   sinDeg,
   solarLongitude,
   solarLongitudeAfter,

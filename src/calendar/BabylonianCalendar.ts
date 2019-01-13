@@ -25,7 +25,7 @@ export class BabylonianCalendar {
     const month1 = Math.round((crescent - newYear) / 29.5) + 1;
     const isSpecial = mod(year, 19) === 18;
     const isLeap = isSpecial ? month1 === 7 : month1 === 13;
-    const month = isLeap || isSpecial && month1 > 6 ? month1 - 1 : month1;
+    const month = isLeap || (isSpecial && month1 > 6) ? month1 - 1 : month1;
     const day = rataDie - crescent + 1;
 
     return new BabylonianDate(jdn, year, month, isLeap, day);

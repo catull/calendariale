@@ -1,12 +1,4 @@
-import {
-  amod,
-  estimatePriorSolarLongitude,
-  mod,
-  next,
-  solarLongitude,
-  standardToUniversal,
-  sunset,
-} from '../Astro';
+import { amod, estimatePriorSolarLongitude, mod, next, solarLongitude, standardToUniversal, sunset } from '../Astro';
 import {
   INVALID_DAY,
   INVALID_MONTH,
@@ -74,7 +66,7 @@ export class BahaiAstroCalendar {
     const newYear = this.toJdn(year, 1, 1);
     const newYearNext = this.toJdn(year + 1, 1, 1);
 
-    return (newYearNext - newYear) > 365;
+    return newYearNext - newYear > 365;
   }
 
   private static validate(kullIshay: number, vahid: number, year: number, month: number, day: number): void {
