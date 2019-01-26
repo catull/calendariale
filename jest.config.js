@@ -17,7 +17,7 @@ module.exports = {
     "html"
   ],
   globals: {
-    'ts-jest': {
+    "ts-jest": {
       tsConfig: "tsconfig.json"
     }
   },
@@ -30,7 +30,7 @@ module.exports = {
     "js"
   ],
   preset: "ts-jest",
-  prettierPath: "node_modules/.bin/prettier",
+  prettierPath: "./node_modules/.bin/prettier",
   reporters: [
     "default",
     "jest-junit"
@@ -38,13 +38,14 @@ module.exports = {
   roots: [
     "src"
   ],
+  testEnvironment: "jest-environment-jsdom-thirteen",
   testMatch: [
     "<rootDir>/src/**/*.spec.ts"
   ],
   testResultsProcessor: "jest-sonar-reporter",
   testURL: "http://localhost",
   transform: {
-    '^.+\\.ts$': "ts-jest"
+    "^.+\\.ts$": "ts-jest"
   },
   verbose: false
 };
