@@ -410,10 +410,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-barrelsby@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/barrelsby/-/barrelsby-1.1.0.tgz#0eb5eb8ab587508d71b10e147219f65f712bc04d"
-  integrity sha512-K8FEUn3LWoBLD1cqEwxiM2wI7ToGF8VQ+2WJtc+y9lUXQuih8XMrVYay59F5Jg37MPqnzExZsU6nOVCYcrc74w==
+barrelsby@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/barrelsby/-/barrelsby-2.0.0.tgz#89d6461bad3ba3eaf9d5473adaa86fa78ef56ec1"
+  integrity sha512-7EXOYoUndSQjXztak0xoSDJVnXOA1AFqE5XpsrnLWn4IayKgEgmwaYQftAH6mDFshYTPOLnnQlHrV6yusypMSw==
   dependencies:
     "@types/yargs" "^12.0.9"
     yargs "^13.2.1"
