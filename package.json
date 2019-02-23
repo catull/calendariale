@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/jest": "24.0.6",
     "@types/node": "10.12.26",
-    "barrelsby": "1.1.0",
+    "barrelsby": "2.0.0",
     "jest": "24.1.0",
     "jest-environment-jsdom-thirteen": "0.0.3",
     "jest-junit": "6.3.0",
