@@ -1802,10 +1802,10 @@ jest-each@^24.5.0:
     jest-util "^24.5.0"
     pretty-format "^24.5.0"
 
-jest-environment-jsdom-thirteen@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/jest-environment-jsdom-thirteen/-/jest-environment-jsdom-thirteen-1.0.0.tgz#24eac0718c5792edef269232b5bac3cf82b18911"
-  integrity sha512-DOlBE/tUgb8okcOcehf8Yt5U9o/QlkLoGS9HwKZtzKiKrntyCAb12FTmuBfEpjZXsA/p559Kuw0PbSh5GzEcjw==
+jest-environment-jsdom-thirteen@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-environment-jsdom-thirteen/-/jest-environment-jsdom-thirteen-1.0.1.tgz#113e3c8aed945dadbc826636fa21139c69567bb5"
+  integrity sha512-Zi7OuKF7HMLlBvomitd5eKp5Ykc4Wvw0d+i+cpbCaE+7kmvL24SO4ssDmKrT++aANXR4T8+pmoJIlav5gr2peQ==
   dependencies:
     jest-mock "^24.0.0"
     jest-util "^24.0.0"
