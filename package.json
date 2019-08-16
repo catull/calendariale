@@ -34,7 +34,7 @@
     "@types/jest": "24.0.17",
     "@types/node": "12.7.2",
     "barrelsby": "2.1.1",
-    "jest": "24.8.0",
+    "jest": "24.9.0",
     "jest-environment-jsdom-thirteen": "1.0.1",
     "jest-junit": "7.0.0",
     "jest-sonar-reporter": "2.0.0",
