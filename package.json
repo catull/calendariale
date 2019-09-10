@@ -46,7 +46,7 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",
     "tslint-sonarts": "1.9.0",
-    "typescript": "3.6.2",
+    "typescript": "3.6.3",
     "yarn": "1.17.3"
   },
   "jest-junit": {
