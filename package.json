@@ -32,7 +32,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/jest": "25.1.3",
-    "@types/node": "12.12.28",
+    "@types/node": "12.12.29",
     "barrelsby": "2.2.0",
     "jest": "25.1.0",
     "jest-environment-jsdom-thirteen": "1.0.1",
