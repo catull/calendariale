@@ -45,10 +45,10 @@
     "dist",
     "node_modules",
     "publish/create-dist-package.json.ts",
-    "src/spec"
-  ],
-  "include": [
     "src/*.ts",
     "src/calendar/**/*.ts"
+  ],
+  "include": [
+    "src/spec"
   ]
 }
