@@ -268,7 +268,7 @@ function hinduNewMoonBefore(tee: number): number {
     tau - 1,
     Math.min(tee, tau + 1),
     (lower: number, upper: number): boolean => hinduZodiac(lower) === hinduZodiac(upper) || upper - lower < eps,
-    (lo: number, hi: number): boolean => hinduLunarPhase((lo + hi) / 2) < 180
+    (lo: number, hi: number): boolean => hinduLunarPhase((lo + hi) / 2) < 180,
   );
 }
 

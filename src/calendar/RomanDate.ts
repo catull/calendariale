@@ -9,7 +9,7 @@ export class RomanDate extends YearMonthDate {
     month: number,
     private event: RomanEvent,
     private count: number,
-    private leap: boolean
+    private leap: boolean,
   ) {
     super(jdn, year, month, -1);
   }

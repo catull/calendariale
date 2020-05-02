@@ -15,7 +15,7 @@ export class HinduSolarAstroCalendar {
     const approx: number = jd0 - 3 - mod(Math.floor(siderealSolarLongitude(critical)), 30);
     const begin: number = next(
       approx,
-      (index: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month
+      (index: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(index)) === month,
     );
     const day: number = jd0 - begin + 1;
 
@@ -30,7 +30,7 @@ export class HinduSolarAstroCalendar {
       hindu.EPOCH_RD - 3 + Math.floor((year + hindu.SOLAR_ERA + (month - 1) / 12) * MEAN_SIDEREAL_YEAR);
     const begin: number = next(
       approx,
-      (i: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month
+      (i: number): boolean => siderealZodiac(HinduSolarAstroCalendar.hinduAstroSunset(i)) === month,
     );
 
     return J0000 + begin + day - 1;

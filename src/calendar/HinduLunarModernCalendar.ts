@@ -43,7 +43,7 @@ export class HinduLunarModernCalendar {
     monthLeap: boolean,
     day: number,
     dayLeap: boolean,
-    jdn: number
+    jdn: number,
   ): void {
     if (month < 1 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH);
@@ -70,7 +70,7 @@ export class HinduLunarModernCalendar {
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + hindu.SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
     const s: number = Math.floor(
-      approx - hindu.SIDEREAL_YEAR * mod3(hinduSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5)
+      approx - hindu.SIDEREAL_YEAR * mod3(hinduSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5),
     );
     const k: number = hinduLunarDayFromMoment(s + 0.25);
 
@@ -87,15 +87,12 @@ export class HinduLunarModernCalendar {
     const tau: number = est - mod3(hinduLunarDayFromMoment(est + 0.25) - day, -15, 15);
 
     const date: number =
-      next(
-        tau - 1,
-        (d: number): boolean => {
-          const d1: number = hinduLunarDayFromMoment(hinduSunrise(d));
-          const d2: number = amod(day + 1, 30);
+      next(tau - 1, (d: number): boolean => {
+        const d1: number = hinduLunarDayFromMoment(hinduSunrise(d));
+        const d2: number = amod(day + 1, 30);
 
-          return d1 === day || d1 === d2;
-        }
-      ) + (dayLeap ? 1 : 0);
+        return d1 === day || d1 === d2;
+      }) + (dayLeap ? 1 : 0);
 
     return date + J0000;
   }

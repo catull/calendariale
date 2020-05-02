@@ -330,7 +330,7 @@ function zip(matrix: Matrix): Matrix {
  */
 function sigma(matrix: Matrix, func: (...n: number[]) => number): number {
   return zip(matrix)
-    .map((v: number[]): number => func.apply(undefined, v))
+    .map((v: number[]): number => func(...v))
     .reduce((memo: number, n: number): number => memo + n, 0);
 }
 
@@ -347,7 +347,7 @@ function binarySearch(
   low: number,
   high: number,
   predicate: (l: number, h: number) => boolean,
-  discriminator: (lo: number, hi: number) => boolean
+  discriminator: (lo: number, hi: number) => boolean,
 ): number {
   const x: number = (low + high) / 2;
 
@@ -371,7 +371,7 @@ function invertAngular(f: (n: number) => number, y: number, low: number, high: n
     low,
     high,
     (l: number, h: number): boolean => h - l <= 1e-5,
-    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180
+    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180,
   );
 }
 
@@ -1224,7 +1224,7 @@ function solarLongitude(tee: number): number {
     0.000005729577951308232 *
       sigma(
         [SOLAR_LONGITUDE_COEFFICIENTS, SOLAR_LONGITUDE_ADDENDS, SOLAR_LONGITUDE_MULTIPLIERS],
-        (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries)
+        (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries),
       );
 
   return mod(lambda + aberration(tee) + nutation(tee), 360);
@@ -1446,7 +1446,7 @@ function nthNewMoon(n: number): number {
     sigma(
       [sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
+        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg),
     );
   const addConst: number[] = [
     251.88,
@@ -1496,7 +1496,7 @@ function nthNewMoon(n: number): number {
   const extra: number = 0.000325 * sinDeg(poly(c, [299.77, 132.8475848, -0.009173]));
   const additional: number = sigma(
     [addConst, addCoeff, addFactor],
-    (i: number, j: number, l: number): number => l * sinDeg(i + j * k)
+    (i: number, j: number, l: number): number => l * sinDeg(i + j * k),
   );
 
   return dynamicalToUniversal(approx + correction + extra + additional);
@@ -1884,7 +1884,7 @@ function lunarLongitude(tee: number): number {
     sigma(
       [sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF),
     ) / 1000000;
 
   const A1: number = 119.75 + centuries * 131.849;
@@ -2226,7 +2226,7 @@ function lunarLatitude(tee: number): number {
     sigma(
       [sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF),
     );
 
   const venus: number = (175 / 1000000) * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF));
@@ -2566,7 +2566,7 @@ function lunarDistance(tee: number): number {
   const correction = sigma(
     [cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
     (v: number, w: number, x: number, y: number, z: number): number =>
-      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
+      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF),
   );
 
   return 385000560 + correction;
@@ -2593,119 +2593,6 @@ function lunarPhase(tee: number): number {
   }
 
   return phi;
-}
-
-/**
- * Parallax of moon at tee at location.
- * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd edn., 1998.
- * @param {number} tee moment in time
- * @param {Location} location Geo-location
- * @return {number} moon parallax
- */
-function lunarParallax(tee: number, location: Location): number {
-  const geo = lunarAltitude(tee, location);
-  const capDelta = lunarDistance(tee);
-  const alt = 6378140 / capDelta;
-  const arg = alt * cosDeg(geo);
-
-  return arcSinDeg(arg);
-}
-/**
- * Topocentric altitude of moon at tee at location, as a small positive/negative
- * angle in degrees, ignoring refraction.
- * @param {number} tee moment in time
- * @param {Location} location Geo-location
- * @return {number} topocentric lunar altitude
- */
-function topocentricLunarAltitude(tee: number, location: Location): number {
-  return lunarAltitude(tee, location) - lunarParallax(tee, location);
-}
-
-/**
- * Geocentric apparent lunar diameter (in degrees) at moment tee at location.
- * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd ed, 1998.
- * @param {number} tee moment in time
- * @param {Location} location Geo-location
- * @return {number} observed lunar altitude
- */
-function observedLunarAltitude(tee: number, location: Location): number {
-  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + 4 / 15;
-}
-
-/**
- * Standard time of moon-set on fixed date at location.
- * Returns -1 if there is no moon-set on date.
- * @param {number} rataDie moment in time
- * @param {Location} location Geo-location
- * @return {number} time of moon-set or -1
- */
-function moonSet(rataDie: number, location: Location): number {
-  const tee = standardToUniversal(rataDie, location);
-  const waxing = lunarPhase(tee) < 180;
-  const alt = observedLunarAltitude(tee, location);
-  const lat = location.getLatitude();
-  const offset = alt / (4 * (90 - Math.abs(lat)));
-  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset + 0.5;
-
-  const set = binarySearch(
-    approx - 0.25,
-    approx + 0.25,
-    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
-    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0
-  );
-
-  return set < tee + 1 ? Math.max(universalToStandard(set, location), rataDie) : -1;
-}
-
-/**
- * Standard time of moon-rise on fixed date at location.
- * Returns -1 if there is no moon-rise on date.
- * @param {number} tee moment in time
- * @param {Location} location Geo-location
- * @return {number} time of moon-rise or -1
- */
-function moonRise(date: number, location: Location): number {
-  const tee = standardToUniversal(date, location);
-  const waning = lunarPhase(tee) > 180;
-  const alt = observedLunarAltitude(tee, location);
-  const lat = location.getLatitude();
-  const offset = alt / (4 * (90 - Math.abs(lat)));
-  const approx = waning ? (offset > 0 ? tee + 1 - offset : tee - offset) : tee + offset + 0.5;
-
-  const rise = binarySearch(
-    approx - 0.25,
-    approx + 0.25,
-    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
-    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0
-  );
-
-  return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
-}
-
-/**
- * Return the moment UT of last new moon before moment tee.
- * @param {float} tee moment in time
- * @return {float} new moon event before tee
- */
-function newMoonBefore(tee: number): number {
-  const t: number = nthNewMoon(0);
-  const phi: number = lunarPhase(tee);
-  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
-
-  return nthNewMoon(final(n - 1, (k: number): boolean => nthNewMoon(k) < tee));
-}
-
-/**
- * Return the moment UT of first new moon at or after moment tee.
- * @param {float} tee moment in time
- * @return {float} new moon event before tee
- */
-function newMoonAtOrAfter(tee: number): number {
-  const t: number = nthNewMoon(0);
-  const phi: number = lunarPhase(tee);
-  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
-
-  return nthNewMoon(next(n, (k: number): boolean => nthNewMoon(k) >= tee));
 }
 
 /**
@@ -2738,6 +2625,132 @@ function lunarAltitude(tee: number, location: Location): number {
 }
 
 /**
+ * Parallax of moon at tee at location.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd edn., 1998.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} moon parallax
+ */
+function lunarParallax(tee: number, location: Location): number {
+  const geo = lunarAltitude(tee, location);
+  const capDelta = lunarDistance(tee);
+  const alt = 6378140 / capDelta;
+  const arg = alt * cosDeg(geo);
+
+  return arcSinDeg(arg);
+}
+/**
+ * Topocentric altitude of moon at tee at location, as a small positive/negative
+ * angle in degrees, ignoring refraction.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} topocentric lunar altitude
+ */
+function topocentricLunarAltitude(tee: number, location: Location): number {
+  return lunarAltitude(tee, location) - lunarParallax(tee, location);
+}
+
+/**
+ * Return refraction angle at given location and time.
+ * @param {float} tee moment in time
+ * @param {Location} location geo-location
+ */
+function refraction(tee: number, location: Location): number {
+  const h: number = Math.max(0, location.getElevation());
+  const capR = 6372000;
+  const dip: number = arcCosDeg(capR / (capR + h));
+
+  return 17 / 30 + dip + (19 * Math.sqrt(h)) / 3600;
+}
+
+/**
+ * Geocentric apparent lunar diameter (in degrees) at moment tee at location.
+ * Adapted from "Astronomical Algorithms" by Jean Meeus, Willmann-Bell, 2nd ed, 1998.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} observed lunar altitude
+ */
+function observedLunarAltitude(tee: number, location: Location): number {
+  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + 4 / 15;
+}
+
+/**
+ * Standard time of moon-set on fixed date at location.
+ * Returns -1 if there is no moon-set on date.
+ * @param {number} rataDie moment in time
+ * @param {Location} location Geo-location
+ * @return {number} time of moon-set or -1
+ */
+function moonSet(rataDie: number, location: Location): number {
+  const tee = standardToUniversal(rataDie, location);
+  const waxing = lunarPhase(tee) < 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset + 0.5;
+
+  const set = binarySearch(
+    approx - 0.25,
+    approx + 0.25,
+    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0,
+  );
+
+  return set < tee + 1 ? Math.max(universalToStandard(set, location), rataDie) : -1;
+}
+
+/**
+ * Standard time of moon-rise on fixed date at location.
+ * Returns -1 if there is no moon-rise on date.
+ * @param {number} tee moment in time
+ * @param {Location} location Geo-location
+ * @return {number} time of moon-rise or -1
+ */
+function moonRise(date: number, location: Location): number {
+  const tee = standardToUniversal(date, location);
+  const waning = lunarPhase(tee) > 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = waning ? (offset > 0 ? tee + 1 - offset : tee - offset) : tee + offset + 0.5;
+
+  const rise = binarySearch(
+    approx - 0.25,
+    approx + 0.25,
+    (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0,
+  );
+
+  return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
+}
+
+/**
+ * Return the moment UT of last new moon before moment tee.
+ * @param {float} tee moment in time
+ * @return {float} new moon event before tee
+ */
+function newMoonBefore(tee: number): number {
+  const t: number = nthNewMoon(0);
+  const phi: number = lunarPhase(tee);
+  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
+
+  return nthNewMoon(final(n - 1, (k: number): boolean => nthNewMoon(k) < tee));
+}
+
+/**
+ * Return the moment UT of first new moon at or after moment tee.
+ * @param {float} tee moment in time
+ * @return {float} new moon event before tee
+ */
+function newMoonAtOrAfter(tee: number): number {
+  const t: number = nthNewMoon(0);
+  const phi: number = lunarPhase(tee);
+  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
+
+  return nthNewMoon(next(n, (k: number): boolean => nthNewMoon(k) >= tee));
+}
+
+/**
  * Return S. K. Shaukat's criterion for likely visibility of crescent moon on
  * eve of jdn at given location.
  * @param {float} jdn Julian day number (JDN)
@@ -2751,10 +2764,7 @@ function visibleCrescent(jdn: number, location: Location): boolean {
   const arcOfLight: number = arcCosDeg(cosDeg(lunarLatitude(tee)) * cosDeg(phase));
 
   return (
-    MoonPhase.NEW < phase &&
-    phase < MoonPhase.FIRST_QUARTER &&
-    (arcOfLight >= 10.6 && arcOfLight <= 90) &&
-    altitude > 4.1
+    MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER && arcOfLight >= 10.6 && arcOfLight <= 90 && altitude > 4.1
   );
 }
 
@@ -2811,19 +2821,6 @@ function solarLongitudeAfter(lambda: number, tee: number): number {
   const high: number = tau + 5;
 
   return invertAngular(solarLongitude, lambda, low, high);
-}
-
-/**
- * Return refraction angle at given location and time.
- * @param {float} tee moment in time
- * @param {Location} location geo-location
- */
-function refraction(tee: number, location: Location): number {
-  const h: number = Math.max(0, location.getElevation());
-  const capR = 6372000;
-  const dip: number = arcCosDeg(capR / (capR + h));
-
-  return 17 / 30 + dip + (19 * Math.sqrt(h)) / 3600;
 }
 
 /**

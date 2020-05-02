@@ -8,7 +8,7 @@ export class BahaiAstroDate extends LeapDate {
     private vahid: number,
     protected year: number,
     protected month: number,
-    protected day: number
+    protected day: number,
   ) {
     super(jdn, year, month, day, BahaiAstroCalendar.isLeapYear(year));
   }

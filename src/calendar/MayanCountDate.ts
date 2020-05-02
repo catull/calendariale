@@ -7,7 +7,7 @@ export class MayanCountDate extends BaseDate {
     private katun: number,
     private tun: number,
     private uinal: number,
-    private kin: number
+    private kin: number,
   ) {
     super(jdn);
   }
