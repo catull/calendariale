@@ -44,7 +44,7 @@
   "exclude": [
     "dist",
     "node_modules",
-    "publish/create-dist-package.json.ts",
+    "src/create-dist-package.json.ts",
     "src/spec"
   ],
   "include": [
