@@ -26,8 +26,8 @@ module.exports = {
     "src"
   ],
   moduleFileExtensions: [
+    "js",
     "ts",
-    "js"
   ],
   preset: "ts-jest",
   prettierPath: "./node_modules/.bin/prettier",
