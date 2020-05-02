@@ -26,21 +26,18 @@ export class HinduSolarModernCalendar {
     this.validate(year, month, day);
 
     const begin: number = Math.floor(
-      (year + hindu.SOLAR_ERA + (month - 1) / 12) * hindu.SIDEREAL_YEAR + hindu.EPOCH_RD
+      (year + hindu.SOLAR_ERA + (month - 1) / 12) * hindu.SIDEREAL_YEAR + hindu.EPOCH_RD,
     );
 
     return (
       day -
       1 +
-      next(
-        begin - 3,
-        (param: number): boolean => {
-          const sunrise = hinduSunrise(param + 1);
-          const zodiac = hinduZodiac(sunrise);
+      next(begin - 3, (param: number): boolean => {
+        const sunrise = hinduSunrise(param + 1);
+        const zodiac = hinduZodiac(sunrise);
 
-          return zodiac === month;
-        }
-      ) +
+        return zodiac === month;
+      }) +
       J0000
     );
   }

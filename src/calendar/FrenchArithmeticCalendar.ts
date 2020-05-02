@@ -44,7 +44,7 @@ export class FrenchArithmeticCalendar {
   public static isLeapYear(year: number): boolean {
     const m400: number = mod(year, 400);
 
-    return mod(year, 4) === 0 && (m400 !== 100 && m400 !== 200 && m400 !== 300) && mod(year, 4000) !== 0;
+    return mod(year, 4) === 0 && m400 !== 100 && m400 !== 200 && m400 !== 300 && mod(year, 4000) !== 0;
   }
 
   private static validate(year: number, month: number, day: number): void {

@@ -24,7 +24,7 @@ export class SamaritanCalendar {
     this.validate(year, month, day);
 
     const ny = this.newYearOnOrBefore(
-      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - Math.ceil((month - 5) / 8)))
+      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - Math.ceil((month - 5) / 8))),
     );
     const nm = this.newMoonAtOrBefore(ny + 29.5 * (month - 1) + 15);
 

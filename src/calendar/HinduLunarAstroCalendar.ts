@@ -69,7 +69,7 @@ export class HinduLunarAstroCalendar {
   private static calculateJdn(year: number, month: number, monthLeap: boolean, day: number, dayLeap: boolean): number {
     const approx: number = hindu.EPOCH_RD + MEAN_SIDEREAL_YEAR * (year + hindu.LUNAR_ERA + (month - 1) / 12);
     const s: number = Math.floor(
-      approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5)
+      approx - MEAN_SIDEREAL_YEAR * mod3(siderealSolarLongitude(approx) / 360 - (month - 1) / 12, -0.5, 0.5),
     );
     const k: number = this.astroLunarDayFromMoment(s + 0.25);
     let temp: number;
@@ -85,17 +85,12 @@ export class HinduLunarAstroCalendar {
     const tau: number = est - mod3(this.astroLunarDayFromMoment(est + 0.25) - day, -15, 15);
 
     const date: number =
-      next(
-        tau - 1,
-        (d: number): boolean => {
-          const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(
-            HinduLunarAstroCalendar.altHinduSunrise(d)
-          );
-          const d2: number = amod(day + 1, 30);
+      next(tau - 1, (d: number): boolean => {
+        const d1: number = HinduLunarAstroCalendar.astroLunarDayFromMoment(HinduLunarAstroCalendar.altHinduSunrise(d));
+        const d2: number = amod(day + 1, 30);
 
-          return d1 === day || d1 === d2;
-        }
-      ) + (dayLeap ? 1 : 0);
+        return d1 === day || d1 === d2;
+      }) + (dayLeap ? 1 : 0);
 
     return J0000 + date;
   }

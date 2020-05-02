@@ -12,7 +12,7 @@ export class BalinesePawukonDate extends BaseDate {
     private saptawara: number,
     private asatawara: number,
     private sangawara: number,
-    private dasawara: number
+    private dasawara: number,
   ) {
     super(jdn);
   }
