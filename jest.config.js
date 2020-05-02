@@ -1,51 +1,52 @@
 module.exports = {
   collectCoverageFrom: [
-    "src/**/*.ts",
-    "src/spec/**/*.ts",
-    "!src/create-dist-package.json.ts",
-    "!src/**/index.ts",
-    "!src/jest*.ts",
-    "!**/node_modules/**"
+    'src/**/*.ts',
+    'src/spec/**/*.ts',
+    '!src/create-dist-package.json.ts',
+    '!src/**/index.ts',
+    '!src/jest*.ts',
+    '!**/node_modules/**'
   ],
-  coverageDirectory: "tmp/coverage",
+  coverageDirectory: 'tmp/coverage',
   coverageReporters: [
-    "json",
-    "lcov",
-    "text",
-    "clover",
-    "cobertura",
-    "html"
+    'json',
+    'lcov',
+    'text',
+    'clover',
+    'cobertura',
+    'html'
   ],
   globals: {
-    "ts-jest": {
-      tsConfig: "tsconfig.json"
+    'ts-jest': {
+      tsConfig: 'tsconfig.json'
     }
   },
   moduleDirectories: [
-    "node_modules",
-    "src"
+    'node_modules',
+    'src'
   ],
   moduleFileExtensions: [
-    "js",
-    "ts",
+    'js',
+    'ts',
   ],
-  preset: "ts-jest",
-  prettierPath: "./node_modules/.bin/prettier",
+  // outputName: 'tmp/reports/junit.xml',
+  preset: 'ts-jest',
+  prettierPath: './node_modules/.bin/prettier',
   reporters: [
-    "default",
-    "jest-junit"
+    'default',
+    'jest-junit'
   ],
   roots: [
-    "src"
+    'src'
   ],
-  testEnvironment: "jest-environment-jsdom-thirteen",
+  testEnvironment: 'jest-environment-jsdom-thirteen',
   testMatch: [
-    "<rootDir>/src/**/*.spec.ts"
+    '<rootDir>/src/**/*.spec.ts'
   ],
-  testResultsProcessor: "jest-sonar-reporter",
-  testURL: "http://localhost",
+  testResultsProcessor: 'jest-sonar-reporter',
+  testURL: 'http://localhost',
   transform: {
-    "^.+\\.ts$": "ts-jest"
+    '^.+\\.ts$': 'ts-jest'
   },
   verbose: false
 };
