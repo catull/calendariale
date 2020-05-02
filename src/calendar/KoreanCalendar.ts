@@ -10,7 +10,14 @@ export class KoreanCalendar extends ChineseCalendar {
     return super.fromJdn(jdn) as KoreanDate;
   }
 
-  protected static createDate(jdn: number, cycle: number, year: number, month: number, monthLeap: boolean, day: number): KoreanDate {
+  protected static createDate(
+    jdn: number,
+    cycle: number,
+    year: number,
+    month: number,
+    monthLeap: boolean,
+    day: number,
+  ): KoreanDate {
     return new KoreanDate(jdn, cycle, year, month, monthLeap, day);
   }
 

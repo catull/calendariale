@@ -36,7 +36,7 @@ export class ChineseCalendar {
     const m: number = this.chineseNewMoonBefore(1 + rataDie);
     const month: number = amod(
       Math.round((m - m12) / MEAN_SYNODIC_MONTH) - (yearLeap && this.isChinesePriorLeapMonth(m12, m) ? 1 : 0),
-      12
+      12,
     );
     const monthLeap: boolean =
       yearLeap && this.isChineseNoMajorSolarTerm(m) && !this.isChinesePriorLeapMonth(m12, this.chineseNewMoonBefore(m));
@@ -60,7 +60,14 @@ export class ChineseCalendar {
     return jdn;
   }
 
-  protected static createDate(jdn: number, cycle: number, year: number, month: number, monthLeap: boolean, day: number): ChineseDate {
+  protected static createDate(
+    jdn: number,
+    cycle: number,
+    year: number,
+    month: number,
+    monthLeap: boolean,
+    day: number,
+  ): ChineseDate {
     return new ChineseDate(jdn, cycle, year, month, monthLeap, day);
   }
 

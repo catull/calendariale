@@ -38,7 +38,7 @@ export class BalinesePawukonCalendar {
       saptawara,
       asatawara,
       sangawara,
-      dasawara
+      dasawara,
     );
   }
 }

@@ -105,7 +105,7 @@ export class BahaiAstroCalendar {
 
     return next(
       Math.floor(approx) - 1,
-      (day: number): boolean => solarLongitude(this.bahaiSunset(day)) <= Season.SPRING + 2
+      (day: number): boolean => solarLongitude(this.bahaiSunset(day)) <= Season.SPRING + 2,
     );
   }
 }

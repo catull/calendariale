@@ -48,7 +48,7 @@ export class PersianAstronomicalCalendar {
 
     const temp: number = year > 0 ? year - 1 : year;
     const nowRuz: number = this.persianNewYearOnOrBefore(
-      persian.EPOCH_RD + 180 + Math.floor(MEAN_TROPICAL_YEAR * temp)
+      persian.EPOCH_RD + 180 + Math.floor(MEAN_TROPICAL_YEAR * temp),
     );
 
     return nowRuz - 1 + day + (month <= 7 ? 31 * (month - 1) : 30 * (month - 1) + 6) + J0000;
@@ -77,7 +77,7 @@ export class PersianAstronomicalCalendar {
 
     return next(
       Math.floor(approx) - 1,
-      (day: number): boolean => solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2
+      (day: number): boolean => solarLongitude(PersianAstronomicalCalendar.midDayInTehran(day)) <= Season.SPRING + 2,
     );
   }
 
