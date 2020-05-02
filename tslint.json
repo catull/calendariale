@@ -76,7 +76,6 @@
     "no-unnecessary-initializer": true,
     "no-unnecessary-qualifier": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-void-expression": true,
     "object-literal-sort-keys": false,

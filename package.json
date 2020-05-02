@@ -1,6 +1,6 @@
 {
   "name": "calendariale",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Calendrical calculations library in TypeScript",
   "repository": "catull/calendariale",
   "files": [
@@ -32,7 +32,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/jest": "25.2.1",
-    "@types/node": "12.12.37",
+    "@types/node": "13.13.4",
     "barrelsby": "2.2.0",
     "jest": "25.5.3",
     "jest-environment-jsdom-thirteen": "1.0.1",
