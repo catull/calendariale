@@ -14,7 +14,8 @@
   "scripts": {
     "build": "yarn lint && yarn build:dev",
     "build:dev": "yarn prebuild && tsc",
-    "prebuild": "barrelsby -D -q -l all -d src -e src/spec -e create-dist",
+    "prebuild": "barro .barro.config.js --write",
+    "prebuild.old": "barrelsby -D -q -l all -d src -e src/spec -e create-dist",
     "clean": "rimraf -fr dist tmp",
     "clean:real": "rimraf -fr dist tmp \"src/**/index.ts\"",
     "clean:dist": "rimraf -fr .rts2_cache_* dist tmp 'src/**/index.ts' node_modules",
@@ -35,7 +36,7 @@
     "@types/node": "15.0.2",
     "@typescript-eslint/eslint-plugin": "4.22.1",
     "@typescript-eslint/parser": "4.22.1",
-    "barrelsby": "2.2.0",
+    "barro": "1.1.5",
     "eslint": "7.25.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
