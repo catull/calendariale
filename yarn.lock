@@ -1061,10 +1061,10 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-barro@1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/barro/-/barro-1.1.5.tgz#92b329c7bb88f986d742cbbf47ad5a1e5b488280"
-  integrity sha512-IxETSeNbEhMrEZsZoVzUlakQ40AinvyjMUuJx+GT5q0+0yXrvYIX19n2voyxwe7snxaCHzb0LTYUIgCarW117g==
+barro@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/barro/-/barro-1.2.6.tgz#0e9d90026c33fb0b01108aca5224a9802660cab4"
+  integrity sha512-lvHTgCT75up4H7kbDLI0K3LOjeWSugt6KoO0U6nixARpJ2cP7J9aqmk01XXhoaX27flrTEZAhrpA1gUmFJF7qw==
   dependencies:
     chokidar "^3.4.3"
     globby "^11.0.1"
