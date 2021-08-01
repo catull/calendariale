@@ -1,6 +1,14 @@
 .rts2_cache_*
 .vscode
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 dist
 index.ts
 node_modules
 tmp
+
