@@ -6,7 +6,7 @@ import { CalendarDateValidationException } from './core';
 
 export class CopticCalendar {
   // Calculate Coptic calendar date from Julian day number (JDN)
-  public static fromJdn(jdn: number) {
+  public static fromJdn(jdn: number): CopticDate {
     const year: number = Math.floor((4 * (jdn - coptic.EPOCH) + 1463) / 1461);
     const month: number = 1 + Math.floor((jdn - this.toJdn(year, 1, 1)) / 30);
     const day: number = jdn + 1 - this.toJdn(year, month, 1);
