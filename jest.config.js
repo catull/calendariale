@@ -39,7 +39,7 @@ module.exports = {
   roots: [
     'src'
   ],
-  testEnvironment: 'jest-environment-jsdom-thirteen',
+  testEnvironment: 'jsdom',
   testMatch: [
     '<rootDir>/src/**/*.spec.ts'
   ],
