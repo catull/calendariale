@@ -64,7 +64,7 @@ export class SamaritanCalendar {
 
   private static validate(year: number, month: number, day: number): void {
     if (month < 1 || month > this.hebrewYearMonths(year)) {
-      throw new CalendarDateValidationException(INVALID_MONTH + ' ' + year + ' ' + month);
+      throw new CalendarDateValidationException(`${INVALID_MONTH} ${year} ${month}`);
     }
 
     if (day < 1 || day > this.hebrewMonthDays(year, month)) {

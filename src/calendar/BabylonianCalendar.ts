@@ -15,7 +15,7 @@ import { CalendarDateValidationException } from './core';
 
 export class BabylonianCalendar {
   // Calculate Babylonian calendar date from Julian day number (JDN)
-  public static fromJdn(jdn: number) {
+  public static fromJdn(jdn: number): BabylonianDate {
     const rataDie = jdn - J0000;
     const crescent = this.newMonthOnOrBefore(rataDie);
     const months = Math.round((crescent - babylonian.EPOCH_RD) / MEAN_SYNODIC_MONTH);

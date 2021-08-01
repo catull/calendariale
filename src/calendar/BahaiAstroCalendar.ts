@@ -46,7 +46,7 @@ export class BahaiAstroCalendar {
   }
 
   // Determine Julian day number (JDN) from Bahai date
-  public static bahaiToJdn(kullIshay: number, vahid: number, year: number, month: number, day: number) {
+  public static bahaiToJdn(kullIshay: number, vahid: number, year: number, month: number, day: number): number {
     this.validate(kullIshay, vahid, year, month, day);
 
     const years = 361 * (kullIshay - 1) + 19 * (vahid - 1) + year;
