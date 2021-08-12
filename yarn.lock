@@ -1367,16 +1367,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"barro@npm:1.2.6":
-  version: 1.2.6
-  resolution: "barro@npm:1.2.6"
+"barro@npm:1.2.8":
+  version: 1.2.8
+  resolution: "barro@npm:1.2.8"
   dependencies:
     chokidar: ^3.4.3
     globby: ^11.0.1
     handlebars: ^4.7.6
   bin:
     barro: lib/cli.js
-  checksum: c8be1468e6a4146652db09062cfd9654cc36520df4c2f97e98269321e1c90db19e06d42fbcd798464caf9830fe4ac420ef7c1868bd88fca394ed950dbcad8d2d
+  checksum: 2dfdcb1fb405a760ece8fde25cb72ea6b56db2e8f66e8db511244cef6dce955e053b0526b4089604d658fac2c47114793480b014a998986e91499c28f727d79b
   languageName: node
   linkType: hard
 
@@ -1486,7 +1486,7 @@ __metadata:
     "@types/node": 15.12.1
     "@typescript-eslint/eslint-plugin": 4.29.1
     "@typescript-eslint/parser": 4.29.1
-    barro: 1.2.6
+    barro: 1.2.8
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-plugin-prettier: 3.4.0
