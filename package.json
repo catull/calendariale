@@ -31,6 +31,7 @@
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
   "devDependencies": {
+    "@tsconfig/recommended": "1.0.1",
     "@types/jest": "27.0.1",
     "@types/node": "15.12.1",
     "@typescript-eslint/eslint-plugin": "4.31.1",

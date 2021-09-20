@@ -1,54 +1,34 @@
 {
+  /* Visit https://aka.ms/tsconfig.json to read more about this file */
+  "extends": "@tsconfig/recommended/tsconfig.json",
+
   "compilerOptions": {
     "allowUnreachableCode": false,
     "baseUrl": "",
-    "charset": "utf8",
-    "declaration": true,
-    "diagnostics": false,
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "es2018",
-      "esnext.asynciterable",
-      "dom"
+      "es2020",
+      "dom",
     ],
     "listFiles": false,
-    "mapRoot": "",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "newLine": "LF",
-    "noEmitHelpers": true,
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noLib": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
+    "newLine": "lf",
     "outDir": "dist/",
-    "preserveConstEnums": true,
-    "pretty": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
     "rootDir": "./src",
-    "skipLibCheck": true,
     "sourceMap": true,
     "sourceRoot": "./src",
     "strict": true,
-    "stripInternal": true,
-    "target": "es6"
+    "target": "es6",
   },
   "exclude": [
     "dist",
     "node_modules",
     "src/create-dist-package.json.ts",
-    "src/spec"
+    "src/spec",
   ],
   "include": [
     "src/*.ts",
-    "src/calendar/**/*.ts"
+    "src/calendar/**/*.ts",
   ]
 }
