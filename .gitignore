@@ -1,6 +1,6 @@
 .rts2_cache_*
 .vscode
-.yarn/*
+.yarn/
 !.yarn/patches
 !.yarn/releases
 !.yarn/plugins
