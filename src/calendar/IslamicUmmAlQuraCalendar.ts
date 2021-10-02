@@ -2,7 +2,7 @@ import { lunarPhase, lunarPhaseAtOrBefore, mod, moonLag, next, standardToUnivers
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_SYNODIC_MONTH, MoonPhase, islamic } from '../Const';
 
 import { IslamicUmmAlQuraDate } from './IslamicUmmAlQuraDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class IslamicUmmAlQuraCalendar {
   // Calculate Islamic calendar date from Julian day

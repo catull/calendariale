@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, INVALID_YERM, yermEpoch } from '../Const';
 
 import { YermDate } from './YermDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class YermCalendar {
   // Calculate Yerm calendar date from Julian day number (JDN)

@@ -11,7 +11,7 @@ import {
 
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 import { HinduLunarAstroDate } from './HinduLunarAstroDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class HinduLunarAstroCalendar {
   // Calculate Hindu Lunar Astro calendar date from Julian day number (JDN)

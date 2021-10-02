@@ -1,4 +1,4 @@
-import { YearMonthDate } from './core';
+import { YearMonthDate } from './core/YearMonthDate';
 
 export class FrenchRevolutionaryDate extends YearMonthDate {
   constructor(jdn: number, an: number, mois: number, private decade: number, jour: number) {

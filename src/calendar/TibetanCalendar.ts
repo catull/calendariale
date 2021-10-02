@@ -2,7 +2,7 @@ import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, tibetan } from '../Const';
 
 import { TibetanDate } from './TibetanDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class TibetanCalendar {
   // Calculate Tibetan calendar date from Julian day number (JDN)

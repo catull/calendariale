@@ -1,5 +1,5 @@
 import { BahaiAstroCalendar } from './BahaiAstroCalendar';
-import { LeapDate } from './core';
+import { LeapDate } from './core/LeapDate';
 
 export class BahaiAstroDate extends LeapDate {
   constructor(

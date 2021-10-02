@@ -2,7 +2,7 @@ import { mod, phasisOnOrBefore } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, MEAN_SYNODIC_MONTH, islamic } from '../Const';
 
 import { IslamicObservationalDate } from './IslamicObservationalDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class IslamicObservationalCalendar {
   // Calculate Islamic calendar date from Julian day number (JDN)

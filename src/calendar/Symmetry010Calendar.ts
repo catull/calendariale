@@ -1,7 +1,7 @@
 import { INVALID_DAY, INVALID_MONTH, J0000, gregorian } from '../Const';
 
 import { Symmetry010Date } from './Symmetry010Date';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class Symmetry010Calendar {
   // Calculate Symmetry010 calendar date from Julian day number (JDN)

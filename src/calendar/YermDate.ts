@@ -1,4 +1,4 @@
-import { YearMonthDate } from './core';
+import { YearMonthDate } from './core/YearMonthDate';
 
 export class YermDate extends YearMonthDate {
   constructor(jdn: number, private cycle: number, private yerm: number, month: number, day: number) {

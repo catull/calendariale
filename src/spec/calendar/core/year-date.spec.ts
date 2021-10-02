@@ -1,4 +1,4 @@
-import { YearDate } from '../../../index';
+import { YearDate } from '../../../calendar/core/YearDate';
 
 describe('Year date spec', () => {
   it('should determine a year of an instance of YearDate', () => {

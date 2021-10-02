@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_SIDEREAL_YEAR, hindu } from '..
 
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from './HinduAlgorithms';
 import { HinduSolarAstroDate } from './HinduSolarAstroDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class HinduSolarAstroCalendar {
   // Calculate Hindu Solar Astro calendar date from Julian day number (JDN)

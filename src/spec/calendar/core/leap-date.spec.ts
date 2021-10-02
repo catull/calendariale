@@ -1,4 +1,4 @@
-import { LeapDate } from '../../../index';
+import { LeapDate } from '../../../calendar/core/LeapDate';
 
 describe('Leap date spec', () => {
   it('should determine a leap year of an instance of LeapDate', () => {

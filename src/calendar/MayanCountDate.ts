@@ -1,4 +1,4 @@
-import { BaseDate } from './core';
+import { BaseDate } from './core/BaseDate';
 
 export class MayanCountDate extends BaseDate {
   constructor(

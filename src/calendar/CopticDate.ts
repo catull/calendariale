@@ -1,5 +1,5 @@
 import { CopticCalendar } from './CopticCalendar';
-import { LeapDate } from './core';
+import { LeapDate } from './core/LeapDate';
 
 export class CopticDate extends LeapDate {
   constructor(jdn: number, year: number, month: number, day: number) {

@@ -3,7 +3,7 @@ import { ARYA_SOLAR_MONTH, ARYA_SOLAR_YEAR, INVALID_DAY, INVALID_MONTH, hindu } 
 
 import { hinduDayCount } from './HinduAlgorithms';
 import { HinduSolarOldDate } from './HinduSolarOldDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class HinduSolarOldCalendar {
   // Calculate Hindu Solar Old calendar date from Julian day number (JDN)

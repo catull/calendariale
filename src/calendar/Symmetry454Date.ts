@@ -1,5 +1,5 @@
 import { Symmetry454Calendar } from './Symmetry454Calendar';
-import { LeapDate } from './core';
+import { LeapDate } from './core/LeapDate';
 
 export class Symmetry454Date extends LeapDate {
   constructor(jdn: number, year: number, month: number, day: number) {

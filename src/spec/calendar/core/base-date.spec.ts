@@ -1,4 +1,4 @@
-import { BaseDate } from '../../../index';
+import { BaseDate } from '../../../calendar/core/BaseDate';
 
 describe('Base date spec', () => {
   it('should instantiate a BaseDate', () => {

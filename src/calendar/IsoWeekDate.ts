@@ -1,4 +1,4 @@
-import { YearDate } from './core';
+import { YearDate } from './core/YearDate';
 
 export class IsoWeekDate extends YearDate {
   constructor(jdn: number, year: number, private week: number, private day: number) {

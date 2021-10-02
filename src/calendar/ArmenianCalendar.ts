@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, armenian } from '../Const';
 
 import { ArmenianDate } from './ArmenianDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class ArmenianCalendar {
   // Calculate Armenian calendar date from Julian day number (JDN)

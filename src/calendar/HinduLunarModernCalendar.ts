@@ -10,7 +10,7 @@ import {
   hinduZodiac,
 } from './HinduAlgorithms';
 import { HinduLunarModernDate } from './HinduLunarModernDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class HinduLunarModernCalendar {
   // Calculate Hindu Lunar Modern calendar date from Julian day number (JDN)

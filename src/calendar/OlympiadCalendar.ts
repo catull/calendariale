@@ -3,7 +3,7 @@ import { INVALID_YEAR, olympiad } from '../Const';
 
 import { JulianCalendar } from './JulianCalendar';
 import { OlympiadDate } from './OlympiadDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class OlympiadCalendar {
   // Determine Julian day number (JDN) from Olympiad cycle and year

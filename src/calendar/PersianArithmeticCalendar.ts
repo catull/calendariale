@@ -2,7 +2,7 @@ import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, persian } from '../Const';
 
 import { PersianArithmeticDate } from './PersianArithmeticDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class PersianArithmeticCalendar {
   // Calculate Persian Arithmetic calendar date from Julian day number (JDN)

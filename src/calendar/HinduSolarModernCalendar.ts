@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_MONTH, J0000, hindu } from '../Const';
 
 import { hinduDateYear, hinduSolarLongitude, hinduSunrise, hinduZodiac } from './HinduAlgorithms';
 import { HinduSolarModernDate } from './HinduSolarModernDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class HinduSolarModernCalendar {
   // Calculate Hindu Solar Modern calendar date from Julian day number (JDN)

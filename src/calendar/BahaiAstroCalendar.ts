@@ -11,7 +11,7 @@ import {
 } from '../Const';
 
 import { BahaiAstroDate } from './BahaiAstroDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class BahaiAstroCalendar {
   // Calculate Bahai calendar date from Julian day number (JDN)

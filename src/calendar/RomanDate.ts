@@ -1,6 +1,6 @@
 import { RomanEvent } from '../Const';
 
-import { YearMonthDate } from './core';
+import { YearMonthDate } from './core/YearMonthDate';
 
 export class RomanDate extends YearMonthDate {
   constructor(

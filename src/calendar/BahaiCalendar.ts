@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_MONTH, INVALID_VAHID, INVALID_YEAR, TROPICAL_YEAR,
 
 import { BahaiDate } from './BahaiDate';
 import { GregorianCalendar } from './GregorianCalendar';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class BahaiCalendar {
   // Calculate Bahai calendar date from Julian day number (JDN)

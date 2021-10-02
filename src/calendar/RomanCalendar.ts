@@ -4,7 +4,7 @@ import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_
 import { JulianCalendar } from './JulianCalendar';
 import { JulianDate } from './JulianDate';
 import { RomanDate } from './RomanDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/CalendarDateValidationException';
 
 export class RomanCalendar {
   // Calculate Roman calendar date from Julian day number (JDN)
