@@ -67,5 +67,5 @@
     "reportPath": "tmp/reports",
     "sonar56x": true
   },
-  "packageManager": "yarn@3.0.0"
+  "packageManager": "yarn@3.0.2"
 }
