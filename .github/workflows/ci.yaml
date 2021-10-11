@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         node: [ '16', '15', '14' ]
-        os: [ windows-latest, ubuntu-latest ]
+        os: [ macos-latest, ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - name: Tell if project is using npm or yarn
