@@ -31,7 +31,7 @@ module.exports = {
   ],
   // outputName: 'tmp/reports/junit.xml',
   preset: 'ts-jest',
-  prettierPath: './node_modules/.bin/prettier',
+  // prettierPath: './node_modules/.bin/prettier',
   reporters: [
     'default',
     'jest-junit'
