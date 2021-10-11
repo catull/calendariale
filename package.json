@@ -24,9 +24,11 @@
     "test": "mkdir -p tmp/reports && jest",
     "test:dev": "jest --watch",
     "test:prod": "mkdir -p tmp/reports && jest --silent --coverage --runInBand",
-    "format": "prettier 'src/**/*.[jt]s' --write --list-different --loglevel warn",
+    "format": "prettier 'src/**/*.[jt]s' --write --loglevel warn",
+    "format:check": "prettier 'src/**/*.[jt]s' --list-different --loglevel warn",
     "format:dist": "prettier 'dist/**/*.[jt]s' --write --list-different --loglevel warn",
     "lint": "eslint --fix src/[ACL]*.ts src/calendar/**/*.ts",
+    "lint:check": "eslint src/[ACL]*.ts src/calendar/**/*.ts",
     "lint:test": "eslint --fix -c .eslintrc.spec.js src/spec/**/*.ts"
   },
   "author": "catull@gmail.com",
