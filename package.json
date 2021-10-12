@@ -29,7 +29,7 @@
     "format:dist": "prettier 'dist/**/*.[jt]s' --write --list-different --loglevel warn",
     "lint": "eslint --fix src/[ACL]*.ts src/calendar/**/*.ts",
     "lint:check": "eslint src/[ACL]*.ts src/calendar/**/*.ts",
-    "lint:test": "eslint --fix -c .eslintrc.spec.js src/spec/**/*.ts"
+    "lint:test": "eslint --fix -c .eslintrc.spec.json src/spec/**/*.ts"
   },
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
