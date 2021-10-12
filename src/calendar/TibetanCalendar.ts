@@ -91,7 +91,7 @@ export class TibetanCalendar {
    * @return {boolean} is it float ?
    */
   private static isFloat(num: number): boolean {
-    return Boolean(Boolean(num % 1));
+    return Boolean(num % 1);
   }
 
   /**
