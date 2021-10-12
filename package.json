@@ -51,7 +51,7 @@
     "rimraf": "3.0.2",
     "ts-jest": "27.0.5",
     "ts-node": "10.3.0",
-    "typescript": "4.4.3",
+    "typescript": "4.4.4",
     "yarn": "1.22.15"
   },
   "jest-junit": {
