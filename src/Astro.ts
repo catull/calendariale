@@ -1564,16 +1564,16 @@ function moonLag(tee: number, location: Location): number {
  * @return {number} moment of sunset
  */
 function toRadix(num: number, radices: number[]): number[] {
-  if (radices.length !== 0) {
-    const prod = radices.reduce((acc: number, item: number): number => acc * item, 1);
-    const radix = Math.floor(num / prod);
-    const x2 = num - prod * radix;
-    const [{}, ...rest] = radices;
-
-    return [radix, ...toRadix(x2, rest)];
+  if (radices.length === 0) {
+    return [num];
   }
 
-  return [num];
+  const prod = radices.reduce((acc: number, item: number): number => acc * item, 1);
+  const radix = Math.floor(num / prod);
+  const x2 = num - prod * radix;
+  const [, ...rest] = radices;
+
+  return [radix, ...toRadix(x2, rest)];
 }
 
 export {
