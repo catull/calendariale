@@ -60,11 +60,23 @@ describe('Persian Astronomical calendar spec', () => {
     });
   });
 
-  it('should determine whether a Persian Astronomical year is leap year', () => {
-    [38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185, 1222, 1259, 1296, 1333, 1370].forEach((year) => {
+  it('should determine that a Persian Astronomical year is a leap year', () => {
+    [
+      38, 75, 112, 149, 186, 223, 260, 1111, 1148, 1185,
+      1210, 1214, 1218, 1222, 1226, 1230, 1234, 1238, 1243, 1247, 1251, 1255, 1259, 1263,
+      1267, 1271, 1276, 1280, 1284, 1288, 1292, 1296, 1300, 1304, 1309, 1313, 1317, 1321,
+      1325, 1329, 1333, 1337, 1342, 1346, 1350, 1354, 1358, 1362, 1366, 1370, 1375, 1379,
+      1383, 1387, 1391, 1395, 1399, 1403, 1408, 1412, 1416, 1420, 1424, 1428, 1432, 1436,
+      1441, 1445, 1449, 1453, 1457, 1461, 1465, 1470, 1474, 1478, 1482, 1486, 1490, 1494,
+      1498
+    ]
+    .forEach((year) => {
+      //if (!cal.isLeapYear(year)) console.log(year);
       expect(cal.isLeapYear(year)).toBe(true);
     });
+  });
 
+  it('should determine that a Persian Astronomical year is not a leap year', () => {
     [
       165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862, 903, 944, 985, 1026, 1067, 1108, 1149, 1190,
       1231, 1272,
