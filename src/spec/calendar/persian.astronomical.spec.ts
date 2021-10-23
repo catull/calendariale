@@ -71,7 +71,6 @@ describe('Persian Astronomical calendar spec', () => {
       1498
     ]
     .forEach((year) => {
-      //if (!cal.isLeapYear(year)) console.log(year);
       expect(cal.isLeapYear(year)).toBe(true);
     });
   });
