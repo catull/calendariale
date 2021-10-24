@@ -36,6 +36,7 @@ export class BahaiCalendar {
     const leapDays: number = leap ? 5 : 4;
     const days: number = old ? jd0 - this.bahaiToJdn(kullIshay, vahid, year, 1, 1) + 1 : jd0 - by[1];
 
+    // covers the intercalary days
     let month = 0;
     let day: number = days - 18 * 19;
 
@@ -45,9 +46,6 @@ export class BahaiCalendar {
     } else if (days > 18 * 19 + leapDays) {
       month = 19;
       day = amod(days - leapDays - 1, 19);
-      // } else {
-      //   month = 0;
-      //   day = days - 18 * 19;
     }
 
     return new BahaiDate(jdn, kullIshay, vahid, year, month, day);

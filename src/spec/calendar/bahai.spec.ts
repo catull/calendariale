@@ -33,6 +33,7 @@ const dates = [
   { jdn: 2431004.5, rataDie: 709580, date: { kullIShay: 1, vahid: 6, year: 5, month: 11, day: 11 } },
   { jdn: 2448698.5, rataDie: 727274, date: { kullIShay: 1, vahid: 8, year: 15, month: 19, day: 16 } },
   { jdn: 2450138.5, rataDie: 728714, date: { kullIShay: 1, vahid: 8, year: 19, month: 18, day: 19 } },
+  { jdn: 2450139.5, rataDie: 728715, date: { kullIShay: 1, vahid: 8, year: 19, month: 0, day: 1 } },
   { jdn: 2465737.5, rataDie: 744313, date: { kullIShay: 1, vahid: 11, year: 5, month: 13, day: 7 } },
   { jdn: 2486076.5, rataDie: 764652, date: { kullIShay: 1, vahid: 14, year: 4, month: 7, day: 6 } },
 ];
