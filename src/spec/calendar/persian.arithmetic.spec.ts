@@ -76,8 +76,8 @@ describe('Persian Arithmetic calendar spec', () => {
 
   it('should determine that a Persian Arithmetic year is not a leap year', () => {
     [
-      1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847, 894,
-      988, 1035, 1082, 1129, 1223, 1270, 1364,
+      1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847, 894, 988, 1035, 1082, 1129, 1223, 1270,
+      1364,
     ].forEach((year) => {
       expect(cal.isLeapYear(year)).toBe(false);
     });
