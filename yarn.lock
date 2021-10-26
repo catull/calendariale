@@ -875,10 +875,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:15.12.1":
+"@types/node@npm:*":
   version: 15.12.1
   resolution: "@types/node@npm:15.12.1"
   checksum: a8eb7b5bbd9e4a8c58b9c98fc0eed8d0f5489bdbfd5442ad6230ae3f638f23e0d37c3c6d10d80e8a7ffe2cd06fab0b29c1645eb95862411321a5ff616012593c
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:16.11.6":
+  version: 16.11.6
+  resolution: "@types/node@npm:16.11.6"
+  checksum: 6e19634766ff589d3d2f361c2196b671f8f133cdadc5ad347a621c360d8994b6c4fbccfb2ad9c60c588c593831a96497c9c6b77d2b7e91be723384b94f6368e7
   languageName: node
   linkType: hard
 
@@ -1462,7 +1469,7 @@ __metadata:
   dependencies:
     "@tsconfig/recommended": 1.0.1
     "@types/jest": 27.0.2
-    "@types/node": 15.12.1
+    "@types/node": 16.11.6
     "@typescript-eslint/eslint-plugin": 5.2.0
     "@typescript-eslint/parser": 5.2.0
     barro: 1.2.8
