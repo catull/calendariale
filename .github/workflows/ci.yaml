@@ -29,14 +29,14 @@ jobs:
     needs: test_lint
     strategy:
       matrix:
-        node: [ '16', '15', '14' ]
+        node: [ '17', '16', '14' ]
         os: [ macos-latest, ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
     - name: Tell if project is using npm or yarn
       id: step1
       uses: garronej/github_actions_toolkit@v2.2
-      with: 
+      with:
         action_name: tell_if_project_uses_npm_or_yarn
     - uses: actions/checkout@v2.3.4
     - uses: actions/setup-node@v2.1.3
@@ -63,7 +63,7 @@ jobs:
     steps:
     - uses: garronej/github_actions_toolkit@v2.2
       id: step1
-      with: 
+      with:
         action_name: is_package_json_version_upgraded
 
   update_changelog:
@@ -78,7 +78,7 @@ jobs:
 
   create_github_release:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - update_changelog
       - check_if_version_upgraded
     steps:
@@ -93,7 +93,7 @@ jobs:
         else
             echo "::set-output name=body::📋 [CHANGELOG](https://github.com/$GITHUB_REPOSITORY/blob/v$TO_VERSION/CHANGELOG.md)"
         fi
-      env: 
+      env:
         FROM_VERSION: ${{ needs.check_if_version_upgraded.outputs.from_version }}
         TO_VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
     - uses: garronej/action-gh-release@v0.2.0
@@ -105,11 +105,11 @@ jobs:
         draft: false
         prerelease: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish_on_npm:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - update_changelog
       - check_if_version_upgraded
     steps:
