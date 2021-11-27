@@ -29,8 +29,9 @@ jobs:
         node-version: ${{ matrix.node }}
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
-        yarn install
         yarn build
+        yarn install
+        yarn postinstall
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
@@ -115,6 +116,7 @@ jobs:
         fi
         if [ "$PACKAGE_MANAGER" = "yarn" ]; then
             yarn install
+            yarn postinstall
         else
             npm ci
         fi
