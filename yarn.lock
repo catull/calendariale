@@ -776,13 +776,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/recommended@npm:1.0.1":
-  version: 1.0.1
-  resolution: "@tsconfig/recommended@npm:1.0.1"
-  checksum: 5f781e6a26277ee86dd0f1d575d18133627908ddf7c78acdcab0e40d0b7f21f4e1462eb8f98b74cda1d05d15fb3629ceea4c622ee031d62e31e7a99281c49294
-  languageName: node
-  linkType: hard
-
 "@types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.14":
   version: 7.1.14
   resolution: "@types/babel__core@npm:7.1.14"
@@ -1467,7 +1460,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "calendariale@workspace:."
   dependencies:
-    "@tsconfig/recommended": 1.0.1
     "@types/jest": 27.0.3
     "@types/node": 16.11.7
     "@typescript-eslint/eslint-plugin": 5.4.0
