@@ -1,6 +1,6 @@
 {
   /* Visit https://aka.ms/tsconfig.json to read more about this file */
-  "extends": "@tsconfig/recommended/tsconfig.json",
+  // "extends": "@tsconfig/recommended/tsconfig.json",
 
   "compilerOptions": {
     "allowUnreachableCode": false,
@@ -8,23 +8,24 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "es2020",
-      "dom"
+      "es2021",
+      "dom",
     ],
     "listFiles": false,
     "module": "commonjs",
     "newLine": "lf",
     "outDir": "dist/",
     "rootDir": "./src",
+    "skipLibCheck": true,
     "sourceMap": true,
     "sourceRoot": "./src",
     "strict": true,
-    "target": "es6"
+    "target": "es2021",
   },
   "exclude": [
     "dist",
     "node_modules",
-    "src/create-dist-package.json.ts"
+    "src/create-dist-package.json.ts",
   ],
   "include": [
     "src/*.ts",
