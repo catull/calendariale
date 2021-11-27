@@ -31,7 +31,7 @@ jobs:
       run: |
         yarn build
         yarn install
-        yarn postinstall
+        yarn prebuild
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
@@ -116,7 +116,7 @@ jobs:
         fi
         if [ "$PACKAGE_MANAGER" = "yarn" ]; then
             yarn install
-            yarn postinstall
+            yarn prebuild
         else
             npm ci
         fi
