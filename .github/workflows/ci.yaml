@@ -29,9 +29,9 @@ jobs:
         node-version: ${{ matrix.node }}
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
-        yarn build
         yarn install
         yarn prebuild
+        yarn build
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
