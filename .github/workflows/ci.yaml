@@ -20,11 +20,11 @@ jobs:
     steps:
     - name: Tell if project is using npm or yarn
       id: step1
-      uses: garronej/github_actions_toolkit@v2.2
+      uses: garronej/github_actions_toolkit@v2.4
       with:
         action_name: tell_if_project_uses_npm_or_yarn
-    - uses: actions/checkout@v2.3.4
-    - uses: actions/setup-node@v2.1.3
+    - uses: actions/checkout@v2.4.0
+    - uses: actions/setup-node@v2.4.1
       with:
         node-version: ${{ matrix.node }}
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
@@ -32,7 +32,6 @@ jobs:
         yarn install
         yarn prebuild
         yarn build
-        yarn add -D -E @types/jest
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
@@ -50,7 +49,7 @@ jobs:
       to_version: ${{ steps.step1.outputs.to_version }}
       is_upgraded_version: ${{steps.step1.outputs.is_upgraded_version }}
     steps:
-    - uses: garronej/github_actions_toolkit@v2.2
+    - uses: garronej/github_actions_toolkit@v2.4
       id: step1
       with:
         action_name: is_package_json_version_upgraded
@@ -60,7 +59,7 @@ jobs:
     needs: check_if_version_upgraded
     if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
     steps:
-    - uses: garronej/github_actions_toolkit@v2.2
+    - uses: garronej/github_actions_toolkit@v2.4
       with:
         action_name: update_changelog
         branch: ${{ github.ref }}
@@ -72,7 +71,7 @@ jobs:
       - update_changelog
       - check_if_version_upgraded
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.4.0
       with:
         ref: ${{ github.ref }}
     - name: Build GitHub release body
@@ -103,10 +102,10 @@ jobs:
       - update_changelog
       - check_if_version_upgraded
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2.4.0
       with:
         ref: ${{ github.ref }}
-    - uses: actions/setup-node@v2.1.3
+    - uses: actions/setup-node@v2.4.1
       with:
         node-version: '16'
         registry-url: https://registry.npmjs.org/
