@@ -1,6 +1,9 @@
 {
   "extends": [
     "config:base",
-    ":dependencyDashboard"
-  ]
+    ":dependencyDashboardApproval"
+  ],
+  "major": {
+    "dependencyDashboardApproval": true
+  }
 }
