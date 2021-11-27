@@ -29,7 +29,7 @@ jobs:
         node-version: ${{ matrix.node }}
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
-        yarn install --frozen-lockfile
+        yarn install --immutable --immutable-cache
         yarn build
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
@@ -114,7 +114,7 @@ jobs:
             PACKAGE_MANAGER=yarn
         fi
         if [ "$PACKAGE_MANAGER" = "yarn" ]; then
-            yarn install --frozen-lockfile
+            yarn install --immutable --immutable-cache
         else
             npm ci
         fi
