@@ -32,6 +32,7 @@ jobs:
         yarn install
         yarn prebuild
         yarn build
+        yarn add -D -E @types/jest
         yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
