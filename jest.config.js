@@ -5,25 +5,22 @@ module.exports = {
     '!src/create-dist-package.json.ts',
     '!src/**/index.ts',
     '!src/jest*.ts',
-    '!**/node_modules/**'
+    '!**/node_modules/**',
   ],
   coverageDirectory: 'tmp/coverage',
   coverageReporters: [
+    'clover',
+    'cobertura',
+    'html',
     'json',
     'lcov',
     'text',
-    'clover',
-    'cobertura',
-    'html'
   ],
   globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json'
-    }
   },
   moduleDirectories: [
     'node_modules',
-    'src'
+    'src',
   ],
   moduleFileExtensions: [
     'js',
@@ -34,19 +31,25 @@ module.exports = {
   // prettierPath: './node_modules/.bin/prettier',
   reporters: [
     'default',
-    'jest-junit'
+    'jest-junit',
   ],
   roots: [
-    'src'
+    'src',
   ],
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
   testMatch: [
-    '<rootDir>/src/**/*.spec.ts'
+    '<rootDir>/src/**/*.spec.ts',
   ],
   testResultsProcessor: 'jest-sonar-reporter',
-  testURL: 'http://localhost',
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': [
+      'ts-jest', {
+      tsconfig: 'tsconfig.json',
+    }
+    ],
   },
-  verbose: false
+  verbose: false,
 };
