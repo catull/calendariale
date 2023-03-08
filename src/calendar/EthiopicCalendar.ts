@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, ethiopic } from '../Const';
 
 import { EthiopicDate } from './EthiopicDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class EthiopicCalendar {
   // Calculate Ethiopic calendar date from Julian day number (JDN)
