@@ -197,7 +197,6 @@ const dates = [
 
 describe('Astro spec', () => {
   it('should calculate moon-rise for rata die', () => {
-    // const misses: number[] = [];
     dates.forEach(({ rataDie, rise }) => {
       const actual = moonRise(rataDie, islamic.LOCATION_MECCA);
 
@@ -205,14 +204,22 @@ describe('Astro spec', () => {
     });
   });
 
-  it('should calculate moon-set for rata die', () => {
-    dates.forEach(({ rataDie, set }) => {
-      const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+  it('should calculate moon-set for rata die to be -1', () => {
+    dates
+      .filter((f) => [369740, 524156, 709580, 728714].includes(f.rataDie))
+      .forEach(({ rataDie }) => {
+        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+        expect(actual).toBe(-1);
+      });
+  });
 
-      if (actual !== -1) {
+  it('should calculate moon-set for rata die', () => {
+    dates
+      .filter((f) => [369740, 524156, 709580, 728714].indexOf(f.rataDie) === -1)
+      .forEach(({ rataDie, set }) => {
+        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
         expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
-      }
-    });
+      });
   });
 
   const jdn = 2456435.5;
