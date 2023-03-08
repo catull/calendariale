@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, islamic } from '../Const';
 
 import { IslamicDate } from './IslamicDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class IslamicCalendar {
   // Calculate Islamic calendar date from Julian day number (JDN)
