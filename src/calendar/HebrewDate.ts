@@ -1,5 +1,5 @@
 import { HebrewCalendar } from './HebrewCalendar';
-import { LeapDate } from './core';
+import { LeapDate } from './core/index';
 
 export class HebrewDate extends LeapDate {
   constructor(jdn: number, year: number, month: number, day: number) {
