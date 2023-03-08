@@ -3,7 +3,7 @@ import { INVALID_DECADI, INVALID_JOUR, INVALID_MOIS, TROPICAL_YEAR, french } fro
 
 import { FrenchRevolutionaryDate } from './FrenchRevolutionaryDate';
 import { GregorianCalendar } from './GregorianCalendar';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class FrenchRevolutionaryCalendar {
   // Calculate date in the French Revolutionary calendar from Julian day number (JDN).
