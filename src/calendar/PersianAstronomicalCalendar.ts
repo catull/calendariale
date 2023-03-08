@@ -2,7 +2,7 @@ import { amod, estimatePriorSolarLongitude, midDay, mod, next, solarLongitude, s
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_TROPICAL_YEAR, Season, persian } from '../Const';
 
 import { PersianAstronomicalDate } from './PersianAstronomicalDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class PersianAstronomicalCalendar {
   // Calculate Persian Astronomical calendar date from Julian day number (JDN)
