@@ -1,6 +1,6 @@
 import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR } from '../../Const';
 import { KoreanCalendar as cal } from '../../calendar/KoreanCalendar';
-import { KoreanDate } from '../../calendar/KoreanDate';
+import type { KoreanDate } from '../../calendar/KoreanDate';
 
 const dates = [
   { jdn: 1507231.5, rataDie: -214192, date: { cycle: 30, year: 7, month: 6, monthLeap: false, day: 12 } },
