@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_WEEK, J0000, Month, WeekDay } from '../Const';
 
 import { GregorianCalendar } from './GregorianCalendar';
 import { IsoWeekDate } from './IsoWeekDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class IsoWeekCalendar {
   // Calculate Iso Week calendar date from Julian day number (JDN)
