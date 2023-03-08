@@ -1,7 +1,7 @@
 import { mod } from '../../Astro';
 import { akan } from '../../Const';
 import { AkanNameCalendar as cal } from '../../calendar/AkanNameCalendar';
-import { AkanNameDate } from '../../calendar/AkanNameDate';
+import type { AkanNameDate } from '../../calendar/AkanNameDate';
 
 const dates = [
   { jdn: 1507231.5, rataDie: -214192, date: { prefix: 6, stem: 5 } },
