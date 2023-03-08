@@ -19,10 +19,10 @@ import {
   Season,
   chinese,
 } from '../Const';
-import { Location } from '../Location';
+import type { Location } from '../Location';
 
 import { ChineseDate } from './ChineseDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class ChineseCalendar {
   // Calculate Chinese calendar date from rata die
