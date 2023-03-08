@@ -1,7 +1,7 @@
-import { YearDate } from './core';
+import { YearDate } from './core/index';
 
 export class OlympiadDate extends YearDate {
-  constructor(jdn: number, private cycle: number, protected year: number) {
+  constructor(jdn: number, private cycle: number, protected override year: number) {
     super(jdn, year);
   }
 
@@ -9,7 +9,7 @@ export class OlympiadDate extends YearDate {
     return this.cycle;
   }
 
-  public getYear(): number {
+  public override getYear(): number {
     return this.year;
   }
 }
