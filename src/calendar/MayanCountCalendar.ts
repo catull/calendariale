@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_BAKTUN, INVALID_KATUN, INVALID_KIN, INVALID_TUN, INVALID_UINAL, mayan } from '../Const';
 
 import { MayanCountDate } from './MayanCountDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class MayanCountCalendar {
   // Determine Julian day number (JDN) from Mayan Count calendar date
