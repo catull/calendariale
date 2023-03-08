@@ -1,5 +1,5 @@
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { ArmenianDate } from '../../calendar';
+import type { ArmenianDate } from '../../calendar/index';
 import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
 
 const dates = [
