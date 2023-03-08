@@ -8,11 +8,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "es2021",
+      "ESNext",
       "dom",
     ],
     "listFiles": false,
-    "module": "commonjs",
+    "module": "ESNext",
     "newLine": "lf",
     "outDir": "dist/",
     "rootDir": "./src",
@@ -20,7 +20,7 @@
     "sourceMap": true,
     "sourceRoot": "./src",
     "strict": true,
-    "target": "es2021",
+    "target": "ESNext",
   },
   "exclude": [
     "dist",
