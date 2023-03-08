@@ -4,7 +4,7 @@ import { HebrewMonth, INVALID_DAY, INVALID_MONTH, J0000, Season, hebrew } from '
 import { GregorianCalendar } from './GregorianCalendar';
 import { HebrewCalendar } from './HebrewCalendar';
 import { HebrewObservationalDate } from './HebrewObservationalDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class HebrewObservationalCalendar {
   // Convert Julian day number (JDN) to Hebrew date
