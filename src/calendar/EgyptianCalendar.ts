@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, egyptian } from '../Const';
 
 import { EgyptianDate } from './EgyptianDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class EgyptianCalendar {
   // Calculate Egyptian calendar date from Julian day number (JDN)
