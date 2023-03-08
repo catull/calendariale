@@ -12,7 +12,7 @@ import {
 
 import { hinduDayCount } from './HinduAlgorithms';
 import { HinduLunarOldDate } from './HinduLunarOldDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class HinduLunarOldCalendar {
   // Calculate Hindu Lunar Old calendar date from Julian day number (JDN)
