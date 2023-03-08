@@ -2,7 +2,7 @@ import { jdnToWeekDay, kdayOnOrAfter, mod, sigma, toRadix } from '../Astro';
 import { INVALID_DAY, INVALID_SEASON, INVALID_WEEK, Season, WeekDay, icelandic } from '../Const';
 
 import { IcelandicDate } from './IcelandicDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class IcelandicCalendar {
   // Calculate Icelandic calendar date from Julian day number (JDN)
