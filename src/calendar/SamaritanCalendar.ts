@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_MONTH, J0000, Month, samaritan } from '../Const';
 
 import { GregorianCalendar } from './GregorianCalendar';
 import { SamaritanDate } from './SamaritanDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class SamaritanCalendar {
   // Convert Julian day number (JDN) to Samaritan date
