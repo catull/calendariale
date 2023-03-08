@@ -3,7 +3,7 @@ import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS, gregorian } fr
 
 import { GregorianDate } from './GregorianDate';
 import { JulianCalendar } from './JulianCalendar';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class GregorianCalendar {
   // Calculate Gregorian calendar date from Julian day number (JDN)
