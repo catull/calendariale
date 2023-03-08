@@ -1,4 +1,4 @@
-const { readFileSync } = require('fs');
+const { readFileSync } = require ('fs');
 
 module.exports = () => [
   {
