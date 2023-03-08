@@ -7,10 +7,15 @@
     "baseUrl": "",
     "composite": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "emitBOM": false,
+    "emitDeclarationOnly": false,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
+    "incremental": true,
     "isolatedModules": true,
     "lib": [
       "ESNext",
@@ -23,8 +28,9 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-
+    
     "module": "ESNext",
+    "moduleDetection": "auto",
     "moduleResolution": "Node",
     "newLine": "lf",
     "outDir": "dist/",
@@ -35,6 +41,7 @@
     "strict": true,
     "stripInternal": true,
     "target": "ESNext",
+    "useDefineForClassFields": true,
   },
   "exclude": [
     "dist",
