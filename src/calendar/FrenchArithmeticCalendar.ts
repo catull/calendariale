@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, french } from '../Const';
 
 import { FrenchArithmeticDate } from './FrenchArithmeticDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class FrenchArithmeticCalendar {
   // Calculate date in the French Arithmetic calendar from Julian day number (JDN).
