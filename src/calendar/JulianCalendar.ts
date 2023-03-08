@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, Month, ROMAN_MONTH_MAX_DAYS } from '../Const';
 
 import { JulianDate } from './JulianDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class JulianCalendar {
   // Calculate Julian calendar date from Julian day number (JDN)
