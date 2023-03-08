@@ -1,6 +1,6 @@
 import { angle, binarySearch, mod, mod3, next, precession, sinDeg, solarLongitude } from '../Astro';
 import { MEAN_SIDEREAL_YEAR, hindu } from '../Const';
-import { Location } from '../Location';
+import type { Location } from '../Location';
 
 /**
  * Return elapsed days (Ahargana) to date date since Hindu epoch (KY).
