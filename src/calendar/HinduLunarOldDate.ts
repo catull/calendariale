@@ -1,4 +1,4 @@
-import { LeapMonthDate } from './core';
+import { LeapMonthDate } from './core/index';
 
 export class HinduLunarOldDate extends LeapMonthDate {
   constructor(jdn: number, year: number, month: number, monthLeap: boolean, day: number) {
