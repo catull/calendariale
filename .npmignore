@@ -12,5 +12,5 @@ jest*
 renovate.json
 tsconfig.*
 tslint.json
+tsconfig.tsbuildinfo
 yarn.lock
-
