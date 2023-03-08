@@ -11,7 +11,7 @@ import {
 import { INVALID_DAY, INVALID_MONTH, J0000, MEAN_SYNODIC_MONTH, MoonPhase, babylonian } from '../Const';
 
 import { BabylonianDate } from './BabylonianDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class BabylonianCalendar {
   // Calculate Babylonian calendar date from Julian day number (JDN)
