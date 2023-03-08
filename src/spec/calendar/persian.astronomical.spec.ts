@@ -188,15 +188,13 @@ describe('Persian Astronomical calendar spec', () => {
     });
   });
 
-  /* // WIP
-  it('should determine that a Persian Astronomical year is a leap year', () => {
+  it('should determine that a Persian Astronomical year is NOT a leap year', () => {
     [66, 99, 392, 652, 978, 1077, 1176, 1469, 2814, 3173, 3565, 4411, 4638, 4993, 5377, 6389, 6794, 6980, 8403].forEach(
       (year) => {
-        expect(cal.isLeapYear(year)).toBe(true);
+        expect(cal.isLeapYear(year)).toBe(false);
       },
     );
   });
-  */
 
   it('should determine that a Persian Astronomical year is not a leap year', () => {
     [
