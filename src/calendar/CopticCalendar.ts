@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, coptic } from '../Const';
 
 import { CopticDate } from './CopticDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class CopticCalendar {
   // Calculate Coptic calendar date from Julian day number (JDN)
