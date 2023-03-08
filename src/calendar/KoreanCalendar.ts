@@ -1,16 +1,16 @@
 import { korean } from '../Const';
-import { Location } from '../Location';
+import type { Location } from '../Location';
 
 import { ChineseCalendar } from './ChineseCalendar';
 import { KoreanDate } from './KoreanDate';
 
 export class KoreanCalendar extends ChineseCalendar {
   // Calculate Korean calendar date from rata die
-  public static fromJdn(jdn: number): KoreanDate {
+  public static override fromJdn(jdn: number): KoreanDate {
     return super.fromJdn(jdn) as KoreanDate;
   }
 
-  protected static createDate(
+  protected static override createDate(
     jdn: number,
     cycle: number,
     year: number,
@@ -21,12 +21,12 @@ export class KoreanCalendar extends ChineseCalendar {
     return new KoreanDate(jdn, cycle, year, month, monthLeap, day);
   }
 
-  protected static getEpochRD(): number {
+  protected static override getEpochRD(): number {
     return korean.EPOCH_RD;
   }
 
   // Return location of Beijing; time zone varies with time.
-  protected static getLocation(rataDie: number): Location {
+  protected static override getLocation(rataDie: number): Location {
     // before to 1904/04/01 Gregorian C.E.
     if (rataDie < 696608) {
       return korean.LOCATION_BEFORE_1904_04;
