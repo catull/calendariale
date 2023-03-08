@@ -2,7 +2,7 @@ import { mod } from '../Astro';
 import { INVALID_DAY, INVALID_MONTH, hebrew } from '../Const';
 
 import { HebrewDate } from './HebrewDate';
-import { CalendarDateValidationException } from './core';
+import { CalendarDateValidationException } from './core/index';
 
 export class HebrewCalendar {
   // Convert Julian day number (JDN) to Hebrew date
