@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   collectCoverageFrom: [
     'src/**/*.ts',
     'src/spec/**/*.ts',
@@ -19,6 +19,7 @@ module.exports = {
   globals: {
   },
   moduleDirectories: [
+    'dist',
     'node_modules',
     'src',
   ],
@@ -26,6 +27,9 @@ module.exports = {
     'js',
     'ts',
   ],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   // outputName: 'tmp/reports/junit.xml',
   preset: 'ts-jest',
   // prettierPath: './node_modules/.bin/prettier',
@@ -45,11 +49,8 @@ module.exports = {
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   transform: {
-    '^.+\\.ts$': [
-      'ts-jest', {
-      tsconfig: 'tsconfig.json',
-    }
-    ],
+    // MUST be empty!
   },
   verbose: false,
-};
+}
+
