@@ -29,7 +29,7 @@
     "postinstall": "pnpm prebuild",
     "clean": "rimraf -fr dist tmp",
     "clean:real": "rimraf -fr dist tmp \"src/**/index.ts\"",
-    "dist": "pnpm prebuild && pnpm lint && pnpm lint:test && pnpm build && pnpm lint:test && pnpm test:prod && pnpm dist:package.json && pnpm format:dist",
+    "dist": "pnpm prebuild && pnpm lint && pnpm lint:test && pnpm build && pnpm test:prod && pnpm dist:package.json && pnpm format:dist",
     "dist:package.json": "ts-node --esm src/create-dist-package.json.mts $npm_package_version > dist/package.json",
     "test": "jest",
     "test:dev": "jest --watch",
