@@ -1,53 +1,59 @@
+name: CI
 
-name: ci
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push, pull_request]
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
 
 jobs:
-
-  test:
-    runs-on: ${{ matrix.os }}
+  build:
     strategy:
+      fail-fast: false
       matrix:
-        node: [ '18' ]
-        os: [ ubuntu-latest, macos-latest ]
-    name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
+        node:
+          - '18'
+          - '19'
+        platform:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+    name: '${{matrix.platform}} / Node.js ${{ matrix.node }}'
+    runs-on: ${{matrix.platform}}
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-
-      - name: Run pre build
-        run: pnpm prebuild
-
-      - name: Run lint on sources
-        run: pnpm lint
-
-      - name: Run lint on tests
-        run: pnpm lint:test
-
-      - name: Run build
-        run: pnpm build
-
-      - name: Run prod test suites
-        run: pnpm test:prod
-
-      - name: Run generation of dist package.json
-        run: pnpm dist:package.json
-
-      - name: Run fornat dist sources
-        run: pnpm format:dist
-
+    - name: Configure Git
+      run: |
+        git config --global core.autocrlf false
+        git config --global user.name "Carlo Dapor (bot)"
+        git config --global user.email "catull@gmail.com"
+    - name: Checkout Commit
+      uses: actions/checkout@v3
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: next-7
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node }}
+        cache: 'pnpm'
+    - name: Install npm@7
+      run: npm add --global npm@7
+    - name: pnpm install
+      run: pnpm install
+    - name: Audit
+      run: pnpm audit
+    - name: Run pre build
+      run: pnpm run prebuild
+    - name: Run lint on sources
+      run: pnpm run lint
+    - name: Run lint on tests
+      run: pnpm run lint:test
+    - name: Run build
+      run: pnpm run build
+    - name: Run prod test suites
+      run: pnpm run test:prod
+    - name: Run generation of dist package.json
+      run: pnpm run dist:package.json
+    - name: Run fornat dist sources
+      run: pnpm run format:dist
