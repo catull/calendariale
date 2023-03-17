@@ -76,8 +76,8 @@ describe('Icelandic calendar spec', () => {
     expect(() => cal.toJdn(2002, Season.SPRING, 1, 1)).toThrow(INVALID_SEASON);
     expect(() => cal.toJdn(2002, Season.AUTUMN, 1, 1)).toThrow(INVALID_SEASON);
 
-    expect(() => cal.toJdn(2002, Season.SUMMER, 1, -1)).toThrow(INVALID_DAY);
-    expect(() => cal.toJdn(2002, Season.SUMMER, 1, 7)).toThrow(INVALID_DAY);
+    expect(() => cal.toJdn(2002, Season.SUMMER, 1, -1 as WeekDay)).toThrow(INVALID_DAY);
+    expect(() => cal.toJdn(2002, Season.SUMMER, 1, 7 as WeekDay)).toThrow(INVALID_DAY);
 
     expect(() => cal.toJdn(2002, Season.SUMMER, 27, 0)).toThrow(INVALID_WEEK);
     expect(() => cal.toJdn(2002, Season.WINTER, 27, 0)).toThrow(INVALID_WEEK);
