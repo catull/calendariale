@@ -22,7 +22,7 @@
     ],
     "listFiles": false,
 
-    //"noUnusedLocals": true,
+    "noUnusedLocals": true,
     //"noUnusedParameters": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -30,7 +30,7 @@
     
     "module": "ESNext",
     "moduleDetection": "auto",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "newLine": "lf",
     "outDir": "dist/",
     "rootDir": "./src",
