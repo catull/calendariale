@@ -75,4 +75,16 @@ describe('Islamic Umm al-Qura calendar spec', () => {
     expect(() => cal.toJdn(220, 7, -5)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(220, 1, 31)).toThrow(INVALID_DAY);
   });
+
+  it('should handle ...', () => {
+    const actual = cal.fromJdn(2435072.5); // 1954-11-26
+    const expected = {
+      day: 30,
+      jdn: 2435072.5,
+      month: 3,
+      year: 1374,
+      yearLeap: true,
+    };
+    expect(expected).toEqual(actual);
+  });
 });
