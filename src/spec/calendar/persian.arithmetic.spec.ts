@@ -65,6 +65,7 @@ describe('Persian Arithmetic calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
+      expect(expected.yearLeap).toBe(actual.isYearLeap());
     });
   });
 
@@ -91,5 +92,22 @@ describe('Persian Arithmetic calendar spec', () => {
     expect(() => cal.toJdn(1333, 7, 31)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1333, 12, 31)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1334, 12, 30)).toThrow(INVALID_DAY);
+  });
+
+  it('should correctly handle the last Persian Arithmetic date in the cycle', () => {
+    const jdn = 1029982 + cal.toJdn(475, 1, 1);
+    const actual = cal.fromJdn(jdn);
+    const expected = {
+      jdn: 3151427.5,
+      year: 3294,
+      month: 12,
+      day: 30,
+      yearLeap: true,
+    };
+    expect(expected).toEqual(actual);
+    expect(expected.year).toBe(actual.getYear());
+    expect(expected.month).toBe(actual.getMonth());
+    expect(expected.day).toBe(actual.getDay());
+    expect(expected.yearLeap).toBe(actual.isYearLeap());
   });
 });
