@@ -929,13 +929,13 @@ function approxMomentOfDepression(tee: number, location: Location, alpha: number
   const alt = alpha >= 0 ? (early ? date : date + 1) : date + 0.5;
   const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry;
 
-  if (Math.abs(value) <= 1) {
-    const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
-
-    return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
+  if (Math.abs(value) > 1) {
+    return -1;
   }
 
-  return -1;
+  const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
+
+  return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
 }
 
 /**
