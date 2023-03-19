@@ -2,9 +2,9 @@ import { amod, mod } from '../Astro';
 import { INVALID_DAY, INVALID_LEAP_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, tibetan } from '../Const';
 
 import { TibetanDate } from './TibetanDate';
-import { CalendarDateValidationException, LeapDayMonthDate } from './core/index';
+import { CalendarDateValidationException } from './core/index';
 
-export class TibetanCalendar extends LeapDayMonthDate {
+export class TibetanCalendar {
   // Calculate Tibetan calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): TibetanDate {
     const capY: number = 365 + 4975 / 18382;
