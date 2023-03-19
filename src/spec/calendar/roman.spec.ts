@@ -1,4 +1,4 @@
-import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, Month, RomanEvent } from '../../Const';
+import { INVALID_COUNT, INVALID_LEAP_DAY, INVALID_MONTH, J0000, Month, RomanEvent } from '../../Const';
 import { RomanCalendar as cal } from '../../calendar/RomanCalendar';
 
 const dates = [
@@ -124,5 +124,31 @@ describe('Roman calendar spec', () => {
     expect(() => cal.toJdn(4, Month.MARCH, RomanEvent.KALENDS, 6, true)).not.toThrow(INVALID_LEAP_DAY);
     expect(() => cal.toJdn(4, Month.MARCH, RomanEvent.NONES, 6, true)).toThrow(INVALID_LEAP_DAY);
     expect(() => cal.toJdn(4, Month.MARCH, RomanEvent.IDES, 6, true)).toThrow(INVALID_LEAP_DAY);
+  });
+
+  it('should handle Roman dates around year "0"', () => {
+    let actual = cal.fromJdn(J0000 - 3);
+    let expected = {
+      jdn: 1721421.5,
+      year: 1,
+      month: 1,
+      day: -1,
+      event: 1,
+      count: 3,
+      leap: false,
+    };
+    expect(expected).toEqual(actual);
+
+    actual = cal.fromJdn(J0000 - 368);
+    expected = {
+      jdn: 1721056.5,
+      year: -1,
+      month: 1,
+      day: -1,
+      event: 1,
+      count: 2,
+      leap: false,
+    };
+    expect(expected).toEqual(actual);
   });
 });
