@@ -87,4 +87,10 @@ describe('Gregorian calendar spec', () => {
     // Days between 2000/01/01 and 2001/01/01
     expect(cal.dateDifference(cal.fromJdn(2451544.5), cal.fromJdn(2451910.5))).toBe(366);
   });
+
+  it('should handle Gregorian year 0', () => {
+    const actual = cal.julianDateInGregorian(1, 1, 0);
+
+    expect(actual).toEqual([1721057.5, 1721423.5]);
+  });
 });
