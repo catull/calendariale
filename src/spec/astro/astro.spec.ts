@@ -5,6 +5,8 @@ import {
   equationOfTime,
   jdnToWeekDay,
   julianCenturies,
+  nthKday,
+  mod3,
   moonRise,
   moonSet,
   nutation,
@@ -12,7 +14,7 @@ import {
   poly,
   sigma,
 } from '../../Astro';
-import { WeekDay, islamic } from '../../Const';
+import { WeekDay, islamic, J1970 } from '../../Const';
 
 const dates = [
   {
@@ -293,4 +295,15 @@ describe('Astro spec', () => {
 
     expect(binarySearch(1.5, 2.5, predicate, discriminator)).toBeCloseTo(2.0, 1e-4);
   });
+
+  it('should raise code coverage', () => {
+    const a = mod3(0, 0, 0);
+    expect(a).toBe(0);
+
+    const jdn = nthKday(-1, WeekDay.FRIDAY, J1970);
+    expect(jdn).toBe(2440581.5);
+    const jdn2 = nthKday(0, WeekDay.FRIDAY, J1970);
+    expect(jdn2).toBe(-1);
+  });
+
 });
