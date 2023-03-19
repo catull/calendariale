@@ -91,4 +91,24 @@ describe('Bahai Astro calendar spec', () => {
     expect(() => cal.bahaiToJdn(1, 9, 16, 0, 6)).toThrow(INVALID_DAY);
     expect(() => cal.bahaiToJdn(1, 16, 11, 0, 5)).toThrow(INVALID_DAY);
   });
+
+  it('should handle a date in Kull-i-shay, month 0', () => {
+    const actual = cal.fromJdn(2438452.5); // 1964-02-26
+    const expected = {
+      jdn: 2438452.5,
+      vahid: 7,
+      year: 6,
+      month: 0,
+      day: 2,
+      kullIShay: 1,
+      yearLeap: false,
+    };
+
+    expect(expected).toEqual(actual);
+    expect(expected.kullIShay).toBe(actual.getKullIShay());
+    expect(expected.vahid).toBe(actual.getVahid());
+    expect(expected.year).toBe(actual.getYear());
+    expect(expected.month).toBe(actual.getMonth());
+    expect(expected.day).toBe(actual.getDay());
+  });
 });
