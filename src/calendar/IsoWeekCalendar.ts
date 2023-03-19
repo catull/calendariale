@@ -6,7 +6,7 @@ import { IsoWeekDate } from './IsoWeekDate';
 import { CalendarDateValidationException } from './core/index';
 
 export class IsoWeekCalendar {
-  // Calculate Iso Week calendar date from Julian day number (JDN)
+  // Calculate ISO Week calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): IsoWeekDate {
     const approx: number = GregorianCalendar.jdnToYear(jdn - 3);
     const year: number = jdn >= this.toJdn(approx + 1, 1, 1) ? approx + 1 : approx;
@@ -16,7 +16,7 @@ export class IsoWeekCalendar {
     return new IsoWeekDate(jdn, year, week, day);
   }
 
-  // Determine Julian day number (JDN) from Iso Week calendar date
+  // Determine Julian day number (JDN) from ISO Week calendar date
   public static toJdn(year: number, week: number, day: number): number {
     this.validate(year, week, day);
 
