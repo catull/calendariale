@@ -77,4 +77,19 @@ describe('French Arithmetic calendar spec', () => {
     expect(() => cal.toJdn(1000, 7, 35)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1000, 0, 6)).toThrow(INVALID_DAY);
   });
+
+  it('should handle intercalary day - "les jours complémentaires"', () => {
+    const actual = cal.fromJdn(2441216.5);
+    const expected = {
+      jdn: 2441216.5,
+      year: 179,
+      month: 0,
+      day: 5,
+      yearLeap: false,
+    };
+    expect(expected).toEqual(actual);
+    expect(expected.year).toBe(actual.getYear());
+    expect(expected.month).toBe(actual.getMonth());
+    expect(expected.day).toBe(actual.getDay());
+  });
 });
