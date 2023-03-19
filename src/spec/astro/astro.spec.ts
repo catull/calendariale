@@ -305,5 +305,4 @@ describe('Astro spec', () => {
     const jdn2 = nthKday(0, WeekDay.FRIDAY, J1970);
     expect(jdn2).toBe(-1);
   });
-
 });
