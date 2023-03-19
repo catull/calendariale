@@ -65,4 +65,18 @@ describe('ISO Week calendar spec', () => {
     expect(() => cal.toJdn(1999, 52, 0)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1999, 1, 8)).toThrow(INVALID_DAY);
   });
+
+  it('should reach 100% code coverage', () => {
+    const actual = cal.fromJdn(2454832.5);
+    const expected = {
+      jdn: 2454832.5,
+      year: 2009,
+      day: 4,
+      week: 1,
+    };
+    expect(expected).toEqual(actual);
+    expect(expected.year).toBe(actual.getYear());
+    expect(expected.week).toBe(actual.getWeek());
+    expect(expected.day).toBe(actual.getDay());
+  });
 });
