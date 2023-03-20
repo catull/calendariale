@@ -91,4 +91,26 @@ describe('Tibetan calendar spec', () => {
       year: 2078,
     });
   });
+
+  it('should raise code coverage, close the gap with 2 corner cases', () => {
+    let actual = cal.fromJdn(2434423); // 1953-02-14
+    expect(actual).toEqual({
+      jdn: 2434423,
+      day: 30.5,
+      dayLeap: false,
+      month: 12,
+      monthLeap: false,
+      year: 2079,
+    });
+
+    actual = cal.fromJdn(2434777.5); // 1954-02-04
+    expect(actual).toEqual({
+      jdn: 2434777.5,
+      day: 1,
+      dayLeap: false,
+      month: 1,
+      monthLeap: true,
+      year: 2081,
+    });
+  });
 });
