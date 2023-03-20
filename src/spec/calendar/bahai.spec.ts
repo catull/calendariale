@@ -98,4 +98,12 @@ describe('Bahai calendar spec', () => {
     expect(cal.jdnToYear(2457810.5)).toBe(173);
     expect(cal.jdnToYear(2465737.5)).toBe(195);
   });
+
+  it('should raise code coverage with 2 corner cases', () => {
+    const actual0 = cal.bahaiToJdn(1, 6, 6, 0, 4); // 1945-03-01
+    expect(actual0).toBe(2431515.5);
+
+    const actual1 = cal.bahaiToJdn(1, 6, 7, 19, 18); // 1946-03-19
+    expect(actual1).toBe(2431898.5);
+  });
 });
