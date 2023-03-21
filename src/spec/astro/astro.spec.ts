@@ -13,8 +13,12 @@ import {
   obliquity,
   poly,
   sigma,
+  sunset,
+  moonLag,
+  dawn,
 } from '../../Astro';
 import { WeekDay, islamic, J1970 } from '../../Const';
+import { Location } from '../../Location';
 
 const dates = [
   {
@@ -305,4 +309,25 @@ describe('Astro spec', () => {
     const jdn2 = nthKday(0, WeekDay.FRIDAY, J1970);
     expect(jdn2).toBe(-1);
   });
+
+
+  it('should handle sunset', () => {
+    const rataDie = sunset(0, new Location(90, 0, 0, 0));
+    expect(rataDie).toBe(-1);
+  });
+
+  it('should handle moonLag', () => {
+    let rataDie = moonLag(0, new Location(90, 0, 0, 0));
+    expect(rataDie).toBe(-1);
+    // const newMoon = newMoonAtOrAfter(0);
+    // const rataDie = moonLag(newMoon - 1, new Location(0, 0, 0, 0));
+    // expect(rataDie).toBe(-1);
+  });
+
+  it('should handle dawn at the North Pole', () => {
+    const location = new Location(90, 0, 0, 0);
+    const rataDie = dawn(0, location, 0);
+    expect(rataDie).toBe(-1);
+  });
+
 });
