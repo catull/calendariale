@@ -1,21 +1,22 @@
 import {
+  arcTanDeg,
   binarySearch,
+  dawn,
   dynamicalToUniversal,
   ephemerisCorrection,
   equationOfTime,
   jdnToWeekDay,
   julianCenturies,
-  nthKday,
   mod3,
+  moonLag,
   moonRise,
   moonSet,
+  nthKday,
   nutation,
   obliquity,
   poly,
   sigma,
   sunset,
-  moonLag,
-  dawn,
 } from '../../Astro';
 import { WeekDay, islamic, J1970 } from '../../Const';
 import { Location } from '../../Location';
@@ -310,14 +311,13 @@ describe('Astro spec', () => {
     expect(jdn2).toBe(-1);
   });
 
-
   it('should handle sunset', () => {
     const rataDie = sunset(0, new Location(90, 0, 0, 0));
     expect(rataDie).toBe(-1);
   });
 
   it('should handle moonLag', () => {
-    let rataDie = moonLag(0, new Location(90, 0, 0, 0));
+    const rataDie = moonLag(0, new Location(90, 0, 0, 0));
     expect(rataDie).toBe(-1);
     // const newMoon = newMoonAtOrAfter(0);
     // const rataDie = moonLag(newMoon - 1, new Location(0, 0, 0, 0));
@@ -330,4 +330,10 @@ describe('Astro spec', () => {
     expect(rataDie).toBe(-1);
   });
 
+  it('should calculate the arc tangent in degrees', () => {
+    let tan = arcTanDeg(90, 0);
+    expect(tan).toBe(90);
+    tan = arcTanDeg(0, 90);
+    expect(tan).toBe(0);
+  });
 });
