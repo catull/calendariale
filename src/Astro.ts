@@ -1536,11 +1536,12 @@ function sunset(rataDie: number, location: Location): number {
  */
 function moonLag(tee: number, location: Location): number {
   const sun = sunset(tee, location);
-  const moon = moonSet(tee, location);
-
+  
   if (sun === -1) {
     return -1;
   }
+
+  const moon = moonSet(tee, location);
 
   if (moon === -1) {
     return 1;
