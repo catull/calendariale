@@ -884,7 +884,7 @@ function declination(tee: number, beta: number, lambda: number): number {
 }
 
 /**
- * Return right ascension at moment UT tee of object at longitude lambda and latitude beta.
+ * Return right ascension at moment UT tee of object at latitude beta and longitude lambda.
  * @param {float} tee moment in time
  * @param {float} beta latitude
  * @param {float} lambda longitude
@@ -1536,7 +1536,7 @@ function sunset(rataDie: number, location: Location): number {
  */
 function moonLag(tee: number, location: Location): number {
   const sun = sunset(tee, location);
-  
+
   if (sun === -1) {
     return -1;
   }
@@ -1581,6 +1581,7 @@ export {
   amod,
   angle,
   apparentToLocal,
+  arcTanDeg,
   binarySearch,
   cosDeg,
   dawn,
