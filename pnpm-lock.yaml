@@ -16,7 +16,7 @@ specifiers:
   jest-sonar-reporter: 2.0.0
   pnpm: 7.30.0
   prettier: 2.8.6
-  rimraf: 4.4.0
+  rimraf: 4.4.1
   ts-jest: 29.0.5
   ts-node: 10.9.1
   typescript: 5.0.2
@@ -37,7 +37,7 @@ devDependencies:
   jest-sonar-reporter: 2.0.0
   pnpm: 7.30.0
   prettier: 2.8.6
-  rimraf: 4.4.0
+  rimraf: 4.4.1
   ts-jest: 29.0.5_44ttdtjaknnkcgzh5px4h2qxl4
   ts-node: 10.9.1_zlbzrxdj56n2qhafx752nt3nlm
   typescript: 5.0.2
@@ -3155,8 +3155,8 @@ packages:
       glob: 7.2.3
     dev: true
 
-  /rimraf/4.4.0:
-    resolution: {integrity: sha512-X36S+qpCUR0HjXlkDe4NAOhS//aHH0Z+h8Ckf2auGJk3PTnx5rLmrHkwNdbVQuCSUhOyFrlRvFEllZOYE+yZGQ==}
+  /rimraf/4.4.1:
+    resolution: {integrity: sha512-Gk8NlF062+T9CqNGn6h4tls3k6T1+/nXdOcSZVikNVtlRdYpA7wRJJMoXmuvOnLW844rPjdQ7JgXCYM6PPC/og==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
