@@ -14,7 +14,7 @@ specifiers:
   jest-environment-jsdom: 29.5.0
   jest-junit: 15.0.0
   jest-sonar-reporter: 2.0.0
-  pnpm: 7.30.0
+  pnpm: 7.30.3
   prettier: 2.8.7
   rimraf: 4.4.1
   ts-jest: 29.0.5
@@ -35,7 +35,7 @@ devDependencies:
   jest-environment-jsdom: 29.5.0
   jest-junit: 15.0.0
   jest-sonar-reporter: 2.0.0
-  pnpm: 7.30.0
+  pnpm: 7.30.3
   prettier: 2.8.7
   rimraf: 4.4.1
   ts-jest: 29.0.5_44ttdtjaknnkcgzh5px4h2qxl4
@@ -3025,8 +3025,8 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /pnpm/7.30.0:
-    resolution: {integrity: sha512-6SUdrWSZ4qvQ4uBVg7smnabVKOFrT7DgSz2NfViG54nRii4ODB395qmHprBiv5WBdlC/jZYBn99fSfmzIMI3WQ==}
+  /pnpm/7.30.3:
+    resolution: {integrity: sha512-Z/pNEfZF45OwdZSUAeSTYySs27UW+GG4AQ2iXz4u127QVtkCMCeyrMNZmb/17BazaZTtvXqk/+jxTVkyh8apIA==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: true
