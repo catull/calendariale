@@ -1,4 +1,4 @@
-import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR } from '../../Const';
+import { INVALID_DAY, INVALID_LEAP_MONTH, INVALID_MONTH, INVALID_YEAR, J0000 } from '../../Const';
 import { ChineseCalendar as cal } from '../../calendar/ChineseCalendar';
 
 const dates = [
@@ -69,5 +69,18 @@ describe('Chinese calendar spec', () => {
     expect(() => cal.toJdn(78, 34, 5, false, 30)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(78, 34, 6, false, 30)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(78, 34, 6, true, 30)).not.toThrow(INVALID_DAY);
+  });
+
+  it('should c<lculate a Chinese new year date correctly', () => {
+    const jdn = 2434776.5; // 1954-02-03
+    const rataDie = jdn - J0000; // 713352
+
+    const newYear = cal.chineseNewYearOnOrBefore(rataDie);
+    const oldYear = cal.chineseNewYearOnOrBefore(rataDie - 1);
+    expect(oldYear).toBeLessThan(newYear);
+
+    const date = cal.fromJdn(jdn - 1.0);
+    const jdn2 = cal.toJdn(date.getCycle(), date.getYear(), date.getMonth(), date.isMonthLeap(), date.getDay());
+    expect(jdn2).toEqual(jdn - 1.0);
   });
 });

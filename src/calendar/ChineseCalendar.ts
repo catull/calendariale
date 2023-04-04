@@ -129,7 +129,7 @@ export class ChineseCalendar {
   */
 
   // Return rata die of Chinese New Year on or before given date.
-  private static chineseNewYearOnOrBefore(rataDie: number): number {
+  public static chineseNewYearOnOrBefore(rataDie: number): number {
     const newYear: number = this.chineseNewYearInSui(rataDie);
 
     return rataDie >= newYear ? newYear : this.chineseNewYearInSui(rataDie - 180);
