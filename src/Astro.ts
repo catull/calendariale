@@ -926,7 +926,7 @@ function sineOffset(tee: number, location: Location, alpha: number): number {
 function approxMomentOfDepression(tee: number, location: Location, alpha: number, early: boolean): number {
   const ttry = sineOffset(tee, location, alpha);
   const date = momentToRd(tee);
-  const alt = alpha >= 0 ? (early ? date : date + 1) : date + 0.5;
+  const alt = alpha < 0 ? date + 0.5 : early ? date : date + 1;
   const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry;
 
   if (Math.abs(value) > 1) {
@@ -1394,7 +1394,7 @@ function moonSet(rataDie: number, location: Location): number {
 /**
  * Standard time of moon-rise on fixed date at location.
  * Returns -1 if there is no moon-rise on date.
- * @param {number} tee moment in time
+ * @param {number} date moment in time
  * @param {Location} location Geo-location
  * @return {number} time of moon-rise or -1
  */
