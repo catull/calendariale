@@ -1379,41 +1379,41 @@ function moonSet(rataDie: number, location: Location): number {
   const alt = observedLunarAltitude(tee, location);
   const lat = location.getLatitude();
   const offset = alt / (4 * (90 - Math.abs(lat)));
-  const approx = waxing ? (offset > 0 ? tee + offset : tee + 1 + offset) : tee - offset + 0.5;
+  const approx = !waxing ? tee - offset + 0.5 : offset > 0 ? tee + offset : tee + 1 + offset;
 
-  const set = binarySearch(
+  const moment = binarySearch(
     approx - 0.25,
     approx + 0.25,
     (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
     (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0,
   );
 
-  return set < tee + 1 ? Math.max(universalToStandard(set, location), rataDie) : -1;
+  return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
 }
 
 /**
  * Standard time of moon-rise on fixed date at location.
  * Returns -1 if there is no moon-rise on date.
- * @param {number} date moment in time
+ * @param {number} rataDie moment in time
  * @param {Location} location Geo-location
  * @return {number} time of moon-rise or -1
  */
-function moonRise(date: number, location: Location): number {
-  const tee = standardToUniversal(date, location);
+function moonRise(rataDie: number, location: Location): number {
+  const tee = standardToUniversal(rataDie, location);
   const waning = lunarPhase(tee) > 180;
   const alt = observedLunarAltitude(tee, location);
   const lat = location.getLatitude();
   const offset = alt / (4 * (90 - Math.abs(lat)));
-  const approx = waning ? (offset > 0 ? tee + 1 - offset : tee - offset) : tee + offset + 0.5;
+  const approx = !waning ? tee + offset + 0.5 : offset > 0 ? tee + 1 - offset : tee - offset;
 
-  const rise = binarySearch(
+  const moment = binarySearch(
     approx - 0.25,
     approx + 0.25,
     (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
     (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0,
   );
 
-  return rise < tee + 1 ? Math.max(universalToStandard(rise, location), date) : -1;
+  return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
 }
 
 /**
