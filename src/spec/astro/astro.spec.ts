@@ -319,9 +319,8 @@ describe('Astro spec', () => {
   it('should handle moonLag', () => {
     const rataDie = moonLag(0, new Location(90, 0, 0, 0));
     expect(rataDie).toBe(-1);
-    // const newMoon = newMoonAtOrAfter(0);
-    // const rataDie = moonLag(newMoon - 1, new Location(0, 0, 0, 0));
-    // expect(rataDie).toBe(-1);
+    const tee = moonLag(369740, islamic.LOCATION_MECCA);
+    expect(tee).toBe(1);
   });
 
   it('should handle dawn at the North Pole', () => {
