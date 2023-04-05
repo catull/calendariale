@@ -203,36 +203,27 @@ const dates = [
 ];
 
 describe('Astro spec', () => {
-  it('should calculate moon-rise for rata die', () => {
-    dates.forEach(({ rataDie, rise }) => {
-      const actual = moonRise(rataDie, islamic.LOCATION_MECCA);
-
-      expect(actual).toBeCloseTo(rataDie + rise.tee, 0.00001);
-    });
-  });
-
-  it('should calculate moon-set for rata die to be -1', () => {
-    dates
-      .filter((f) => [369740, 524156, 709580, 728714].includes(f.rataDie))
-      .forEach(({ rataDie }) => {
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBe(-1);
-      });
-  });
-
-  it('should calculate moon-set for rata die', () => {
-    dates
-      .filter((f) => [369740, 524156, 709580, 728714].indexOf(f.rataDie) === -1)
-      .forEach(({ rataDie, set }) => {
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
-      });
-  });
-
   const jdn = 2456435.5;
 
   it('should determine the week-day', () => {
     expect(jdnToWeekDay(jdn)).toBe(WeekDay.THURSDAY);
+  });
+
+  it('should calculate the arc tangent in degrees', () => {
+    let tan = arcTanDeg(90, 0);
+    expect(tan).toBe(90);
+    tan = arcTanDeg(0, 90);
+    expect(tan).toBe(0);
+  });
+
+  it('should calculate mod3 and nth k-day correctly', () => {
+    const a = mod3(0, 0, 0);
+    expect(a).toBe(0);
+
+    const jdn = nthKday(-1, WeekDay.FRIDAY, J1970);
+    expect(jdn).toBe(2440581.5);
+    const jdn2 = nthKday(0, WeekDay.FRIDAY, J1970);
+    expect(jdn2).toBe(-1);
   });
 
   it('should calculate a polynomial', () => {
@@ -276,6 +267,7 @@ describe('Astro spec', () => {
     ];
 
     expect(sigma(matrix, (x0: number, y0: number, z0: number): number => x0 * y0 * z0)).toBe(780);
+    expect(sigma([], (): number => 0)).toBe(0);
   });
 
   it('should calculate a nutation', () => {
@@ -301,14 +293,31 @@ describe('Astro spec', () => {
     expect(binarySearch(1.5, 2.5, predicate, discriminator)).toBeCloseTo(2.0, 1e-4);
   });
 
-  it('should raise code coverage', () => {
-    const a = mod3(0, 0, 0);
-    expect(a).toBe(0);
+  it('should calculate moon-rise for rata die', () => {
+    dates.forEach(({ rataDie, rise }) => {
+      const actual = moonRise(rataDie, islamic.LOCATION_MECCA);
 
-    const jdn = nthKday(-1, WeekDay.FRIDAY, J1970);
-    expect(jdn).toBe(2440581.5);
-    const jdn2 = nthKday(0, WeekDay.FRIDAY, J1970);
-    expect(jdn2).toBe(-1);
+      expect(actual).toBeCloseTo(rataDie + rise.tee, 0.00001);
+    });
+  });
+
+  it('should calculate moon-set for rata die to be -1', () => {
+    dates
+      .filter((f) => f.set.tee === -1)
+      .forEach(({ rataDie }) => {
+        // 369740, 524156, 709580, 728714
+        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+        expect(actual).toBe(-1);
+      });
+  });
+
+  it('should calculate moon-set for rata die', () => {
+    dates
+      .filter((f) => f.set.tee !== -1)
+      .forEach(({ rataDie, set }) => {
+        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+        expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
+      });
   });
 
   it('should handle sunset', () => {
@@ -323,16 +332,11 @@ describe('Astro spec', () => {
     expect(tee).toBe(1);
   });
 
-  it('should handle dawn at the North Pole', () => {
+  it('should handle dawn and moments befora that at the North Pole', () => {
     const location = new Location(90, 0, 0, 0);
-    const rataDie = dawn(0, location, 0);
-    expect(rataDie).toBe(-1);
-  });
-
-  it('should calculate the arc tangent in degrees', () => {
-    let tan = arcTanDeg(90, 0);
-    expect(tan).toBe(90);
-    tan = arcTanDeg(0, 90);
-    expect(tan).toBe(0);
+    const momentOfDawn = dawn(0, location, 0);
+    expect(momentOfDawn).toBe(-1);
+    const momentBeforeDawn = dawn(0, location, -0.1);
+    expect(momentBeforeDawn).toBe(-1);
   });
 });
