@@ -36,8 +36,8 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
         cache: 'pnpm'
-    - name: Install npm@7
-      run: npm add --global npm@7
+    - name: Install npm
+      run: npm add --global npm
     - name: pnpm install
       run: pnpm install
     - name: Audit
@@ -56,3 +56,4 @@ jobs:
       run: pnpm run dist:package.json
     - name: Run fornat dist sources
       run: pnpm run format:dist
+
