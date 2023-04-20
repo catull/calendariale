@@ -45,7 +45,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/jest": "29.5.1",
-    "@types/node": "18.15.11",
+    "@types/node": "18.15.12",
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
     "barro": "1.2.8",
@@ -80,5 +80,5 @@
     "reportPath": "tmp/reports",
     "sonar56x": true
   },
-  "packageManager": "pnpm@8.1.1"
+  "packageManager": "pnpm@8.3.1"
 }
