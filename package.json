@@ -80,5 +80,5 @@
     "reportPath": "tmp/reports",
     "sonar56x": true
   },
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@${npm_package_devDependencies_pnpm}"
 }
