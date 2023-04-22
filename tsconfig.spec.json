@@ -25,7 +25,7 @@
   "exclude": [
     "dist",
     "node_modules",
-    "src/create-dist-package.json.ts",
+    "src/create-dist-package.json.js",
   ],
   "include": [
     "src/*.ts",
