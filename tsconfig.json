@@ -45,12 +45,11 @@
   "exclude": [
     "dist",
     "node_modules",
-    "src/create-dist-package.json.mts",
+    "src/create-dist-package.json.js",
     "src/spec",
   ],
   "include": [
     "src/*.ts",
     "src/calendar/**/*.ts",
-    "src/create-dist-package.json.mts",
   ]
 }
