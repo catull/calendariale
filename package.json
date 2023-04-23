@@ -45,7 +45,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/jest": "29.5.1",
-    "@types/node": "18.15.13",
+    "@types/node": "18.16.0",
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
     "barro": "1.2.8",
@@ -58,7 +58,7 @@
     "jest-junit": "16.0.0",
     "jest-sonar-reporter": "2.0.0",
     "pnpm": "8.3.1",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "rimraf": "5.0.0",
     "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
