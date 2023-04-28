@@ -22,9 +22,9 @@ jobs:
     steps:
     - name: Configure Git
       run: |
-        git config core.autocrlf false
-        git config user.name "Carlo Dapor (bot)"
-        git config user.email "catull@gmail.com"
+        git config --global core.autocrlf false
+        git config --global user.name "Carlo Dapor (bot)"
+        git config --global user.email "catull@gmail.com"
     - name: Checkout Commit
       uses: actions/checkout@v3
     - name: Install pnpm
