@@ -16,28 +16,28 @@ jobs:
         platform:
           - macos-latest
           - ubuntu-latest
-    name: '${{matrix.platform}} / Node.js ${{ matrix.node }}'
+    name: 'Node.js ${{matrix.node}} / ${{matrix.platform}}'
     runs-on: ${{matrix.platform}}
 
     steps:
     - name: Configure Git
       run: |
-        git config --global core.autocrlf false
-        git config --global user.name "Carlo Dapor (bot)"
-        git config --global user.email "catull@gmail.com"
+        git config core.autocrlf false
+        git config user.name "Carlo Dapor (bot)"
+        git config user.email "catull@gmail.com"
     - name: Checkout Commit
       uses: actions/checkout@v3
     - name: Install pnpm
-      uses: pnpm/action-setup@v2.2.4
+      uses: pnpm/action-setup@v2
       with:
-        version: next-7
+        version: 7
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node }}
+        node-version: ${{matrix.node}}
         cache: 'pnpm'
-    - name: Install npm
-      run: npm add --global npm
+    - name: Install pnpm
+      run: npm add --global pnpm
     - name: pnpm install
       run: pnpm install
     - name: Audit
