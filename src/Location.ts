@@ -1,5 +1,10 @@
 export class Location {
-  constructor(private latitude: number, private longitude: number, private elevation: number, private zone: number) {}
+  constructor(
+    private latitude: number,
+    private longitude: number,
+    private elevation: number,
+    private zone: number,
+  ) {}
 
   public getLatitude(): number {
     return this.latitude;
