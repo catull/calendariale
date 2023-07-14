@@ -1456,7 +1456,11 @@ function visibleCrescent(jdn: number, location: Location): boolean {
   const arcOfLight: number = arcCosDeg(cosDeg(lunarLatitude(tee)) * cosDeg(phase));
 
   return (
-    MoonPhase.NEW < phase && phase < MoonPhase.FIRST_QUARTER && arcOfLight >= 10.6 && arcOfLight <= 90 && altitude > 4.1
+    phase > 1.0 * MoonPhase.NEW &&
+    phase < 1.0 * MoonPhase.FIRST_QUARTER &&
+    arcOfLight >= 10.6 &&
+    arcOfLight <= 90 &&
+    altitude > 4.1
   );
 }
 
