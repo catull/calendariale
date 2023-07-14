@@ -1,7 +1,11 @@
 import { BaseDate } from './BaseDate';
 
 export class MonthDate extends BaseDate {
-  constructor(jdn: number, protected month: number, protected day: number) {
+  constructor(
+    jdn: number,
+    protected month: number,
+    protected day: number,
+  ) {
     super(jdn);
   }
 
