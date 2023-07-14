@@ -34,9 +34,9 @@
     "test": "jest",
     "test:dev": "jest --watch",
     "test:prod": "mkdir -p tmp/reports && jest --silent --coverage --runInBand",
-    "format": "prettier 'src/**/*.[jt]s' --write --loglevel warn",
-    "format:check": "prettier 'src/**/*.[jt]s' --list-different --loglevel warn",
-    "format:dist": "prettier 'dist/**/*.[jt]s' --write --list-different --loglevel warn",
+    "format": "prettier 'src/**/*.[jt]s' --write --log-level warn",
+    "format:check": "prettier 'src/**/*.[jt]s' --list-different --log-level warn",
+    "format:dist": "prettier 'dist/**/*.[jt]s' --write --list-different --log-level warn",
     "lint": "eslint --fix src/*.ts src/calendar/**/*.ts",
     "lint:check": "eslint src/*.ts src/calendar/**/*.ts",
     "lint:test": "eslint --fix -c .eslintrc.spec.json src/spec/**/*.ts"
