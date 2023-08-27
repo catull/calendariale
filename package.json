@@ -57,7 +57,7 @@
     "jest-environment-jsdom": "29.6.4",
     "jest-junit": "16.0.0",
     "jest-sonar-reporter": "2.0.0",
-    "pnpm": "8.6.12",
+    "pnpm": "8.7.0",
     "prettier": "3.0.2",
     "rimraf": "5.0.1",
     "ts-jest": "29.1.1",
