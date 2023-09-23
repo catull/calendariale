@@ -31,5 +31,8 @@
     "src/*.ts",
     "src/calendar/**/*.ts",
     "src/spec",
+  ],
+  "types": [
+    "vitest/globals"
   ]
 }

@@ -6,9 +6,10 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:vitest/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -17,7 +18,11 @@
         "project": ["tsconfig.spec.json"]
     },
     "plugins": [
-        "@typescript-eslint"
-    ]
+        "@typescript-eslint",
+        "vitest"
+    ],
+    "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off"
+    }
 }
-
