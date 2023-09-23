@@ -1,7 +1,11 @@
 import { YearDate } from './core/index';
 
 export class OlympiadDate extends YearDate {
-  constructor(jdn: number, private cycle: number, protected override year: number) {
+  constructor(
+    jdn: number,
+    private cycle: number,
+    protected override year: number,
+  ) {
     super(jdn, year);
   }
 

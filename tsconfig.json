@@ -51,5 +51,8 @@
   "include": [
     "src/*.ts",
     "src/calendar/**/*.ts",
+  ],
+  "types": [
+    "vitest/globals"
   ]
 }
