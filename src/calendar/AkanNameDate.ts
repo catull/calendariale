@@ -1,7 +1,11 @@
 import { BaseDate } from './core/index';
 
 export class AkanNameDate extends BaseDate {
-  constructor(jdn: number, private prefix: number, private stem: number) {
+  constructor(
+    jdn: number,
+    private prefix: number,
+    private stem: number,
+  ) {
     super(jdn);
   }
 

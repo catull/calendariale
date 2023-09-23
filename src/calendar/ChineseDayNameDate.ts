@@ -1,7 +1,11 @@
 import { BaseDate } from './core/index';
 
 export class ChineseDayNameDate extends BaseDate {
-  constructor(jdn: number, private stem: number, private branch: number) {
+  constructor(
+    jdn: number,
+    private stem: number,
+    private branch: number,
+  ) {
     super(jdn);
   }
 

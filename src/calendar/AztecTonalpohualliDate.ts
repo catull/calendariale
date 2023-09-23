@@ -1,7 +1,11 @@
 import { BaseDate } from './core/index';
 
 export class AztecTonalpohualliDate extends BaseDate {
-  constructor(jdn: number, private num: number, private name: number) {
+  constructor(
+    jdn: number,
+    private num: number,
+    private name: number,
+  ) {
     super(jdn);
   }
 

@@ -1,7 +1,12 @@
 import { YearDate } from './core/index';
 
 export class IsoWeekDate extends YearDate {
-  constructor(jdn: number, year: number, private week: number, private day: number) {
+  constructor(
+    jdn: number,
+    year: number,
+    private week: number,
+    private day: number,
+  ) {
     super(jdn, year);
   }
 
