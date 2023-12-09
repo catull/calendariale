@@ -1413,7 +1413,8 @@ function moonRise(rataDie: number, location: Location): number {
     (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0,
   );
 
-  return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
+  //return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
+  return Math.max(universalToStandard(moment, location), rataDie);
 }
 
 /**

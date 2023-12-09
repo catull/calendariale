@@ -6,12 +6,8 @@ export default mergeConfig(
         test: {
             globals: true,
             environment: 'happy-dom',
-            exclude: [
-                '.barro.config.cjs',
-                'node_modules/**',
-                '**/tests/e2e/**',
-                'src/create-dist-package.json.js',
-                'src/**/index.ts',
+            include: [
+                'src/spec/**/*.test.ts',
             ],
             coverage: {
                 provider: 'v8',
@@ -23,11 +19,11 @@ export default mergeConfig(
                     'text',
                 ],
                 exclude: [
-                    '.barro.config.cjs',
-                    'node_modules/**',
-                    '**/tests/e2e/**',
-                    'src/create-dist-package.json.js',
+                    'src/spec/**',
                     'src/**/index.ts',
+                ],
+                include: [
+                    'src/**/*.ts',
                 ],
                 reportsDirectory: 'tmp/reports',
                 branches: 99.9,
