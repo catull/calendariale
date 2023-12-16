@@ -35,21 +35,21 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/node": "20.10.4",
-    "@typescript-eslint/eslint-plugin": "6.13.2",
-    "@typescript-eslint/parser": "6.13.2",
-    "@vitest/coverage-v8": "1.0.2",
+    "@typescript-eslint/eslint-plugin": "6.14.0",
+    "@typescript-eslint/parser": "6.14.0",
+    "@vitest/coverage-v8": "1.0.4",
     "barro": "1.2.8",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.0.1",
-    "eslint-plugin-vitest": "0.3.12",
+    "eslint-plugin-vitest": "0.3.17",
     "happy-dom": "12.10.3",
-    "pnpm": "8.12.0",
-    "prettier": "3.1.0",
+    "pnpm": "8.12.1",
+    "prettier": "3.1.1",
     "rimraf": "5.0.5",
     "typescript": "5.3.3",
-    "vite": "5.0.7",
-    "vitest": "1.0.2"
+    "vite": "5.0.10",
+    "vitest": "1.0.4"
   },
   "packageManager": "pnpm@${npm_package_devDependencies_pnpm}"
 }
