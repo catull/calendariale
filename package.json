@@ -43,12 +43,12 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.1.3",
     "eslint-plugin-vitest": "0.3.20",
-    "happy-dom": "13.1.4",
+    "happy-dom": "13.2.0",
     "pnpm": "8.14.1",
     "prettier": "3.2.4",
     "rimraf": "5.0.5",
     "typescript": "5.3.3",
-    "vite": "5.0.11",
+    "vite": "5.0.12",
     "vitest": "1.2.1"
   },
   "packageManager": "pnpm@${npm_package_devDependencies_pnpm}"
