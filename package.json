@@ -34,22 +34,22 @@
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/node": "20.11.5",
-    "@typescript-eslint/eslint-plugin": "6.19.0",
-    "@typescript-eslint/parser": "6.19.0",
-    "@vitest/coverage-v8": "1.2.1",
+    "@types/node": "20.11.16",
+    "@typescript-eslint/eslint-plugin": "6.20.0",
+    "@typescript-eslint/parser": "6.20.0",
+    "@vitest/coverage-v8": "1.2.2",
     "barro": "1.2.8",
     "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.1.3",
-    "eslint-plugin-vitest": "0.3.20",
-    "happy-dom": "13.2.0",
-    "pnpm": "8.14.1",
-    "prettier": "3.2.4",
+    "eslint-plugin-vitest": "0.3.21",
+    "happy-dom": "13.3.8",
+    "pnpm": "8.15.1",
+    "prettier": "3.2.5",
     "rimraf": "5.0.5",
     "typescript": "5.3.3",
     "vite": "5.0.12",
-    "vitest": "1.2.1"
+    "vitest": "1.2.2"
   },
   "packageManager": "pnpm@${npm_package_devDependencies_pnpm}"
 }
