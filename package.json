@@ -35,8 +35,8 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/node": "20.12.5",
-    "@typescript-eslint/eslint-plugin": "7.5.0",
-    "@typescript-eslint/parser": "7.5.0",
+    "@typescript-eslint/eslint-plugin": "7.6.0",
+    "@typescript-eslint/parser": "7.6.0",
     "@vitest/coverage-v8": "1.4.0",
     "barro": "1.2.8",
     "eslint": "8.57.0",
