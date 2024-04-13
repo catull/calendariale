@@ -83,15 +83,13 @@ function kdayOnOrAfter (k: WeekDay, jdn: number): number {
 /**
  * Return the Julian day number (JDN) of the k-day nearest the given Julian day number (JDN).
  * k=0 means Sunday, k=1 means Monday, and so on.
- * @param {WeekDay} k a wek day
- * @param {number} jdn Julian day number (JDN)
- * @returns {number} resulting Julian day number (JDN)
+ * @param k a wek day
+ * @param jdn Julian day number (JDN)
+ * @returns resulting Julian day number (JDN)
  */
-/*
 function kdayNearest(k: WeekDay, jdn: number): number {
   return kdayOnOrBefore(k, jdn + 3);
 }
-*/
 
 /**
  * Return the Julian day number (JDN) of the k-day after the given Julian day number (JDN).
@@ -192,7 +190,7 @@ function degrees (theta: number): number {
  */
 function fixAngle (alpha: number): number {
   return alpha - 360.0 * Math.floor(alpha / 360.0)
-};
+}
 
 /**
  * Range reduce angle in radians
@@ -201,7 +199,7 @@ function fixAngle (alpha: number): number {
  */
 function fixAngleRadians (alpha: number): number {
   return alpha - 2 * Math.PI * Math.floor(alpha / (2 * Math.PI))
-};
+}
 
 /**
  * Sine of an angle in degrees
@@ -635,11 +633,7 @@ function jhms (jdn: number): number[] {
   const j2: number = jdn + 0.5
   const ij: number = (j2 - Math.floor(j2)) * 86400.0 + 0.5
 
-  return [
-    Math.floor(ij / 3600),
-    Math.floor(ij / 60 % 60),
-    Math.floor(ij % 60)
-  ]
+  return [Math.floor(ij / 3600), Math.floor((ij / 60) % 60), Math.floor(ij % 60)]
 }
 
 /**
@@ -1611,6 +1605,7 @@ export {
   jhms,
   jwday,
   julianCenturies, // only to be tested!
+  kdayNearest,
   kdayOnOrAfter,
   lunarAltitude, // only to be tested!
   lunarDistance, // only to be tested!
