@@ -70,7 +70,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   jsdocPlugin.configs['flat/recommended-typescript-error'],
 
-  ...compat.extends('love'),
+  //...compat.extends('love'),
   ...tseslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
