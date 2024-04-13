@@ -34,10 +34,10 @@
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "@types/node": "20.12.5",
+    "@types/node": "20.12.7",
     "@typescript-eslint/eslint-plugin": "7.6.0",
     "@typescript-eslint/parser": "7.6.0",
-    "@vitest/coverage-v8": "1.4.0",
+    "@vitest/coverage-v8": "1.5.0",
     "barro": "1.2.8",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
@@ -47,9 +47,9 @@
     "pnpm": "8.15.6",
     "prettier": "3.2.5",
     "rimraf": "5.0.5",
-    "typescript": "5.4.4",
+    "typescript": "5.4.5",
     "vite": "5.2.8",
-    "vitest": "1.4.0"
+    "vitest": "1.5.0"
   },
   "packageManager": "pnpm@${npm_package_devDependencies_pnpm}"
 }
