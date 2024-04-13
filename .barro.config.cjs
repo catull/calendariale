@@ -1,18 +1,18 @@
-const { readFileSync } = require ('fs');
+const { readFileSync } = require('fs');
 
 module.exports = () => [
   {
     matchDirectory: 'src/calendar/core',
     match: '*.ts',
     out: 'src/calendar/core/index.ts',
-    template: ({ files }) => files.map((file) => `export { ${file.name} } from './${file.path}';`).join('\n') + '\n'
+    template: ({ files }) => files.map((file) => `export { ${file.name} } from './${file.path}';`).join('\n') + '\n',
   },
   {
     matchDirectory: 'src/calendar',
     match: '*.ts',
     matchIgnore: ['HinduAlgorithms.ts'],
     out: 'src/calendar/index.ts',
-    template: ({ files }) => files.map((file) => `export { ${file.name} } from './${file.path}';`).join('\n') + '\n'
+    template: ({ files }) => files.map((file) => `export { ${file.name} } from './${file.path}';`).join('\n') + '\n',
   },
   {
     matchDirectory: 'src',
@@ -35,6 +35,6 @@ module.exports = () => [
           }
           return `${exports} from './${file.path}';`;
         })
-        .join('\n') + '\n'
-  }
+        .join('\n') + '\n',
+  },
 ];
