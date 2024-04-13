@@ -1,34 +1,34 @@
-import { BaseDate } from './core/index';
+import { BaseDate } from './core/index'
 
 export class MayanCountDate extends BaseDate {
-  constructor(
+  constructor (
     jdn: number,
-    private baktun: number,
-    private katun: number,
-    private tun: number,
-    private uinal: number,
-    private kin: number,
+    private readonly baktun: number,
+    private readonly katun: number,
+    private readonly tun: number,
+    private readonly uinal: number,
+    private readonly kin: number
   ) {
-    super(jdn);
+    super(jdn)
   }
 
-  public getBaktun(): number {
-    return this.baktun;
+  public getBaktun (): number {
+    return this.baktun
   }
 
-  public getKatun(): number {
-    return this.katun;
+  public getKatun (): number {
+    return this.katun
   }
 
-  public getTun(): number {
-    return this.tun;
+  public getTun (): number {
+    return this.tun
   }
 
-  public getUinal(): number {
-    return this.uinal;
+  public getUinal (): number {
+    return this.uinal
   }
 
-  public getKin(): number {
-    return this.kin;
+  public getKin (): number {
+    return this.kin
   }
 }

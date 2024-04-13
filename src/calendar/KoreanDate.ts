@@ -1,18 +1,18 @@
-import { ChineseDate } from './ChineseDate';
+import { ChineseDate } from './ChineseDate'
 
 export class KoreanDate extends ChineseDate {
-  constructor(
+  constructor (
     jdn: number,
     protected override cycle: number,
     year: number,
     month: number,
     monthLeap: boolean,
-    day: number,
+    day: number
   ) {
-    super(jdn, cycle, year, month, monthLeap, day);
+    super(jdn, cycle, year, month, monthLeap, day)
   }
 
-  public override getCycle(): number {
-    return this.cycle;
+  public override getCycle (): number {
+    return this.cycle
   }
 }
