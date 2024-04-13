@@ -1,12 +1,18 @@
 import {
+  apparentToUniversal,
   arcTanDeg,
   binarySearch,
   dawn,
   dynamicalToUniversal,
   ephemerisCorrection,
   equationOfTime,
+  fixAngle,
+  fixAngleRadians,
+  jhms,
   jdnToWeekDay,
   julianCenturies,
+  jwday,
+  kdayNearest,
   mod3,
   moonLag,
   moonRise,
@@ -16,9 +22,10 @@ import {
   obliquity,
   poly,
   sigma,
+  standardToLocal,
   sunset,
 } from '../../Astro';
-import { WeekDay, islamic, J1970 } from '../../Const';
+import { WeekDay, babylonian, islamic, J1970 } from '../../Const';
 import { Location } from '../../Location';
 
 import { describe, expect, it } from 'vitest';
@@ -207,8 +214,12 @@ const dates = [
 describe('astro spec', () => {
   const jdn = 2456435.5;
 
-  it('should determine the week-day', () => {
+  it('should identify the week-day', () => {
     expect(jdnToWeekDay(jdn)).toBe(WeekDay.THURSDAY);
+  });
+
+  it('should determine the nearest week-day', () => {
+    expect(kdayNearest(WeekDay.SUNDAY, jdn)).toBe(2456438.5);
   });
 
   it('should calculate the arc tangent in degrees', () => {
@@ -270,6 +281,21 @@ describe('astro spec', () => {
 
     expect(sigma(matrix, (x0: number, y0: number, z0: number): number => x0 * y0 * z0)).toBe(780);
     expect(sigma([], (): number => 0)).toBe(0);
+  });
+
+  it('should calculate fixAngle / fixAngleRadians', () => {
+    expect(fixAngle(0)).toBe(0);
+    expect(fixAngleRadians(0)).toBe(0);
+  });
+
+  it('should calculate standardToLocal / apparentToUniversal', () => {
+    expect(standardToLocal(0, babylonian.LOCATION_BABYLON)).toBe(-0.022408888888888895);
+    expect(apparentToUniversal(0, babylonian.LOCATION_BABYLON)).toBe(-0.1179944674813647);
+  });
+
+  it('should calculate jhms / jwday', () => {
+    expect(jhms(0)).toStrictEqual([12, 0, 0,]);
+    expect(jwday(0)).toBe(0);
   });
 
   it('should calculate a nutation', () => {
