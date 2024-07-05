@@ -8,8 +8,8 @@ import {
   equationOfTime,
   fixAngle,
   fixAngleRadians,
-  jhms,
   jdnToWeekDay,
+  jhms,
   julianCenturies,
   jwday,
   kdayNearest,
@@ -25,7 +25,7 @@ import {
   standardToLocal,
   sunset,
 } from '../../Astro';
-import { WeekDay, babylonian, islamic, J1970 } from '../../Const';
+import { J1970, WeekDay, babylonian, islamic } from '../../Const';
 import { Location } from '../../Location';
 
 import { describe, expect, it } from 'vitest';
@@ -294,7 +294,7 @@ describe('astro spec', () => {
   });
 
   it('should calculate jhms / jwday', () => {
-    expect(jhms(0)).toStrictEqual([12, 0, 0,]);
+    expect(jhms(0)).toStrictEqual([12, 0, 0]);
     expect(jwday(0)).toBe(0);
   });
 

@@ -1,21 +1,21 @@
-import { YearMonthDate } from './core/index'
+import { YearMonthDate } from './core/index';
 
 export class YermDate extends YearMonthDate {
-  constructor (
+  constructor(
     jdn: number,
     private readonly cycle: number,
     private readonly yerm: number,
     month: number,
-    day: number
+    day: number,
   ) {
-    super(jdn, 0, month, day)
+    super(jdn, 0, month, day);
   }
 
-  public getCycle (): number {
-    return this.cycle
+  public getCycle(): number {
+    return this.cycle;
   }
 
-  public getYerm (): number {
-    return this.yerm
+  public getYerm(): number {
+    return this.yerm;
   }
 }

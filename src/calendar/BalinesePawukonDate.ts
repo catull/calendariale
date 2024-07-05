@@ -1,7 +1,7 @@
-import { BaseDate } from './core/index'
+import { BaseDate } from './core/index';
 
 export class BalinesePawukonDate extends BaseDate {
-  constructor (
+  constructor(
     jdn: number,
     private readonly luang: boolean,
     private readonly dwiwara: number,
@@ -12,48 +12,48 @@ export class BalinesePawukonDate extends BaseDate {
     private readonly saptawara: number,
     private readonly asatawara: number,
     private readonly sangawara: number,
-    private readonly dasawara: number
+    private readonly dasawara: number,
   ) {
-    super(jdn)
+    super(jdn);
   }
 
-  public isLuag (): boolean {
-    return this.luang
+  public isLuag(): boolean {
+    return this.luang;
   }
 
-  public getDwiwara (): number {
-    return this.dwiwara
+  public getDwiwara(): number {
+    return this.dwiwara;
   }
 
-  public getTriwara (): number {
-    return this.triwara
+  public getTriwara(): number {
+    return this.triwara;
   }
 
-  public getCaturwara (): number {
-    return this.caturwara
+  public getCaturwara(): number {
+    return this.caturwara;
   }
 
-  public getPancawara (): number {
-    return this.pancawara
+  public getPancawara(): number {
+    return this.pancawara;
   }
 
-  public getSadwara (): number {
-    return this.sadwara
+  public getSadwara(): number {
+    return this.sadwara;
   }
 
-  public getSaptawara (): number {
-    return this.saptawara
+  public getSaptawara(): number {
+    return this.saptawara;
   }
 
-  public getAsatawara (): number {
-    return this.asatawara
+  public getAsatawara(): number {
+    return this.asatawara;
   }
 
-  public getSangawara (): number {
-    return this.sangawara
+  public getSangawara(): number {
+    return this.sangawara;
   }
 
-  public getDasawara (): number {
-    return this.dasawara
+  public getDasawara(): number {
+    return this.dasawara;
   }
 }

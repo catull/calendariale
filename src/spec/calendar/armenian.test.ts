@@ -1,6 +1,6 @@
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import type { ArmenianDate } from '../../calendar/index';
 import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
+import type { ArmenianDate } from '../../calendar/index';
 
 import { describe, expect, it } from 'vitest';
 
