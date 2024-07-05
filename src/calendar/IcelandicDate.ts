@@ -1,27 +1,27 @@
-import type { Season } from '../Const'
+import type { Season } from '../Const';
 
-import { YearDate } from './core/index'
+import { YearDate } from './core/index';
 
 export class IcelandicDate extends YearDate {
-  constructor (
+  constructor(
     jdn: number,
     year: number,
     private readonly season: Season,
     private readonly week: number,
-    private readonly day: number
+    private readonly day: number,
   ) {
-    super(jdn, year)
+    super(jdn, year);
   }
 
-  public getSeason (): Season {
-    return this.season
+  public getSeason(): Season {
+    return this.season;
   }
 
-  public getWeek (): number {
-    return this.week
+  public getWeek(): number {
+    return this.week;
   }
 
-  public getDay (): number {
-    return this.day
+  public getDay(): number {
+    return this.day;
   }
 }

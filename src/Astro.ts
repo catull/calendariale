@@ -7,12 +7,12 @@ import {
   Month,
   MoonPhase,
   type WeekDay,
-  gregorian
-} from './Const'
-import type { Location } from './Location'
-import { GregorianCalendar } from './calendar/GregorianCalendar'
+  gregorian,
+} from './Const';
+import type { Location } from './Location';
+import { GregorianCalendar } from './calendar/GregorianCalendar';
 
-type Matrix = number[][]
+type Matrix = number[][];
 
 /**
  * Modulus function which works for non-integers
@@ -20,8 +20,8 @@ type Matrix = number[][]
  * @param numerator numerator
  * @returns modulo value
  */
-function mod (amount: number, numerator: number): number {
-  return amount - numerator * Math.floor(amount / numerator)
+function mod(amount: number, numerator: number): number {
+  return amount - numerator * Math.floor(amount / numerator);
 }
 
 /**
@@ -30,8 +30,8 @@ function mod (amount: number, numerator: number): number {
  * @param numerator numerator
  * @returns modulo value
  */
-function amod (amount: number, numerator: number): number {
-  return mod(amount - 1, numerator) + 1
+function amod(amount: number, numerator: number): number {
+  return mod(amount - 1, numerator) + 1;
 }
 
 /**
@@ -41,12 +41,12 @@ function amod (amount: number, numerator: number): number {
  * @param b numerator
  * @returns the value of x shifted into the range [a..b). Returns x if a==b.
  */
-function mod3 (x: number, a: number, b: number): number {
+function mod3(x: number, a: number, b: number): number {
   if (a === b) {
-    return x
+    return x;
   }
 
-  return a + mod(x - a, b - a)
+  return a + mod(x - a, b - a);
 }
 
 /**
@@ -54,8 +54,8 @@ function mod3 (x: number, a: number, b: number): number {
  * @param jdn Julian day number (JDN)
  * @returns day of week
  */
-function jdnToWeekDay (jdn: number): WeekDay {
-  return mod(jdn - J0000, 7)
+function jdnToWeekDay(jdn: number): WeekDay {
+  return mod(jdn - J0000, 7);
 }
 
 /**
@@ -65,8 +65,8 @@ function jdnToWeekDay (jdn: number): WeekDay {
  * @param jdn Julian day number (JDN)
  * @returns resulting Julian day number (JDN)
  */
-function kdayOnOrBefore (k: WeekDay, jdn: number): number {
-  return jdn - jdnToWeekDay(jdn - k)
+function kdayOnOrBefore(k: WeekDay, jdn: number): number {
+  return jdn - jdnToWeekDay(jdn - k);
 }
 
 /**
@@ -76,8 +76,8 @@ function kdayOnOrBefore (k: WeekDay, jdn: number): number {
  * @param jdn Julian day number (JDN)
  * @returns resulting Julian day number (JDN)
  */
-function kdayOnOrAfter (k: WeekDay, jdn: number): number {
-  return kdayOnOrBefore(k, jdn + 6)
+function kdayOnOrAfter(k: WeekDay, jdn: number): number {
+  return kdayOnOrBefore(k, jdn + 6);
 }
 
 /**
@@ -98,8 +98,8 @@ function kdayNearest(k: WeekDay, jdn: number): number {
  * @param jdn Julian day number (JDN)
  * @returns resulting Julian day number (JDN)
  */
-function kdayAfter (k: WeekDay, jdn: number): number {
-  return kdayOnOrBefore(k, jdn + 7)
+function kdayAfter(k: WeekDay, jdn: number): number {
+  return kdayOnOrBefore(k, jdn + 7);
 }
 
 /**
@@ -109,8 +109,8 @@ function kdayAfter (k: WeekDay, jdn: number): number {
  * @param jdn Julian day number (JDN)
  * @returns resulting Julian day number (JDN)
  */
-function kdayBefore (k: WeekDay, jdn: number): number {
-  return kdayOnOrBefore(k, jdn - 1)
+function kdayBefore(k: WeekDay, jdn: number): number {
+  return kdayOnOrBefore(k, jdn - 1);
 }
 
 /**
@@ -124,16 +124,16 @@ function kdayBefore (k: WeekDay, jdn: number): number {
  * @param jdn Julian day number (JDN)
  * @returns resulting Julian day number (JDN)
  */
-function nthKday (n: number, k: WeekDay, jdn: number): number {
+function nthKday(n: number, k: WeekDay, jdn: number): number {
   if (n === 0) {
-    return -1
+    return -1;
   }
 
   if (n > 0) {
-    return 7 * n + kdayBefore(k, jdn)
+    return 7 * n + kdayBefore(k, jdn);
   }
 
-  return 7 * n + kdayAfter(k, jdn)
+  return 7 * n + kdayAfter(k, jdn);
 }
 
 /**
@@ -150,8 +150,8 @@ function nthKday (n: number, k: WeekDay, jdn: number): number {
  * @param degree angle in degrees
  * @returns radians value
  */
-function degreesToRadians (degree: number): number {
-  return (degree * Math.PI) / 180.0
+function degreesToRadians(degree: number): number {
+  return (degree * Math.PI) / 180.0;
 }
 
 /**
@@ -159,8 +159,8 @@ function degreesToRadians (degree: number): number {
  * @param radians angle in radians
  * @returns degrees value
  */
-function radiansToDegrees (radians: number): number {
-  return (radians * 180.0) / Math.PI
+function radiansToDegrees(radians: number): number {
+  return (radians * 180.0) / Math.PI;
 }
 
 /**
@@ -170,8 +170,8 @@ function radiansToDegrees (radians: number): number {
  * @param second angle seconds fraction
  * @returns angle
  */
-function angle (degree: number, minute: number, second: number): number {
-  return degree + (minute + second / 60) / 60
+function angle(degree: number, minute: number, second: number): number {
+  return degree + (minute + second / 60) / 60;
 }
 
 /**
@@ -179,8 +179,8 @@ function angle (degree: number, minute: number, second: number): number {
  * @param theta angle in degrees
  * @returns normalized angle in degrees
  */
-function degrees (theta: number): number {
-  return mod(theta, 360)
+function degrees(theta: number): number {
+  return mod(theta, 360);
 }
 
 /**
@@ -188,8 +188,8 @@ function degrees (theta: number): number {
  * @param alpha angle
  * @returns degrees
  */
-function fixAngle (alpha: number): number {
-  return alpha - 360.0 * Math.floor(alpha / 360.0)
+function fixAngle(alpha: number): number {
+  return alpha - 360.0 * Math.floor(alpha / 360.0);
 }
 
 /**
@@ -197,8 +197,8 @@ function fixAngle (alpha: number): number {
  * @param alpha angle
  * @returns radians
  */
-function fixAngleRadians (alpha: number): number {
-  return alpha - 2 * Math.PI * Math.floor(alpha / (2 * Math.PI))
+function fixAngleRadians(alpha: number): number {
+  return alpha - 2 * Math.PI * Math.floor(alpha / (2 * Math.PI));
 }
 
 /**
@@ -206,8 +206,8 @@ function fixAngleRadians (alpha: number): number {
  * @param theta angle
  * @returns degrees
  */
-function sinDeg (theta: number): number {
-  return Math.sin(degreesToRadians(theta))
+function sinDeg(theta: number): number {
+  return Math.sin(degreesToRadians(theta));
 }
 
 /**
@@ -215,8 +215,8 @@ function sinDeg (theta: number): number {
  * @param theta angle
  * @returns degrees
  */
-function cosDeg (theta: number): number {
-  return Math.cos(degreesToRadians(theta))
+function cosDeg(theta: number): number {
+  return Math.cos(degreesToRadians(theta));
 }
 
 /**
@@ -224,8 +224,8 @@ function cosDeg (theta: number): number {
  * @param theta angle
  * @returns degrees
  */
-function tanDeg (theta: number): number {
-  return Math.tan(degreesToRadians(theta))
+function tanDeg(theta: number): number {
+  return Math.tan(degreesToRadians(theta));
 }
 
 /**
@@ -234,18 +234,18 @@ function tanDeg (theta: number): number {
  * @param x0 x-value
  * @returns arc tangent
  */
-function arcTanDeg (y0: number, x0: number): number {
+function arcTanDeg(y0: number, x0: number): number {
   if (x0 === 0 && y0 !== 0) {
-    return mod(Math.sign(y0) * 90, 360)
+    return mod(Math.sign(y0) * 90, 360);
   }
 
-  const alpha: number = radiansToDegrees(Math.atan(y0 / x0))
+  const alpha: number = radiansToDegrees(Math.atan(y0 / x0));
 
   if (x0 >= 0) {
-    return alpha
+    return alpha;
   }
 
-  return mod(alpha + 180, 360)
+  return mod(alpha + 180, 360);
 }
 
 /**
@@ -253,8 +253,8 @@ function arcTanDeg (y0: number, x0: number): number {
  * @param alpha angle
  * @returns value
  */
-function arcSinDeg (alpha: number): number {
-  return radiansToDegrees(Math.asin(alpha))
+function arcSinDeg(alpha: number): number {
+  return radiansToDegrees(Math.asin(alpha));
 }
 
 /**
@@ -262,8 +262,8 @@ function arcSinDeg (alpha: number): number {
  * @param alpha angle
  * @returns value
  */
-function arcCosDeg (alpha: number): number {
-  return radiansToDegrees(Math.acos(alpha))
+function arcCosDeg(alpha: number): number {
+  return radiansToDegrees(Math.acos(alpha));
 }
 
 /**
@@ -273,8 +273,8 @@ function arcCosDeg (alpha: number): number {
  * @param predicate boolean function applied to each iter until true
  * @returns iterator satisfying the predicate
  */
-function next (iter: number, predicate: (n: number) => boolean): number {
-  return predicate(iter) ? iter : next(iter + 1, predicate)
+function next(iter: number, predicate: (n: number) => boolean): number {
+  return predicate(iter) ? iter : next(iter + 1, predicate);
 }
 
 /**
@@ -284,8 +284,8 @@ function next (iter: number, predicate: (n: number) => boolean): number {
  * @param predicate boolean function applied to each iter until false
  * @returns iterator satisfying the predicate
  */
-function final (iter: number, predicate: (n: number) => boolean): number {
-  return predicate(iter) ? final(iter + 1, predicate) : iter - 1
+function final(iter: number, predicate: (n: number) => boolean): number {
+  return predicate(iter) ? final(iter + 1, predicate) : iter - 1;
 }
 
 /**
@@ -295,17 +295,17 @@ function final (iter: number, predicate: (n: number) => boolean): number {
  * @param array denotes a[] in the formula above
  * @returns polynomial value
  */
-function poly (term: number, array: number[]): number {
-  const len: number = array.length
-  let result: number = array[len - 1]
-  let index: number = len - 2
+function poly(term: number, array: number[]): number {
+  const len: number = array.length;
+  let result: number = array[len - 1];
+  let index: number = len - 2;
 
   while (index >= 0) {
-    result = result * term + array[index]
-    index -= 1
+    result = result * term + array[index];
+    index -= 1;
   }
 
-  return result
+  return result;
 }
 
 /**
@@ -313,10 +313,12 @@ function poly (term: number, array: number[]): number {
  * @param matrix multi-dimensional array
  * @returns zipped array
  */
-function zip (matrix: Matrix): Matrix {
+function zip(matrix: Matrix): Matrix {
   return matrix.length === 0
     ? []
-    : matrix[0].map((ignore: number, index: number): number[] => matrix.map((array: number[]): number => array[index]))
+    : matrix[0].map((_ignore: number, index: number): number[] =>
+        matrix.map((array: number[]): number => array[index]),
+      );
 }
 
 /**
@@ -327,10 +329,10 @@ function zip (matrix: Matrix): Matrix {
  * @param func application function
  * @returns sum of products
  */
-function sigma (matrix: Matrix, func: (...n: number[]) => number): number {
+function sigma(matrix: Matrix, func: (...n: number[]) => number): number {
   return zip(matrix)
     .map((v: number[]): number => func(...v))
-    .reduce((memo: number, n: number): number => memo + n, 0)
+    .reduce((memo: number, n: number): number => memo + n, 0);
 }
 
 /**
@@ -342,23 +344,23 @@ function sigma (matrix: Matrix, func: (...n: number[]) => number): number {
  * @param discriminator partitioning function
  * @returns sorted value
  */
-function binarySearch (
+function binarySearch(
   low: number,
   high: number,
   predicate: (l: number, h: number) => boolean,
-  discriminator: (lo: number, hi: number) => boolean
+  discriminator: (lo: number, hi: number) => boolean,
 ): number {
-  const x: number = (low + high) / 2
+  const x: number = (low + high) / 2;
 
   if (predicate(low, high)) {
-    return x
+    return x;
   }
 
   if (discriminator(low, high)) {
-    return binarySearch(low, x, predicate, discriminator)
+    return binarySearch(low, x, predicate, discriminator);
   }
 
-  return binarySearch(x, high, predicate, discriminator)
+  return binarySearch(x, high, predicate, discriminator);
 }
 
 /**
@@ -370,13 +372,13 @@ function binarySearch (
  * @param high boundary high end
  * @returns inverted angle
  */
-function invertAngular (f: (n: number) => number, y: number, low: number, high: number): number {
+function invertAngular(f: (n: number) => number, y: number, low: number, high: number): number {
   return binarySearch(
     low,
     high,
     (l: number, h: number): boolean => h - l <= 1e-5,
-    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180
-  )
+    (lo: number, hi: number): boolean => mod(f((lo + hi) / 2) - y, 360) < 180,
+  );
 }
 
 /**
@@ -384,8 +386,8 @@ function invertAngular (f: (n: number) => number, y: number, low: number, high: 
  * @param tee moment in time
  * @returns fixed momentToRd
  */
-function momentToRd (tee: number): number {
-  return Math.floor(tee)
+function momentToRd(tee: number): number {
+  return Math.floor(tee);
 }
 
 /**
@@ -394,8 +396,8 @@ function momentToRd (tee: number): number {
  * @param location geographic location
  * @returns converted time
  */
-function universalToStandard (teeRomU: number, location: Location): number {
-  return teeRomU + location.getZone()
+function universalToStandard(teeRomU: number, location: Location): number {
+  return teeRomU + location.getZone();
 }
 
 /**
@@ -404,8 +406,8 @@ function universalToStandard (teeRomU: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function standardToUniversal (teeRomS: number, location: Location): number {
-  return teeRomS - location.getZone()
+function standardToUniversal(teeRomS: number, location: Location): number {
+  return teeRomS - location.getZone();
 }
 
 /**
@@ -414,8 +416,8 @@ function standardToUniversal (teeRomS: number, location: Location): number {
  * @param phi geo-location
  * @returns fraction of a day
  */
-function longitudeToZone (phi: number): number {
-  return phi / 360
+function longitudeToZone(phi: number): number {
+  return phi / 360;
 }
 
 /**
@@ -424,8 +426,8 @@ function longitudeToZone (phi: number): number {
  * @param location geographic location
  * @returns converted time
  */
-function universalToLocal (teeRomU: number, location: Location): number {
-  return teeRomU + longitudeToZone(location.getLongitude())
+function universalToLocal(teeRomU: number, location: Location): number {
+  return teeRomU + longitudeToZone(location.getLongitude());
 }
 
 /**
@@ -434,8 +436,8 @@ function universalToLocal (teeRomU: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function localToUniversal (teeEll: number, location: Location): number {
-  return teeEll - longitudeToZone(location.getLongitude())
+function localToUniversal(teeEll: number, location: Location): number {
+  return teeEll - longitudeToZone(location.getLongitude());
 }
 
 /**
@@ -444,8 +446,8 @@ function localToUniversal (teeEll: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function localToStandard (teeEll: number, location: Location): number {
-  return universalToStandard(localToUniversal(teeEll, location), location)
+function localToStandard(teeEll: number, location: Location): number {
+  return universalToStandard(localToUniversal(teeEll, location), location);
 }
 
 /**
@@ -454,8 +456,8 @@ function localToStandard (teeEll: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function standardToLocal (teeRomS: number, location: Location): number {
-  return universalToLocal(standardToUniversal(teeRomS, location), location)
+function standardToLocal(teeRomS: number, location: Location): number {
+  return universalToLocal(standardToUniversal(teeRomS, location), location);
 }
 
 /**
@@ -464,18 +466,18 @@ function standardToLocal (teeRomS: number, location: Location): number {
  * @param tee moment in time
  * @returns converted time
  */
-function ephemerisCorrection (tee: number): number {
-  const year = GregorianCalendar.jdnToYear(Math.floor(tee + gregorian.EPOCH))
+function ephemerisCorrection(tee: number): number {
+  const year = GregorianCalendar.jdnToYear(Math.floor(tee + gregorian.EPOCH));
 
   if (year >= 1988 && year <= 2019) {
-    return (year - 1933) / 86400
+    return (year - 1933) / 86400;
   }
 
   const centuries: number =
-    (GregorianCalendar.toJdn(year, Month.JULY, 1) - GregorianCalendar.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY
+    (GregorianCalendar.toJdn(year, Month.JULY, 1) - GregorianCalendar.toJdn(1900, Month.JANUARY, 1)) / JULIAN_CENTURY;
 
   if (year >= 1900 && year <= 1987) {
-    return poly(centuries, [-0.00002, 0.000297, 0.025184, -0.181133, 0.55304, -0.861938, 0.677066, -0.212591])
+    return poly(centuries, [-0.00002, 0.000297, 0.025184, -0.181133, 0.55304, -0.861938, 0.677066, -0.212591]);
   }
 
   if (year >= 1800 && year <= 1899) {
@@ -483,23 +485,23 @@ function ephemerisCorrection (tee: number): number {
       centuries,
       [
         -0.000009, 0.003844, 0.083563, 0.865736, 4.867575, 15.845535, 31.332267, 38.291999, 28.316289, 11.636204,
-        2.043794
-      ]
-    )
+        2.043794,
+      ],
+    );
   }
 
   if (year >= 1700 && year <= 1799) {
-    return poly(year - 1700, [8.118780842, -0.005092142, 0.003336121, -0.0000266484]) / 86400
+    return poly(year - 1700, [8.118780842, -0.005092142, 0.003336121, -0.0000266484]) / 86400;
   }
 
   if (year >= 1620 && year <= 1699) {
-    return poly(year - 1600, [196.58333, -4.0675, 0.0219167]) / 86400
+    return poly(year - 1600, [196.58333, -4.0675, 0.0219167]) / 86400;
   }
 
   const result: number =
-    0.5 + GregorianCalendar.toJdn(year, Month.JANUARY, 1) - GregorianCalendar.toJdn(1810, Month.JANUARY, 1)
+    0.5 + GregorianCalendar.toJdn(year, Month.JANUARY, 1) - GregorianCalendar.toJdn(1810, Month.JANUARY, 1);
 
-  return ((result * result) / 41048480 - 15) / 86400
+  return ((result * result) / 41048480 - 15) / 86400;
 }
 
 /**
@@ -507,8 +509,8 @@ function ephemerisCorrection (tee: number): number {
  * @param tee moment in time
  * @returns converted time
  */
-function universalToDynamical (tee: number): number {
-  return tee + ephemerisCorrection(tee)
+function universalToDynamical(tee: number): number {
+  return tee + ephemerisCorrection(tee);
 }
 
 /**
@@ -516,8 +518,8 @@ function universalToDynamical (tee: number): number {
  * @param tee moment in time
  * @returns converted time
  */
-function dynamicalToUniversal (tee: number): number {
-  return tee - ephemerisCorrection(tee)
+function dynamicalToUniversal(tee: number): number {
+  return tee - ephemerisCorrection(tee);
 }
 
 /**
@@ -525,8 +527,8 @@ function dynamicalToUniversal (tee: number): number {
  * @param tee moment in time
  * @returns number of centuries relative to 2000-01-01
  */
-function julianCenturies (tee: number): number {
-  return (universalToDynamical(tee) - J2000) / JULIAN_CENTURY
+function julianCenturies(tee: number): number {
+  return (universalToDynamical(tee) - J2000) / JULIAN_CENTURY;
 }
 
 /**
@@ -540,12 +542,12 @@ function julianCenturies (tee: number): number {
  * @param jdn Julian day number (JDN)
  * @returns obliquity at moment jd
  */
-function obliquity (jdn: number): number {
-  const centuries: number = julianCenturies(jdn)
+function obliquity(jdn: number): number {
+  const centuries: number = julianCenturies(jdn);
 
   return (
     angle(23, 26, 21.448) + poly(centuries, [0, angle(0, 0, -46.815), angle(0, 0, -0.00059), angle(0, 0, 0.001813)])
-  )
+  );
 }
 
 /**
@@ -555,22 +557,22 @@ function obliquity (jdn: number): number {
  * @param tee moment in time
  * @returns equation of time
  */
-function equationOfTime (tee: number): number {
-  const centuries: number = julianCenturies(tee)
-  const lambda: number = poly(centuries, [280.46645, 36000.76983, 0.0003032])
-  const anomaly: number = poly(centuries, [357.5291, 35999.0503, -0.0001559, -0.00000048])
-  const eccentricity: number = poly(centuries, [0.016708617, -0.000042037, -0.0000001236])
-  const epsilon: number = obliquity(tee)
-  const y0: number = Math.pow(tanDeg(epsilon / 2), 2)
+function equationOfTime(tee: number): number {
+  const centuries: number = julianCenturies(tee);
+  const lambda: number = poly(centuries, [280.46645, 36000.76983, 0.0003032]);
+  const anomaly: number = poly(centuries, [357.5291, 35999.0503, -0.0001559, -0.00000048]);
+  const eccentricity: number = poly(centuries, [0.016708617, -0.000042037, -0.0000001236]);
+  const epsilon: number = obliquity(tee);
+  const y0: number = Math.pow(tanDeg(epsilon / 2), 2);
   const equation: number =
     (0.5 / Math.PI) *
     (y0 * sinDeg(2 * lambda) +
       -2 * eccentricity * sinDeg(anomaly) +
       4 * eccentricity * y0 * sinDeg(anomaly) * cosDeg(2 * lambda) +
       -0.5 * y0 * y0 * sinDeg(4 * lambda) +
-      -1.25 * eccentricity * eccentricity * sinDeg(2 * anomaly))
+      -1.25 * eccentricity * eccentricity * sinDeg(2 * anomaly));
 
-  return Math.sign(equation) * Math.min(Math.abs(equation), 0.5)
+  return Math.sign(equation) * Math.min(Math.abs(equation), 0.5);
 }
 
 /**
@@ -579,8 +581,8 @@ function equationOfTime (tee: number): number {
  * @param location geographic location
  * @returns converted time
  */
-function localToApparent (tee: number, location: Location): number {
-  return tee + equationOfTime(localToUniversal(tee, location))
+function localToApparent(tee: number, location: Location): number {
+  return tee + equationOfTime(localToUniversal(tee, location));
 }
 
 /**
@@ -589,8 +591,8 @@ function localToApparent (tee: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function apparentToLocal (tee: number, location: Location): number {
-  return tee - equationOfTime(localToUniversal(tee, location))
+function apparentToLocal(tee: number, location: Location): number {
+  return tee - equationOfTime(localToUniversal(tee, location));
 }
 
 /**
@@ -599,8 +601,8 @@ function apparentToLocal (tee: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function universalToApparent (tee: number, location: Location): number {
-  return localToApparent(universalToLocal(tee, location), location)
+function universalToApparent(tee: number, location: Location): number {
+  return localToApparent(universalToLocal(tee, location), location);
 }
 
 /**
@@ -609,8 +611,8 @@ function universalToApparent (tee: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function apparentToUniversal (tee: number, location: Location): number {
-  return localToUniversal(apparentToLocal(tee, location), location)
+function apparentToUniversal(tee: number, location: Location): number {
+  return localToUniversal(apparentToLocal(tee, location), location);
 }
 
 /**
@@ -619,8 +621,8 @@ function apparentToUniversal (tee: number, location: Location): number {
  * @param location geographic location
  * @returns converted time
  */
-function midDay (date: number, location: Location): number {
-  return localToStandard(apparentToLocal(date + 0.5, location), location)
+function midDay(date: number, location: Location): number {
+  return localToStandard(apparentToLocal(date + 0.5, location), location);
 }
 
 /**
@@ -628,12 +630,12 @@ function midDay (date: number, location: Location): number {
  * @param jdn Julian day number (JDN)
  * @returns day portion of Julian day number (JDN), as array [ hours, minutes, seconds ]
  */
-function jhms (jdn: number): number[] {
+function jhms(jdn: number): number[] {
   // Astronomical to civil
-  const j2: number = jdn + 0.5
-  const ij: number = (j2 - Math.floor(j2)) * 86400.0 + 0.5
+  const j2: number = jdn + 0.5;
+  const ij: number = (j2 - Math.floor(j2)) * 86400.0 + 0.5;
 
-  return [Math.floor(ij / 3600), Math.floor((ij / 60) % 60), Math.floor(ij % 60)]
+  return [Math.floor(ij / 3600), Math.floor((ij / 60) % 60), Math.floor(ij % 60)];
 }
 
 /**
@@ -641,8 +643,8 @@ function jhms (jdn: number): number[] {
  * @param rataDie the rata die number
  * @returns week day
  */
-function jwday (rataDie: number): WeekDay {
-  return mod(rataDie, 7)
+function jwday(rataDie: number): WeekDay {
+  return mod(rataDie, 7);
 }
 
 /**
@@ -650,12 +652,12 @@ function jwday (rataDie: number): WeekDay {
  * @param tee moment in time
  * @returns nutation at tee
  */
-function nutation (tee: number): number {
-  const centuries: number = julianCenturies(tee)
-  const capA: number = poly(centuries, [124.9, -1934.134, 0.002063])
-  const capB: number = poly(centuries, [201.11, 72001.5377, 0.00057])
+function nutation(tee: number): number {
+  const centuries: number = julianCenturies(tee);
+  const capA: number = poly(centuries, [124.9, -1934.134, 0.002063]);
+  const capB: number = poly(centuries, [201.11, 72001.5377, 0.00057]);
 
-  return -0.004778 * sinDeg(capA) + -0.0003667 * sinDeg(capB)
+  return -0.004778 * sinDeg(capA) + -0.0003667 * sinDeg(capB);
 }
 
 // *Table of observed Delta T values at the beginning of
@@ -668,51 +670,51 @@ const DELTA_T_TAB: number[] = [
   6.8, 7.1, 7.3, 7.5, 7.6, 7.7, 7.3, 6.2, 5.2, 2.7, 1.4, -1.2, -2.8, -3.8, -4.8, -5.5, -5.3, -5.6, -5.7, -5.9, -6, -6.3,
   -6.5, -6.2, -4.7, -2.8, -0.1, 2.6, 5.3, 7.7, 10.4, 13.3, 16, 18.2, 20.2, 21.1, 22.4, 23.5, 23.8, 24.3, 24, 23.9, 23.9,
   23.7, 24, 24.3, 25.3, 26.2, 27.3, 28.2, 29.1, 30, 30.7, 31.4, 32.2, 33.1, 34, 35, 36.5, 38.3, 40.2, 42.2, 44.5, 46.5,
-  48.5, 50.5, 52.2, 53.8, 54.9, 55.8, 56.9, 58.3, 60, 61.6, 63, 65, 66.6
-]
+  48.5, 50.5, 52.2, 53.8, 54.9, 55.8, 56.9, 58.3, 60, 61.6, 63, 65, 66.6,
+];
 
 /**
  * Determine the difference, in seconds, between Dynamical time and Universal time.
  * @param year Gregorian year
  * @returns time difference
  */
-function deltaT (year: number): number {
+function deltaT(year: number): number {
   if (year >= 1620 && year <= 2000) {
-    const index: number = Math.floor((year - 1620) / 2)
+    const index: number = Math.floor((year - 1620) / 2);
     // Fractional part of year
-    const fraction: number = (year - 1620) / 2 - index
+    const fraction: number = (year - 1620) / 2 - index;
 
-    return DELTA_T_TAB[index] + (DELTA_T_TAB[index + 1] - DELTA_T_TAB[index]) * fraction
+    return DELTA_T_TAB[index] + (DELTA_T_TAB[index + 1] - DELTA_T_TAB[index]) * fraction;
   }
 
-  const t: number = (year - 2000) / 100
+  const t: number = (year - 2000) / 100;
 
   if (year < 948) {
-    return 2177 + 497 * t + 44.1 * t * t
+    return 2177 + 497 * t + 44.1 * t * t;
   }
 
-  let dt: number = 102 + 102 * t + 25.3 * t * t
+  let dt: number = 102 + 102 * t + 25.3 * t * t;
 
   if (year > 2000 && year < 2100) {
-    dt += 0.37 * (year - 2100)
+    dt += 0.37 * (year - 2100);
   }
 
-  return dt
+  return dt;
 }
 
 const JDE0_TAB_1000: Matrix = [
   [1721139.29189, 365242.1374, 0.06134, 0.00111, -0.00071],
   [1721233.25401, 365241.72562, -0.05323, 0.00907, 0.00025],
   [1721325.70455, 365242.49558, -0.11677, -0.00297, 0.00074],
-  [1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006]
-]
+  [1721414.39987, 365242.88257, -0.00769, -0.00933, -0.00006],
+];
 
 const JDE0_TAB_2000: Matrix = [
   [2451623.80984, 365242.37404, 0.05169, -0.00411, -0.00057],
   [2451716.56767, 365241.62603, 0.00325, 0.00888, -0.0003],
   [2451810.21715, 365242.01767, -0.11575, 0.00337, 0.00078],
-  [2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032]
-]
+  [2451900.05952, 365242.74049, -0.06223, -0.00823, 0.00032],
+];
 
 // *Periodic terms to obtain true time*
 const EQUINOX_P_TERMS: number[] = [
@@ -720,8 +722,8 @@ const EQUINOX_P_TERMS: number[] = [
   136, 171.52, 22518.443, 77, 222.54, 65928.934, 74, 296.72, 3034.906, 70, 243.58, 9037.513, 58, 119.81, 33718.147, 52,
   297.17, 150.678, 50, 21.02, 2281.226, 45, 247.54, 29929.562, 44, 325.15, 31555.956, 29, 60.93, 4443.417, 18, 155.12,
   67555.328, 17, 288.79, 4562.452, 16, 198.04, 62894.029, 14, 199.76, 31436.921, 12, 95.39, 14577.848, 12, 287.11,
-  31931.756, 12, 320.81, 34777.259, 9, 227.73, 1222.114, 8, 15.45, 16859.074
-]
+  31931.756, 12, 320.81, 34777.259, 9, 227.73, 1222.114, 8, 15.45, 16859.074,
+];
 
 /**
  * Determine the Julian Ephemeris Day of an equinox or solstice.
@@ -735,18 +737,18 @@ const EQUINOX_P_TERMS: number[] = [
  * @param which event
  * @returns moment in time when event occurs
  */
-function equinox (year: number, which: number): number {
-  let y0: number
-  let JDE0tab: Matrix
+function equinox(year: number, which: number): number {
+  let y0: number;
+  let JDE0tab: Matrix;
 
   // Initialise terms for mean equinox and solstices. We have two sets:
   // one for years prior to 1000 and a second for subsequent years.
   if (year < 1000) {
-    JDE0tab = JDE0_TAB_1000
-    y0 = year / 1000
+    JDE0tab = JDE0_TAB_1000;
+    y0 = year / 1000;
   } else {
-    JDE0tab = JDE0_TAB_2000
-    y0 = (year - 2000) / 1000
+    JDE0tab = JDE0_TAB_2000;
+    y0 = (year - 2000) / 1000;
   }
 
   const JDE0: number =
@@ -754,23 +756,23 @@ function equinox (year: number, which: number): number {
     JDE0tab[which][1] * y0 +
     JDE0tab[which][2] * Math.pow(y0, 2) +
     JDE0tab[which][3] * Math.pow(y0, 3) +
-    JDE0tab[which][4] * Math.pow(y0, 4)
+    JDE0tab[which][4] * Math.pow(y0, 4);
 
-  const t: number = (JDE0 - 2451545.0) / JULIAN_CENTURY
-  const w: number = 35999.373 * t - 2.47
-  const deltaL: number = 1 + 0.0334 * cosDeg(w) + 0.0007 * cosDeg(2 * w)
+  const t: number = (JDE0 - 2451545.0) / JULIAN_CENTURY;
+  const w: number = 35999.373 * t - 2.47;
+  const deltaL: number = 1 + 0.0334 * cosDeg(w) + 0.0007 * cosDeg(2 * w);
 
   // Sum the periodic terms for time t0
-  let sum = 0
-  let index = 0
-  let j = 0
+  let sum = 0;
+  let index = 0;
+  let j = 0;
   while (index < 24) {
-    sum += EQUINOX_P_TERMS[j] * cosDeg(EQUINOX_P_TERMS[j + 1] + EQUINOX_P_TERMS[j + 2] * t)
-    j += 3
-    index += 1
+    sum += EQUINOX_P_TERMS[j] * cosDeg(EQUINOX_P_TERMS[j + 1] + EQUINOX_P_TERMS[j + 2] * t);
+    j += 3;
+    index += 1;
   }
 
-  return JDE0 + (sum * 0.00001) / deltaL
+  return JDE0 + (sum * 0.00001) / deltaL;
 }
 
 /**
@@ -778,31 +780,31 @@ function equinox (year: number, which: number): number {
  * @param tee moment in time
  * @returns aberration
  */
-function aberration (tee: number): number {
-  const centuries: number = julianCenturies(tee)
+function aberration(tee: number): number {
+  const centuries: number = julianCenturies(tee);
 
-  return 0.0000974 * cosDeg(177.63 + 35999.01848 * centuries) - 0.005575
+  return 0.0000974 * cosDeg(177.63 + 35999.01848 * centuries) - 0.005575;
 }
 
 const SOLAR_LONGITUDE_COEFFICIENTS: number[] = [
   403406, 195207, 119433, 112392, 3891, 2819, 1721, 660, 350, 334, 314, 268, 242, 234, 158, 132, 129, 114, 99, 93, 86,
-  78, 72, 68, 64, 46, 38, 37, 32, 29, 28, 27, 27, 25, 24, 21, 21, 20, 18, 17, 14, 13, 13, 13, 12, 10, 10, 10, 10
-]
+  78, 72, 68, 64, 46, 38, 37, 32, 29, 28, 27, 27, 25, 24, 21, 21, 20, 18, 17, 14, 13, 13, 13, 12, 10, 10, 10, 10,
+];
 
 const SOLAR_LONGITUDE_MULTIPLIERS: number[] = [
   0.9287892, 35999.1376958, 35999.4089666, 35998.7287385, 71998.20261, 71998.4403, 36000.35726, 71997.4812, 32964.4678,
   -19.441, 445267.1117, 45036.884, 3.1008, 22518.4434, -19.9739, 65928.9345, 9038.0293, 3034.7684, 33718.148, 3034.448,
   -2280.773, 29929.992, 31556.493, 149.588, 9037.75, 107997.405, -4444.176, 151.771, 67555.316, 31556.08, -4561.54,
   107996.706, 1221.655, 62894.167, 31437.369, 14578.298, -31931.757, 34777.243, 1221.999, 62894.511, -4442.039,
-  107997.909, 119.066, 16859.071, -4.578, 26895.292, -39.127, 12297.536, 90073.778
-]
+  107997.909, 119.066, 16859.071, -4.578, 26895.292, -39.127, 12297.536, 90073.778,
+];
 
 const SOLAR_LONGITUDE_ADDENDS: number[] = [
   270.54861, 340.19128, 63.91854, 331.2622, 317.843, 86.631, 240.052, 310.26, 247.23, 260.87, 297.82, 343.14, 166.79,
   81.53, 3.5, 132.75, 182.95, 162.03, 29.8, 266.4, 249.2, 157.6, 257.8, 185.1, 69.9, 8.0, 197.1, 250.4, 65.3, 162.7,
   341.5, 291.6, 98.5, 146.7, 110.0, 5.2, 342.6, 230.9, 256.1, 45.3, 242.9, 115.2, 151.8, 285.3, 53.3, 126.6, 205.7,
-  85.9, 146.1
-]
+  85.9, 146.1,
+];
 
 /**
  * Return the longitude of sun at moment 'tee'.
@@ -813,18 +815,18 @@ const SOLAR_LONGITUDE_ADDENDS: number[] = [
  * @param tee moment in time
  * @returns solar longitude
  */
-function solarLongitude (tee: number): number {
-  const centuries: number = julianCenturies(tee)
+function solarLongitude(tee: number): number {
+  const centuries: number = julianCenturies(tee);
   const lambda: number =
     282.7771834 +
     36000.76953744 * centuries +
     0.000005729577951308232 *
       sigma(
         [SOLAR_LONGITUDE_COEFFICIENTS, SOLAR_LONGITUDE_ADDENDS, SOLAR_LONGITUDE_MULTIPLIERS],
-        (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries)
-      )
+        (x: number, y: number, z: number): number => x * sinDeg(y + z * centuries),
+      );
 
-  return mod(lambda + aberration(tee) + nutation(tee), 360)
+  return mod(lambda + aberration(tee) + nutation(tee), 360);
 }
 
 /**
@@ -834,12 +836,12 @@ function solarLongitude (tee: number): number {
  * @param tee moment in time
  * @returns longitude
  */
-function estimatePriorSolarLongitude (lambda: number, tee: number): number {
-  const rate: number = MEAN_TROPICAL_YEAR / 360
-  const tau: number = tee - rate * mod(solarLongitude(tee) - lambda, 360)
-  const capDelta: number = mod(solarLongitude(tau) - lambda + 180, 360) - 180
+function estimatePriorSolarLongitude(lambda: number, tee: number): number {
+  const rate: number = MEAN_TROPICAL_YEAR / 360;
+  const tau: number = tee - rate * mod(solarLongitude(tee) - lambda, 360);
+  const capDelta: number = mod(solarLongitude(tau) - lambda + 180, 360) - 180;
 
-  return Math.min(tee, tau - rate * capDelta)
+  return Math.min(tee, tau - rate * capDelta);
 }
 
 /**
@@ -848,16 +850,16 @@ function estimatePriorSolarLongitude (lambda: number, tee: number): number {
  * @param tee moment in time
  * @returns precession value
  */
-function precession (tee: number): number {
-  const centuries: number = julianCenturies(tee)
-  const eta: number = mod(poly(centuries, [0, 47.0029 / 3600, -0.03302 / 3600, 0.00006 / 3600]), 360)
-  const capP: number = mod(poly(centuries, [174.876384, -869.8089 / 3600, 0.03536 / 3600]), 360)
-  const p0: number = mod(poly(centuries, [0, 5029.0966 / 3600, 1.11113 / 3600, 0.000006 / 3600]), 360)
-  const capA: number = cosDeg(eta) * sinDeg(capP)
-  const capB: number = cosDeg(capP)
-  const arg: number = arcTanDeg(capA, capB)
+function precession(tee: number): number {
+  const centuries: number = julianCenturies(tee);
+  const eta: number = mod(poly(centuries, [0, 47.0029 / 3600, -0.03302 / 3600, 0.00006 / 3600]), 360);
+  const capP: number = mod(poly(centuries, [174.876384, -869.8089 / 3600, 0.03536 / 3600]), 360);
+  const p0: number = mod(poly(centuries, [0, 5029.0966 / 3600, 1.11113 / 3600, 0.000006 / 3600]), 360);
+  const capA: number = cosDeg(eta) * sinDeg(capP);
+  const capB: number = cosDeg(capP);
+  const arg: number = arcTanDeg(capA, capB);
 
-  return mod(p0 + capP - arg, 360)
+  return mod(p0 + capP - arg, 360);
 }
 
 /**
@@ -867,10 +869,10 @@ function precession (tee: number): number {
  * @param lambda longitude
  * @returns declination
  */
-function declination (tee: number, beta: number, lambda: number): number {
-  const eps: number = obliquity(tee)
+function declination(tee: number, beta: number, lambda: number): number {
+  const eps: number = obliquity(tee);
 
-  return arcSinDeg(sinDeg(beta) * cosDeg(eps) + cosDeg(beta) * sinDeg(eps) * sinDeg(lambda))
+  return arcSinDeg(sinDeg(beta) * cosDeg(eps) + cosDeg(beta) * sinDeg(eps) * sinDeg(lambda));
 }
 
 /**
@@ -880,10 +882,10 @@ function declination (tee: number, beta: number, lambda: number): number {
  * @param lambda longitude
  * @returns declination
  */
-function rightAscension (tee: number, beta: number, lambda: number): number {
-  const eps: number = obliquity(tee)
+function rightAscension(tee: number, beta: number, lambda: number): number {
+  const eps: number = obliquity(tee);
 
-  return arcTanDeg(sinDeg(lambda) * cosDeg(eps) - tanDeg(beta) * sinDeg(eps), cosDeg(lambda))
+  return arcTanDeg(sinDeg(lambda) * cosDeg(eps) - tanDeg(beta) * sinDeg(eps), cosDeg(lambda));
 }
 
 /**
@@ -894,12 +896,12 @@ function rightAscension (tee: number, beta: number, lambda: number): number {
  * @param alpha angle
  * @returns sine offset
  */
-function sineOffset (tee: number, location: Location, alpha: number): number {
-  const phi = location.getLatitude()
-  const teePrime: number = localToUniversal(tee, location)
-  const delta: number = declination(teePrime, 0, solarLongitude(teePrime))
+function sineOffset(tee: number, location: Location, alpha: number): number {
+  const phi = location.getLatitude();
+  const teePrime: number = localToUniversal(tee, location);
+  const delta: number = declination(teePrime, 0, solarLongitude(teePrime));
 
-  return tanDeg(phi) * tanDeg(delta) + sinDeg(alpha) / (cosDeg(delta) * cosDeg(phi))
+  return tanDeg(phi) * tanDeg(delta) + sinDeg(alpha) / (cosDeg(delta) * cosDeg(phi));
 }
 
 /**
@@ -913,19 +915,19 @@ function sineOffset (tee: number, location: Location, alpha: number): number {
  * @param early MORNING or EVENING
  * @returns moment of depression
  */
-function approxMomentOfDepression (tee: number, location: Location, alpha: number, early: boolean): number {
-  const ttry = sineOffset(tee, location, alpha)
-  const date = momentToRd(tee)
-  const alt = alpha < 0 ? date + 0.5 : early ? date : date + 1
-  const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry
+function approxMomentOfDepression(tee: number, location: Location, alpha: number, early: boolean): number {
+  const ttry = sineOffset(tee, location, alpha);
+  const date = momentToRd(tee);
+  const alt = alpha < 0 ? date + 0.5 : early ? date : date + 1;
+  const value = Math.abs(ttry) > 1 ? sineOffset(alt, location, alpha) : ttry;
 
   if (Math.abs(value) > 1) {
-    return -1
+    return -1;
   }
 
-  const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5)
+  const offset = mod3(arcSinDeg(value) / 360, -0.5, 0.5);
 
-  return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location)
+  return apparentToLocal(date + (early ? 0.25 - offset : 0.75 + offset), location);
 }
 
 /**
@@ -939,18 +941,18 @@ function approxMomentOfDepression (tee: number, location: Location, alpha: numbe
  * @param early MORNING or EVENING
  * @returns moment of depression
  */
-function momentOfDepression (approx: number, location: Location, alpha: number, early: boolean): number {
-  const tee: number = approxMomentOfDepression(approx, location, alpha, early)
+function momentOfDepression(approx: number, location: Location, alpha: number, early: boolean): number {
+  const tee: number = approxMomentOfDepression(approx, location, alpha, early);
 
   if (tee === -1) {
-    return -1
+    return -1;
   }
 
   if (Math.abs(approx - tee) < 30 / 86400) {
-    return tee
+    return tee;
   }
 
-  return momentOfDepression(tee, location, alpha, early)
+  return momentOfDepression(tee, location, alpha, early);
 }
 
 /**
@@ -962,14 +964,14 @@ function momentOfDepression (approx: number, location: Location, alpha: number, 
  * @param alpha angle
  * @returns time of dawn
  */
-function dawn (date: number, location: Location, alpha: number): number {
-  const result: number = momentOfDepression(date + 0.25, location, alpha, true)
+function dawn(date: number, location: Location, alpha: number): number {
+  const result: number = momentOfDepression(date + 0.25, location, alpha, true);
 
   if (result === -1) {
-    return -1
+    return -1;
   }
 
-  return localToStandard(result, location)
+  return localToStandard(result, location);
 }
 
 /**
@@ -981,24 +983,24 @@ function dawn (date: number, location: Location, alpha: number): number {
  * @param alpha angle
  * @returns time of dusk
  */
-function dusk (date: number, location: Location, alpha: number): number {
-  const result: number = momentOfDepression(date + 0.75, location, alpha, false)
+function dusk(date: number, location: Location, alpha: number): number {
+  const result: number = momentOfDepression(date + 0.75, location, alpha, false);
 
   if (result === -1) {
-    return -1
+    return -1;
   }
 
-  return localToStandard(result, location)
+  return localToStandard(result, location);
 }
 
-const eFactor: number[] = [0, 1, 0, 0, 1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-const solarCoeff: number[] = [0, 1, 0, 0, -1, 1, 2, 0, 0, 1, 0, 1, 1, -1, 2, 0, 3, 1, 0, 1, -1, -1, 1, 0]
-const lunarCoeff: number[] = [1, 0, 2, 0, 1, 1, 0, 1, 1, 2, 3, 0, 0, 2, 1, 2, 0, 1, 2, 1, 1, 1, 3, 4]
-const moonCoeff: number[] = [0, 0, 0, 2, 0, 0, 0, -2, 2, 0, 0, 2, -2, 0, 0, -2, 0, -2, 2, 2, 2, -2, 0, 0]
+const eFactor: number[] = [0, 1, 0, 0, 1, 1, 2, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const solarCoeff: number[] = [0, 1, 0, 0, -1, 1, 2, 0, 0, 1, 0, 1, 1, -1, 2, 0, 3, 1, 0, 1, -1, -1, 1, 0];
+const lunarCoeff: number[] = [1, 0, 2, 0, 1, 1, 0, 1, 1, 2, 3, 0, 0, 2, 1, 2, 0, 1, 2, 1, 1, 1, 3, 4];
+const moonCoeff: number[] = [0, 0, 0, 2, 0, 0, 0, -2, 2, 0, 0, 2, -2, 0, 0, -2, 0, -2, 2, 2, 2, -2, 0, 0];
 const sineCoeff2: number[] = [
   -0.4072, 0.17241, 0.01608, 0.01039, 0.00739, -0.00514, 0.00208, -0.00111, -0.00057, 0.00056, -0.00042, 0.00042,
-  0.00038, -0.00024, -0.00007, 0.00004, 0.00004, 0.00003, 0.00003, -0.00003, 0.00003, -0.00002, -0.00002, 0.00002
-]
+  0.00038, -0.00024, -0.00007, 0.00004, 0.00004, 0.00003, 0.00003, -0.00003, 0.00003, -0.00002, -0.00002, 0.00002,
+];
 
 /**
  * Return the moment of n-th new moon after (or before) the new moon of January 11, 1.
@@ -1006,41 +1008,41 @@ const sineCoeff2: number[] = [
  * @param n moment in time
  * @returns moment of the n-th moon
  */
-function nthNewMoon (n: number): number {
-  const k: number = n - 24724
-  const c: number = k / 1236.85
+function nthNewMoon(n: number): number {
+  const k: number = n - 24724;
+  const c: number = k / 1236.85;
   const approx: number =
-    J2000 + poly(c, [5.09766, MEAN_SYNODIC_MONTH * 1236.85, 0.0001437, -0.00000015, 0.00000000073])
-  const capE: number = poly(c, [1, -0.002516, -0.0000074])
-  const solarAnomaly2: number = poly(c, [2.5534, 1236.85 * 29.10535669, -0.0000014, -0.00000011])
-  const lunarAnomaly2: number = poly(c, [201.5643, 385.81693528 * 1236.85, 0.0107582, 0.00001238, -0.000000058])
-  const moonArg: number = poly(c, [160.7108, 390.67050284 * 1236.85, -0.0016118, -0.00000227, 0.000000011])
-  const capO: number = poly(c, [124.7746, -1.56375588 * 1236.85, 0.0020672, 0.00000215])
+    J2000 + poly(c, [5.09766, MEAN_SYNODIC_MONTH * 1236.85, 0.0001437, -0.00000015, 0.00000000073]);
+  const capE: number = poly(c, [1, -0.002516, -0.0000074]);
+  const solarAnomaly2: number = poly(c, [2.5534, 1236.85 * 29.10535669, -0.0000014, -0.00000011]);
+  const lunarAnomaly2: number = poly(c, [201.5643, 385.81693528 * 1236.85, 0.0107582, 0.00001238, -0.000000058]);
+  const moonArg: number = poly(c, [160.7108, 390.67050284 * 1236.85, -0.0016118, -0.00000227, 0.000000011]);
+  const capO: number = poly(c, [124.7746, -1.56375588 * 1236.85, 0.0020672, 0.00000215]);
   const correction: number =
     -0.00017 * sinDeg(capO) +
     sigma(
       [sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
-    )
+        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg),
+    );
   const addConst: number[] = [
-    251.88, 251.83, 349.42, 84.66, 141.74, 207.14, 154.84, 34.52, 207.19, 291.34, 161.72, 239.56, 331.55
-  ]
+    251.88, 251.83, 349.42, 84.66, 141.74, 207.14, 154.84, 34.52, 207.19, 291.34, 161.72, 239.56, 331.55,
+  ];
   const addCoeff: number[] = [
     0.016321, 26.651886, 36.412478, 18.206239, 53.303771, 2.453732, 7.30686, 27.261239, 0.121824, 1.844379, 24.198154,
-    25.513099, 3.592518
-  ]
+    25.513099, 3.592518,
+  ];
   const addFactor: number[] = [
     0.000165, 0.000164, 0.000126, 0.00011, 0.000062, 0.00006, 0.000056, 0.000047, 0.000042, 0.00004, 0.000037, 0.000035,
-    0.000023
-  ]
-  const extra: number = 0.000325 * sinDeg(poly(c, [299.77, 132.8475848, -0.009173]))
+    0.000023,
+  ];
+  const extra: number = 0.000325 * sinDeg(poly(c, [299.77, 132.8475848, -0.009173]));
   const additional: number = sigma(
     [addConst, addCoeff, addFactor],
-    (i: number, j: number, l: number): number => l * sinDeg(i + j * k)
-  )
+    (i: number, j: number, l: number): number => l * sinDeg(i + j * k),
+  );
 
-  return dynamicalToUniversal(approx + correction + extra + additional)
+  return dynamicalToUniversal(approx + correction + extra + additional);
 }
 
 /**
@@ -1051,8 +1053,8 @@ function nthNewMoon (n: number): number {
  * @param centuries Julian centuries relative to 2000-01-01
  * @returns mean lunar longitude
  */
-function meanLunarLongitude (centuries: number): number {
-  return degrees(poly(centuries, [218.3164477, 481267.88123421, -0.0015786, 1 / 538841, -1 / 65194000]))
+function meanLunarLongitude(centuries: number): number {
+  return degrees(poly(centuries, [218.3164477, 481267.88123421, -0.0015786, 1 / 538841, -1 / 65194000]));
 }
 
 /**
@@ -1062,8 +1064,8 @@ function meanLunarLongitude (centuries: number): number {
  * @param centuries Julian centuries relative to 2000-01-01
  * @returns lunar elongation
  */
-function lunarElongation (centuries: number): number {
-  return degrees(poly(centuries, [297.8501921, 445267.1114034, -0.0018819, 1 / 545868, -1 / 113065000]))
+function lunarElongation(centuries: number): number {
+  return degrees(poly(centuries, [297.8501921, 445267.1114034, -0.0018819, 1 / 545868, -1 / 113065000]));
 }
 
 /**
@@ -1073,8 +1075,8 @@ function lunarElongation (centuries: number): number {
  * @param centuries Julian centuries relative to 2000-01-01
  * @returns solar anomaly
  */
-function solarAnomaly (centuries: number): number {
-  return degrees(poly(centuries, [357.5291092, 35999.0502909, -0.0001536, 1 / 24490000]))
+function solarAnomaly(centuries: number): number {
+  return degrees(poly(centuries, [357.5291092, 35999.0502909, -0.0001536, 1 / 24490000]));
 }
 
 /**
@@ -1084,8 +1086,8 @@ function solarAnomaly (centuries: number): number {
  * @param centuries Julian centuries relative to 2000-01-01
  * @returns lunar anomaly
  */
-function lunarAnomaly (centuries: number): number {
-  return degrees(poly(centuries, [134.9633964, 477198.8675055, 0.0087414, 1 / 69699, -1 / 14712000]))
+function lunarAnomaly(centuries: number): number {
+  return degrees(poly(centuries, [134.9633964, 477198.8675055, 0.0087414, 1 / 69699, -1 / 14712000]));
 }
 
 /**
@@ -1095,32 +1097,32 @@ function lunarAnomaly (centuries: number): number {
  * @param centuries Julian centuries relative to 2000-01-01
  * @returns moon node
  */
-function moonNode (centuries: number): number {
-  return degrees(poly(centuries, [93.272095, 483202.0175233, -0.0036539, -1 / 3526000, 1 / 863310000]))
+function moonNode(centuries: number): number {
+  return degrees(poly(centuries, [93.272095, 483202.0175233, -0.0036539, -1 / 3526000, 1 / 863310000]));
 }
 
 const lunarElongationArgs = [
   0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4, 2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0,
-  3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2
-]
+  3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2,
+];
 const solarAnomalyArgs = [
   0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0, 0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0,
-  -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0
-]
+  -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0,
+];
 const lunarAnomalyArgs = [
   1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0, 1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1,
-  1, 0, -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3
-]
+  1, 0, -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3,
+];
 const moonNodeArgs = [
   0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0,
-  2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0
-]
+  2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0,
+];
 const sineCoeff = [
   6288774, 1274027, 658314, 213618, -185116, -114332, 58793, 57066, 53322, 45758, -40923, -34720, -30383, 15327, -12528,
   10980, 10675, 10034, 8548, -7888, -6766, -5163, 4987, 4036, 3994, 3861, 3665, -2689, -2602, 2390, -2348, 2236, -2120,
   -2069, 2048, -1773, -1595, 1215, -1110, -892, -810, 759, -713, -700, 691, 596, 549, 537, 520, -487, -399, -381, 351,
-  -340, 330, 327, -323, 299, 294
-]
+  -340, 330, 327, -323, 299, 294,
+];
 
 /**
  * Return longitude of moon (in degrees) at moment tee.
@@ -1128,54 +1130,54 @@ const sineCoeff = [
  * @param tee moment in time
  * @returns lunar longitude
  */
-function lunarLongitude (tee: number): number {
-  const centuries: number = julianCenturies(tee)
-  const capLprime: number = meanLunarLongitude(centuries)
-  const capD: number = lunarElongation(centuries)
-  const capM: number = solarAnomaly(centuries)
-  const capMprime: number = lunarAnomaly(centuries)
-  const capF: number = moonNode(centuries)
+function lunarLongitude(tee: number): number {
+  const centuries: number = julianCenturies(tee);
+  const capLprime: number = meanLunarLongitude(centuries);
+  const capD: number = lunarElongation(centuries);
+  const capM: number = solarAnomaly(centuries);
+  const capMprime: number = lunarAnomaly(centuries);
+  const capF: number = moonNode(centuries);
   // see eq. 47.6 in Meeus
-  const capE: number = poly(centuries, [1, -0.002516, -0.0000074])
+  const capE: number = poly(centuries, [1, -0.002516, -0.0000074]);
 
   const correction: number =
     sigma(
       [sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
-    ) / 1000000
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF),
+    ) / 1000000;
 
-  const A1: number = 119.75 + centuries * 131.849
-  const venus: number = (3958 / 1000000) * sinDeg(A1)
-  const A2: number = 53.09 + centuries * 479264.29
-  const jupiter: number = (318 / 1000000) * sinDeg(A2)
-  const flatEarth: number = (1962 / 1000000) * sinDeg(capLprime - capF)
+  const A1: number = 119.75 + centuries * 131.849;
+  const venus: number = (3958 / 1000000) * sinDeg(A1);
+  const A2: number = 53.09 + centuries * 479264.29;
+  const jupiter: number = (318 / 1000000) * sinDeg(A2);
+  const flatEarth: number = (1962 / 1000000) * sinDeg(capLprime - capF);
 
-  return mod(capLprime + correction + venus + jupiter + flatEarth + nutation(tee), 360)
+  return mod(capLprime + correction + venus + jupiter + flatEarth + nutation(tee), 360);
 }
 
 const lunarElongationArgs2: number[] = [
   0, 0, 0, 2, 2, 2, 2, 0, 2, 0, 2, 2, 2, 2, 2, 2, 2, 0, 4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4, 0, 4, 2, 2, 2, 2, 0, 2, 2,
-  2, 2, 4, 2, 2, 0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2
-]
+  2, 2, 4, 2, 2, 0, 2, 1, 1, 0, 2, 1, 2, 0, 4, 4, 1, 4, 1, 4, 2,
+];
 const solarAnomalyArgs2: number[] = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, -1, -1, -1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0,
-  0, 1, 1, 0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2
-]
+  0, 1, 1, 0, -1, -2, 0, 1, 1, 1, 1, 1, 0, -1, 1, 0, -1, 0, 0, 0, -1, -2,
+];
 const lunarAnomalyArgs2: number[] = [
   0, 1, 1, 0, -1, -1, 0, 2, 1, 2, 0, -2, 1, 0, -1, 0, -1, -1, -1, 0, 0, -1, 0, 1, 1, 0, 0, 3, 0, -1, 1, -2, 0, 2, 1, -2,
-  3, 2, -3, -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0
-]
+  3, 2, -3, -1, 0, 0, 1, 0, 1, 1, 0, 0, -2, -1, 1, -2, 2, -2, -1, 1, 1, -2, 0, 0,
+];
 const moonNodeArgs2: number[] = [
   1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 3, 1, 1, 1, -1, -1, -1, 1, -1, 1, -3, 1, -3,
-  -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1
-]
+  -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1, 3, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1,
+];
 const sineCoefficients2: number[] = [
   5128122, 280602, 277693, 173237, 55413, 46271, 32573, 17198, 9266, 8822, 8216, 4324, 4200, -3359, 2463, 2211, 2065,
   -1870, 1828, -1794, -1749, -1565, -1491, -1475, -1410, -1344, -1335, 1107, 1021, 833, 777, 671, 607, 596, 491, -451,
   439, 422, 421, -366, -351, 331, 315, 302, -283, -229, 223, 223, -220, -220, -185, 181, -177, 176, 166, -164, 132,
-  -119, 115, 107
-]
+  -119, 115, 107,
+];
 
 /**
  * Return the latitude of moon (in degrees) at moment tee.
@@ -1183,54 +1185,54 @@ const sineCoefficients2: number[] = [
  * @param tee moment in time
  * @returns lunar latitude
  */
-function lunarLatitude (tee: number): number {
-  const c: number = julianCenturies(tee)
-  const capLprime: number = meanLunarLongitude(c)
-  const capD: number = lunarElongation(c)
-  const capM: number = solarAnomaly(c)
-  const capMprime: number = lunarAnomaly(c)
-  const capF: number = moonNode(c)
-  const capE: number = poly(c, [1, -0.002516, -0.0000074])
+function lunarLatitude(tee: number): number {
+  const c: number = julianCenturies(tee);
+  const capLprime: number = meanLunarLongitude(c);
+  const capD: number = lunarElongation(c);
+  const capM: number = solarAnomaly(c);
+  const capMprime: number = lunarAnomaly(c);
+  const capF: number = moonNode(c);
+  const capE: number = poly(c, [1, -0.002516, -0.0000074]);
   const beta: number =
     (1 / 1000000) *
     sigma(
       [sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
-    )
+        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF),
+    );
 
-  const venus: number = (175 / 1000000) * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF))
+  const venus: number = (175 / 1000000) * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF));
   const flatEarth: number =
     (-2235 / 1000000) * sinDeg(capLprime) +
     (127 / 1000000) * sinDeg(capLprime - capMprime) +
-    (-115 / 1000000) * sinDeg(capLprime + capMprime)
-  const extra: number = (382 / 1000000) * sinDeg(313.45 + c * 481266.484)
+    (-115 / 1000000) * sinDeg(capLprime + capMprime);
+  const extra: number = (382 / 1000000) * sinDeg(313.45 + c * 481266.484);
 
-  return beta + venus + flatEarth + extra
+  return beta + venus + flatEarth + extra;
 }
 
 const lunarElongationArgs3 = [
   0, 2, 2, 0, 0, 0, 2, 2, 2, 2, 0, 1, 0, 2, 0, 0, 4, 0, 4, 2, 2, 1, 1, 2, 2, 4, 2, 0, 2, 2, 1, 2, 0, 0, 2, 2, 2, 4, 0,
-  3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2, 2
-]
+  3, 2, 4, 0, 2, 2, 2, 4, 0, 4, 1, 2, 0, 1, 3, 4, 2, 0, 1, 2, 2,
+];
 const solarAnomalyArgs3 = [
   0, 0, 0, 0, 1, 0, 0, -1, 0, -1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, -1, 0, 0, 0, 1, 0, -1, 0, -2, 1, 2, -2, 0, 0,
-  -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0, 0
-]
+  -1, 0, 0, 1, -1, 2, 2, 1, -1, 0, 0, -1, 0, 1, 0, 1, 0, 0, -1, 2, 1, 0, 0,
+];
 const lunarAnomalyArgs3 = [
   1, -1, 0, 2, 0, 0, -2, -1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 3, -2, -1, 0, -1, 0, 1, 2, 0, -3, -2, -1, -2, 1, 0, 2, 0, -1,
-  1, 0, -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3, -1
-]
+  1, 0, -1, 2, -1, 1, -2, -1, -1, -2, 0, 1, 4, 0, -2, 0, 2, 1, -2, -3, 2, 1, -1, 3, -1,
+];
 const moonNodeArgs3 = [
   0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, -2, 2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, -2, 2, 0,
-  2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0, -2
-]
+  2, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0, -2,
+];
 const cosineCoeff = [
   -20905355, -3699111, -2955968, -569925, 48888, -3149, 246158, -152138, -170733, -204586, -129620, 108743, 104755,
   10321, 0, 79661, -34782, -23210, -21636, 24208, 30824, -8379, -16675, -12831, -10445, -11650, 14403, -7003, 0, 10056,
   6322, -9884, 5751, 0, -4950, 4130, 0, -3958, 0, 3258, 2616, -1897, -2117, 2354, 0, 0, -1423, -1117, -1571, -1739, 0,
-  -4421, 0, 0, 0, 0, 1165, 0, 0, 8752
-]
+  -4421, 0, 0, 0, 0, 1165, 0, 0, 8752,
+];
 
 /**
  * Return the distance to the moon (in metres) at moment tee.
@@ -1238,20 +1240,20 @@ const cosineCoeff = [
  * @param tee moment in time
  * @returns lunar distance
  */
-function lunarDistance (tee: number): number {
-  const c = julianCenturies(tee)
-  const capD = lunarElongation(c)
-  const capM = solarAnomaly(c)
-  const capMPrime = lunarAnomaly(c)
-  const capF = moonNode(c)
-  const capE = poly(c, [1, -0.002516, -0.0000074])
+function lunarDistance(tee: number): number {
+  const c = julianCenturies(tee);
+  const capD = lunarElongation(c);
+  const capM = solarAnomaly(c);
+  const capMPrime = lunarAnomaly(c);
+  const capF = moonNode(c);
+  const capE = poly(c, [1, -0.002516, -0.0000074]);
   const correction = sigma(
     [cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
     (v: number, w: number, x: number, y: number, z: number): number =>
-      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
-  )
+      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF),
+  );
 
-  return 385000560 + correction
+  return 385000560 + correction;
 }
 
 /**
@@ -1264,17 +1266,17 @@ function lunarDistance (tee: number): number {
  * @param tee moment in time
  * @returns lunar phase at tee
  */
-function lunarPhase (tee: number): number {
-  const phi: number = mod(lunarLongitude(tee) - solarLongitude(tee), 360)
-  const t0: number = nthNewMoon(0)
-  const n0: number = Math.round((tee - t0) / MEAN_SYNODIC_MONTH)
-  const phi2: number = 360 * mod((tee - nthNewMoon(n0)) / MEAN_SYNODIC_MONTH, 1)
+function lunarPhase(tee: number): number {
+  const phi: number = mod(lunarLongitude(tee) - solarLongitude(tee), 360);
+  const t0: number = nthNewMoon(0);
+  const n0: number = Math.round((tee - t0) / MEAN_SYNODIC_MONTH);
+  const phi2: number = 360 * mod((tee - nthNewMoon(n0)) / MEAN_SYNODIC_MONTH, 1);
 
   if (Math.abs(phi - phi2) > 180) {
-    return phi2
+    return phi2;
   }
 
-  return phi
+  return phi;
 }
 
 /**
@@ -1283,10 +1285,10 @@ function lunarPhase (tee: number): number {
  * @param tee moment in time
  * @returns sidereal
  */
-function momentToSidereal (tee: number): number {
-  const centuries: number = (tee - J2000) / JULIAN_CENTURY
+function momentToSidereal(tee: number): number {
+  const centuries: number = (tee - J2000) / JULIAN_CENTURY;
 
-  return mod(poly(centuries, [280.46061837, JULIAN_CENTURY * 360.98564736629, 0.000387933, -1 / 38710000]), 360)
+  return mod(poly(centuries, [280.46061837, JULIAN_CENTURY * 360.98564736629, 0.000387933, -1 / 38710000]), 360);
 }
 
 /**
@@ -1297,18 +1299,18 @@ function momentToSidereal (tee: number): number {
  * @param location location
  * @returns altitude
  */
-function lunarAltitude (tee: number, location: Location): number {
-  const phi = location.getLatitude()
-  const psi = location.getLongitude()
-  const lambda: number = lunarLongitude(tee)
-  const beta: number = lunarLatitude(tee)
-  const alpha: number = rightAscension(tee, beta, lambda)
-  const delta: number = declination(tee, beta, lambda)
-  const theta0: number = momentToSidereal(tee)
-  const capH: number = mod(theta0 + psi - alpha, 360)
-  const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) + cosDeg(phi) * cosDeg(delta) * cosDeg(capH))
+function lunarAltitude(tee: number, location: Location): number {
+  const phi = location.getLatitude();
+  const psi = location.getLongitude();
+  const lambda: number = lunarLongitude(tee);
+  const beta: number = lunarLatitude(tee);
+  const alpha: number = rightAscension(tee, beta, lambda);
+  const delta: number = declination(tee, beta, lambda);
+  const theta0: number = momentToSidereal(tee);
+  const capH: number = mod(theta0 + psi - alpha, 360);
+  const altitude: number = arcSinDeg(sinDeg(phi) * sinDeg(delta) + cosDeg(phi) * cosDeg(delta) * cosDeg(capH));
 
-  return mod3(altitude, -180, 180)
+  return mod3(altitude, -180, 180);
 }
 
 /**
@@ -1318,13 +1320,13 @@ function lunarAltitude (tee: number, location: Location): number {
  * @param location Geo-location
  * @returns moon parallax
  */
-function lunarParallax (tee: number, location: Location): number {
-  const geo = lunarAltitude(tee, location)
-  const capDelta = lunarDistance(tee)
-  const alt = 6378140 / capDelta
-  const arg = alt * cosDeg(geo)
+function lunarParallax(tee: number, location: Location): number {
+  const geo = lunarAltitude(tee, location);
+  const capDelta = lunarDistance(tee);
+  const alt = 6378140 / capDelta;
+  const arg = alt * cosDeg(geo);
 
-  return arcSinDeg(arg)
+  return arcSinDeg(arg);
 }
 /**
  * Topocentric altitude of moon at tee at location, as a small positive/negative
@@ -1333,22 +1335,22 @@ function lunarParallax (tee: number, location: Location): number {
  * @param location Geo-location
  * @returns topocentric lunar altitude
  */
-function topocentricLunarAltitude (tee: number, location: Location): number {
-  return lunarAltitude(tee, location) - lunarParallax(tee, location)
+function topocentricLunarAltitude(tee: number, location: Location): number {
+  return lunarAltitude(tee, location) - lunarParallax(tee, location);
 }
 
 /**
  * Return refraction angle at given location and time.
- * @param tee moment in time
+ * @param _tee moment in time
  * @param location geo-location
  * @returns refraction
  */
-function refraction (tee: number, location: Location): number {
-  const h: number = Math.max(0, location.getElevation())
-  const capR = 6372000
-  const dip: number = arcCosDeg(capR / (capR + h))
+function refraction(_tee: number, location: Location): number {
+  const h: number = Math.max(0, location.getElevation());
+  const capR = 6372000;
+  const dip: number = arcCosDeg(capR / (capR + h));
 
-  return 17 / 30 + dip + (19 * Math.sqrt(h)) / 3600
+  return 17 / 30 + dip + (19 * Math.sqrt(h)) / 3600;
 }
 
 /**
@@ -1358,8 +1360,8 @@ function refraction (tee: number, location: Location): number {
  * @param location Geo-location
  * @returns observed lunar altitude
  */
-function observedLunarAltitude (tee: number, location: Location): number {
-  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + 4 / 15
+function observedLunarAltitude(tee: number, location: Location): number {
+  return topocentricLunarAltitude(tee, location) + refraction(tee, location) + 4 / 15;
 }
 
 /**
@@ -1369,22 +1371,22 @@ function observedLunarAltitude (tee: number, location: Location): number {
  * @param location Geo-location
  * @returns time of moon-set or -1
  */
-function moonSet (rataDie: number, location: Location): number {
-  const tee = standardToUniversal(rataDie, location)
-  const waxing = lunarPhase(tee) < 180
-  const alt = observedLunarAltitude(tee, location)
-  const lat = location.getLatitude()
-  const offset = alt / (4 * (90 - Math.abs(lat)))
-  const approx = !waxing ? tee - offset + 0.5 : offset > 0 ? tee + offset : tee + 1 + offset
+function moonSet(rataDie: number, location: Location): number {
+  const tee = standardToUniversal(rataDie, location);
+  const waxing = lunarPhase(tee) < 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = !waxing ? tee - offset + 0.5 : offset > 0 ? tee + offset : tee + 1 + offset;
 
   const moment = binarySearch(
     approx - 0.25,
     approx + 0.25,
     (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
-    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0
-  )
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) < 0,
+  );
 
-  return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1
+  return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
 }
 
 /**
@@ -1394,23 +1396,23 @@ function moonSet (rataDie: number, location: Location): number {
  * @param location Geo-location
  * @returns time of moon-rise or -1
  */
-function moonRise (rataDie: number, location: Location): number {
-  const tee = standardToUniversal(rataDie, location)
-  const waning = lunarPhase(tee) > 180
-  const alt = observedLunarAltitude(tee, location)
-  const lat = location.getLatitude()
-  const offset = alt / (4 * (90 - Math.abs(lat)))
-  const approx = !waning ? tee + offset + 0.5 : offset > 0 ? tee + 1 - offset : tee - offset
+function moonRise(rataDie: number, location: Location): number {
+  const tee = standardToUniversal(rataDie, location);
+  const waning = lunarPhase(tee) > 180;
+  const alt = observedLunarAltitude(tee, location);
+  const lat = location.getLatitude();
+  const offset = alt / (4 * (90 - Math.abs(lat)));
+  const approx = !waning ? tee + offset + 0.5 : offset > 0 ? tee + 1 - offset : tee - offset;
 
   const moment = binarySearch(
     approx - 0.25,
     approx + 0.25,
     (lo: number, hi: number): boolean => (hi - lo) / 2 < 1 / 1440,
-    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0
-  )
+    (low: number, high: number): boolean => observedLunarAltitude((high + low) / 2, location) > 0,
+  );
 
   // return moment < tee + 1 ? Math.max(universalToStandard(moment, location), rataDie) : -1;
-  return Math.max(universalToStandard(moment, location), rataDie)
+  return Math.max(universalToStandard(moment, location), rataDie);
 }
 
 /**
@@ -1418,12 +1420,12 @@ function moonRise (rataDie: number, location: Location): number {
  * @param tee moment in time
  * @returns new moon event before tee
  */
-function newMoonBefore (tee: number): number {
-  const t: number = nthNewMoon(0)
-  const phi: number = lunarPhase(tee)
-  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360)
+function newMoonBefore(tee: number): number {
+  const t: number = nthNewMoon(0);
+  const phi: number = lunarPhase(tee);
+  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
 
-  return nthNewMoon(final(n - 1, (k: number): boolean => nthNewMoon(k) < tee))
+  return nthNewMoon(final(n - 1, (k: number): boolean => nthNewMoon(k) < tee));
 }
 
 /**
@@ -1431,12 +1433,12 @@ function newMoonBefore (tee: number): number {
  * @param tee moment in time
  * @returns new moon event before tee
  */
-function newMoonAtOrAfter (tee: number): number {
-  const t: number = nthNewMoon(0)
-  const phi: number = lunarPhase(tee)
-  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360)
+function newMoonAtOrAfter(tee: number): number {
+  const t: number = nthNewMoon(0);
+  const phi: number = lunarPhase(tee);
+  const n: number = Math.round((tee - t) / MEAN_SYNODIC_MONTH - phi / 360);
 
-  return nthNewMoon(next(n, (k: number): boolean => nthNewMoon(k) >= tee))
+  return nthNewMoon(next(n, (k: number): boolean => nthNewMoon(k) >= tee));
 }
 
 /**
@@ -1446,11 +1448,11 @@ function newMoonAtOrAfter (tee: number): number {
  * @param location geo-location
  * @returns visibility
  */
-function visibleCrescent (jdn: number, location: Location): boolean {
-  const tee: number = standardToUniversal(dusk(jdn - 1, location, 4.5), location)
-  const phase: number = lunarPhase(tee)
-  const altitude: number = lunarAltitude(tee, location)
-  const arcOfLight: number = arcCosDeg(cosDeg(lunarLatitude(tee)) * cosDeg(phase))
+function visibleCrescent(jdn: number, location: Location): boolean {
+  const tee: number = standardToUniversal(dusk(jdn - 1, location, 4.5), location);
+  const phase: number = lunarPhase(tee);
+  const altitude: number = lunarAltitude(tee, location);
+  const arcOfLight: number = arcCosDeg(cosDeg(lunarLatitude(tee)) * cosDeg(phase));
 
   return (
     phase > 1.0 * MoonPhase.NEW &&
@@ -1458,7 +1460,7 @@ function visibleCrescent (jdn: number, location: Location): boolean {
     arcOfLight >= 10.6 &&
     arcOfLight <= 90 &&
     altitude > 4.1
-  )
+  );
 }
 
 /**
@@ -1468,12 +1470,12 @@ function visibleCrescent (jdn: number, location: Location): boolean {
  * @param location geo-location
  * @returns phasis
  */
-function phasisOnOrBefore (jdn: number, location: Location): number {
-  const jd0: number = jdn - J0000
-  const mean: number = jd0 - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH)
-  const tau: number = jd0 - mean <= 3 && !visibleCrescent(jd0, location) ? mean - 30 : mean - 2
+function phasisOnOrBefore(jdn: number, location: Location): number {
+  const jd0: number = jdn - J0000;
+  const mean: number = jd0 - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH);
+  const tau: number = jd0 - mean <= 3 && !visibleCrescent(jd0, location) ? mean - 30 : mean - 2;
 
-  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000
+  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
 
 /**
@@ -1483,11 +1485,11 @@ function phasisOnOrBefore (jdn: number, location: Location): number {
  * @param location geo-location
  * @returns phasis
  */
-function phasisOnOrAfter (jdn: number, location: Location): number {
-  const mean: number = jdn - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH)
-  const tau: number = jdn - mean <= 3 && !visibleCrescent(jdn - 1, location) ? jdn : mean + 29
+function phasisOnOrAfter(jdn: number, location: Location): number {
+  const mean: number = jdn - Math.floor((lunarPhase(jdn + 1) / 360) * MEAN_SYNODIC_MONTH);
+  const tau: number = jdn - mean <= 3 && !visibleCrescent(jdn - 1, location) ? jdn : mean + 29;
 
-  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000
+  return next(tau, (d: number): boolean => visibleCrescent(d, location)) + J0000;
 }
 
 /**
@@ -1496,12 +1498,12 @@ function phasisOnOrAfter (jdn: number, location: Location): number {
  * @param tee moment in time
  * @returns lunar phase
  */
-function lunarPhaseAtOrBefore (phi: number, tee: number): number {
-  const tau = tee - MEAN_SYNODIC_MONTH * (1 / 360) * mod(lunarPhase(tee) - phi, 360)
-  const low = tau - 2
-  const high = Math.min(tee, tau + 2)
+function lunarPhaseAtOrBefore(phi: number, tee: number): number {
+  const tau = tee - MEAN_SYNODIC_MONTH * (1 / 360) * mod(lunarPhase(tee) - phi, 360);
+  const low = tau - 2;
+  const high = Math.min(tee, tau + 2);
 
-  return invertAngular(lunarPhase, phi, low, high)
+  return invertAngular(lunarPhase, phi, low, high);
 }
 
 /**
@@ -1511,13 +1513,13 @@ function lunarPhaseAtOrBefore (phi: number, tee: number): number {
  * @param tee moment in time
  * @returns solar longitude
  */
-function solarLongitudeAfter (lambda: number, tee: number): number {
-  const rate: number = MEAN_TROPICAL_YEAR / 360
-  const tau: number = tee + rate * mod(lambda - solarLongitude(tee), 360)
-  const low: number = Math.max(tee, tau - 5)
-  const high: number = tau + 5
+function solarLongitudeAfter(lambda: number, tee: number): number {
+  const rate: number = MEAN_TROPICAL_YEAR / 360;
+  const tau: number = tee + rate * mod(lambda - solarLongitude(tee), 360);
+  const low: number = Math.max(tee, tau - 5);
+  const high: number = tau + 5;
 
-  return invertAngular(solarLongitude, lambda, low, high)
+  return invertAngular(solarLongitude, lambda, low, high);
 }
 
 /**
@@ -1526,10 +1528,10 @@ function solarLongitudeAfter (lambda: number, tee: number): number {
  * @param location geo-location
  * @returns moment of sunset
  */
-function sunset (rataDie: number, location: Location): number {
-  const alpha: number = refraction(rataDie, location)
+function sunset(rataDie: number, location: Location): number {
+  const alpha: number = refraction(rataDie, location);
 
-  return dusk(rataDie, location, alpha)
+  return dusk(rataDie, location, alpha);
 }
 
 /**
@@ -1539,20 +1541,20 @@ function sunset (rataDie: number, location: Location): number {
  * @param location geo-location
  * @returns moment of moon lag
  */
-function moonLag (tee: number, location: Location): number {
-  const sun = sunset(tee, location)
+function moonLag(tee: number, location: Location): number {
+  const sun = sunset(tee, location);
 
   if (sun === -1) {
-    return -1
+    return -1;
   }
 
-  const moon = moonSet(tee, location)
+  const moon = moonSet(tee, location);
 
   if (moon === -1) {
-    return 1
+    return 1;
   }
 
-  return moon - sun
+  return moon - sun;
 }
 
 /**
@@ -1568,17 +1570,17 @@ function moonLag (tee: number, location: Location): number {
  * @param radices the array of radix numbers
  * @returns moment of sunset
  */
-function toRadix (num: number, radices: number[]): number[] {
+function toRadix(num: number, radices: number[]): number[] {
   if (radices.length === 0) {
-    return [num]
+    return [num];
   }
 
-  const prod = radices.reduce((acc: number, item: number): number => acc * item, 1)
-  const radix = Math.floor(num / prod)
-  const x2 = num - prod * radix
-  const [, ...rest] = radices
+  const prod = radices.reduce((acc: number, item: number): number => acc * item, 1);
+  const radix = Math.floor(num / prod);
+  const x2 = num - prod * radix;
+  const [, ...rest] = radices;
 
-  return [radix, ...toRadix(x2, rest)]
+  return [radix, ...toRadix(x2, rest)];
 }
 
 export {
@@ -1638,5 +1640,5 @@ export {
   tanDeg,
   toRadix,
   universalToApparent,
-  universalToStandard
-}
+  universalToStandard,
+};
