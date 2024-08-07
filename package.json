@@ -37,9 +37,9 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.8.0",
-    "@types/node": "22.0.0",
-    "@typescript-eslint/parser": "7.18.0",
-    "@vitest/coverage-v8": "2.0.4",
+    "@types/node": "22.1.0",
+    "@typescript-eslint/parser": "8.0.1",
+    "@vitest/coverage-v8": "2.0.5",
     "barro": "1.2.8",
     "eslint": "9.8.0",
     "eslint-config-love": "62.0.0",
@@ -48,22 +48,22 @@
     "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-eslint-plugin": "6.2.0",
     "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jsdoc": "48.10.1",
-    "eslint-plugin-n": "17.10.1",
+    "eslint-plugin-jsdoc": "50.0.0",
+    "eslint-plugin-n": "17.10.2",
     "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-promise": "7.0.0",
+    "eslint-plugin-promise": "7.1.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unicorn": "55.0.0",
     "eslint-plugin-vitest": "0.5.4",
-    "globals": "15.8.0",
+    "globals": "15.9.0",
     "happy-dom": "14.12.3",
-    "pnpm": "9.6.0",
+    "pnpm": "9.7.0",
     "prettier": "3.3.3",
     "rimraf": "6.0.1",
     "typescript": "5.5.4",
-    "typescript-eslint": "7.18.0",
+    "typescript-eslint": "8.0.1",
     "vite": "5.3.5",
-    "vitest": "2.0.4"
+    "vitest": "2.0.5"
   },
-  "packageManager": "pnpm@9.6.0"
+  "packageManager": "pnpm@9.7.0"
 }
