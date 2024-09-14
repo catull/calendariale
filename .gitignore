@@ -1,8 +1,9 @@
+.pnp.*
 .rts2_cache_*
 .vscode
-.pnp.*
 dist
 index.ts
 node_modules
+pnpm-lock.yaml
 tmp
 tsconfig.tsbuildinfo
