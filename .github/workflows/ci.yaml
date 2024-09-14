@@ -45,16 +45,14 @@ jobs:
       run: pnpm audit
     - name: Run pre build
       run: pnpm run prebuild
-    - name: Run lint on sources
+    - name: Run lint on sources and tests
       run: pnpm run lint
-    - name: Run lint on tests
-      run: pnpm run lint:test
     - name: Run build
       run: pnpm run build
     - name: Run prod test suites
       run: pnpm run test:prod
     - name: Run generation of dist package.json
       run: pnpm run dist:package.json
-    - name: Run fornat dist sources
+    - name: Run format dist sources
       run: pnpm run format:dist
 
