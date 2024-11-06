@@ -22,7 +22,7 @@ importers:
         version: 8.12.2(eslint@9.14.0)(typescript@5.6.3)
       '@vitest/coverage-v8':
         specifier: 2.1.4
-        version: 2.1.4(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.8.0))
+        version: 2.1.4(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.10.2))
       barro:
         specifier: 1.2.8
         version: 1.2.8
@@ -67,13 +67,13 @@ importers:
         version: 56.0.0(eslint@9.14.0)
       eslint-plugin-vitest:
         specifier: 0.5.4
-        version: 0.5.4(eslint@9.14.0)(typescript@5.6.3)(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.8.0))
+        version: 0.5.4(eslint@9.14.0)(typescript@5.6.3)(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.10.2))
       globals:
         specifier: 15.11.0
         version: 15.11.0
       happy-dom:
-        specifier: 15.8.0
-        version: 15.8.0
+        specifier: 15.10.2
+        version: 15.10.2
       pnpm:
         specifier: 9.12.3
         version: 9.12.3
@@ -94,7 +94,7 @@ importers:
         version: 5.4.10(@types/node@22.8.6)
       vitest:
         specifier: 2.1.4
-        version: 2.1.4(@types/node@22.8.6)(happy-dom@15.8.0)
+        version: 2.1.4(@types/node@22.8.6)(happy-dom@15.10.2)
 
 packages:
 
@@ -1189,8 +1189,8 @@ packages:
     engines: {node: '>=0.4.7'}
     hasBin: true
 
-  happy-dom@15.8.0:
-    resolution: {integrity: sha512-LwBvPvR4MQ1xfrf4gbWRJzeL2xQqWiEiHvZF5uA1AwlCCgjH9ht0fGVXciRGQCghdHAIXw1zGX1mJ6a3O0fpeA==}
+  happy-dom@15.10.2:
+    resolution: {integrity: sha512-NbA5XrSovenJIIcfixCREX3ZnV7yHP4phhbfuxxf4CPn+LZpz/jIM9EqJ2DrPwgVDSMoAKH3pZwQvkbsSiCrUw==}
     engines: {node: '>=18.0.0'}
 
   has-bigints@1.0.2:
@@ -2416,7 +2416,7 @@ snapshots:
       '@typescript-eslint/types': 8.12.2
       eslint-visitor-keys: 3.4.3
 
-  '@vitest/coverage-v8@2.1.4(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.8.0))':
+  '@vitest/coverage-v8@2.1.4(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.10.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -2430,7 +2430,7 @@ snapshots:
       std-env: 3.7.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.4(@types/node@22.8.6)(happy-dom@15.8.0)
+      vitest: 2.1.4(@types/node@22.8.6)(happy-dom@15.10.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -3006,12 +3006,12 @@ snapshots:
       semver: 7.6.3
       strip-indent: 3.0.0
 
-  eslint-plugin-vitest@0.5.4(eslint@9.14.0)(typescript@5.6.3)(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.8.0)):
+  eslint-plugin-vitest@0.5.4(eslint@9.14.0)(typescript@5.6.3)(vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.10.2)):
     dependencies:
       '@typescript-eslint/utils': 7.18.0(eslint@9.14.0)(typescript@5.6.3)
       eslint: 9.14.0
     optionalDependencies:
-      vitest: 2.1.4(@types/node@22.8.6)(happy-dom@15.8.0)
+      vitest: 2.1.4(@types/node@22.8.6)(happy-dom@15.10.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -3236,7 +3236,7 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
-  happy-dom@15.8.0:
+  happy-dom@15.10.2:
     dependencies:
       entities: 4.5.0
       webidl-conversions: 7.0.0
@@ -3990,7 +3990,7 @@ snapshots:
       '@types/node': 22.8.6
       fsevents: 2.3.3
 
-  vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.8.0):
+  vitest@2.1.4(@types/node@22.8.6)(happy-dom@15.10.2):
     dependencies:
       '@vitest/expect': 2.1.4
       '@vitest/mocker': 2.1.4(vite@5.4.10(@types/node@22.8.6))
@@ -4014,7 +4014,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.8.6
-      happy-dom: 15.8.0
+      happy-dom: 15.10.2
     transitivePeerDependencies:
       - less
       - lightningcss
