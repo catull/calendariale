@@ -34,7 +34,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "22.10.1",
+    "@types/node": "22.10.2",
     "@vitest/coverage-v8": "2.1.8",
     "barro": "1.2.8",
     "globals": "15.13.0",
