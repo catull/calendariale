@@ -34,16 +34,16 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "22.13.0",
-    "@vitest/coverage-v8": "3.0.4",
+    "@types/node": "22.13.1",
+    "@vitest/coverage-v8": "3.0.5",
     "barro": "1.2.8",
     "globals": "15.14.0",
     "happy-dom": "16.8.1",
-    "pnpm": "9.15.4",
+    "pnpm": "10.2.0",
     "rimraf": "6.0.1",
     "typescript": "5.7.3",
     "vite": "6.0.11",
-    "vitest": "3.0.4"
+    "vitest": "3.0.5"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@10.2.0"
 }
