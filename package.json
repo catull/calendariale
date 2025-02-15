@@ -4,9 +4,6 @@
   "description": "Calendrical calculations library in TypeScript",
   "author": "catull@gmail.com",
   "license": "BSD-2-Clause",
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "calendar",
     "calendrcal calculations"
@@ -22,8 +19,10 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.mjs",
-  "source": "src/index.ts",
+  "module": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "exports": {
     "./package.json": "./package.json",
     ".": {
@@ -38,9 +37,9 @@
     "postinstall": "pnpm prebuild",
     "clean": "rimraf -fr dist tmp",
     "clean:real": "rimraf -fr dist tmp \"src/**/index.ts\"",
-    "check-exports": "attw --pack --profile strict --profile esm-only --ignore-rules=cjs-resolves-to-esm dist",
+    "check-exports": "attw --pack --profile strict --profile esm-only --ignore-rules=cjs-resolves-to-esm --ignore-rules=unexpected-module-syntax dist/",
     "dist": "pnpm prebuild && pnpm lint && pnpm build:check && pnpm build && pnpm test:prod && pnpm dist:package.json && pnpm format:dist",
-    "dist:package.json": "node src/create-dist-package.json.js $npm_package_version > dist/package.json",
+    "dist:package.json": "node create-dist-package.json.ts $npm_package_version > dist/package.json",
     "test": "vitest --run",
     "test:dev": "vitest --watch",
     "test:prod": "vitest --run --silent --coverage",
