@@ -1,11 +1,17 @@
 name: CI
 
 on:
-  - push
   - pull_request
+  - push
+    branches:
+      - master
 
 permissions:
-  contents: read # to fetch code (actions/checkout)
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -16,6 +22,7 @@ jobs:
           - '18'
           - '20'
           - '22'
+          - '23'
         platform:
           - macos-latest
           - ubuntu-latest
@@ -28,33 +35,49 @@ jobs:
         git config --global core.autocrlf false
         git config --global user.name "Carlo Dapor (bot)"
         git config --global user.email "catull@gmail.com"
+
     - name: Checkout Commit
       uses: actions/checkout@v4
+
     - name: Install pnpm
       uses: pnpm/action-setup@v4
+
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
         node-version: ${{matrix.node}}
         cache: 'pnpm'
+
     - name: Install pnpm
       run: npm add --global pnpm
-    - name: pnpm install
+
+    - name: Run pnpm install
       run: pnpm install
-    - name: Audit
+
+    - name: Run pnpm outdated
+      run: pnpm outdated
+
+    - name: Run pnpm audit
       run: pnpm audit
-    - name: Run pre build
+
+    - name: Run pre prebuild
       run: pnpm run prebuild
-    - name: Run lint on sources
+
+    - name: Run lint on sources and tests
       run: pnpm run lint
-    - name: Run lint on tests
-      run: pnpm run lint:test
+
+    - name: Run pre build check
+      run: pnpm run "build:check"
+
     - name: Run build
       run: pnpm run build
+
     - name: Run prod test suites
-      run: pnpm run test:prod
-    - name: Run generation of dist package.json
-      run: pnpm run dist:package.json
-    - name: Run fornat dist sources
-      run: pnpm run format:dist
+      run: pnpm run "test:prod"
+
+    - name: Generate dist/package.json
+      run: pnpm run "dist:package.json"
+
+    - name: Run format dist sources
+      run: pnpm run "format:dist"
 
