@@ -41,15 +41,15 @@ const dates = [
 
 describe('french Arithmetic calendar spec', () => {
   it('should convert a French Arithmetic date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a French Arithmetic date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -58,17 +58,17 @@ describe('french Arithmetic calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should determine whether a French Arithmetic year is leap year', () => {
-    [4, 20, 1600, 1760, 1840, 1904, 1980, 2000].forEach((year) => {
+    for (const year of [4, 20, 1600, 1760, 1840, 1904, 1980, 2000]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
 
-    [0, 1, 2, 3, 5, 1000, 1599, 1700, 1800, 1900, 1970, 2001, 3000, 4000].forEach((year) => {
+    for (const year of [0, 1, 2, 3, 5, 1000, 1599, 1700, 1800, 1900, 1970, 2001, 3000, 4000]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
