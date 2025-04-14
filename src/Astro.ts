@@ -561,7 +561,7 @@ function equationOfTime (tee: number): number {
   const anomaly: number = poly(centuries, [357.5291, 35999.0503, -0.0001559, -0.00000048])
   const eccentricity: number = poly(centuries, [0.016708617, -0.000042037, -0.0000001236])
   const epsilon: number = obliquity(tee)
-  const y0: number = Math.pow(tanDeg(epsilon / 2), 2)
+  const y0: number = tanDeg(epsilon / 2) ** 2
   const equation: number =
     (0.5 / Math.PI) *
     (y0 * sinDeg(2 * lambda) +
@@ -752,9 +752,9 @@ function equinox (year: number, which: number): number {
   const JDE0: number =
     JDE0tab[which][0] +
     JDE0tab[which][1] * y0 +
-    JDE0tab[which][2] * Math.pow(y0, 2) +
-    JDE0tab[which][3] * Math.pow(y0, 3) +
-    JDE0tab[which][4] * Math.pow(y0, 4)
+    JDE0tab[which][2] * y0 ** 2 +
+    JDE0tab[which][3] * y0 ** 3 +
+    JDE0tab[which][4] * y0 ** 4
 
   const t: number = (JDE0 - 2451545.0) / JULIAN_CENTURY
   const w: number = 35999.373 * t - 2.47
@@ -1021,7 +1021,7 @@ function nthNewMoon (n: number): number {
     sigma(
       [sineCoeff2, eFactor, solarCoeff, lunarCoeff, moonCoeff],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, w) * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
+        v * capE ** w * sinDeg(x * solarAnomaly2 + y * lunarAnomaly2 + z * moonArg)
     )
   const addConst: number[] = [
     251.88, 251.83, 349.42, 84.66, 141.74, 207.14, 154.84, 34.52, 207.19, 291.34, 161.72, 239.56, 331.55
@@ -1142,7 +1142,7 @@ function lunarLongitude (tee: number): number {
     sigma(
       [sineCoeff, lunarElongationArgs, solarAnomalyArgs, lunarAnomalyArgs, moonNodeArgs],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+        v * capE ** Math.abs(x) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
     ) / 1000000
 
   const A1: number = 119.75 + centuries * 131.849
@@ -1196,7 +1196,7 @@ function lunarLatitude (tee: number): number {
     sigma(
       [sineCoefficients2, lunarElongationArgs2, solarAnomalyArgs2, lunarAnomalyArgs2, moonNodeArgs2],
       (v: number, w: number, x: number, y: number, z: number): number =>
-        v * Math.pow(capE, Math.abs(x)) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
+        v * capE ** Math.abs(x) * sinDeg(w * capD + x * capM + y * capMprime + z * capF)
     )
 
   const venus: number = (175 / 1000000) * (sinDeg(119.75 + c * 131.849 + capF) + sinDeg(119.75 + c * 131.849 - capF))
@@ -1248,7 +1248,7 @@ function lunarDistance (tee: number): number {
   const correction = sigma(
     [cosineCoeff, lunarElongationArgs3, solarAnomalyArgs3, lunarAnomalyArgs3, moonNodeArgs3],
     (v: number, w: number, x: number, y: number, z: number): number =>
-      v * Math.pow(capE, Math.abs(x)) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
+      v * capE ** Math.abs(x) * cosDeg(w * capD + x * capM + y * capMPrime + z * capF)
   )
 
   return 385000560 + correction
