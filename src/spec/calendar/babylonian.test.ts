@@ -43,18 +43,18 @@ const captains = console;
 
 describe('babylonian calendar spec', () => {
   it('should convert a Babylonian date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.yearLeap, date.day);
 
       expect(actual).toBe(jdn);
       if (jdn !== actual) {
         captains.log(jdn, actual, jdn - actual);
       }
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Babylonian date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn(jdn);
 
@@ -64,19 +64,19 @@ describe('babylonian calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.yearLeap).toBe(actual.isYearLeap());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should determine whether a Babylonian year is a leap year', () => {
-    [2213].forEach((year) => {
+    for (const year of [2213]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
   });
 
   it('should determine whether a Babylonian year is not a leap year', () => {
-    [2212, 2214].forEach((year) => {
+    for (const year of [2212, 2214]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
