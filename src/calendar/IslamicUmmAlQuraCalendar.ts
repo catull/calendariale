@@ -30,7 +30,7 @@ export class IslamicUmmAlQuraCalendar {
     return (year * 11 + 14) % 30 < 11
   }
 
-  private static validate (year: number, month: number, day: number): void {
+  private static validate (_year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH)
     }
