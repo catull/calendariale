@@ -40,14 +40,14 @@ const dates = [
 
 describe('aztec Xihuitl calendar spec', () => {
   it('should convert a Julian day number (JDN) to a Aztec Xihuitl', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
       expect(expected).toEqual(actual);
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should calculate an Aztec Xihuitl ordinal', () => {
