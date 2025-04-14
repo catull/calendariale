@@ -41,7 +41,7 @@ export class HinduLunarOldCalendar {
     return mod(year * ARYA_SOLAR_YEAR - ARYA_SOLAR_MONTH, ARYA_LUNAR_MONTH) >= 23902504679 / 1282400064
   }
 
-  private static validate (year: number, month: number, monthLeap: boolean, day: number, jdn: number): void {
+  private static validate (_year: number, month: number, monthLeap: boolean, day: number, jdn: number): void {
     if (month < 1 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH)
     }
