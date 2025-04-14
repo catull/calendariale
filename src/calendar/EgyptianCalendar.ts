@@ -22,7 +22,7 @@ export class EgyptianCalendar {
     return egyptian.EPOCH + 365 * (year - 1) + 30 * (month - 1) + day - 1.0
   }
 
-  private static validate (year: number, month: number, day: number): void {
+  private static validate (_year: number, month: number, day: number): void {
     if (month < 1 || month > 13) {
       throw new CalendarDateValidationException(INVALID_MONTH)
     }
