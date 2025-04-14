@@ -535,7 +535,7 @@ const dates = [
 
 describe('balinese Pawukon calendar spec', () => {
   it('should convert a Julian day number (JDN) to a Balinese Pawukon date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -550,6 +550,6 @@ describe('balinese Pawukon calendar spec', () => {
       expect(expected.asatawara).toBe(actual.getAsatawara());
       expect(expected.sangawara).toBe(actual.getSangawara());
       expect(expected.dasawara).toBe(actual.getDasawara());
-    });
+    };
   });
 });
