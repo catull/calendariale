@@ -41,15 +41,15 @@ const dates = [
 
 describe('hindu Lunar Old calendar spec', () => {
   it('should convert a Hindu Lunar Old date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Hindu Lunar Old date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -58,22 +58,22 @@ describe('hindu Lunar Old calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.year).toBe(actual.getYear());
-    });
+    };
   });
 
   it('should establish whether a Hindu Lunar Old year is leap', () => {
-    [2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940].forEach((year) => {
+    for (const year of [2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940]) {
       const actual = cal.isLeapYear(year);
       expect(true).toBe(actual);
-    });
+    };
 
-    [
+    for (const year of [
       2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781, 4817, 4920, 5004, 5030, 5042, 5044, 5092, 5096, 5139,
       5195,
-    ].forEach((year) => {
+    ]) {
       const actual = cal.isLeapYear(year);
       expect(false).toBe(actual);
-    });
+    };
   });
 
   it('throws a validation exception', () => {
@@ -86,14 +86,6 @@ describe('hindu Lunar Old calendar spec', () => {
   });
 
   it('should foo', () => {
-    // let day = 19;
-    // for (let index = 2458300.5; index < 2458448.5; index++) {
-    //   const d = cal.fromJdn(index);
-    //   if ((d.getDay() - day) > 1) {
-    //     expect ({}).toEqual(d);
-    //   }
-    //   day = d.getDay();
-    // }
     const date1 = cal.fromJdn(2458354.5);
     const date2 = cal.fromJdn(2458353.5);
 
