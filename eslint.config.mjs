@@ -21,25 +21,20 @@ import unicornPlugin from 'eslint-plugin-unicorn';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: pluginJs.configs.recommended
-});
-
 export default tseslint.config(
   // register all of the plugins up-front
   {
     // note - intentionally uses computed syntax to make it easy to sort the keys
     plugins: {
-      ['@typescript-eslint']: tseslint.plugin,
+      "@typescript-eslint": tseslint.plugin,
       //['@typescript-eslint/internal']: tseslintInternalPlugin,
-      ['deprecation']: deprecationPlugin,
-      ['eslint-comments']: eslintCommentsPlugin,
-      ['eslint-plugin']: eslintPluginPlugin,
-      ['import']: importPlugin,
-      ['jsdoc']: jsdocPlugin,
-      ['simple-import-sort']: simpleImportSortPlugin,
-      ['unicorn']: unicornPlugin,
+      "deprecation": deprecationPlugin,
+      "eslint-comments": eslintCommentsPlugin,
+      "eslint-plugin": eslintPluginPlugin,
+      "import": importPlugin,
+      "jsdoc": jsdocPlugin,
+      "simple-import-sort": simpleImportSortPlugin,
+      "unicorn": unicornPlugin,
     },
   },
 
