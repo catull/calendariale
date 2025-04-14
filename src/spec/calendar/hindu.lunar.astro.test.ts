@@ -41,15 +41,15 @@ const dates = [
 
 describe('hindu Lunar Astro calendar spec', () => {
   it('should convert a Hindu Lunar Astro date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day, date.dayLeap);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Hindu Lunar Astro date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -59,7 +59,7 @@ describe('hindu Lunar Astro calendar spec', () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.dayLeap).toBe(actual.isDayLeap());
-    });
+    };
   });
 
   it('throws a validation exception', () => {
