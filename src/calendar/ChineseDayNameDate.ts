@@ -1,19 +1,19 @@
-import { BaseDate } from './core/index';
+import { BaseDate } from './core/index'
 
 export class ChineseDayNameDate extends BaseDate {
-  constructor(
+  constructor (
     jdn: number,
     private readonly stem: number,
-    private readonly branch: number,
+    private readonly branch: number
   ) {
-    super(jdn);
+    super(jdn)
   }
 
-  public getStem(): number {
-    return this.stem;
+  public getStem (): number {
+    return this.stem
   }
 
-  public getBranch(): number {
-    return this.branch;
+  public getBranch (): number {
+    return this.branch
   }
 }
