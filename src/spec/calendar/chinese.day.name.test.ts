@@ -40,13 +40,13 @@ const dates = [
 
 describe('chinese Day Name calendar spec', () => {
   it('should convert a Julian day number (JDN) to a Chinese Day Name date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
       expect(expected).toEqual(actual);
       expect(expected.stem).toBe(actual.getStem());
       expect(expected.branch).toBe(actual.getBranch());
-    });
+    };
   });
 });
