@@ -1,7 +1,7 @@
-import { Location } from './Location';
+import { Location } from './Location'
 
 // *Days in Julian century*
-const JULIAN_CENTURY = 36525;
+const JULIAN_CENTURY = 36525
 
 // *Days in Julian millennium*
 // const JULIAN_MILLENIUM = 365250;
@@ -10,37 +10,37 @@ const JULIAN_CENTURY = 36525;
 // const ASTRONOMICAL_UNIT = 149597870.0;
 
 // *Julian day number (JDN) of Gregorian epoch: 0000-01-01*
-const J0000 = 1721424.5;
+const J0000 = 1721424.5
 
 // *Julian day number (JDN) at Unix epoch: 1970-01-01*
-const J1970 = 2440587.5;
+const J1970 = 2440587.5
 
 // *Epoch of Modified Julian day number (JDN) system*
-const JMJD = 2400000.5;
+const JMJD = 2400000.5
 
 // *Epoch (day 1) of Excel 1900 date system (PC)*
-const J1900 = 2415020.5;
+const J1900 = 2415020.5
 
 // *Epoch (day 0) of Excel 1904 date system (Mac)*
-const J1904 = 2416480.5;
+const J1904 = 2416480.5
 
 // *Gregorian date: 02000-01-01
-const J2000 = 730120.5;
+const J2000 = 730120.5
 
 // *Julian day number (JDN) of J2000 epoch*
 // const J2000_JDN = 2451545.0;
 
-const ARYA_LUNAR_MONTH: number = 1577917500 / 53433336; // 29.5305818076,
-const ARYA_LUNAR_DAY: number = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
-const ARYA_SOLAR_YEAR: number = 1577917500 / 4320000; // 365.258680556,
-const ARYA_SOLAR_MONTH: number = ARYA_SOLAR_YEAR / 12; // 30.4382233796,
+const ARYA_LUNAR_MONTH: number = 1577917500 / 53433336 // 29.5305818076,
+const ARYA_LUNAR_DAY: number = ARYA_LUNAR_MONTH / 30 // 0.984352726919,
+const ARYA_SOLAR_YEAR: number = 1577917500 / 4320000 // 365.258680556,
+const ARYA_SOLAR_MONTH: number = ARYA_SOLAR_YEAR / 12 // 30.4382233796,
 
-const MEAN_SIDEREAL_YEAR = 365.25636;
-const MEAN_SYNODIC_MONTH = 29.530588861;
-const MEAN_TROPICAL_YEAR = 365.242189;
+const MEAN_SIDEREAL_YEAR = 365.25636
+const MEAN_SYNODIC_MONTH = 29.530588861
+const MEAN_TROPICAL_YEAR = 365.242189
 
 // *Mean solar tropical year*
-const TROPICAL_YEAR = 365.24219878;
+const TROPICAL_YEAR = 365.24219878
 
 enum WeekDay {
   SUNDAY = 0,
@@ -83,13 +83,13 @@ enum RomanEvent {
 const akan = {
   EPOCH: 1721461.5, // 00001/02/08 Julian C.E.
   EPOCH_RD: 37,
-  DELTA: 7.5, // == (EPOCH % 42)
-};
+  DELTA: 7.5 // == (EPOCH % 42)
+}
 
 const armenian = {
   EPOCH: 1922867.5, // 522/07/11 Julian C.E.
-  EPOCH_RD: 201443,
-};
+  EPOCH_RD: 201443
+}
 
 const aztec = {
   CORRELATION: 2276827.5, // 1521/08/13 Julian C.E.
@@ -97,14 +97,14 @@ const aztec = {
   TONALPOHUALLI_CORRELATION: 2276723.5,
   TONALPOHUALLI_CORRELATION_RD: 555300,
   XIHUITL_CORRELATION: 2276626.5,
-  XIHUITL_CORRELATION_RD: 555203,
-};
+  XIHUITL_CORRELATION_RD: 555203
+}
 
 const babylonian = {
   EPOCH: 1607922.5, // 0311/04/03 Julian B.C.E.  /  -310/Apr/29 Gregorian
   EPOCH_RD: -113502,
-  LOCATION_BABYLON: new Location(32.4794, 44.4328, 26, 7 / 48),
-};
+  LOCATION_BABYLON: new Location(32.4794, 44.4328, 26, 7 / 48)
+}
 
 const bahai = {
   EPOCH: 2394646.5, // 1844/03/21 Gregorian C.E.
@@ -130,7 +130,7 @@ const bahai = {
     'Badí',
     'Bahí',
     'Abhá',
-    'Vahíd',
+    'Vahíd'
   ],
   MONTHS: [
     'Bahá',
@@ -152,7 +152,7 @@ const bahai = {
     'Sultán',
     'Mulk',
     'Ayyám-i-Há',
-    "`Alá'",
+    "`Alá'"
   ],
   DAYS: [
     'Bahá',
@@ -173,15 +173,15 @@ const bahai = {
     'Sharaf',
     'Sultán',
     'Mulk',
-    "`Alá'",
+    "`Alá'"
   ],
-  LOCATION_TEHRAN: new Location(35.696111, 51.423056, 1100, 7 / 48),
-};
+  LOCATION_TEHRAN: new Location(35.696111, 51.423056, 1100, 7 / 48)
+}
 
 const balinese = {
   EPOCH: 145.5, // 4713/05/26 Julian B.C.E.
-  EPOCH_RD: -1721278,
-};
+  EPOCH_RD: -1721278
+}
 
 const chinese = {
   DAY_NAME_EPOCH: 1721468.5, // 00001/02/15 Julian C.E.
@@ -191,23 +191,23 @@ const chinese = {
   EPOCH_1929: 2425612.5,
   EPOCH_1929_RD: 704189,
   LOCATION_BEFORE_1929: new Location(479 / 12, 1397 / 12, 43.5, 1397 / 4320),
-  LOCATION_SINCE_1929: new Location(479 / 12, 1397 / 12, 43.5, 1 / 3),
-};
+  LOCATION_SINCE_1929: new Location(479 / 12, 1397 / 12, 43.5, 1 / 3)
+}
 
 const coptic = {
   EPOCH: 1825029.5, // 284/08/29 Julian C.E.
-  EPOCH_RD: 201443,
-};
+  EPOCH_RD: 201443
+}
 
 const egyptian = {
   EPOCH: 1448637.5, // 747/02/26 Julian B.C.E.
-  EPOCH_RD: -272787,
-};
+  EPOCH_RD: -272787
+}
 
 const ethiopic = {
   EPOCH: 1724220.5, // 008/08/29 Julian C.E.
-  EPOCH_RD: 2796,
-};
+  EPOCH_RD: 2796
+}
 
 const french = {
   EPOCH: 2375839.5, // 1792/09/22 Gregorian C.E.
@@ -225,7 +225,7 @@ const french = {
     'Messidor',
     'Thermidor',
     'Fructidor',
-    '(Sans-culottides)',
+    '(Sans-culottides)'
   ],
   DECADE: ['I', 'II', 'III'],
   JOUR: [
@@ -245,9 +245,9 @@ const french = {
     'du Travail (3)',
     "de l'Opinion (4)",
     'des Récompenses (5)',
-    'de la Révolution (6)',
-  ],
-};
+    'de la Révolution (6)'
+  ]
+}
 
 const gregorian = {
   EPOCH: 1721425.5, // 001/01/03 Julian C.E.
@@ -264,9 +264,9 @@ const gregorian = {
     'September',
     'October',
     'November',
-    'December',
-  ],
-};
+    'December'
+  ]
+}
 
 enum HebrewMonth {
   NISAN = 1,
@@ -300,7 +300,7 @@ const hebrew = {
     'Teveth',
     'Shevat',
     'Adar',
-    'Veadar',
+    'Veadar'
   ],
   H_MONTHS: [
     'נִיסָן',
@@ -315,10 +315,10 @@ const hebrew = {
     'טֵבֵת',
     'שְׁבָט',
     'אֲדָר א׳',
-    'אֲדָר א׳',
+    'אֲדָר א׳'
   ],
-  LOCATION_JAFFA: new Location(961 / 30, 139 / 4, 0, 1 / 12),
-};
+  LOCATION_JAFFA: new Location(961 / 30, 139 / 4, 0, 1 / 12)
+}
 
 const hindu = {
   EPOCH: 588465.5, // 3102/02/18 Julian B.C.E.
@@ -346,14 +346,14 @@ const hindu = {
     'Agrahayana',
     'Pausa',
     'Magha',
-    'Phalguna',
-  ],
-};
+    'Phalguna'
+  ]
+}
 
 const icelandic = {
   EPOCH: 1721533.5, // 0001/04/21 Julian C.E.  /  0001-Apr-19 Gregorian A.D.
-  EPOCH_RD: 109,
-};
+  EPOCH_RD: 109
+}
 
 const islamic = {
   EPOCH: 1948439.5, // 622/07/16 Julian C.E.
@@ -371,18 +371,18 @@ const islamic = {
     'Ramadan',
     'Shawwal',
     'Dhu l-Qa`da',
-    'Dhu l-Hijja',
+    'Dhu l-Hijja'
   ],
   LOCATION_CAIRO: new Location(30.1, 31.3, 200, 1 / 12),
-  LOCATION_MECCA: new Location(6427 / 300, 11947 / 300, 298, 0.125),
-};
+  LOCATION_MECCA: new Location(6427 / 300, 11947 / 300, 298, 0.125)
+}
 
 const japanese = {
   EPOCH: 2410636.5, // 1888/01/01 Gregorian C.E.
   EPOCH_RD: 689213,
   LOCATION_BEFORE_1888: new Location(35.7, 139.766666, 24, 0.38824075),
-  LOCATION_SINCE_1888: new Location(35, 135, 0, 0.375),
-};
+  LOCATION_SINCE_1888: new Location(35, 135, 0, 0.375)
+}
 
 const julian = {
   EPOCH: J0000, // 0001/01/01 Julian C.E.
@@ -399,9 +399,9 @@ const julian = {
     'September',
     'October',
     'November',
-    'December',
-  ],
-};
+    'December'
+  ]
+}
 
 const korean = {
   EPOCH: 869359.5, // 2333/03/06 Julian B.C.E.
@@ -409,8 +409,8 @@ const korean = {
   LOCATION_BEFORE_1904_04: new Location(37.566666, 126.96667, 0, 0.35268518),
   LOCATION_FROM_1904_04_TO_1911: new Location(37.566666, 126.96667, 0, 0.35416666),
   LOCATION_FROM_1954_04_TO_1961_08: new Location(37.566666, 126.96667, 0, 0.35416666),
-  LOCATION_SEOUL: new Location(37.566666, 126.96667, 0, 0.375),
-};
+  LOCATION_SEOUL: new Location(37.566666, 126.96667, 0, 0.375)
+}
 
 const mayan = {
   EPOCH: 584282.5, // 3114/09/06 Julian B.C.E.
@@ -434,7 +434,7 @@ const mayan = {
     'Pax',
     'Kayab',
     'Cumku',
-    'Uayeb',
+    'Uayeb'
   ],
   TZOLKIN_MONTHS: [
     'Imix',
@@ -456,14 +456,14 @@ const mayan = {
     'Caban',
     'Etznab',
     'Cauac',
-    'Ahau',
-  ],
-};
+    'Ahau'
+  ]
+}
 
 const olympiad = {
   EPOCH: 1437989.5, // -0776/01/01 Julian B.C.E.
-  EPOCH_JULIAN_YEAR: -776,
-};
+  EPOCH_JULIAN_YEAR: -776
+}
 
 const persian = {
   EPOCH: 1948320.5, // 622/03/19 Julian C.E.
@@ -482,27 +482,27 @@ const persian = {
     'Azar',
     'Dey',
     'Bahman',
-    'Esfand',
-  ],
-};
+    'Esfand'
+  ]
+}
 
 const samaritan = {
   EPOCH: 1122851.5, // 1639/03/15 Julian B.C.E.
   EPOCH_RD: -598573,
-  LOCATION_SAMARITAN: new Location(32.1994, 35.2728, 881, 1 / 12),
-};
+  LOCATION_SAMARITAN: new Location(32.1994, 35.2728, 881, 1 / 12)
+}
 
 const tibetan = {
   EPOCH: 1675014.5, // 128/12/10 Julian B.C.E.
-  EPOCH_RD: -46410,
-};
+  EPOCH_RD: -46410
+}
 
 const yermEpoch = {
   EPOCH: 1948379, // 622/05/16 12:00 Julian C.E.
-  EPOCH_RD: 226955.5,
-};
+  EPOCH_RD: 226955.5
+}
 
-const ROMAN_MONTH_MAX_DAYS: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const ROMAN_MONTH_MAX_DAYS: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 enum MoonPhase {
   NEW = 0,
@@ -511,28 +511,28 @@ enum MoonPhase {
   LAST_QUARTER = 270,
 }
 
-const INVALID_DAY = 'Invalid day';
-const INVALID_LEAP_DAY = 'Invalid leap day';
-const INVALID_LEAP_MONTH = 'Invalid leap month';
-const INVALID_MONTH = 'Invalid month';
-const INVALID_VAHID = 'Invalid vahid';
-const INVALID_WEEK = 'Invalid week';
-const INVALID_YEAR = 'Invalid year';
-const INVALID_YERM = 'Invalid yerm';
+const INVALID_DAY = 'Invalid day'
+const INVALID_LEAP_DAY = 'Invalid leap day'
+const INVALID_LEAP_MONTH = 'Invalid leap month'
+const INVALID_MONTH = 'Invalid month'
+const INVALID_VAHID = 'Invalid vahid'
+const INVALID_WEEK = 'Invalid week'
+const INVALID_YEAR = 'Invalid year'
+const INVALID_YERM = 'Invalid yerm'
 
-const INVALID_DECADI = 'Invalid decadi';
-const INVALID_JOUR = 'Invalid jour';
-const INVALID_MOIS = 'Invalid mois';
+const INVALID_DECADI = 'Invalid decadi'
+const INVALID_JOUR = 'Invalid jour'
+const INVALID_MOIS = 'Invalid mois'
 
-const INVALID_KIN = 'Invalid kin';
-const INVALID_UINAL = 'Invalid uinal';
-const INVALID_TUN = 'Invalid tun';
-const INVALID_KATUN = 'Invalid katun';
-const INVALID_BAKTUN = 'Invalid baktun';
+const INVALID_KIN = 'Invalid kin'
+const INVALID_UINAL = 'Invalid uinal'
+const INVALID_TUN = 'Invalid tun'
+const INVALID_KATUN = 'Invalid katun'
+const INVALID_BAKTUN = 'Invalid baktun'
 
-const INVALID_COUNT = 'Invalid count';
+const INVALID_COUNT = 'Invalid count'
 
-const INVALID_SEASON = 'Invalid season';
+const INVALID_SEASON = 'Invalid season'
 
 export {
   ARYA_LUNAR_DAY,
@@ -602,5 +602,5 @@ export {
   persian,
   samaritan,
   tibetan,
-  yermEpoch,
-};
+  yermEpoch
+}
