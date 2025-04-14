@@ -42,17 +42,17 @@ const dates = [
 
 describe('french Revolutionary calendar spec', () => {
   it('should convert a French Revolutionary date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       let jour = date.day;
       const decade = Math.floor((jour - 1) / 10) + 1;
       jour = amod(jour, 10);
       const actual = cal.toJdn(date.year, date.month, decade, jour);
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a French Revolutionary date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const jour = date.day;
       const decade = Math.floor((jour - 1) / 10) + 1;
@@ -64,7 +64,7 @@ describe('french Revolutionary calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.decade).toBe(actual.getDecade());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
