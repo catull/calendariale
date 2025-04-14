@@ -41,15 +41,15 @@ const dates = [
 
 describe('yerm calendar spec', () => {
   it('should convert an Yerm date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.cycle, date.yerm, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to an Yerm date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, year: 0, ...date };
 
@@ -58,7 +58,7 @@ describe('yerm calendar spec', () => {
       expect(expected.yerm).toBe(actual.getYerm());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
