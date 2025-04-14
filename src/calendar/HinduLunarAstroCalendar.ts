@@ -43,7 +43,7 @@ export class HinduLunarAstroCalendar {
   }
 
   private static validate (
-    year: number,
+    _year: number,
     month: number,
     monthLeap: boolean,
     day: number,
