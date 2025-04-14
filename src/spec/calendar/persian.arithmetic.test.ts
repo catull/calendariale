@@ -41,24 +41,24 @@ const dates = [
 
 describe('persian Arithmetic calendar spec', () => {
   it('should convert a Persian Arithmetic date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Persian Arithmetic year', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const expected = date.year;
       const actual = cal.jdnToYear(jdn);
 
       expect(actual).toBe(expected);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Persian Arithmetic date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -68,22 +68,22 @@ describe('persian Arithmetic calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.yearLeap).toBe(actual.isYearLeap());
-    });
+    };
   });
 
   it('should determine that a Persian Arithmetic year is a leap year', () => {
-    [4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395].forEach((year) => {
+    for (const year of [4, 124, 165, 206, 739, 780, 821, 1313, 1354, 1395]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
   });
 
   it('should determine that a Persian Arithmetic year is not a leap year', () => {
-    [
+    for (const year of [
       1, 48, 142, 189, 236, 283, 377, 424, 471, 518, 612, 659, 753, 800, 847, 894, 988, 1035, 1082, 1129, 1223, 1270,
       1364,
-    ].forEach((year) => {
+    ]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
