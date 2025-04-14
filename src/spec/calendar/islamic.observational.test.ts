@@ -41,14 +41,14 @@ const dates = [
 
 describe('islamic Observational calendar spec', () => {
   it('should convert a Islamic Observational date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Islamic Observational date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -57,7 +57,7 @@ describe('islamic Observational calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
