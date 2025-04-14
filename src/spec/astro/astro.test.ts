@@ -8,8 +8,8 @@ import {
   equationOfTime,
   fixAngle,
   fixAngleRadians,
-  jdnToWeekDay,
   jhms,
+  jdnToWeekDay,
   julianCenturies,
   jwday,
   kdayNearest,
@@ -25,7 +25,7 @@ import {
   standardToLocal,
   sunset,
 } from '../../Astro';
-import { J1970, WeekDay, babylonian, islamic } from '../../Const';
+import { WeekDay, babylonian, islamic, J1970 } from '../../Const';
 import { Location } from '../../Location';
 
 import { describe, expect, it } from 'vitest';
@@ -294,7 +294,7 @@ describe('astro spec', () => {
   });
 
   it('should calculate jhms / jwday', () => {
-    expect(jhms(0)).toStrictEqual([12, 0, 0]);
+    expect(jhms(0)).toStrictEqual([12, 0, 0,]);
     expect(jwday(0)).toBe(0);
   });
 
@@ -322,30 +322,32 @@ describe('astro spec', () => {
   });
 
   it('should calculate moon-rise for rata die', () => {
-    dates.forEach(({ rataDie, rise }) => {
+    for (const { rataDie, rise } of dates) {
       const actual = moonRise(rataDie, islamic.LOCATION_MECCA);
 
       expect(actual).toBeCloseTo(rataDie + rise.tee, 0.00001);
-    });
+    };
   });
 
   it('should calculate moon-set for rata die to be -1', () => {
-    dates
-      .filter((f) => f.set.tee === -1)
-      .forEach(({ rataDie }) => {
-        // 369740, 524156, 709580, 728714
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBe(-1);
-      });
+    for (const { rataDie, set } of dates) {
+      if (set.tee !== -1) {
+        continue;
+      }
+      // 369740, 524156, 709580, 728714
+      const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+      expect(actual).toBe(-1);
+    };
   });
 
   it('should calculate moon-set for rata die', () => {
-    dates
-      .filter((f) => f.set.tee !== -1)
-      .forEach(({ rataDie, set }) => {
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
-      });
+    for (const { rataDie, set } of dates) {
+      if (set.tee === -1) {
+        continue;
+      }
+      const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+      expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
+    };
   });
 
   it('should handle sunset', () => {
