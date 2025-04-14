@@ -41,15 +41,15 @@ const dates = [
 
 describe('hindu Lunar Modern calendar spec', () => {
   it('should convert a Hindu Lunar Modern date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day, date.dayLeap);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Hindu Lunar Modern date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -59,10 +59,10 @@ describe('hindu Lunar Modern calendar spec', () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.dayLeap).toBe(actual.isDayLeap());
-    });
+    };
   });
 
-  it('throws a validation exception', () => {
+  it('should throw a validation exception', () => {
     expect(() => cal.toJdn(1549, 0, false, 1, false)).toThrow(INVALID_MONTH);
     expect(() => cal.toJdn(1549, 13, false, 1, false)).toThrow(INVALID_MONTH);
     expect(() => cal.toJdn(1549, 2, true, 3, false)).not.toThrow();
@@ -72,15 +72,7 @@ describe('hindu Lunar Modern calendar spec', () => {
     expect(() => cal.toJdn(1549, 6, false, 17, true)).toThrow(INVALID_LEAP_DAY);
   });
 
-  it('should foo', () => {
-    // let day = 18;
-    // for (let index = 2458300.5; index < 2458448.5; index++) {
-    //   const d = cal.fromJdn(index);
-    //   if ((d.getDay() - day) > 1) {
-    //     expect ({}).toEqual(d);
-    //   }
-    //   day = d.getDay();
-    // }
+  it('should throw a validation exception due to invalid day', () => {
     const date1 = cal.fromJdn(2458314.5);
     const date2 = cal.fromJdn(2458313.5);
 
