@@ -41,14 +41,14 @@ const dates = [
 
 describe('chinese calendar spec', () => {
   it('should convert a Chinese date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.cycle, date.year, date.month, date.monthLeap, date.day);
       expect(jdn).toBe(actual);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Chinese date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -58,7 +58,7 @@ describe('chinese calendar spec', () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.year).toBe(actual.getYear());
       expect(expected.cycle).toBe(actual.getCycle());
-    });
+    };
   });
 
   it('throws a validation exception', () => {
