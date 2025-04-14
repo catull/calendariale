@@ -41,15 +41,15 @@ const dates = [
 
 describe('gregorian calendar spec', () => {
   it('should convert a Gregorian date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Gregorian date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
       const actual = cal.fromJdn(jdn);
@@ -60,17 +60,17 @@ describe('gregorian calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.yearLeap).toBe(actual.isYearLeap());
-    });
+    };
   });
 
   it('should determine whether a Gregorian year is leap year', () => {
-    [0, 4, 20, 1600, 1760, 1840, 1904, 1980, 2000].forEach((year) => {
+    for (const year of [0, 4, 20, 1600, 1760, 1840, 1904, 1980, 2000]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
 
-    [1, 2, 3, 5, 1599, 1700, 1800, 1900, 1970, 2001].forEach((year) => {
+    for (const year of [1, 2, 3, 5, 1599, 1700, 1800, 1900, 1970, 2001]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
