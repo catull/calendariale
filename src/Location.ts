@@ -1,24 +1,24 @@
 export class Location {
-  constructor(
+  constructor (
     private readonly latitude: number,
     private readonly longitude: number,
     private readonly elevation: number,
-    private readonly zone: number,
+    private readonly zone: number
   ) {}
 
-  public getLatitude(): number {
-    return this.latitude;
+  public getLatitude (): number {
+    return this.latitude
   }
 
-  public getLongitude(): number {
-    return this.longitude;
+  public getLongitude (): number {
+    return this.longitude
   }
 
-  public getElevation(): number {
-    return this.elevation;
+  public getElevation (): number {
+    return this.elevation
   }
 
-  public getZone(): number {
-    return this.zone;
+  public getZone (): number {
+    return this.zone
   }
 }
