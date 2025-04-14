@@ -1,6 +1,6 @@
 import { INVALID_DAY, INVALID_MONTH } from '../../Const';
-import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
 import type { ArmenianDate } from '../../calendar/index';
+import { ArmenianCalendar as cal } from '../../calendar/ArmenianCalendar';
 
 import { describe, expect, it } from 'vitest';
 
@@ -42,22 +42,22 @@ const dates = [
 
 describe('armenian calendar spec', () => {
   it('should convert an Armenian date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(jdn).toBe(actual);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to an Armenian date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual: ArmenianDate = cal.fromJdn(jdn);
 
       expect({ jdn, ...date }).toEqual(actual);
       expect(date.year).toBe(actual.getYear());
       expect(date.month).toBe(actual.getMonth());
       expect(date.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
