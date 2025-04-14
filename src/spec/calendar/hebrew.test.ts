@@ -41,15 +41,15 @@ const dates = [
 
 describe('hebrew calendar spec', () => {
   it('should convert a Hebrew date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Hebrew date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -58,17 +58,17 @@ describe('hebrew calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should determine whether a Hebrew year is leap year', () => {
-    [5700, 5703, 5706, 5708, 5711, 5714, 5717].forEach((year) => {
+    for (const year of [5700, 5703, 5706, 5708, 5711, 5714, 5717]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
 
-    [5699, 5701, 5702, 5704, 5705, 5709, 5710].forEach((year) => {
+    for (const year of [5699, 5701, 5702, 5704, 5705, 5709, 5710]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
