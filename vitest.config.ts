@@ -13,11 +13,16 @@ export default mergeConfig(
         exclude: ['src/spec/**', 'src/**/index.ts'],
         include: ['src/**/*.ts'],
         reportsDirectory: 'tmp/reports',
-        branches: 99.9,
-        functions: 100,
-        lines: 100,
-        statements: 100
+        thresholds: {
+          branches: 100,
+          functions: 100,
+          lines: 100,
+          statements: 100,
+        }
       }
     }
-  })
+    }
+  ),
+  {},
+  true
 );
