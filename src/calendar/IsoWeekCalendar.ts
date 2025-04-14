@@ -23,7 +23,7 @@ export class IsoWeekCalendar {
     return nthKday(week, WeekDay.SUNDAY, GregorianCalendar.toJdn(year - 1, Month.DECEMBER, 28)) + day
   }
 
-  private static validate (year: number, week: number, day: number): void {
+  private static validate (_year: number, week: number, day: number): void {
     if (week < 1 || week > 53) {
       throw new CalendarDateValidationException(INVALID_WEEK)
     }
