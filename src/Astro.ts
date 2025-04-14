@@ -1339,7 +1339,7 @@ function topocentricLunarAltitude (tee: number, location: Location): number {
 
 /**
  * Return refraction angle at given location and time.
- * @param tee moment in time
+ * @param _tee moment in time
  * @param location geo-location
  * @returns refraction
  */
