@@ -316,7 +316,7 @@ function poly (term: number, array: number[]): number {
 function zip (matrix: Matrix): Matrix {
   return matrix.length === 0
     ? []
-    : matrix[0].map((ignore: number, index: number): number[] => matrix.map((array: number[]): number => array[index]))
+    : matrix[0].map((_ignore: number, index: number): number[] => matrix.map((array: number[]): number => array[index]))
 }
 
 /**
@@ -1339,11 +1339,11 @@ function topocentricLunarAltitude (tee: number, location: Location): number {
 
 /**
  * Return refraction angle at given location and time.
- * @param tee moment in time
+ * @param _tee moment in time
  * @param location geo-location
  * @returns refraction
  */
-function refraction (tee: number, location: Location): number {
+function refraction (_tee: number, location: Location): number {
   const h: number = Math.max(0, location.getElevation())
   const capR = 6372000
   const dip: number = arcCosDeg(capR / (capR + h))
