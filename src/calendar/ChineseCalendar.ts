@@ -94,7 +94,7 @@ export class ChineseCalendar {
   }
 
   private static validate (
-    cycle: number,
+    _cycle: number,
     year: number,
     month: number,
     monthLeap: boolean,
