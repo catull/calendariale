@@ -23,7 +23,7 @@ export class HinduSolarOldCalendar {
     return Math.ceil(hindu.EPOCH + year * ARYA_SOLAR_YEAR + (month - 1) * ARYA_SOLAR_MONTH + day - 0.75) - 0.5
   }
 
-  private static validate (year: number, month: number, day: number): void {
+  private static validate (_year: number, month: number, day: number): void {
     if (month < 1 || month > 12) {
       throw new CalendarDateValidationException(INVALID_MONTH)
     }
