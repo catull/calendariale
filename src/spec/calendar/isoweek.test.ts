@@ -41,15 +41,15 @@ const dates = [
 
 describe('iSO Week calendar spec', () => {
   it('should convert an ISO Week date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.week, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to an ISO Week date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn(jdn);
 
@@ -57,7 +57,7 @@ describe('iSO Week calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.week).toBe(actual.getWeek());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
