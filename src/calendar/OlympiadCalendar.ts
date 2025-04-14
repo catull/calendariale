@@ -27,7 +27,7 @@ export class OlympiadCalendar {
     return new OlympiadDate(jdn, cycle, year)
   }
 
-  private static validate (cycle: number, year: number): void {
+  private static validate (_cycle: number, year: number): void {
     if (year < 1 || year > 4) {
       throw new CalendarDateValidationException(INVALID_YEAR)
     }
