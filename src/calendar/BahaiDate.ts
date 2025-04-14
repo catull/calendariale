@@ -1,23 +1,23 @@
-import { BahaiCalendar } from './BahaiCalendar';
-import { LeapDate } from './core/index';
+import { BahaiCalendar } from './BahaiCalendar'
+import { LeapDate } from './core/index'
 
 export class BahaiDate extends LeapDate {
-  constructor(
+  constructor (
     jdn: number,
     private readonly kullIShay: number,
     private readonly vahid: number,
     year: number,
     month: number,
-    day: number,
+    day: number
   ) {
-    super(jdn, year, month, day, BahaiCalendar.isLeapYear(year));
+    super(jdn, year, month, day, BahaiCalendar.isLeapYear(year))
   }
 
-  public getKullIshay(): number {
-    return this.kullIShay;
+  public getKullIshay (): number {
+    return this.kullIShay
   }
 
-  public getVahid(): number {
-    return this.vahid;
+  public getVahid (): number {
+    return this.vahid
   }
 }
