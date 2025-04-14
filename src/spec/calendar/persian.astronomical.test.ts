@@ -42,15 +42,15 @@ const dates = [
 
 describe('persian Astronomical calendar spec', () => {
   it('should convert a Persian Astronomical date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Persian Astronomical date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -59,7 +59,7 @@ describe('persian Astronomical calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   const leapYears = [
@@ -185,26 +185,26 @@ describe('persian Astronomical calendar spec', () => {
   ];
 
   it('should determine that a Persian Astronomical year is a leap year', () => {
-    leapYears.forEach((year) => {
+    for (const year of leapYears) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
   });
 
   it('should determine that a Persian Astronomical year is NOT a leap year', () => {
-    [66, 99, 392, 652, 978, 1077, 1176, 1469, 2814, 3173, 3565, 4411, 4638, 4993, 5377, 6389, 6794, 6980, 8403].forEach(
-      (year) => {
+    for (const year of [
+      66, 99, 392, 652, 978, 1077, 1176, 1469, 2814, 3173, 3565, 4411, 4638, 4993, 5377, 6389, 6794, 6980, 8403
+    ]) {
         expect(cal.isLeapYear(year)).toBeFalsy();
-      },
-    );
+      }
   });
 
   it('should determine that a Persian Astronomical year is not a leap year', () => {
-    [
+    for (const year of [
       165, 206, 247, 288, 329, 370, 411, 452, 493, 534, 575, 616, 821, 862, 903, 944, 985, 1026, 1067, 1108, 1149, 1190,
       1231, 1272,
-    ].forEach((year) => {
+    ]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    }
   });
 
   it('should throw validation exceptions', () => {
