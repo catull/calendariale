@@ -41,18 +41,18 @@ const dates = [
 
 describe('bahai Astro calendar spec', () => {
   it('should convert a Bahai Astro date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.bahaiToJdn(date.kullIShay, date.vahid, date.year, date.month, date.day);
       expect(jdn).toBe(actual);
 
       const year = 361 * (date.kullIShay - 1) + 19 * (date.vahid - 1) + date.year;
       const actual2 = cal.toJdn(year, date.month, date.day);
       expect(jdn).toEqual(actual2);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Bahai Astro date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -63,7 +63,7 @@ describe('bahai Astro calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should determine whether a Bahai Astro year is leap year', () => {
