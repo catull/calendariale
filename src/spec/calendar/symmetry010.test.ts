@@ -41,15 +41,15 @@ const dates = [
 
 describe('symmetry010 calendar spec', () => {
   it('should convert a Symmetry010 date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Symmetry010 date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -59,17 +59,17 @@ describe('symmetry010 calendar spec', () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.yearLeap).toBe(actual.isYearLeap());
-    });
+    };
   });
 
   it('should determine whether a Symmetry010 year is leap year', () => {
-    [1761, 1812, 1857, 1880, 1919, 1953, 1987, 2004, 2021, 2043, 2060].forEach((year) => {
+    for (const year of [1761, 1812, 1857, 1880, 1919, 1953, 1987, 2004, 2021, 2043, 2060]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
 
-    [1, 2, 5, 1599, 1700, 1800, 1900, 1969, 2001, 2010, 2020, 2030, 2040].forEach((year) => {
+    for (const year of [1, 2, 5, 1599, 1700, 1800, 1900, 1969, 2001, 2010, 2020, 2030, 2040]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
