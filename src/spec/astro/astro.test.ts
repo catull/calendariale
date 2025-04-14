@@ -322,30 +322,32 @@ describe('astro spec', () => {
   });
 
   it('should calculate moon-rise for rata die', () => {
-    dates.forEach(({ rataDie, rise }) => {
+    for (const { rataDie, rise } of dates) {
       const actual = moonRise(rataDie, islamic.LOCATION_MECCA);
 
       expect(actual).toBeCloseTo(rataDie + rise.tee, 0.00001);
-    });
+    };
   });
 
   it('should calculate moon-set for rata die to be -1', () => {
-    dates
-      .filter((f) => f.set.tee === -1)
-      .forEach(({ rataDie }) => {
-        // 369740, 524156, 709580, 728714
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBe(-1);
-      });
+    for (const { rataDie, set } of dates) {
+      if (set.tee !== -1) {
+        continue;
+      }
+      // 369740, 524156, 709580, 728714
+      const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+      expect(actual).toBe(-1);
+    };
   });
 
   it('should calculate moon-set for rata die', () => {
-    dates
-      .filter((f) => f.set.tee !== -1)
-      .forEach(({ rataDie, set }) => {
-        const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
-        expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
-      });
+    for (const { rataDie, set } of dates) {
+      if (set.tee === -1) {
+        continue;
+      }
+      const actual = moonSet(rataDie, islamic.LOCATION_MECCA);
+      expect(actual).toBeCloseTo(rataDie + set.tee, 0.00001);
+    };
   });
 
   it('should handle sunset', () => {
