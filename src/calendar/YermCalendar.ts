@@ -43,7 +43,7 @@ export class YermCalendar {
     )
   }
 
-  private static validate (cycle: number, yerm: number, month: number, day: number): void {
+  private static validate (_cycle: number, yerm: number, month: number, day: number): void {
     if (yerm < 1 || yerm > 52) {
       throw new CalendarDateValidationException(INVALID_YERM)
     }
