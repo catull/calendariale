@@ -41,15 +41,15 @@ const dates = [
 
 describe('samaritan calendar spec', () => {
   it('should convert a Samaritan date to Julian day number (JDN)', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    });
+    };
   });
 
   it('should convert a Julian day number (JDN) to a Samaritan date', () => {
-    dates.forEach(({ jdn, date }) => {
+    for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -58,17 +58,17 @@ describe('samaritan calendar spec', () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    });
+    };
   });
 
   it('should determine whether a Samaritan year is leap year', () => {
-    [5700, 5703, 5705, 5708, 5711, 5713, 5716, 5719, 5722, 5724, 5727, 5730].forEach((year) => {
+    for (const year of [5700, 5703, 5705, 5708, 5711, 5713, 5716, 5719, 5722, 5724, 5727, 5730]) {
       expect(cal.isLeapYear(year)).toBeTruthy();
-    });
+    };
 
-    [5701, 5702, 5704, 5706, 5707, 5709, 5710, 5712, 5714, 5715, 5717, 5718].forEach((year) => {
+    for (const year of [5701, 5702, 5704, 5706, 5707, 5709, 5710, 5712, 5714, 5715, 5717, 5718]) {
       expect(cal.isLeapYear(year)).toBeFalsy();
-    });
+    };
   });
 
   it('should throw validation exceptions', () => {
