@@ -20,10 +20,9 @@ jobs:
       fail-fast: false
       matrix:
         node:
-          - '18'
           - '20'
           - '22'
-          - '23'
+          - '24'
         platform:
           - macos-latest
           - ubuntu-latest
