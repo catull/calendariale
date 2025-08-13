@@ -92,6 +92,9 @@
     "onlyBuiltDependencies": [
       "@swc/core",
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "tmp@<=0.2.3": ">=0.2.4"
+    }
   }
 }
