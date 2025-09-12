@@ -63,13 +63,13 @@
     "barro": "1.2.8",
     "esbuild": "0.25.9",
     "eslint": "9.35.0",
-    "eslint-config-love": "123.0.0",
+    "eslint-config-love": "125.0.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-deprecation": "3.0.0",
     "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-eslint-plugin": "7.0.0",
     "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-jsdoc": "55.2.0",
+    "eslint-plugin-jsdoc": "56.1.2",
     "eslint-plugin-n": "17.21.3",
     "eslint-plugin-prettier": "5.5.4",
     "eslint-plugin-promise": "7.2.1",
@@ -78,7 +78,7 @@
     "eslint-plugin-vitest": "0.5.4",
     "globals": "16.4.0",
     "happy-dom": "18.0.1",
-    "pnpm": "10.15.1",
+    "pnpm": "10.16.0",
     "prettier": "3.6.2",
     "rimraf": "6.0.1",
     "tsup": "8.5.0",
@@ -87,7 +87,7 @@
     "vite": "7.1.5",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.15.1",
+  "packageManager": "pnpm@10.16.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@swc/core",
