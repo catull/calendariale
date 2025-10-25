@@ -51,11 +51,11 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@biomejs/biome": "2.2.7",
+    "@biomejs/biome": "2.3.0",
     "@changesets/cli": "2.29.7",
     "@swc/core": "1.13.20",
     "@types/node": "24.9.1",
-    "@vitest/coverage-v8": "4.0.2",
+    "@vitest/coverage-v8": "4.0.3",
     "barro": "1.2.8",
     "globals": "16.4.0",
     "happy-dom": "20.0.8",
@@ -64,7 +64,7 @@
     "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vite": "7.1.12",
-    "vitest": "4.0.2"
+    "vitest": "4.0.3"
   },
   "packageManager": "pnpm@10.19.0",
   "pnpm": {
