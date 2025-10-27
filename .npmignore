@@ -1,19 +1,17 @@
 .barro.config.cjs
 .editorconfig
-.eslint*
 .github
 .gitignore
-.husky
 .prettier*
 .rts2_cache_*
 .vscode
 .yarn*
 create-dist-package*
 jest*
-renovate.json
 pnpm*
+renovate.json
 tsconfig.*
-tsup.*
+tsdown.*
 vitest*
 yarn.lock
 
