@@ -1,6 +1,5 @@
 .barro.config.cjs
 .editorconfig
-.eslint*
 .github
 .gitignore
 .prettier*
