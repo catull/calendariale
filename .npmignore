@@ -9,8 +9,8 @@
 .yarn*
 create-dist-package*
 jest*
-renovate.json
 pnpm*
+renovate.json
 tsconfig.*
 tsdown.*
 vitest*
