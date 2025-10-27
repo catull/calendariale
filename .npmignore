@@ -3,7 +3,6 @@
 .eslint*
 .github
 .gitignore
-.husky
 .prettier*
 .rts2_cache_*
 .vscode
