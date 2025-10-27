@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build:check": "tsc -p .",
-    "build": "tsup src/*.ts src/calendar/core/*.ts src/calendar/*.ts",
+    "build": "tsdown src/*.ts src/calendar/core/*.ts src/calendar/*.ts",
     "prebuild": "barro .barro.config.cjs --write",
     "prebuild.old": "barrelsby -D -H -q -l all -d src -e src/spec -e create-dist",
     "postinstall": "pnpm prebuild",
@@ -61,7 +61,7 @@
     "happy-dom": "20.0.8",
     "pnpm": "10.19.0",
     "rimraf": "6.0.1",
-    "tsup": "8.5.0",
+    "tsdown": "^0.15.10",
     "typescript": "5.9.3",
     "vite": "7.1.12",
     "vitest": "4.0.3"

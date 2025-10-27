@@ -13,7 +13,7 @@ jest*
 renovate.json
 pnpm*
 tsconfig.*
-tsup.*
+tsdown.*
 vitest*
 yarn.lock
 
