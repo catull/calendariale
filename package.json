@@ -44,9 +44,9 @@
     "test:dev": "vitest --watch",
     "test:prod": "vitest --run --silent --coverage",
     "format": "prettier 'src/**/*.[jt]s' --write --log-level warn",
-    "format:test": "prettier 'src/spec/**/*.test.ts' --write --log-level warn",
     "format:check": "prettier 'src/**/*.[jt]s' --list-different --log-level warn",
-    "format:dist": "prettier 'dist/**/*.[jt]s' --write --list-different --log-level warn",
+    "format:dist": "prettier 'dist/**/*.m[jt]s' --write --list-different --log-level warn",
+    "format:test": "prettier 'src/spec/**/*.test.ts' --write --log-level warn",
     "lint": "oxlint --fix src/*.ts src/**/*.ts",
     "lint:check": "oxlint src/*.ts src/**/*.ts",
     "lint:test": "oxlint --fix src/spec/**/*.ts"
