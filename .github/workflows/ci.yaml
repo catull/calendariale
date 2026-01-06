@@ -33,8 +33,8 @@ jobs:
       - name: Configure Git
         run: |
           git config --global core.autocrlf false
-          git config --global user.name "Carlo Dapor (bot)"
-          git config --global user.email "catull@gmail.com"
+          git config --global user.name 'Carlo Dapor (bot)'
+          git config --global user.email 'catull@gmail.com'
 
       - name: Checkout Commit
         uses: actions/checkout@v4
@@ -67,7 +67,7 @@ jobs:
         run: pnpm run lint
 
       - name: Run pre build check
-        run: pnpm run "build:check"
+        run: pnpm run 'build:check'
 
       - name: Run build
         run: pnpm run build
@@ -75,10 +75,10 @@ jobs:
           NODE_OPTIONS: '--max-old-space-size=8192'
 
       - name: Run prod test suites
-        run: pnpm run "test:prod"
+        run: pnpm run 'test:prod'
 
       - name: Generate dist/package.json
-        run: pnpm run "dist:package.json"
+        run: pnpm run 'dist:package.json'
 
       - name: Run format dist sources
-        run: pnpm run "format:dist"
+        run: pnpm run 'format:dist'
