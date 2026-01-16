@@ -54,17 +54,17 @@
     "@biomejs/biome": "2.3.11",
     "@changesets/cli": "2.29.8",
     "@swc/core": "1.15.8",
-    "@types/node": "25.0.5",
-    "@vitest/coverage-v8": "4.0.16",
+    "@types/node": "25.0.9",
+    "@vitest/coverage-v8": "4.0.17",
     "barro": "1.2.8",
     "globals": "17.0.0",
-    "happy-dom": "20.1.0",
+    "happy-dom": "20.3.1",
     "pnpm": "10.28.0",
     "rimraf": "6.1.2",
-    "tsdown": "0.19.0",
+    "tsdown": "0.20.0-beta.3",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vitest": "4.0.16"
+    "vitest": "4.0.17"
   },
   "packageManager": "pnpm@10.28.0",
   "pnpm": {
