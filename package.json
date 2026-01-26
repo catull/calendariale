@@ -60,7 +60,7 @@
     "barro": "1.2.8",
     "esbuild": "0.27.2",
     "globals": "17.1.0",
-    "happy-dom": "20.3.7",
+    "happy-dom": "20.3.9",
     "oxlint": "1.41.0",
     "pnpm": "10.28.1",
     "prettier": "3.8.1",
