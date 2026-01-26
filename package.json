@@ -58,7 +58,7 @@
     "@vitest/coverage-v8": "4.0.18",
     "barro": "1.2.8",
     "globals": "17.1.0",
-    "happy-dom": "20.3.7",
+    "happy-dom": "20.3.9",
     "pnpm": "10.28.1",
     "rimraf": "6.1.2",
     "tsdown": "0.20.1",
