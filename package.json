@@ -51,10 +51,10 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@biomejs/biome": "2.4.9",
+    "@biomejs/biome": "2.4.10",
     "@changesets/cli": "2.30.0",
-    "@swc/core": "1.15.21",
-    "@types/node": "25.5.0",
+    "@swc/core": "1.15.24",
+    "@types/node": "25.5.2",
     "@vitest/coverage-v8": "4.1.2",
     "barro": "1.2.8",
     "globals": "17.4.0",
