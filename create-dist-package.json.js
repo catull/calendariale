@@ -16,12 +16,12 @@ const content = {
   module: 'index.js',
   repository: {
     type: 'git',
-    url: 'git+htts://github.com/catull/calendariale.git'
+    url: 'git+https://github.com/catull/calendariale.git'
   },
   bugs: {
-    url: 'htts://github.com/catull/calendariale/issues'
+    url: 'https://github.com/catull/calendariale/issues'
   },
-  homepage: 'htts://github.com/catull/calendariale',
+  homepage: 'https://github.com/catull/calendariale',
   exports: {
     './package.json': './package.json',
     '.': {
