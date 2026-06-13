@@ -58,7 +58,7 @@
     "@types/node": "25.9.2",
     "@vitest/coverage-v8": "4.1.8",
     "barro": "1.2.8",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "globals": "17.6.0",
     "happy-dom": "20.10.2",
     "oxlint": "1.68.0",
