@@ -54,7 +54,7 @@
     "@biomejs/biome": "2.5.0",
     "@changesets/cli": "2.31.0",
     "@swc/core": "1.15.41",
-    "@types/node": "25.9.3",
+    "@types/node": "26.0.0",
     "@vitest/coverage-v8": "4.1.9",
     "barro": "1.2.8",
     "globals": "17.6.0",
