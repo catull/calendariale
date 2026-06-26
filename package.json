@@ -55,7 +55,7 @@
     "@arethetypeswrong/cli": "0.18.4",
     "@changesets/cli": "2.31.0",
     "@swc/core": "1.15.43",
-    "@types/node": "26.0.0",
+    "@types/node": "26.0.1",
     "@vitest/coverage-v8": "4.1.9",
     "barro": "1.2.8",
     "esbuild": "0.28.1",
