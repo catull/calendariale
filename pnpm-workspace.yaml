@@ -3,3 +3,4 @@ allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
   - pnpm@11.8.0
+  - prettier@3.9.4
