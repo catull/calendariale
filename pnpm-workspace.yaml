@@ -4,3 +4,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - pnpm@11.8.0
   - prettier@3.9.4
+  - vite@8.1.2
