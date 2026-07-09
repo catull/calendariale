@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - feature/biome
+      - feature/vite+
 
 permissions:
   contents: read
@@ -20,9 +21,9 @@ jobs:
       fail-fast: false
       matrix:
         node:
-          - '22'
           - '24'
           - '25'
+          - '26'
         platform:
           - macos-latest
           - ubuntu-latest
