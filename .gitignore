@@ -1,9 +1,8 @@
 .pnp.*
 .rts2_cache_*
-.vscode
-dist
+coverage/
+dist/
 index.ts
-node_modules
-tmp
+node_modules/
+tmp/
 tsconfig.tsbuildinfo
-

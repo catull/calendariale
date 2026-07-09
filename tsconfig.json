@@ -14,9 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": false,
     "isolatedModules": true,
-    "lib": [
-      "ESNext",
-    ],
+    "lib": ["ESNext"],
     "listFiles": false,
     "noEmit": true,
     //"noUnusedParameters": true,
@@ -34,20 +32,9 @@
     "stripInternal": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": true
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "src/create-dist-package.json.js",
-    "src/spec",
-  ],
-  "include": [
-    "src/*.ts",
-    "src/calendar/core/*.ts",
-    "src/calendar/*.ts",
-  ],
-  "types": [
-    "vitest/globals"
-  ]
+  "exclude": ["dist", "node_modules", "src/create-dist-package.json.js", "test"],
+  "include": ["src/**/*.ts"],
+  "types": ["vitest/globals"]
 }

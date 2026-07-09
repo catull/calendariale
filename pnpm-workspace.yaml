@@ -1,7 +1,52 @@
 allowBuilds:
-  '@swc/core': true
+  "@swc/core": true
   esbuild: true
 minimumReleaseAgeExclude:
-  - pnpm@11.8.0
-  - prettier@3.9.4
-  - vite@8.1.2 || 8.1.4
+  - "@typescript/typescript-aix-ppc64@7.0.2"
+  - "@typescript/typescript-darwin-arm64@7.0.2"
+  - "@typescript/typescript-darwin-x64@7.0.2"
+  - "@typescript/typescript-freebsd-arm64@7.0.2"
+  - "@typescript/typescript-freebsd-x64@7.0.2"
+  - "@typescript/typescript-linux-arm@7.0.2"
+  - "@typescript/typescript-linux-arm64@7.0.2"
+  - "@typescript/typescript-linux-loong64@7.0.2"
+  - "@typescript/typescript-linux-mips64el@7.0.2"
+  - "@typescript/typescript-linux-ppc64@7.0.2"
+  - "@typescript/typescript-linux-riscv64@7.0.2"
+  - "@typescript/typescript-linux-s390x@7.0.2"
+  - "@typescript/typescript-linux-x64@7.0.2"
+  - "@typescript/typescript-netbsd-arm64@7.0.2"
+  - "@typescript/typescript-netbsd-x64@7.0.2"
+  - "@typescript/typescript-openbsd-arm64@7.0.2"
+  - "@typescript/typescript-openbsd-x64@7.0.2"
+  - "@typescript/typescript-sunos-x64@7.0.2"
+  - "@typescript/typescript-win32-arm64@7.0.2"
+  - "@typescript/typescript-win32-x64@7.0.2"
+  - "@voidzero-dev/vite-plus-core@0.2.4"
+  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.4"
+  - "@voidzero-dev/vite-plus-darwin-x64@0.2.4"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.4"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.4"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.4"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.4"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.4"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.4"
+  - pnpm@11.10.0
+  - typescript@7.0.2
+  - vite-plus@0.2.4
+  - vite@8.1.4
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.4
+  vitest: 4.1.10
+  vite-plus: 0.2.4
+  "@vitest/coverage-v8": 4.1.10
+overrides:
+  vite: "catalog:"
+  vitest: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"
