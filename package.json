@@ -20,7 +20,6 @@
     "dist"
   ],
   "type": "module",
-  "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.mjs",
     "./Astro": "./dist/Astro.mjs",
@@ -127,11 +126,11 @@
   },
   "scripts": {
     "build:check": "vp check",
-    "build:dev": "vp run barro && vp pack src/**/*.ts",
+    "build:dev": "vp pack src/**/*.ts",
     "prebuild.old": "barrelsby -D -H -q -l all -d src -e test -e create-dist",
     "barro": "barro .barro.config.cjs --write",
-    "clean": "rimraf -fr coverage dist tmp",
-    "clean:real": "rimraf -fr coverage dist tmp src/index.ts src/calendar/index.ts src/calendar/core/index.ts",
+    "clean": "rimraf -fr coverage dist",
+    "clean:real": "rimraf -fr coverage dist src/index.ts src/calendar/index.ts src/calendar/core/index.ts",
     "check-exports": "attw --pack --profile strict --profile esm-only --ignore-rules=cjs-resolves-to-esm --ignore-rules=unexpected-module-syntax dist/",
     "dist": "vp run barro && vp run lint:check && vp run build:check && vp run format:check && vp run build:dev && vp run test:coverage && vp run dist:package.json",
     "dist:package.json": "node create-dist-package.json.js $npm_package_version > dist/package.json",
