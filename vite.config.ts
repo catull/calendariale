@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
@@ -7,14 +8,16 @@ export default defineConfig({
       entry: resolve(import.meta.dirname, "src/index.ts"),
       name: "calendariale",
       fileName: "index",
-      formats: ["cjs"],
+      formats: ["cjs", "es"],
     },
   },
   fmt: {
     arrowParens: "always",
     bracketSameLine: true,
     bracketSpacing: true,
+    semi: true,
     singleQuote: false,
+    sortImports: false,
     trailingComma: "all",
   },
   lint: {
