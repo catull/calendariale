@@ -52,7 +52,7 @@
     "lint:test": "oxlint --fix src/spec/**/*.ts"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.18.4",
+    "@arethetypeswrong/cli": "0.18.5",
     "@changesets/cli": "2.31.0",
     "@swc/core": "1.15.43",
     "@types/node": "26.1.1",
