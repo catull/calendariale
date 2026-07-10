@@ -156,7 +156,7 @@
     "pnpm": "11.11.0",
     "rimraf": "6.1.3",
     "typescript": "7.0.2",
-    "vite": "npm:@voidzero-dev/vite-plus-core@8.1.4",
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.2.4",
     "vite-plus": "catalog:"
   },
   "packageManager": "pnpm@11.11.0"
