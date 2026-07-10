@@ -2,6 +2,6 @@ allowBuilds:
   '@swc/core': true
   esbuild: true
 minimumReleaseAgeExclude:
-  - pnpm@11.8.0
+  - pnpm@11.8.0 || 11.11.0
   - prettier@3.9.4 || 3.9.5
   - vite@8.1.2 || 8.1.4
