@@ -74,8 +74,8 @@ jobs:
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 
-      - name: Run prod test suites
-        run: pnpm run 'test:prod'
+      - name: Run prod test suites w/ coverage
+        run: pnpm run 'test:coverage'
 
       - name: Generate dist/package.json
         run: pnpm run 'dist:package.json'
