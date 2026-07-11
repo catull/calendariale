@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - master
+      - master.old
       - feature/biome
-      - feature/vite+
 
 permissions:
   contents: read
