@@ -60,8 +60,8 @@ jobs:
       - name: Run pnpm audit
         run: pnpm audit
 
-      - name: Run pre prebuild
-        run: pnpm run prebuild
+      - name: Run pre postinstall
+        run: pnpm run postinstall
 
       - name: Run lint on sources and tests
         run: pnpm run lint
