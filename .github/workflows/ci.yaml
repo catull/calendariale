@@ -79,4 +79,3 @@ jobs:
 
       - name: Generate dist/package.json
         run: pnpm run 'dist:package.json'
-
