@@ -6,7 +6,7 @@ const content = {
   author: "catull@gmail.com",
   license: "BSD-2-Clause",
   description: "Calendrical calculations library in TypeScript",
-  keywords: ["calendar", "calendrcal calculations"],
+  keywords: ["calendar", "calendrical calculations"],
   main: "index.js",
   type: "module",
   types: "index.d.ts",
