@@ -8,7 +8,7 @@ const content = {
   description: 'Calendrical calculations library in TypeScript',
   keywords: [
     'calendar',
-    'calendrcal calculations'
+    'calendrical calculations'
   ],
   main: 'index.js',
   type: 'module',
