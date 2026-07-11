@@ -69,8 +69,8 @@ jobs:
       - name: Run pre build check
         run: pnpm run 'build:check'
 
-      - name: Run build
-        run: pnpm run build
+      - name: Run build:dev
+        run: pnpm run build:dev
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
 
@@ -80,5 +80,3 @@ jobs:
       - name: Generate dist/package.json
         run: pnpm run 'dist:package.json'
 
-      - name: Run format dist sources
-        run: pnpm run 'format:dist'
