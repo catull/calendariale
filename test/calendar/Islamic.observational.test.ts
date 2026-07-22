@@ -67,4 +67,16 @@ describe("islamic Observational calendar spec", () => {
     expect(() => cal.toJdn(220, 7, -5)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(220, 1, 31)).toThrow(INVALID_DAY);
   });
+
+  it("should keep isLeapYear consistent with the year length from toJdn", () => {
+    // A leap year runs 355 days, a common year 354; the tabular rule does not
+    // match the calendar's own month lengths.
+    for (let year = 1400; year <= 1425; year += 1) {
+      const yearLength = cal.toJdn(year + 1, 1, 1) - cal.toJdn(year, 1, 1);
+      expect(cal.isLeapYear(year)).toBe(yearLength > 354);
+    }
+
+    expect(cal.isLeapYear(1400)).toBeTruthy();
+    expect(cal.isLeapYear(1401)).toBeFalsy();
+  });
 });

@@ -70,4 +70,25 @@ describe("ethiopic calendar spec", () => {
     expect(() => cal.toJdn(1000, 13, 7)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1001, 13, 6)).toThrow(INVALID_DAY);
   });
+
+  it("should determine whether an Ethiopic year is leap year", () => {
+    for (const year of [3, 7, 2011, 2015, 2019, 2023]) {
+      expect(cal.isLeapYear(year)).toBeTruthy();
+    }
+
+    for (const year of [0, 1, 2, 2016, 2017, 2018, 2020]) {
+      expect(cal.isLeapYear(year)).toBeFalsy();
+    }
+  });
+
+  it("should convert the sixth epagomenal day of a leap year and reject it otherwise", () => {
+    // Pagumen (month 13) has 6 days in a leap year, 5 in a common year.
+    expect(cal.toJdn(2015, 13, 6)).toBe(2460198.5);
+    expect(() => cal.toJdn(2016, 13, 6)).toThrow(INVALID_DAY);
+
+    for (let year = 1990; year <= 2030; year += 1) {
+      const yearLength = cal.toJdn(year + 1, 1, 1) - cal.toJdn(year, 1, 1);
+      expect(cal.isLeapYear(year)).toBe(yearLength === 366);
+    }
+  });
 });
