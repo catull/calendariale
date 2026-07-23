@@ -22,25 +22,25 @@ minimumReleaseAgeExclude:
   - "@typescript/typescript-sunos-x64@7.0.2"
   - "@typescript/typescript-win32-arm64@7.0.2"
   - "@typescript/typescript-win32-x64@7.0.2"
-  - "@voidzero-dev/vite-plus-core@0.2.4"
-  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.4"
-  - "@voidzero-dev/vite-plus-darwin-x64@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.4"
-  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.4"
-  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.4"
+  - "@voidzero-dev/vite-plus-core@0.2.6"
+  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.6"
+  - "@voidzero-dev/vite-plus-darwin-x64@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.6"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.6"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.6"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.6"
   - pnpm@11.16.0
   - typescript@7.0.2
-  - vite-plus@0.2.4
+  - vite-plus@0.2.6
   - vite@8.1.4
   - "@arethetypeswrong/cli@0.18.5"
   - "@arethetypeswrong/core@0.18.5"
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.2.5
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.6
   vitest: 4.1.10
-  vite-plus: 0.2.5
+  vite-plus: 0.2.6
   "@vitest/coverage-v8": 4.1.10
 overrides:
   vite: "catalog:"
