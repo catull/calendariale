@@ -40,7 +40,7 @@ const dates = [
 ];
 
 describe("islamic Umm al-Qura calendar spec", () => {
-  it("should convert a Islamic Umm al-Qura date to Julian day", () => {
+  it("should convert an Islamic Umm al-Qura date to Julian day", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
       expect(actual).toBe(jdn);
@@ -60,7 +60,7 @@ describe("islamic Umm al-Qura calendar spec", () => {
     }
   });
 
-  it("should throw validation exceptions", () => {
+  it("should throw validation exceptions for invalid dates", () => {
     expect(() => cal.toJdn(220, 0, 10)).toThrow(INVALID_MONTH);
     expect(() => cal.toJdn(220, -2, 10)).toThrow(INVALID_MONTH);
     expect(() => cal.toJdn(220, 13, 10)).toThrow(INVALID_MONTH);
@@ -68,15 +68,35 @@ describe("islamic Umm al-Qura calendar spec", () => {
     expect(() => cal.toJdn(220, 1, 31)).toThrow(INVALID_DAY);
   });
 
-  it("should handle ...", () => {
+  it("should handle November 26th 1954 in the Gregorian calender", () => {
     const actual = cal.fromJdn(2435072.5); // 1954-11-26
     const expected = {
       day: 30,
       jdn: 2435072.5,
       month: 3,
       year: 1374,
-      yearLeap: true,
+      yearLeap: false,
     };
     expect(expected).toEqual(actual);
+  });
+
+  const leapYears: number[] = [
+    1404, 1405, 1409, 1411, 1413, 1417, 1419, 1420, 1425, 1426, 1428, 1433, 1435, 1439, 1441, 1443,
+    1447, 1448, 1452, 1454, 1456, 1460,
+  ];
+  const nonLeapYears: number[] = [
+    1400, 1401, 1402, 1403, 1406, 1407, 1408, 1410, 1412, 1414, 1415, 1416, 1418, 1421, 1422, 1423,
+    1424, 1427, 1429, 1430, 1431, 1432, 1434, 1436, 1437, 1438, 1440, 1442, 1444, 1445, 1446, 1449,
+    1450, 1451, 1453, 1455, 1457, 1458, 1459,
+  ];
+
+  it("should determine whether an Islamic Umm al-Qura year is a leap year or not", () => {
+    for (const year of leapYears) {
+      expect(cal.isLeapYear(year)).toBe(true);
+    }
+
+    for (const year of nonLeapYears) {
+      expect(cal.isLeapYear(year)).toBe(false);
+    }
   });
 });

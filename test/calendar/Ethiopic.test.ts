@@ -70,4 +70,34 @@ describe("ethiopic calendar spec", () => {
     expect(() => cal.toJdn(1000, 13, 7)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1001, 13, 6)).toThrow(INVALID_DAY);
   });
+
+  const leapYears: number[] = [3, 7, 1991, 1995, 1999, 2003, 2007, 2011, 2015, 2019, 2023, 2027];
+  const nonLeapYears: number[] = [
+    0, 1, 2, 1990, 1992, 1993, 1994, 1996, 1997, 1998, 2000, 2001, 2002, 2004, 2005, 2006, 2008,
+    2009, 2010, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2024, 2025, 2026, 2028, 2029,
+    2030,
+  ];
+
+  it("should determine whether an Ethiopic year is leap year", () => {
+    for (const year of leapYears) {
+      expect(cal.isLeapYear(year)).toBe(true);
+    }
+
+    for (const year of nonLeapYears) {
+      expect(cal.isLeapYear(year)).toBe(false);
+    }
+  });
+
+  it("should only accept the sixth epagomenal day in a leap year and reject it otherwise", () => {
+    // Pagume (month 13) has 6 days in a leap year, 5 in a common year.
+    expect(cal.toJdn(2015, 13, 6)).toBe(2460198.5);
+
+    for (const year of leapYears) {
+      expect(() => cal.toJdn(year, 13, 6)); // Does not throw!
+    }
+
+    for (const year of nonLeapYears) {
+      expect(() => cal.toJdn(year, 13, 6)).toThrow(INVALID_DAY);
+    }
+  });
 });

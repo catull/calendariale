@@ -67,4 +67,24 @@ describe("islamic Observational calendar spec", () => {
     expect(() => cal.toJdn(220, 7, -5)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(220, 1, 31)).toThrow(INVALID_DAY);
   });
+
+  const leapYears: number[] = [
+    1400, 1404, 1406, 1409, 1412, 1413, 1418, 1419, 1421, 1426, 1427, 1431, 1433, 1435, 1440, 1441,
+    1445, 1447, 1449, 1453, 1455, 1456,
+  ];
+  const nonLeapYears: number[] = [
+    1401, 1402, 1403, 1405, 1407, 1408, 1410, 1411, 1414, 1415, 1416, 1417, 1420, 1422, 1423, 1424,
+    1425, 1428, 1429, 1430, 1432, 1434, 1436, 1437, 1438, 1439, 1442, 1443, 1444, 1446, 1448, 1450,
+    1451, 1452, 1454, 1457, 1458, 1459, 1460,
+  ];
+
+  it("should determine whether an Islamic Obversational year is a leap year or not", () => {
+    for (const year of leapYears) {
+      expect(cal.isLeapYear(year)).toBe(true);
+    }
+
+    for (const year of nonLeapYears) {
+      expect(cal.isLeapYear(year)).toBe(false);
+    }
+  });
 });
