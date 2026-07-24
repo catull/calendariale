@@ -40,7 +40,7 @@ const dates = [
 ];
 
 describe("islamic calendar spec", () => {
-  it("should convert a Islamic date to Julian day number (JDN)", () => {
+  it("should convert an Islamic date to Julian day number (JDN)", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
@@ -48,7 +48,7 @@ describe("islamic calendar spec", () => {
     }
   });
 
-  it("should convert a Julian day number (JDN) to a Islamic date", () => {
+  it("should convert a Julian day number (JDN) to an Islamic date", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
@@ -61,7 +61,7 @@ describe("islamic calendar spec", () => {
     }
   });
 
-  it("should determine whether a Islamic year is leap year", () => {
+  it("should determine whether an Islamic year is a leap year", () => {
     expect(cal.isLeapYear(1)).toBeFalsy();
     expect(cal.isLeapYear(168)).toBeTruthy();
     expect(cal.isLeapYear(169)).toBeFalsy();

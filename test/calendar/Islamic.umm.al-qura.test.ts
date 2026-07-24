@@ -47,7 +47,7 @@ describe("islamic Umm al-Qura calendar spec", () => {
     }
   });
 
-  it("should convert a Julian day to a Islamic Umm al-Qura date", () => {
+  it("should convert a Julian day to an Islamic Umm al-Qura date", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
