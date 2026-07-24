@@ -75,8 +75,20 @@ describe("islamic Umm al-Qura calendar spec", () => {
       jdn: 2435072.5,
       month: 3,
       year: 1374,
-      yearLeap: true,
+      yearLeap: false,
     };
     expect(expected).toEqual(actual);
+  });
+
+  it("should keep isLeapYear consistent with the year length from toJdn", () => {
+    // A leap year runs 355 days, a common year 354; the tabular rule does not
+    // match the calendar's own month lengths.
+    for (let year = 1400; year <= 1430; year += 1) {
+      const yearLength = cal.toJdn(year + 1, 1, 1) - cal.toJdn(year, 1, 1);
+      expect(cal.isLeapYear(year)).toBe(yearLength > 354);
+    }
+
+    expect(cal.isLeapYear(1405)).toBeTruthy();
+    expect(cal.isLeapYear(1401)).toBeFalsy();
   });
 });
