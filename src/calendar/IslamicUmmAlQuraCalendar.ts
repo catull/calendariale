@@ -41,7 +41,7 @@ export class IslamicUmmAlQuraCalendar {
     return J0000 + this.saudiNewMonthOnOrBefore(midmonth) + day - 1;
   }
 
-  // Is a given year in the Islamic calendar a leap year?
+  // Is a given year in the Islamic Umm al-Qura calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return (year * 11 + 14) % 30 < 11;
   }

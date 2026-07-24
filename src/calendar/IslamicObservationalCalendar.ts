@@ -26,7 +26,7 @@ export class IslamicObservationalCalendar {
     return phasisOnOrBefore(midMonth, islamic.LOCATION_CAIRO) + day - 1;
   }
 
-  // Is a given year in the Islamic calendar a leap year?
+  // Is a given year in the Islamic Observational calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return (year * 11 + 14) % 30 < 11;
   }
