@@ -40,7 +40,7 @@ export class BabylonianCalendar {
     return new BabylonianDate(jdn, year, month, isLeap, day);
   }
 
-  // Is a given year in the Babylonian calendar a isLeap year?
+  // Is a given year in the Babylonian calendar a leap year?
   public static isLeapYear(year: number): boolean {
     return mod(7 * year + 13, 19) < 7;
   }

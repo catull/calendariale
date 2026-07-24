@@ -39,7 +39,7 @@ const dates = [
 ];
 
 describe("aztec Tonalpohualli calendar spec", () => {
-  it("should convert a Julian day number (JDN) to a Aztec Tonalpohualli", () => {
+  it("should convert a Julian day number (JDN) to an Aztec Tonalpohualli", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };

@@ -40,14 +40,14 @@ const dates = [
 ];
 
 describe("islamic Umm al-Qura calendar spec", () => {
-  it("should convert a Islamic Umm al-Qura date to Julian day", () => {
+  it("should convert an Islamic Umm al-Qura date to Julian day", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.month, date.day);
       expect(actual).toBe(jdn);
     }
   });
 
-  it("should convert a Julian day to a Islamic Umm al-Qura date", () => {
+  it("should convert a Julian day to an Islamic Umm al-Qura date", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);

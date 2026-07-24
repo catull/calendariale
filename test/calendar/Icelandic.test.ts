@@ -172,7 +172,7 @@ const dates = [
 ];
 
 describe("icelandic calendar spec", () => {
-  it("should convert a Icelandic date to Julian day number (JDN)", () => {
+  it("should convert an Icelandic date to Julian day number (JDN)", () => {
     for (const { jdn, date } of dates) {
       const actual = cal.toJdn(date.year, date.season, date.week, date.day);
 
@@ -180,7 +180,7 @@ describe("icelandic calendar spec", () => {
     }
   });
 
-  it("should convert a Julian day number (JDN) to a Icelandic date", () => {
+  it("should convert a Julian day number (JDN) to an Icelandic date", () => {
     for (const { jdn, date } of dates) {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn(jdn);
@@ -194,7 +194,7 @@ describe("icelandic calendar spec", () => {
     }
   });
 
-  it("should determine whether a Icelandic year is a leap year", () => {
+  it("should determine whether an Icelandic year is a leap year", () => {
     for (const year of [
       1, 7, 12, 18, 164, 514, 734, 975, 1066, 1477, 1551, 1877, 1900, 1951, 2001,
     ]) {
@@ -202,7 +202,7 @@ describe("icelandic calendar spec", () => {
     }
   });
 
-  it("should determine whether a Icelandic year is not a leap year", () => {
+  it("should determine whether an Icelandic year is not a leap year", () => {
     for (const year of [
       0, 4, 17, 27, 37, 137, 477, 877, 1057, 1377, 1600, 1760, 1840, 1904, 1980, 2000,
     ]) {
