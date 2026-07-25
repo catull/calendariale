@@ -32,8 +32,33 @@ export class SamaritanCalendar {
   }
 
   // Is a given Samaritan year a leap year?
+  //
+  // A Samaritan year is leap when it contains an intercalary month (Adar II): 13
+  // months, ~383-385 days, versus 12 months, ~353-355 days for a common year. The
+  // previous `mod(year * 7 + 4, 19) < 7` Metonic-offset rule was copied verbatim from
+  // HebrewCalendar (which uses `+ 1`) but neither offset matches this calendar's own
+  // conversion, because the year start is observational (`newYearOnOrBefore`, an
+  // apparent-new-moon search), not arithmetic. Derive the flag from the calendar's
+  // own year length, the way PersianAstronomicalCalendar / BahaiAstroCalendar /
+  // IcelandicCalendar already do.
   public static isLeapYear(year: number): boolean {
-    return mod(year * 7 + 4, 19) < 7;
+    return this.yearLengthDays(year) > 360;
+  }
+
+  // Year length, in days, from the calendar's own conversion. Computed directly from
+  // `newYearOnOrBefore` (the same path `toJdn` uses) rather than via `toJdn`, so it
+  // does not re-enter `validate` (which consults `isLeapYear` for month bounds).
+  // Mirrors `toJdn`'s new-year argument for month 7 (Tishrei): `year - ceil((7-5)/8)`.
+  private static yearLengthDays(year: number): number {
+    const monthShift = Math.ceil((7 - 5) / 8); // == 1
+    const start = this.newYearOnOrBefore(
+      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - monthShift)),
+    );
+    const end = this.newYearOnOrBefore(
+      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year + 1 - monthShift)),
+    );
+
+    return end - start;
   }
 
   private static noon(rataDie: number): number {
