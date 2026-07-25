@@ -62,12 +62,35 @@ describe("samaritan calendar spec", () => {
   });
 
   it("should determine whether a Samaritan year is leap year", () => {
-    for (const year of [5700, 5703, 5705, 5708, 5711, 5713, 5716, 5719, 5722, 5724, 5727, 5730]) {
-      expect(cal.isLeapYear(year)).toBeTruthy();
+    // The previous `mod(year * 7 + 4, 19) < 7` rule disagreed with the calendar's
+    // own year length; the years below are pinned to the year length the calendar's
+    // own conversion yields (a 383-385-day year is leap, a 353-355-day year is common).
+    const leapYears = [5696, 5699, 5702, 5704, 5707, 5710, 5713, 5715, 5718, 5721, 5723, 5726];
+    const nonLeapYears = [
+      5695, 5697, 5698, 5700, 5701, 5703, 5705, 5706, 5708, 5709, 5711, 5712, 5714, 5716, 5717,
+      5719, 5720, 5722, 5724, 5725, 5727, 5728, 5730, 5731, 5733, 5735,
+    ];
+
+    for (const year of leapYears) {
+      expect(cal.isLeapYear(year)).toBe(true);
     }
 
-    for (const year of [5701, 5702, 5704, 5706, 5707, 5709, 5710, 5712, 5714, 5715, 5717, 5718]) {
-      expect(cal.isLeapYear(year)).toBeFalsy();
+    for (const year of nonLeapYears) {
+      expect(cal.isLeapYear(year)).toBe(false);
+    }
+  });
+
+  it("should only accept month 13 in a leap year and reject it otherwise", () => {
+    // `validate()` bounds the 13th month to a leap year.
+    for (const year of [5696, 5699, 5702, 5704, 5707, 5710, 5713, 5715, 5718, 5721, 5723, 5726]) {
+      expect(() => cal.toJdn(year, 13, 1)).not.toThrow();
+    }
+
+    for (const year of [
+      5695, 5697, 5698, 5700, 5701, 5703, 5705, 5706, 5708, 5709, 5711, 5712, 5714, 5716, 5717,
+      5719, 5720, 5722, 5724, 5725, 5727, 5728, 5730, 5731, 5733, 5735,
+    ]) {
+      expect(() => cal.toJdn(year, 13, 1)).toThrow(INVALID_MONTH);
     }
   });
 
