@@ -26,9 +26,9 @@ export class IslamicObservationalCalendar {
     return phasisOnOrBefore(midMonth, islamic.LOCATION_CAIRO) + day - 1;
   }
 
-  // Is a given year in the Islamic Observational calendar a leap year?
+  // Is a given year in the observational Islamic calendar a leap year (a 355-day year)?
   public static isLeapYear(year: number): boolean {
-    return (year * 11 + 14) % 30 < 11;
+    return this.toJdn(year + 1, 1, 1) - this.toJdn(year, 1, 1) > 354;
   }
 
   private static validate(_year: number, month: number, day: number): void {
