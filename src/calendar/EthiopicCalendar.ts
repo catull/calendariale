@@ -22,7 +22,7 @@ export class EthiopicCalendar {
   }
 
   public static isLeapYear(year: number): boolean {
-    return mod(year, 4) === 0;
+    return mod(year, 4) === 3;
   }
 
   private static validate(year: number, month: number, day: number): void {
