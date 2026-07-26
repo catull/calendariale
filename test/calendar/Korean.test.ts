@@ -174,14 +174,13 @@ const dates = [
 
 describe("korean calendar spec", () => {
   it("should convert a Korean date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.cycle, date.year, date.month, date.monthLeap, date.day);
-      expect(jdn).toBe(actual);
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(cal.toJdn(date.cycle, date.year, date.month, date.monthLeap, date.day)).toBe(jdn),
+    );
   });
 
   it("should convert a Julian day number (JDN) to a Korean date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -191,7 +190,7 @@ describe("korean calendar spec", () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.year).toBe(actual.getYear());
       expect(expected.cycle).toBe(actual.getCycle());
-    }
+    });
   });
 
   it("throws a validation exception", () => {

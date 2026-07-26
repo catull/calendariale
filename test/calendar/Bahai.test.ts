@@ -134,18 +134,18 @@ const dates = [
 
 describe("bahai calendar spec", () => {
   it("should convert a Bahai date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.bahaiToJdn(date.kullIShay, date.vahid, date.year, date.month, date.day);
       expect(jdn).toBe(actual);
 
       const year = 361 * (date.kullIShay - 1) + 19 * (date.vahid - 1) + date.year;
       const actual2 = cal.toJdn(year, date.month, date.day);
       expect(jdn).toEqual(actual2);
-    }
+    });
   });
 
   it("should convert a Julian day number (JDN) to a Bahai date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -156,20 +156,20 @@ describe("bahai calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
-  it("should determine whether a Bahai year is leap year", () => {
+  it("should determine whether a Bahai year is a leap year", () => {
     // the Bahai years 1 and 169 are the limits of the old leap rule
-    expect(cal.isLeapYear(1)).toBeTruthy();
-    expect(cal.isLeapYear(168)).toBeFalsy();
-    expect(cal.isLeapYear(169)).toBeTruthy();
-    expect(cal.isLeapYear(170)).toBeFalsy();
+    expect(cal.isLeapYear(1)).toBe(true);
+    expect(cal.isLeapYear(168)).toBe(false);
+    expect(cal.isLeapYear(169)).toBe(true);
+    expect(cal.isLeapYear(170)).toBe(false);
 
     // starting with the Bahai year 172, the new rule is in place
-    expect(cal.isLeapYear(173)).toBeFalsy();
-    expect(cal.isLeapYear(174)).toBeTruthy();
-    expect(cal.isLeapYear(220)).toBeTruthy();
+    expect(cal.isLeapYear(173)).toBe(false);
+    expect(cal.isLeapYear(174)).toBe(true);
+    expect(cal.isLeapYear(220)).toBe(true);
   });
 
   it("should throw validation exceptions", () => {

@@ -42,14 +42,14 @@ const dates = [
 ];
 describe("akan Name calendar spec", () => {
   it("should convert a Julian day number (JDN) to an Akan Name date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
       expect(expected).toEqual(actual);
       expect(expected.prefix).toBe(actual.getPrefix());
       expect(expected.stem).toBe(actual.getStem());
-    }
+    });
   });
 
   it("should handle modulo arithmetic", () => {

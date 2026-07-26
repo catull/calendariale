@@ -41,22 +41,20 @@ const dates = [
 
 describe("olympiad calendar spec", () => {
   it("should convert an Olympiad to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.cycle, date.year) - jdn;
-
-      expect(Math.abs(actual)).toBeLessThan(365);
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(Math.abs(cal.toJdn(date.cycle, date.year) - jdn)).toBeLessThan(365),
+    );
   });
 
   it("should convert a Julian day number (JDN) to an Olympiad", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
       expect(expected).toEqual(actual);
       expect(expected.cycle).toBe(actual.getCycle());
       expect(expected.year).toBe(actual.getYear());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {

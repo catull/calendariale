@@ -173,15 +173,15 @@ const dates = [
 
 describe("hindu Lunar Modern calendar spec", () => {
   it("should convert a Hindu Lunar Modern date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day, date.dayLeap);
 
       expect(actual).toBe(jdn);
-    }
+    });
   });
 
   it("should convert a Julian day number (JDN) to a Hindu Lunar Modern date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -191,7 +191,7 @@ describe("hindu Lunar Modern calendar spec", () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.dayLeap).toBe(actual.isDayLeap());
-    }
+    });
   });
 
   it("should throw a validation exception", () => {

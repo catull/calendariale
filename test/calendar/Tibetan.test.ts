@@ -173,15 +173,13 @@ const dates = [
 
 describe("tibetan calendar spec", () => {
   it("should convert a Tibetan date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day, date.dayLeap);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(cal.toJdn(date.year, date.month, date.monthLeap, date.day, date.dayLeap)).toBe(jdn),
+    );
   });
 
   it("should convert a Julian day number (JDN) to a Tibetan date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -191,16 +189,16 @@ describe("tibetan calendar spec", () => {
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.day).toBe(actual.getDay());
       expect(expected.dayLeap).toBe(actual.isDayLeap());
-    }
+    });
   });
 
   it("should establish whether a Tibetan month is leap", () => {
-    for (const { date } of dates) {
+    dates.forEach(({ date }) => {
       const actual = cal.isLeapMonth(date.year, date.month);
       const expected = date.monthLeap;
 
       expect(actual).toBe(expected);
-    }
+    });
   });
 
   it("throws a validation exception", () => {

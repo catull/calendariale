@@ -41,15 +41,15 @@ const dates = [
 
 describe("hindu Lunar Old calendar spec", () => {
   it("should convert a Hindu Lunar Old date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.year, date.month, date.monthLeap, date.day);
 
       expect(actual).toBe(jdn);
-    }
+    });
   });
 
   it("should convert a Julian day number (JDN) to a Hindu Lunar Old date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -58,22 +58,22 @@ describe("hindu Lunar Old calendar spec", () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.monthLeap).toBe(actual.isMonthLeap());
       expect(expected.year).toBe(actual.getYear());
-    }
+    });
   });
 
-  it("should establish whether a Hindu Lunar Old year is leap", () => {
-    for (const year of [2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940]) {
-      const actual = cal.isLeapYear(year);
-      expect(true).toBe(actual);
-    }
+  const leapYears: number[] = [
+    2933, 3570, 3795, 4197, 4340, 4389, 4492, 4536, 4593, 4660, 4869, 4940,
+  ];
 
-    for (const year of [
-      2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781, 4817, 4920, 5004, 5030, 5042,
-      5044, 5092, 5096, 5139, 5195,
-    ]) {
-      const actual = cal.isLeapYear(year);
-      expect(false).toBe(actual);
-    }
+  const nonLeapYears: number[] = [
+    2515, 3171, 3236, 3677, 4114, 4291, 4399, 4654, 4749, 4781, 4817, 4920, 5004, 5030, 5042, 5044,
+    5092, 5096, 5139, 5195,
+  ];
+
+  it("should establish whether a Hindu Lunar Old year is a leap year", () => {
+    leapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
+
+    nonLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
   });
 
   it("throws a validation exception", () => {

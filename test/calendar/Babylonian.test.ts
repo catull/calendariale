@@ -39,22 +39,15 @@ const dates = [
   { jdn: 2486076.5, rataDie: 764652, date: { year: 2405, month: 4, yearLeap: false, day: 5 } },
 ];
 
-const captains = console;
-
 describe("babylonian calendar spec", () => {
   it("should convert a Babylonian date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.yearLeap, date.day);
-
-      expect(actual).toBe(jdn);
-      if (jdn !== actual) {
-        captains.log(jdn, actual, jdn - actual);
-      }
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(cal.toJdn(date.year, date.month, date.yearLeap, date.day)).toBe(jdn),
+    );
   });
 
   it("should convert a Julian day number (JDN) to a Babylonian date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const expected = { jdn, ...date };
       const actual = cal.fromJdn(jdn);
 
@@ -64,19 +57,15 @@ describe("babylonian calendar spec", () => {
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.yearLeap).toBe(actual.isYearLeap());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should determine whether a Babylonian year is a leap year", () => {
-    for (const year of [2213]) {
-      expect(cal.isLeapYear(year)).toBeTruthy();
-    }
+    [2213].forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
   });
 
   it("should determine whether a Babylonian year is not a leap year", () => {
-    for (const year of [2212, 2214]) {
-      expect(cal.isLeapYear(year)).toBeFalsy();
-    }
+    [2212, 2214].forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
   });
 
   it("should throw validation exceptions", () => {

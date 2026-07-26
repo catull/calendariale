@@ -41,15 +41,15 @@ const dates = [
 
 describe("hebrew Observational calendar spec", () => {
   it("should convert a Hebrew Observational date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.year, date.month, date.day);
 
       expect(actual).toBe(jdn);
-    }
+    });
   });
 
   it("should convert a Julian day number (JDN) to a Hebrew Observational date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -57,7 +57,7 @@ describe("hebrew Observational calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {

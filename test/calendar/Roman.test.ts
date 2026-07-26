@@ -186,15 +186,13 @@ const dates = [
 
 describe("roman calendar spec", () => {
   it("should convert a Roman date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.event, date.count, date.leap);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(cal.toJdn(date.year, date.month, date.event, date.count, date.leap)).toBe(jdn),
+    );
   });
 
   it("should convert a Julian day number (JDN) to a Roman date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const expected = { jdn, day: -1, ...date };
       const actual = cal.fromJdn(jdn);
 
@@ -204,7 +202,7 @@ describe("roman calendar spec", () => {
       expect(expected.event).toBe(actual.getEvent());
       expect(expected.count).toBe(actual.getCount());
       expect(expected.leap).toBe(actual.isLeap());
-    }
+    });
   });
 
   it("throws a validation exception", () => {

@@ -41,14 +41,14 @@ const dates = [
 
 describe("coptic calendar spec", () => {
   it("should convert a Coptic date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.toJdn(date.year, date.month, date.day);
       expect(jdn).toBe(actual);
-    }
+    });
   });
 
   it("should convert a Julian day number (JDN) to a Coptic date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
       const actual = cal.fromJdn(jdn);
@@ -57,17 +57,17 @@ describe("coptic calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
-  it("should determine whether a Coptic year is leap year", () => {
-    for (const year of [3, 7, 23, 1603, 1763, 1843, 1907, 1991, 2007]) {
-      expect(cal.isLeapYear(year)).toBeTruthy();
-    }
+  it("should determine whether a Coptic year is a leap year", () => {
+    [3, 7, 23, 1603, 1763, 1843, 1907, 1991, 2007].forEach((year) =>
+      expect(cal.isLeapYear(year)).toBe(true),
+    );
 
-    for (const year of [0, 1, 2, 4, 5, 1598, 1700, 1800, 1900, 1970, 2001]) {
-      expect(cal.isLeapYear(year)).toBeFalsy();
-    }
+    [0, 1, 2, 4, 5, 1598, 1700, 1800, 1900, 1970, 2001].forEach((year) =>
+      expect(cal.isLeapYear(year)).toBe(false),
+    );
   });
 
   it("should throw validation exceptions", () => {

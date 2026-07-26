@@ -41,14 +41,11 @@ const dates = [
 
 describe("islamic Observational calendar spec", () => {
   it("should convert an Islamic Observational date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.day);
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) => expect(cal.toJdn(date.year, date.month, date.day)).toBe(jdn));
   });
 
   it("should convert a Julian day number (JDN) to an Islamic Observational date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -57,7 +54,7 @@ describe("islamic Observational calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {
@@ -68,24 +65,21 @@ describe("islamic Observational calendar spec", () => {
     expect(() => cal.toJdn(220, 1, 31)).toThrow(INVALID_DAY);
   });
 
-  it("should determine whether an observational Islamic year is a leap year", () => {
-    // An observational Islamic leap year runs 355 days; the tabular-Islamic
-    // `(year * 11 + 14) % 30 < 11` rule disagrees with the calendar's own month
-    // lengths, so the flag is derived from the conversion.
-    const leapYears = [
-      1400, 1404, 1406, 1409, 1412, 1413, 1418, 1419, 1421, 1426, 1427, 1431, 1433, 1435, 1440,
-    ];
-    const nonLeapYears = [
-      1401, 1402, 1403, 1405, 1407, 1408, 1410, 1411, 1414, 1415, 1416, 1417, 1420, 1422, 1423,
-      1424, 1425, 1428, 1429, 1430, 1432, 1434, 1436, 1437, 1438, 1439,
-    ];
+  const leapYears = [
+    1400, 1404, 1406, 1409, 1412, 1413, 1418, 1419, 1421, 1426, 1427, 1431, 1433, 1435, 1440,
+  ];
 
-    for (const year of leapYears) {
-      expect(cal.isLeapYear(year)).toBe(true);
-    }
+  const nonLeapYears = [
+    1401, 1402, 1403, 1405, 1407, 1408, 1410, 1411, 1414, 1415, 1416, 1417, 1420, 1422, 1423, 1424,
+    1425, 1428, 1429, 1430, 1432, 1434, 1436, 1437, 1438, 1439,
+  ];
 
-    for (const year of nonLeapYears) {
-      expect(cal.isLeapYear(year)).toBe(false);
-    }
+  // An observational Islamic leap year runs 355 days; the tabular-Islamic
+  // `(year * 11 + 14) % 30 < 11` rule disagrees with the calendar's own month
+  // lengths, so the flag is derived from the conversion.
+  it("should determine whether an Islamic Observational year is a leap year", () => {
+    leapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
+
+    nonLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
   });
 });

@@ -47,15 +47,13 @@ const dates = [
 
 describe("mayan Count calendar spec", () => {
   it("should convert a Mayan Count to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.baktun, date.katun, date.tun, date.uinal, date.kin);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) =>
+      expect(cal.toJdn(date.baktun, date.katun, date.tun, date.uinal, date.kin)).toBe(jdn),
+    );
   });
 
   it("should convert a Julian day number (JDN) to a Mayan Count", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -65,7 +63,7 @@ describe("mayan Count calendar spec", () => {
       expect(expected.tun).toBe(actual.getTun());
       expect(expected.uinal).toBe(actual.getUinal());
       expect(expected.kin).toBe(actual.getKin());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {

@@ -4,10 +4,8 @@ import { describe, expect, it } from "vite-plus/test";
 
 describe("Leap date spec", () => {
   it("should determine a leap year of an instance of LeapDate", () => {
-    let cal: LeapDate = new LeapDate(-1, 2000, 1, 1, true);
-    expect(cal.isYearLeap()).toBe(true);
+    expect(new LeapDate(-1, 2000, 1, 1, true).isYearLeap()).toBe(true);
 
-    cal = new LeapDate(-1, 1900, 1, 1, false);
-    expect(cal.isYearLeap()).toBe(false);
+    expect(new LeapDate(-1, 1900, 1, 1, false).isYearLeap()).toBe(false);
   });
 });

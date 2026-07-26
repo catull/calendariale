@@ -41,15 +41,11 @@ const dates = [
 
 describe("julian calendar spec", () => {
   it("should convert a Julian date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.day);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) => expect(cal.toJdn(date.year, date.month, date.day)).toBe(jdn));
   });
 
   it("should convert a Julian day number (JDN) to a Julian date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
       const actual = cal.fromJdn(jdn);
@@ -58,17 +54,16 @@ describe("julian calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
-  it("should determine whether a Julian year is leap year", () => {
-    for (const year of [4, 20, 1600, 1700, 1760, 1800, 1840, 1904, 1980, 2000]) {
-      expect(cal.isLeapYear(year)).toBeTruthy();
-    }
+  const leapYears: number[] = [4, 20, 1600, 1700, 1760, 1800, 1840, 1904, 1980, 2000];
+  const nonLeapYears: number[] = [1, 2, 3, 5, 1599, 1970, 2001];
 
-    for (const year of [1, 2, 3, 5, 1599, 1970, 2001]) {
-      expect(cal.isLeapYear(year)).toBeFalsy();
-    }
+  it("should determine whether a Julian year is a leap year", () => {
+    leapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
+
+    nonLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
   });
 
   it("should throw validation exceptions", () => {

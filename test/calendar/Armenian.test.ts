@@ -42,22 +42,18 @@ const dates = [
 
 describe("armenian calendar spec", () => {
   it("should convert an Armenian date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.day);
-
-      expect(jdn).toBe(actual);
-    }
+    dates.forEach(({ jdn, date }) => expect(cal.toJdn(date.year, date.month, date.day)).toBe(jdn));
   });
 
   it("should convert a Julian day number (JDN) to an Armenian date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual: ArmenianDate = cal.fromJdn(jdn);
 
       expect({ jdn, ...date }).toEqual(actual);
       expect(date.year).toBe(actual.getYear());
       expect(date.month).toBe(actual.getMonth());
       expect(date.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {

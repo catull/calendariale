@@ -41,15 +41,11 @@ const dates = [
 
 describe("islamic calendar spec", () => {
   it("should convert an Islamic date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.day);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) => expect(cal.toJdn(date.year, date.month, date.day)).toBe(jdn));
   });
 
   it("should convert a Julian day number (JDN) to an Islamic date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const yearLeap = cal.isLeapYear(date.year);
       const expected = { jdn, ...date, yearLeap };
@@ -58,17 +54,17 @@ describe("islamic calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should determine whether an Islamic year is a leap year", () => {
-    expect(cal.isLeapYear(1)).toBeFalsy();
-    expect(cal.isLeapYear(168)).toBeTruthy();
-    expect(cal.isLeapYear(169)).toBeFalsy();
-    expect(cal.isLeapYear(170)).toBeFalsy();
-    expect(cal.isLeapYear(173)).toBeFalsy();
-    expect(cal.isLeapYear(174)).toBeTruthy();
-    expect(cal.isLeapYear(220)).toBeTruthy();
+    expect(cal.isLeapYear(1)).toBe(false);
+    expect(cal.isLeapYear(168)).toBe(true);
+    expect(cal.isLeapYear(169)).toBe(false);
+    expect(cal.isLeapYear(170)).toBe(false);
+    expect(cal.isLeapYear(173)).toBe(false);
+    expect(cal.isLeapYear(174)).toBe(true);
+    expect(cal.isLeapYear(220)).toBe(true);
   });
 
   it("should throw validation exceptions", () => {

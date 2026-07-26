@@ -41,15 +41,11 @@ const dates = [
 
 describe("ethiopic calendar spec", () => {
   it("should convert an Ethiopic date to Julian day number (JDN)", () => {
-    for (const { jdn, date } of dates) {
-      const actual = cal.toJdn(date.year, date.month, date.day);
-
-      expect(actual).toBe(jdn);
-    }
+    dates.forEach(({ jdn, date }) => expect(cal.toJdn(date.year, date.month, date.day)).toBe(jdn));
   });
 
   it("should convert a Julian day number (JDN) to an Ethiopic date", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
@@ -57,7 +53,7 @@ describe("ethiopic calendar spec", () => {
       expect(expected.year).toBe(actual.getYear());
       expect(expected.month).toBe(actual.getMonth());
       expect(expected.day).toBe(actual.getDay());
-    }
+    });
   });
 
   it("should throw validation exceptions", () => {
@@ -71,38 +67,27 @@ describe("ethiopic calendar spec", () => {
     expect(() => cal.toJdn(1001, 13, 6)).toThrow(INVALID_DAY);
   });
 
+  const leapYears = [3, 7, 1991, 1995, 1999, 2003, 2007, 2011, 2015, 2019, 2023, 2027];
+
+  const nonLeapYears = [
+    0, 1, 2, 1990, 1992, 1993, 1994, 1996, 1997, 1998, 2000, 2001, 2002, 2004, 2005, 2006, 2008,
+    2009, 2010, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2024, 2025, 2026, 2028, 2029,
+    2030,
+  ];
+
+  // Ethiopic leap years are `year % 4 === 3` (matching Coptic; epochs differ by 276 = 0 mod 4).
   it("should determine whether an Ethiopic year is a leap year", () => {
-    // Ethiopic leap years are `year % 4 === 3` (matching Coptic; epochs differ by 276 = 0 mod 4).
-    const leapYears = [3, 7, 1991, 1995, 1999, 2003, 2007, 2011, 2015, 2019, 2023, 2027];
-    const nonLeapYears = [
-      0, 1, 2, 1990, 1992, 1993, 1994, 1996, 1997, 1998, 2000, 2001, 2002, 2004, 2005, 2006, 2008,
-      2009, 2010, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2024, 2025, 2026, 2028,
-      2029, 2030,
-    ];
+    leapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
 
-    for (const year of leapYears) {
-      expect(cal.isLeapYear(year)).toBe(true);
-    }
-
-    for (const year of nonLeapYears) {
-      expect(cal.isLeapYear(year)).toBe(false);
-    }
+    nonLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
   });
 
   it("should only accept the sixth epagomenal day in a leap year and reject it otherwise", () => {
     // Pagumen (month 13) has 6 days in a leap year, 5 in a common year.
     expect(cal.toJdn(2015, 13, 6)).toBe(2460198.5);
 
-    for (const year of [3, 7, 1991, 1995, 1999, 2003, 2007, 2011, 2015, 2019, 2023, 2027]) {
-      expect(() => cal.toJdn(year, 13, 6)).not.toThrow();
-    }
+    leapYears.forEach((year) => expect(() => cal.toJdn(year, 13, 6)).not.toThrow());
 
-    for (const year of [
-      0, 1, 2, 1990, 1992, 1993, 1994, 1996, 1997, 1998, 2000, 2001, 2002, 2004, 2005, 2006, 2008,
-      2009, 2010, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2024, 2025, 2026, 2028,
-      2029, 2030,
-    ]) {
-      expect(() => cal.toJdn(year, 13, 6)).toThrow(INVALID_DAY);
-    }
+    nonLeapYears.forEach((year) => expect(() => cal.toJdn(year, 13, 6)).toThrow(INVALID_DAY));
   });
 });

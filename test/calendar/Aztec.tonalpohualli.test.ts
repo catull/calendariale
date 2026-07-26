@@ -40,14 +40,14 @@ const dates = [
 
 describe("aztec Tonalpohualli calendar spec", () => {
   it("should convert a Julian day number (JDN) to an Aztec Tonalpohualli", () => {
-    for (const { jdn, date } of dates) {
+    dates.forEach(({ jdn, date }) => {
       const actual = cal.fromJdn(jdn);
       const expected = { jdn, ...date };
 
       expect(expected).toEqual(actual);
       expect(date.num).toBe(actual.getNumber());
       expect(date.name).toBe(actual.getName());
-    }
+    });
   });
 
   it("should calculate an Aztec Tonalpohualli ordinal", () => {
@@ -57,7 +57,7 @@ describe("aztec Tonalpohualli calendar spec", () => {
   });
 
   it("should interpolate an Aztec Tonalpohualli date", () => {
-    const jdn = cal.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
-    expect(jdn).toBe(2451452.5); // gregorian: 1999/10/01
+    const gregorian_1999_10_01 = cal.onOrBefore(10, 10, 2451544.5); // gregorian: 2000/01/01
+    expect(gregorian_1999_10_01).toBe(2451452.5); // gregorian: 1999/10/01
   });
 });
