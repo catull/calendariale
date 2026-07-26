@@ -1,5 +1,3 @@
-.pnp.*
-.rts2_cache_*
 coverage/
 dist/
 index.ts

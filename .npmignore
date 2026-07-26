@@ -2,16 +2,7 @@
 .editorconfig
 .github
 .gitignore
-.prettier*
 .rts2_cache_*
 .vscode
-.yarn*
-create-dist-package*
-jest*
-pnpm*
-renovate.json
 tsconfig.*
-tsdown.*
-vitest*
-yarn.lock
 
