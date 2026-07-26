@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     chunkImportMap: true,
     lib: {
-      entry: resolve(import.meta.dirname, "src/index.ts"), //["src/index.ts"],
+      entry: resolve(import.meta.dirname, "src/index.ts"),
       fileName: "index",
       formats: ["cjs", "es"],
       name: "calendariale",
@@ -58,7 +58,7 @@ export default defineConfig({
       enabled: true,
       clean: true,
       include: ["src/**/*.ts"],
-      exclude: ["src/**/index.ts"],
+      exclude: ["src/*.mjs", "src/**/index.ts"],
       reporter: ["clover", "cobertura", "html", "json", "lcov", "teamcity", "text"],
       reportsDirectory: "coverage",
     },

@@ -34,7 +34,7 @@
     "useDefineForClassFields": true,
     "verbatimModuleSyntax": true
   },
-  "exclude": ["dist", "node_modules", "src/create-dist-package.json.js", "test"],
+  "exclude": ["dist", "node_modules", "src/create-dist-package.json.mjs", "test"],
   "include": ["src/**/*.ts"],
   "types": ["vitest/globals"]
 }

@@ -19,7 +19,7 @@ module.exports = () => [
   {
     matchDirectory: "src",
     match: "**/*.ts",
-    matchIgnore: ["create-dist-package.json.ts", "**/HinduAlgorithms.ts"],
+    matchIgnore: ["create-dist-package.json.mjs", "**/HinduAlgorithms.ts"],
     ignoreBarrels: false,
     out: "src/index.ts",
     template: ({ files }) =>

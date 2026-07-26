@@ -1,3 +1,5 @@
+import process from "node:process";
+
 const version = process.argv[2];
 
 const content = {
