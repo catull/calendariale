@@ -1176,6 +1176,33 @@ describe("samaritan calendar spec", () => {
     nonLeapYears.forEach((year) => expect(() => cal.toJdn(year, 13, 1)).toThrow());
   });
 
+  // Taken from the Israelite Samaritan community's own calendar,
+  // https://sam-calendar.the-samaritans.net/, Gregorian 2009-2100. That calendar labels a
+  // whole Abib year, so its flag on Canaan year C is our year C + 1 (see `isLeapYear`).
+  const communityLeapYears = [
+    3648, 3650, 3653, 3656, 3658, 3661, 3664, 3667, 3669, 3672, 3675, 3678, 3680, 3683, 3686, 3688,
+    3691, 3694, 3696, 3699, 3702, 3705, 3707, 3710, 3713, 3715, 3718, 3721, 3724, 3726, 3729, 3732,
+    3734, 3737,
+  ];
+  const communityNonLeapYears = [
+    3649, 3651, 3652, 3654, 3655, 3657, 3659, 3660, 3662, 3663, 3665, 3666, 3668, 3670, 3671, 3673,
+    3674, 3676, 3677, 3679, 3681, 3682, 3684, 3685, 3687, 3689, 3690, 3692, 3693, 3695, 3697, 3698,
+    3700, 3701, 3703, 3704, 3706, 3708, 3709, 3711, 3712, 3714, 3716, 3717, 3719, 3720, 3722, 3723,
+    3725, 3727, 3728, 3730, 3731, 3733, 3735, 3736, 3738, 3739,
+  ];
+
+  it("should agree with the Samaritan community calendar on leap years", () => {
+    communityLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(true));
+
+    communityNonLeapYears.forEach((year) => expect(cal.isLeapYear(year)).toBe(false));
+  });
+
+  it("should accept month 13 exactly in the community calendar's leap years", () => {
+    communityLeapYears.forEach((year) => expect(() => cal.toJdn(year, 13, 1)).not.toThrow());
+
+    communityNonLeapYears.forEach((year) => expect(() => cal.toJdn(year, 13, 1)).toThrow());
+  });
+
   it("should throw validation exceptions", () => {
     expect(() => cal.toJdn(5000, 0, 10)).toThrow(INVALID_MONTH);
     expect(() => cal.toJdn(5000, -2, 10)).toThrow(INVALID_MONTH);

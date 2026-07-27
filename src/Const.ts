@@ -514,6 +514,10 @@ const samaritan = {
   EPOCH: 1122851.5, // 1639/03/15 Julian B.C.E.
   EPOCH_RD: -598573,
   LOCATION_SAMARITAN: new Location(32.1994, 35.2728, 881, 1 / 12),
+  // Offset from EPOCH_RD to a probe date lying inside the wanted year, per Reingold &
+  // Dershowitz `fixed-from-samaritan`. EPOCH_RD is Julian 03/15, so +50 is near Julian
+  // 05/04, past every new year (the first new moon after Julian 03/11).
+  NEW_YEAR_PROBE: 50,
 };
 
 const tibetan = {
