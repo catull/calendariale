@@ -183,4 +183,9 @@ describe("samaritan calendar spec", () => {
     expect(() => cal.toJdn(5102, 8, 30)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(5113, 9, 30)).toThrow(INVALID_DAY);
   });
+
+  it("should correctly identify years 4623 and 4624 for leap-ness", () => {
+    expect(cal.isLeapYear(4623)).toBe(false); // Gregorian 2985-04-12
+    expect(cal.isLeapYear(4624)).toBe(true); // Gregorian 2986-04-30
+  });
 });
