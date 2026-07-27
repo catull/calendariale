@@ -14,7 +14,7 @@ export class SamaritanCalendar {
     const newYear = this.newYearOnOrBefore(moon);
     const month = Math.round((moon - newYear) / 29.5) + 1;
     const year = Math.round((newYear - samaritan.EPOCH_RD) / 365.25) + Math.ceil((month - 5) / 8);
-    const day = rataDie - moon - -1;
+    const day = rataDie + 1 - moon;
 
     return new SamaritanDate(jdn, year, month, day);
   }
@@ -42,7 +42,7 @@ export class SamaritanCalendar {
   // own year length, the way PersianAstronomicalCalendar / BahaiAstroCalendar /
   // IcelandicCalendar already do.
   public static isLeapYear(year: number): boolean {
-    return this.yearLengthDays(year) > 360;
+    return this.yearLengthDays(year) > 355;
   }
 
   // Year length, in days, from the calendar's own conversion. Computed directly from
@@ -50,7 +50,8 @@ export class SamaritanCalendar {
   // does not re-enter `validate` (which consults `isLeapYear` for month bounds).
   // Mirrors `toJdn`'s new-year argument for month 7 (Tishrei): `year - ceil((7-5)/8)`.
   private static yearLengthDays(year: number): number {
-    const monthShift = Math.ceil((7 - 5) / 8); // == 1
+    // Hack, to align with Israelite Samaritan Community's online calendar.
+    const monthShift = 0; //Math.ceil((7 - 5) / 8);
     const start = this.newYearOnOrBefore(
       Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - monthShift)),
     );
@@ -82,10 +83,9 @@ export class SamaritanCalendar {
     const dates = [
       ...GregorianCalendar.julianDateInGregorian(Month.MARCH, 11, gYear - 1),
       ...GregorianCalendar.julianDateInGregorian(Month.MARCH, 11, gYear),
-    ].map((jdn: number) => jdn - J0000); // .sort();
+    ].map((jdn: number) => jdn - J0000);
     dates.push(rataDie + 1);
 
-    // captains.log('newYearOnOrBefore', rataDie, gYear, dates);
     const n = final(0, (i: number) => this.newMoonAfter(this.noon(dates[i])) <= rataDie);
 
     return this.newMoonAfter(this.noon(dates[n]));
