@@ -24,39 +24,37 @@ export class SamaritanCalendar {
     this.validate(year, month, day);
 
     const ny = this.newYearOnOrBefore(
-      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - Math.ceil((month - 5) / 8))),
+      Math.floor(
+        samaritan.EPOCH_RD +
+          samaritan.NEW_YEAR_PROBE +
+          365.25 * (year - Math.ceil((month - 5) / 8)),
+      ),
     );
     const nm = this.newMoonAtOrBefore(ny + 29.5 * (month - 1) + 15);
 
     return J0000 + nm + day - 1;
   }
 
-  // Is a given Samaritan year a leap year?
+  // Is a given Samaritan year a leap year, i.e. does it hold 13 months?
   //
-  // A Samaritan year is leap when it contains an intercalary month (Adar II): 13
-  // months, ~383-385 days, versus 12 months, ~353-355 days for a common year. The
-  // previous `mod(year * 7 + 4, 19) < 7` Metonic-offset rule was copied verbatim from
-  // HebrewCalendar (which uses `+ 1`) but neither offset matches this calendar's own
-  // conversion, because the year start is observational (`newYearOnOrBefore`, an
-  // apparent-new-moon search), not arithmetic. Derive the flag from the calendar's
-  // own year length, the way PersianAstronomicalCalendar / BahaiAstroCalendar /
-  // IcelandicCalendar already do.
+  // A numbered year is not an Abib-to-Abib year: the `ceil((month - 5) / 8)` shift in
+  // `toJdn` draws months 6-13 of year Y from the Abib year Y - 1. So Y holds a 13th
+  // month exactly when that Abib year ran 13 months, ~383-385 days against ~353-355.
+  // No fixed Metonic offset fits, the year start being observational; derive it from
+  // the calendar's own year length, as PersianAstronomical / BahaiAstro / Icelandic do.
   public static isLeapYear(year: number): boolean {
     return this.yearLengthDays(year) > 355;
   }
 
-  // Year length, in days, from the calendar's own conversion. Computed directly from
-  // `newYearOnOrBefore` (the same path `toJdn` uses) rather than via `toJdn`, so it
-  // does not re-enter `validate` (which consults `isLeapYear` for month bounds).
-  // Mirrors `toJdn`'s new-year argument for month 7 (Tishrei): `year - ceil((7-5)/8)`.
+  // Length of the Abib year supplying months 6-13 of `year`. Taken straight from
+  // `newYearOnOrBefore` rather than via `toJdn`, which would re-enter `validate`.
   private static yearLengthDays(year: number): number {
-    // Hack, to align with Israelite Samaritan Community's online calendar.
-    const monthShift = 0; //Math.ceil((7 - 5) / 8);
+    const monthShift = Math.ceil((7 - 5) / 8); // == 1, `toJdn`'s shift at month 7
     const start = this.newYearOnOrBefore(
-      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year - monthShift)),
+      Math.floor(samaritan.EPOCH_RD + samaritan.NEW_YEAR_PROBE + 365.25 * (year - monthShift)),
     );
     const end = this.newYearOnOrBefore(
-      Math.floor(samaritan.EPOCH_RD + 50 + 365.25 * (year + 1 - monthShift)),
+      Math.floor(samaritan.EPOCH_RD + samaritan.NEW_YEAR_PROBE + 365.25 * (year + 1 - monthShift)),
     );
 
     return end - start;
