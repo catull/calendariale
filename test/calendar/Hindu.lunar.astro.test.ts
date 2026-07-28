@@ -204,9 +204,4 @@ describe("hindu Lunar Astro calendar spec", () => {
     expect(() => cal.toJdn(1549, 4, false, 31, false)).toThrow(INVALID_DAY);
     expect(() => cal.toJdn(1549, 6, false, 17, true)).toThrow(INVALID_LEAP_DAY);
   });
-
-  it("should determine a valid leap year", () => {
-    expect(cal.isLeapYear(127)).toBe(true);
-    expect(cal.isLeapYear(1549)).toBe(false);
-  });
 });

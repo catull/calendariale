@@ -30,11 +30,6 @@ export class HinduLunarAstroCalendar {
     return new HinduLunarAstroDate(jdn, year, month, monthLeap, day, dayLeap);
   }
 
-  // Is a given year in the Hindu Lunar Astro calendar a leap year?
-  public static isLeapYear(year: number): boolean {
-    return (year * 11 + 14) % 30 < 11;
-  }
-
   public static toJdn(
     year: number,
     month: number,
