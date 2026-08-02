@@ -11,9 +11,9 @@ import {
 
 import { hinduAstroDateYear, siderealSolarLongitude, siderealZodiac } from "./HinduAlgorithms";
 import { HinduLunarAstroDate } from "./HinduLunarAstroDate";
-import { CalendarDateValidationException } from "./core/index";
+import { CalendarDateValidationException, LeapMonthDate } from "./core/index";
 
-export class HinduLunarAstroCalendar {
+export class HinduLunarAstroCalendar extends LeapMonthDate {
   // Calculate Hindu Lunar Astro calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): HinduLunarAstroDate {
     const jd0: number = jdn - J0000;
