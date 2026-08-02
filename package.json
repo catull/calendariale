@@ -63,6 +63,8 @@
     "./calendar/FrenchArithmeticDate": "./dist/calendar/FrenchArithmeticDate.mjs",
     "./calendar/FrenchRevolutionaryCalendar": "./dist/calendar/FrenchRevolutionaryCalendar.mjs",
     "./calendar/FrenchRevolutionaryDate": "./dist/calendar/FrenchRevolutionaryDate.mjs",
+    "./calendar/GoddessCalendar": "./dist/calendar/GoddessCalendar.mjs",
+    "./calendar/GoddessDate": "./dist/calendar/GoddessDate.mjs",
     "./calendar/GregorianCalendar": "./dist/calendar/GregorianCalendar.mjs",
     "./calendar/GregorianDate": "./dist/calendar/GregorianDate.mjs",
     "./calendar/HebrewCalendar": "./dist/calendar/HebrewCalendar.mjs",

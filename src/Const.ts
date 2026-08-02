@@ -28,7 +28,7 @@ const J1904 = 2416480.5;
 const J2000 = 730120.5;
 
 // *Julian day number (JDN) of J2000 epoch*
-// const J2000_JDN = 2451545.0;
+const J2000_JDN = 2451545.5;
 
 const ARYA_LUNAR_MONTH: number = 1577917500 / 53433336; // 29.5305818076,
 const ARYA_LUNAR_DAY: number = ARYA_LUNAR_MONTH / 30; // 0.984352726919,
@@ -247,6 +247,20 @@ const french = {
     "des Récompenses (5)",
     "de la Révolution (6)",
   ],
+};
+
+const GODDESS_CYCLE_IN_DAYS = 470 * 384 - 48;
+
+const goddess = {
+  EPOCH_CYCLE_0: 2235179.5, // 1407/08/12 C.E. Gregorian
+  EPOCH_CYCLE_0_RD: 513755,
+  EPOCH_CYCLE_1: 2415611.5, // 1901/08/14 C.E. Gregorian
+  EPOCH_CYCLE_1_RD: 694186,
+  CYCLE_IN_YEARS: 470,
+  CYCLE_IN_DAYS: GODDESS_CYCLE_IN_DAYS,
+  DAYS_IN_YEAR: 7 * 30 + 6 * 29,
+  DECADE_IN_DAYS: 384 * 10 - 1,
+  AVERAGE_MONTH_LENGTH: GODDESS_CYCLE_IN_DAYS / (470 * 13), // = 29.5306056
 };
 
 const gregorian = {
@@ -592,7 +606,7 @@ export {
   J1904,
   J1970,
   J2000,
-  // J2000_JDN,
+  J2000_JDN,
   JMJD,
   JULIAN_CENTURY,
   // JULIAN_MILLENIUM,
@@ -617,6 +631,7 @@ export {
   egyptian,
   ethiopic,
   french,
+  goddess,
   gregorian,
   hebrew,
   hindu,
