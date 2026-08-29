@@ -148,9 +148,9 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
-    "@changesets/cli": "3.0.0",
-    "@swc/core": "1.15.47",
-    "@types/node": "26.2.0",
+    "@changesets/cli": "3.0.1",
+    "@swc/core": "1.16.1",
+    "@types/node": "26.4.0",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "catalog:",
     "barro": "1.2.8",
