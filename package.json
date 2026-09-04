@@ -150,7 +150,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@changesets/cli": "3.0.1",
     "@swc/core": "1.16.1",
-    "@types/node": "26.4.0",
+    "@types/node": "26.4.1",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "catalog:",
     "barro": "1.2.8",
@@ -160,5 +160,5 @@
     "vite": "catalog:",
     "vite-plus": "catalog:"
   },
-  "packageManager": "pnpm@12.0.0"
+  "packageManager": "pnpm@12.3.1"
 }
