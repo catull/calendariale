@@ -377,6 +377,14 @@ const icelandic = {
   EPOCH_RD: 109,
 };
 
+const internationalFixed = {
+  EPOCH: 1721425.5, // 001/01/03 Julian C.E.
+  EPOCH_RD: 730120.5,
+  DAYS_PER_CYCLE: 146097,
+  DAYS_IN_YEAR: 13 * 28 + 1,
+  DAYS_0000_TO_1970: 146097 * 5 - (30 * 365 + 7),
+};
+
 const islamic = {
   EPOCH: 1948439.5, // 622/07/16 Julian C.E.
   EPOCH_RD: 227015,
@@ -636,6 +644,7 @@ export {
   hebrew,
   hindu,
   icelandic,
+  internationalFixed,
   islamic,
   japanese,
   korean,
