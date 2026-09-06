@@ -13,10 +13,8 @@ export class InternationalFixedCalendar {
   public static fromJdn(jdn: number): InternationalFixedDate {
     const epochDay = Math.floor(jdn + 0.5) - internationalFixed.EPOCH;
 
-    // Every 400 years spans exactly 146097 days, so `400 * epochDay / 146097`
-    // is a very close estimate of the elapsed year count. The estimate can be
-    // off by exactly one year at a year boundary, which the two checks below
-    // correct for directly — no iteration needed.
+    // A cycle of 400 years spans exactly 146097 days, so `400 * epochDay / 146097`
+    // is a very close estimate of the elapsed years.
     const year = Math.floor((400 * epochDay) / internationalFixed.DAYS_PER_CYCLE) + 1;
     const leap = InternationalFixedCalendar.isLeapYear(year);
     const dayOfYear = epochDay - InternationalFixedCalendar.daysBeforeYear(year) + 0.5;
