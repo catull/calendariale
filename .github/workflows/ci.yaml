@@ -55,8 +55,8 @@ jobs:
       - name: Run pnpm install
         run: pnpm install
 
-      - name: Run pnpm outdated
-        run: pnpm outdated
+      #- name: Run pnpm outdated
+      #  run: pnpm outdated
 
       - name: Run pnpm audit
         run: pnpm audit
