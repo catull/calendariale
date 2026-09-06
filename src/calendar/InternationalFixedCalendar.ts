@@ -11,25 +11,23 @@ export class InternationalFixedCalendar {
 
   // Calculate International Fixed calendar date from Julian day number (JDN)
   public static fromJdn(jdn: number): InternationalFixedDate {
-    const epochDay = Math.floor(jdn) - internationalFixed.EPOCH;
+    const epochDay = Math.floor(jdn + 0.5) - internationalFixed.EPOCH;
 
     // Every 400 years spans exactly 146097 days, so `400 * epochDay / 146097`
     // is a very close estimate of the elapsed year count. The estimate can be
     // off by exactly one year at a year boundary, which the two checks below
     // correct for directly — no iteration needed.
-    let year = Math.floor((400 * epochDay) / internationalFixed.DAYS_PER_CYCLE) + 1;
-    if (InternationalFixedCalendar.daysBeforeYear(year) > epochDay) {
-      year--;
-    } else if (InternationalFixedCalendar.daysBeforeYear(year + 1) <= epochDay) {
-      year++;
-    }
-
+    const year = Math.floor((400 * epochDay) / internationalFixed.DAYS_PER_CYCLE) + 1;
     const leap = InternationalFixedCalendar.isLeapYear(year);
-    const dayOfYear = epochDay - InternationalFixedCalendar.daysBeforeYear(year) + 1;
+    const dayOfYear = epochDay - InternationalFixedCalendar.daysBeforeYear(year) + 0.5;
+
     let month;
     let day;
 
-    if (!leap && dayOfYear === 365) {
+    if (
+      (!leap && dayOfYear === internationalFixed.DAYS_IN_YEAR) ||
+      (leap && dayOfYear == internationalFixed.DAYS_IN_YEAR + 1)
+    ) {
       // Year Day
       month = 13;
       day = 29;
@@ -38,9 +36,9 @@ export class InternationalFixedCalendar {
       month = 6;
       day = 29;
     } else {
-      const o = leap && dayOfYear > 169 ? dayOfYear - 1 : dayOfYear;
-      month = Math.floor((o - 1) / 28) + 1;
-      day = ((o - 1) % 28) + 1.5;
+      const doy = leap && dayOfYear > 169 ? dayOfYear - 2 : dayOfYear - 1;
+      month = Math.floor(doy / 28) + 1;
+      day = (doy % 28) + 1;
     }
 
     return new InternationalFixedDate(jdn, year, month, day);

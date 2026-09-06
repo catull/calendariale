@@ -9,7 +9,7 @@ const dates = [
   { jdn: 1746893.5, rataDie: 25469, date: { year: 70, month: 10, day: 15 } },
   { jdn: 1770641.5, rataDie: 49217, date: { year: 135, month: 10, day: 23 } },
   { jdn: 1892731.5, rataDie: 171307, date: { year: 470, month: 1, day: 8 } },
-  // { jdn: 1931579.5, rataDie: 210155, date: { year: 576, month: 6, day: 1 } },
+  { jdn: 1931579.5, rataDie: 210155, date: { year: 576, month: 6, day: 1 } },
   { jdn: 1974851.5, rataDie: 253427, date: { year: 694, month: 12, day: 6 } },
   { jdn: 2091164.5, rataDie: 369740, date: { year: 1013, month: 5, day: 3 } },
   { jdn: 2121509.5, rataDie: 400085, date: { year: 1096, month: 6, day: 5 } },
@@ -35,7 +35,11 @@ const dates = [
   { jdn: 2431004.5, rataDie: 709580, date: { year: 1943, month: 10, day: 28 } },
   { jdn: 2448698.5, rataDie: 727274, date: { year: 1992, month: 3, day: 21 } },
   { jdn: 2450138.5, rataDie: 728714, date: { year: 1996, month: 2, day: 28 } },
+  { jdn: 2465058.5, rataDie: 743634, date: { year: 2036, month: 13, day: 29 } },
+  { jdn: 2465059.5, rataDie: 743635, date: { year: 2037, month: 1, day: 1 } },
   { jdn: 2465737.5, rataDie: 744313, date: { year: 2038, month: 12, day: 6 } },
+  { jdn: 2466519.5, rataDie: 745095, date: { year: 2040, month: 13, day: 29 } },
+  { jdn: 2466520.5, rataDie: 745096, date: { year: 2041, month: 1, day: 1 } },
   { jdn: 2486076.5, rataDie: 764652, date: { year: 2094, month: 8, day: 3 } },
 ];
 
@@ -83,9 +87,12 @@ describe("international fixed calendar spec", () => {
     expect(() => cal.toJdn(2000, 2, 30)).toThrow(INVALID_DAY);
   });
 
-  // it("should handle International Fixed year 0", () => {
-  //   const actual = cal.julianDateInGregorian(1, 1, 0);
-
-  //   expect(actual).toEqual([1721057.5, 1721423.5]);
-  // });
+  it("round-trips every day across a non-leap year and a leap year", () => {
+    const start = cal.toJdn(2023, 1, 1);
+    const end = cal.toJdn(2025, 1, 1);
+    for (let jdn = start; jdn < end; jdn++) {
+      const date = cal.fromJdn(jdn);
+      expect(date.getJdn()).toBe(jdn);
+    }
+  });
 });

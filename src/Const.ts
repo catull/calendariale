@@ -382,7 +382,6 @@ const internationalFixed = {
   EPOCH_RD: 730120.5,
   DAYS_PER_CYCLE: 146097,
   DAYS_IN_YEAR: 13 * 28 + 1,
-  DAYS_0000_TO_1970: 146097 * 5 - (30 * 365 + 7),
 };
 
 const islamic = {
