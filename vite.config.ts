@@ -34,14 +34,6 @@ export default defineConfig({
       typeCheck: true,
     },
   },
-  pack: {
-    dts: {
-      tsgo: true,
-    },
-    exports: true,
-    format: ["esm", "module"],
-    sourcemap: true,
-  },
   run: {
     tasks: {
       build: ["vp run barro", "vp build"],

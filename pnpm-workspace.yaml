@@ -31,16 +31,16 @@ minimumReleaseAgeExclude:
   - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.6"
   - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.6"
   - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.6"
-  - pnpm@11.16.0
+  - pnpm@12.4.1
   - typescript@7.0.2
-  - vite-plus@0.2.6
+  - vite-plus@0.3.1
   - vite@8.1.4
   - "@arethetypeswrong/cli@0.18.5"
   - "@arethetypeswrong/core@0.18.5"
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.1
   vitest: 4.1.11
-  vite-plus: 0.3.0
+  vite-plus: 0.3.1
   "@vitest/coverage-v8": 4.1.11
 overrides:
   vite: "catalog:"
