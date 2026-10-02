@@ -152,7 +152,7 @@
     "@arethetypeswrong/cli": "0.18.5",
     "@changesets/cli": "3.0.3",
     "@swc/core": "1.16.13",
-    "@types/node": "26.6.3",
+    "@types/node": "26.6.4",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "catalog:",
     "barro": "1.2.8",
