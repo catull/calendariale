@@ -11,17 +11,6 @@ export class Symmetry454Calendar {
     const yearDay: number =
       jd0 - 364 * (year - 1) - 7 * Symmetry454Calendar.getLeapYearsBefore(year);
 
-    // if (yearDay < 1) {
-    //   year -= 1;
-    //   yearDay += this.isLeapYear(year) ? 371 : 364;
-    // }
-
-    // const diy: number = this.isLeapYear(year) ? 371 : 364;
-    // if (yearDay > diy) {
-    //   yearDay -= diy;
-    //   year += 1;
-    // }
-
     const offset: number = Math.min(yearDay, 364) - 1;
     const quarter: number = Math.floor(offset / 91);
     let day: number = yearDay - quarter * 91;
