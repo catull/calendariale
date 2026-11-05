@@ -4,3 +4,4 @@ index.ts
 node_modules/
 tmp/
 tsconfig.tsbuildinfo
+.vitest/
