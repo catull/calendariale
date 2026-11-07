@@ -151,16 +151,16 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
     "@changesets/cli": "3.0.3",
-    "@swc/core": "1.16.21",
+    "@swc/core": "1.16.22",
     "@types/node": "26.6.6",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "@vitest/coverage-v8": "catalog:",
-    "pnpm": "12.17.0",
+    "pnpm": "12.18.0",
     "rimraf": "6.1.4",
     "typescript": "7.0.2",
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:"
   },
-  "packageManager": "pnpm@12.17.0"
+  "packageManager": "pnpm@12.18.0"
 }
